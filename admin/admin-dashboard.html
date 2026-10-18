@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>KUDIX Admin Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/admin-dashboard.css">
+    <script src="js/admin-dashboard.js" defer></script>
+
+
+    
+</head>
+
+
+
+<body class="bg-white text-slate-800">
+    <div class="admin-layout">
+
+        <!-- Mobile overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="admin-dashboard.html" class="brand">
+                    <img src="../images/kudix-logo.png" alt="KUDIX Logo">
+                </a>
+                <button class="icon-button sidebar-close" id="closeSidebar" aria-label="Close navigation">
+                    <i class="bx bx-x"></i>
+                </button>
+            </div>
+
+            <div class="sidebar-label">ADMINISTRATION</div>
+
+            <nav class="sidebar-nav" aria-label="Admin navigation">
+                <a href="admin-dashboard.html" class="nav-link active" aria-current="page">
+                    <i class="bx bx-grid-alt"></i><span>Dashboard</span>
+                </a>
+                <a href="manage-game.html" class="nav-link">
+                    <i class="bx bx-joystick"></i><span>Manage Games</span>
+                </a>
+                <a href="manage-streak.html" class="nav-link">
+                    <i class="bx bx-calendar-check"></i><span>Manage Streak</span>
+                </a>
+                <a href="boost-earns.html" class="nav-link">
+                    <i class="bx bx-trending-up"></i><span>Boost Earns</span>
+                </a>
+                <a href="config-level-up.html" class="nav-link">
+                    <i class="bx bx-layer"></i><span>Configure Level Up</span>
+                </a>
+                <a href="config-withdrawal.html" class="nav-link">
+                    <i class="bx bx-wallet"></i><span>Configure Withdrawal</span>
+                </a>
+                <a href="manage-support.html" class="nav-link">
+                    <i class="bx bx-support"></i><span>Manage Support</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="admin-avatar"><i class="bx bx-shield-quarter"></i></div>
+                <div class="admin-info">
+                    <strong>Administrator</strong>
+                    <span>Admin Panel</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-button mobile-menu" id="openSidebar" aria-label="Open navigation">
+                        <i class="bx bx-menu"></i>
+                    </button>
+                    <div>
+                        <p class="eyebrow">KUDIX MANAGEMENT</p>
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+                    <span class="admin-status"><span></span> Admin panel</span>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <section class="welcome-section">
+                    <div>
+                        <h2>Welcome to KUDIX</h2>
+                        <p>Manage platform settings and review your available overview.</p>
+                    </div>
+                </section>
+
+                <!-- Summary cards -->
+                <section class="stats-grid" aria-label="Platform summary">
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-label">Total Users</span>
+                            <span class="stat-icon users-icon"><i class="bx bx-user"></i></span>
+                        </div>
+                        <div class="stat-value" id="totalUsers">—</div>
+                        <p class="stat-footnote" id="usersStatus">Waiting for backend connection</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-label">Total Payout</span>
+                            <span class="stat-icon payout-icon"><i class="bx bx-wallet"></i></span>
+                        </div>
+                        <div class="stat-value" id="totalPayout">—</div>
+                        <p class="stat-footnote" id="payoutStatus">Waiting for backend connection</p>
+                    </article>
+                </section>
+
+                <!-- Manage popup -->
+                <section class="settings-section" id="manage-popup">
+                    <div class="section-heading">
+                        <div>
+                            <span class="section-kicker">USER-FACING SETTINGS</span>
+                            <h2>Manage Pop Up</h2>
+                            <p>Configure the message and channel links shown in the user-side pop-up.</p>
+                        </div>
+                        <span class="section-icon"><i class="bx bx-message-square-detail"></i></span>
+                    </div>
+
+                    <div class="notice" id="backendNotice" role="status">
+                        <i class="bx bx-info-circle"></i>
+                        <div>
+                            <strong>Backend connection required</strong>
+                            <p>Your form is ready, but loading and saving settings requires your backend API.</p>
+                        </div>
+                    </div>
+
+                    <form id="popupForm" class="popup-form">
+                        <div class="form-field">
+                            <label for="popupMessage">Pop-up Message</label>
+                            <textarea id="popupMessage" name="message" rows="5" maxlength="2000"
+                                placeholder="Enter the message to display to users..." required></textarea>
+                            <div class="field-footer">
+                                <span>Write the announcement users should see.</span>
+                                <span id="messageCount">0 / 2000</span>
+                            </div>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="whatsappLink">WhatsApp Channel Link</label>
+                            <div class="input-with-icon">
+                                <i class="bx bxl-whatsapp"></i>
+                                <input type="url" id="whatsappLink" name="whatsappLink"
+                                    placeholder="https://whatsapp.com/channel/..." inputmode="url">
+                            </div>
+                            <small>Enter a valid HTTPS WhatsApp channel URL.</small>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="telegramLink">Telegram Channel Link</label>
+                            <div class="input-with-icon">
+                                <i class="bx bxl-telegram"></i>
+                                <input type="url" id="telegramLink" name="telegramLink" placeholder="https://t.me/..."
+                                    inputmode="url">
+                            </div>
+                            <small>Enter a valid HTTPS Telegram link.</small>
+                        </div>
+
+                        <div class="form-message" id="formMessage" role="status" aria-live="polite" hidden></div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="previewPopup">
+                                <i class="bx bx-show"></i> Preview Pop Up
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="savePopup">
+                                <i class="bx bx-save"></i> Save Pop Up
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <footer class="page-footer">
+                    <span>KUDIX Admin Panel</span>
+                    <span>Dashboard &amp; platform settings</span>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <!-- Popup preview modal -->
+    <div class="modal-backdrop" id="previewModal" hidden>
+        <section class="preview-modal" role="dialog" aria-modal="true" aria-labelledby="previewTitle">
+            <div class="preview-modal-header">
+                <div>
+                    <span class="section-kicker">USER-SIDE PREVIEW</span>
+                    <h2 id="previewTitle">Announcement</h2>
+                </div>
+                <button type="button" class="icon-button" id="closePreview" aria-label="Close preview">
+                    <i class="bx bx-x"></i>
+                </button>
+            </div>
+
+            <div class="preview-brand">
+                <img src="../images/kudix-logo.png" alt="KUDIX Logo">
+                <span>Important Announcement</span>
+            </div>
+
+            <p class="preview-message" id="previewMessage">Your announcement will appear here.</p>
+
+            <div class="preview-links" id="previewLinks"></div>
+
+            <div class="preview-modal-footer">
+                <span>This is a preview. Your changes have not been saved.</span>
+                <button type="button" class="btn btn-primary" id="donePreview">Done</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+        <i class="bx bx-info-circle"></i>
+        <span id="toastText"></span>
+    </div>
+</body>
+
+</html>

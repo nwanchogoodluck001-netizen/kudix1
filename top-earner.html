@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B1020">
+    <meta name="description" content="Explore verified community achievements on KUDIX.">
+    <title>Top Earners | KUDIX</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kudix: {
+                            navy: "#0B1020",
+                            purple: "#6D4AFF",
+                            blue: "#287BFF",
+                            light: "#F5F7FC",
+                            green: "#16A36A"
+                        }
+                    },
+                    fontFamily: {
+                        sora: ["Sora", "sans-serif"],
+                        inter: ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
+
+    <link rel="stylesheet" href="css/top-earner.css">
+    <script src="js/top-earner.js" defer></script>
+</head>
+
+<body>
+    <div class="app-shell">
+
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+            <a href="dashboard.html" class="brand">
+                <img src="images/kudix-logo.png" alt="KUDIX Logo">
+            </a>
+
+            <div class="sidebar-label">WORKSPACE</div>
+
+            <nav class="nav-list">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bx bx-grid-alt"></i><span>Dashboard</span>
+                </a>
+                <a href="games.html" class="nav-link">
+                    <i class="bx bx-joystick"></i><span>Games</span>
+                </a>
+                <a href="social-tasks.html" class="nav-link">
+                    <i class="bx bx-task"></i><span>Social Tasks</span>
+                </a>
+
+                <a href="/daily-streak.html" class="nav-link">
+                    <i class="bx bx-wallet"></i><span>Daily-Streak</span>
+                </a>
+                <a href="/wallet.html" class="nav-link">
+                    <i class="bx bx-wallet"></i><span>Wallet</span>
+                </a>
+                
+                <a href="transactions.html" class="nav-link">
+                    <i class="bx bx-transfer-alt"></i><span>Transactions</span>
+                </a>
+                <a href="referrals.html" class="nav-link">
+                    <i class="bx bx-group"></i><span>Referrals</span>
+                </a>
+                <a href="top-earner.html" class="nav-link active" aria-current="page">
+                    <i class="bx bx-trophy"></i><span>Top Earners</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-label account-label">ACCOUNT</div>
+
+            <nav class="nav-list">
+                <a href="settings.html" class="nav-link">
+                    <i class="bx bx-cog"></i><span>Settings</span>
+                </a>
+                <a href="support.html" class="nav-link">
+                    <i class="bx bx-help-circle"></i><span>Help &amp; Support</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="sidebar-help-icon">
+                    <i class="bx bx-shield-quarter"></i>
+                </div>
+                <div>
+                    <strong>Play with confidence</strong>
+                    <p>Review our platform rules and reward eligibility.</p>
+                    <a href="support.html">Get help <i class="bx bx-right-arrow-alt"></i></a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-area">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-button menu-toggle" id="menuToggle" type="button" aria-label="Open navigation"
+                        aria-controls="sidebar" aria-expanded="false">
+                        <i class="bx bx-menu"></i>
+                    </button>
+
+                    <div class="breadcrumb">
+                        <span>Community</span>
+                        <i class="bx bx-chevron-right"></i>
+                        <strong>Top Earners</strong>
+                    </div>
+                </div>
+
+                <div class="topbar-actions">
+                    <button class="icon-button" id="themeToggle" type="button" aria-label="Switch to dark theme"
+                        title="Toggle theme">
+                        <i class="bx bx-moon"></i>
+                    </button>
+
+                    <a class="topbar-help" href="support.html" aria-label="Help and support">
+                        <i class="bx bx-help-circle"></i>
+                    </a>
+
+                    <a href="settings.html" class="profile-button">
+                        <span class="profile-avatar"><i class="bx bx-user"></i></span>
+                        <span class="profile-copy">
+                            <strong>My Account</strong>
+                            <small>Account settings</small>
+                        </span>
+                        <i class="bx bx-chevron-down profile-chevron"></i>
+                    </a>
+                </div>
+            </header>
+
+            <div class="page-content">
+
+                <section class="page-hero">
+                    <div class="hero-copy">
+                        <div class="eyebrow">
+                            <span class="eyebrow-dot"></span>
+                            COMMUNITY LEADERBOARD
+                        </div>
+                        <h1>Top <span>Earners.</span></h1>
+                        <p>
+                            Discover community achievements and explore verified earning
+                            activity across KUDIX.
+                        </p>
+
+                        <div class="hero-meta">
+                            <span><i class="bx bx-check-shield"></i> Verified activity only</span>
+                            <span><i class="bx bx-refresh"></i> Rankings may change</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-art" aria-hidden="true">
+                        <div class="hero-orbit orbit-one"></div>
+                        <div class="hero-orbit orbit-two"></div>
+                        <div class="hero-trophy">
+                            <i class="bx bxs-trophy"></i>
+                        </div>
+                        <div class="floating-star star-one"><i class="bx bxs-star"></i></div>
+                        <div class="floating-star star-two"><i class="bx bxs-star"></i></div>
+                        <div class="floating-dot"></div>
+                    </div>
+                </section>
+
+                <section class="stats-grid" aria-label="Leaderboard statistics">
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-icon purple-icon"><i class="bx bx-group"></i></span>
+                            <span class="stat-caption">Community</span>
+                        </div>
+                        <p class="stat-label">Ranked Members</p>
+                        <h2 id="rankedMembers">—</h2>
+                        <p class="stat-foot">Verified leaderboard entries</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-icon green-icon"><i class="bx bx-wallet"></i></span>
+                            <span class="stat-caption">Verified</span>
+                        </div>
+                        <p class="stat-label">Eligible Earnings</p>
+                        <h2 id="totalEarnings">—</h2>
+                        <p class="stat-foot">Combined eligible rewards</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-icon blue-icon"><i class="bx bx-check-circle"></i></span>
+                            <span class="stat-caption">Activity</span>
+                        </div>
+                        <p class="stat-label">Activities Completed</p>
+                        <h2 id="completedActivities">—</h2>
+                        <p class="stat-foot">Verified completed activities</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-icon gold-icon"><i class="bx bx-crown"></i></span>
+                            <span class="stat-caption">No. 1</span>
+                        </div>
+                        <p class="stat-label">Current Leader</p>
+                        <h2 class="leader-stat" id="currentLeader">—</h2>
+                        <p class="stat-foot">Highest eligible earnings</p>
+                    </article>
+                </section>
+
+                <section class="leaderboard-section">
+                    <div class="section-heading">
+                        <div>
+                            <span class="section-kicker">RECOGNITION</span>
+                            <h2>Community leaderboard</h2>
+                            <p>Celebrate verified achievements across the KUDIX community.</p>
+                        </div>
+
+                        <div class="period-filter" role="group" aria-label="Leaderboard period">
+                            <button type="button" class="period-button active" data-period="all" aria-pressed="true">All
+                                Time</button>
+                            <button type="button" class="period-button" data-period="month" aria-pressed="false">This
+                                Month</button>
+                            <button type="button" class="period-button" data-period="week" aria-pressed="false">This
+                                Week</button>
+                        </div>
+                    </div>
+
+                    <div class="podium-grid" id="podiumGrid" aria-label="Top three members"></div>
+
+                    <div class="leaderboard-card">
+                        <div class="table-header">
+                            <div>
+                                <h3>All rankings</h3>
+                                <p id="rankingCount">Waiting for verified leaderboard data</p>
+                            </div>
+
+                            <div class="table-controls">
+                                <label class="search-box">
+                                    <i class="bx bx-search"></i>
+                                    <input type="search" id="leaderSearch" placeholder="Search members..."
+                                        aria-label="Search leaderboard members">
+                                    <button type="button" id="clearSearch" aria-label="Clear search"
+                                        class="clear-search" hidden>
+                                        <i class="bx bx-x"></i>
+                                    </button>
+                                </label>
+
+                                <label class="sort-select-wrap">
+                                    <span class="sr-only">Sort leaderboard</span>
+                                    <i class="bx bx-sort-alt-2"></i>
+                                    <select id="sortLeaderboard">
+                                        <option value="rank">Default rank</option>
+                                        <option value="earnings">Highest earnings</option>
+                                        <option value="activities">Most activities</option>
+                                        <option value="name">Member name</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="table-scroll">
+                            <table class="leaderboard-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Rank</th>
+                                        <th scope="col">Member</th>
+                                        <th scope="col">Eligible Earnings</th>
+                                        <th scope="col">Activities</th>
+                                        <th scope="col">Achievement</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="leaderboardBody"></tbody>
+                            </table>
+                        </div>
+
+                        <div class="empty-state" id="leaderboardEmpty" hidden>
+                            <div class="empty-icon"><i class="bx bx-trophy"></i></div>
+                            <h3 id="emptyTitle">The leaderboard is getting ready.</h3>
+                            <p id="emptyDescription">
+                                Verified community rankings will appear here when leaderboard
+                                data becomes available.
+                            </p>
+                            <button type="button" id="resetLeaderboard" class="button-secondary">
+                                <i class="bx bx-refresh"></i> Reset filters
+                            </button>
+                        </div>
+
+                        <div class="table-footer">
+                            <span><i class="bx bx-shield-quarter"></i> Verified data only</span>
+                            <span id="lastUpdated">Leaderboard data unavailable</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="transparency-card">
+                    <div class="transparency-icon"><i class="bx bx-shield-quarter"></i></div>
+                    <div class="transparency-copy">
+                        <h3>Fair rankings. Clear rules.</h3>
+                        <p>
+                            Rankings are based on verified eligible rewards supplied by the
+                            platform. Display names are public-facing names only. Rankings
+                            can change as activity is reviewed, and past results do not
+                            guarantee future earnings.
+                        </p>
+                        <a href="support.html">Learn about reward eligibility <i class="bx bx-right-arrow-alt"></i></a>
+                    </div>
+                    <span class="verified-label"><i class="bx bx-check-circle"></i> Transparency first</span>
+                </section>
+
+                <section class="community-cta">
+                    <div class="cta-art" aria-hidden="true">
+                        <div class="cta-circle"><i class="bx bx-joystick"></i></div>
+                        <span class="cta-spark spark-a"><i class="bx bxs-star"></i></span>
+                        <span class="cta-spark spark-b"><i class="bx bx-plus"></i></span>
+                    </div>
+
+                    <div class="cta-copy">
+                        <span class="section-kicker">YOUR NEXT CHAPTER</span>
+                        <h2>Every Achievement Starts Somewhere</h2>
+                        <p>Explore activities, build your skills, and take part in the KUDIX community.</p>
+                    </div>
+
+                    <div class="cta-actions">
+                        <a href="games.html" class="button-primary">
+                            Explore Games <i class="bx bx-right-arrow-alt"></i>
+                        </a>
+                        <a href="social-tasks.html" class="button-secondary">
+                            View Social Tasks
+                        </a>
+                    </div>
+                </section>
+
+                <footer class="page-footer">
+                    <p>© <span id="currentYear"></span> KUDIX. All rights reserved.</p>
+                    <div>
+                        <a href="support.html">Support</a>
+                        <a href="settings.html">Settings</a>
+                    </div>
+                </footer>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="toast-message" id="toastMessage" role="status" aria-live="polite"></div>
+</body>
+
+</html>

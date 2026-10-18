@@ -1,0 +1,877 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | KUDIX</title>
+    <meta name="description" content="Log in to your KUDIX account to access your gaming dashboard and rewards.">
+    <meta name="theme-color" content="#0B1020">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- KUDIX Login Styles -->
+    <link rel="stylesheet" href="css/auth.css">
+
+    <style>
+        :root {
+            --kudix-navy: #0B1020;
+            --kudix-purple: #6D4AFF;
+            --kudix-blue: #287BFF;
+            --kudix-white: #FFFFFF;
+            --kudix-bg: #F5F7FC;
+            --kudix-muted: #74809A;
+            --kudix-border: #E4E8F1;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body.auth-page {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--kudix-bg);
+            color: var(--kudix-navy);
+            font-family: "Inter", sans-serif;
+        }
+
+        .login-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            min-height: 100vh;
+        }
+
+        /* LEFT BRAND PANEL */
+
+        .login-visual {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+            padding: 42px clamp(28px, 5vw, 76px);
+            overflow: hidden;
+            isolation: isolate;
+            color: white;
+            background:
+                radial-gradient(ellipse at 10% 10%, rgba(109, 74, 255, .30), transparent 45%),
+                radial-gradient(ellipse at 95% 85%, rgba(40, 123, 255, .20), transparent 45%),
+                #0B1020;
+        }
+
+        .login-visual::before {
+            position: absolute;
+            z-index: -1;
+            inset: 0;
+            content: "";
+            opacity: .15;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, .07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .07) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: linear-gradient(to bottom, black, transparent 90%);
+        }
+
+        .login-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            width: fit-content;
+            text-decoration: none;
+        }
+
+        .login-brand img {
+            display: block;
+            width: 145px;
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .login-brand-fallback {
+            color: white;
+            font-family: "Sora", sans-serif;
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+        }
+
+        .login-brand-fallback span {
+            color: #9A86FF;
+        }
+
+        .login-visual-content {
+            position: relative;
+            max-width: 560px;
+            margin: 65px auto;
+        }
+
+        .login-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 23px;
+            padding: 9px 13px;
+            border: 1px solid rgba(255, 255, 255, .13);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, .06);
+            color: #D4CCFF;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .login-eyebrow i {
+            font-size: 17px;
+        }
+
+        .login-visual h1 {
+            margin: 0;
+            font-family: "Sora", sans-serif;
+            font-size: clamp(35px, 4.3vw, 58px);
+            font-weight: 700;
+            line-height: 1.16;
+            letter-spacing: -2.5px;
+        }
+
+        .login-visual h1 span {
+            color: #A998FF;
+        }
+
+        .login-visual-description {
+            max-width: 430px;
+            margin-top: 23px;
+            color: #A9B3CC;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .login-benefits {
+            display: grid;
+            gap: 18px;
+            margin-top: 35px;
+        }
+
+        .login-benefit {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            color: #DDE3F3;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .login-benefit-icon {
+            display: grid;
+            flex: 0 0 39px;
+            width: 39px;
+            height: 39px;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, .06);
+            color: #A998FF;
+            font-size: 19px;
+        }
+
+        .login-visual-footer {
+            color: #7F8AA7;
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        /* RIGHT FORM PANEL */
+
+        .login-form-side {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px clamp(24px, 5vw, 76px);
+            background: #FFFFFF;
+        }
+
+        .login-form-wrap {
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .login-mobile-brand {
+            display: none;
+            margin-bottom: 38px;
+        }
+
+        .login-mobile-brand img {
+            width: 125px;
+            height: auto;
+        }
+
+        .login-form-header {
+            margin-bottom: 31px;
+        }
+
+        .login-form-kicker {
+            margin-bottom: 12px;
+            color: var(--kudix-purple);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+        }
+
+        .login-form-header h2 {
+            margin: 0;
+            font-family: "Sora", sans-serif;
+            font-size: clamp(29px, 3vw, 37px);
+            font-weight: 700;
+            line-height: 1.3;
+            letter-spacing: -1.4px;
+        }
+
+        .login-form-header p {
+            margin-top: 12px;
+            color: var(--kudix-muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .login-form-header p a {
+            color: var(--kudix-purple);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .login-form-header p a:hover {
+            text-decoration: underline;
+        }
+
+        .login-form {
+            display: grid;
+            gap: 21px;
+        }
+
+        .login-field {
+            display: grid;
+            gap: 9px;
+        }
+
+        .login-label-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .login-field label {
+            color: #252D43;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .login-forgot-link {
+            color: var(--kudix-purple);
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .login-forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        .login-input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .login-input-icon {
+            position: absolute;
+            left: 15px;
+            color: #8993A9;
+            font-size: 19px;
+            pointer-events: none;
+        }
+
+        .login-input {
+            width: 100%;
+            min-height: 53px;
+            padding: 0 47px;
+            outline: none;
+            border: 1px solid var(--kudix-border);
+            border-radius: 12px;
+            background: #FAFBFE;
+            color: var(--kudix-navy);
+            font-family: "Inter", sans-serif;
+            font-size: 13px;
+            transition: border-color .2s, box-shadow .2s, background .2s;
+        }
+
+        .login-input::placeholder {
+            color: #A0A8B9;
+        }
+
+        .login-input:hover {
+            border-color: #CBD2E2;
+        }
+
+        .login-input:focus {
+            border-color: var(--kudix-purple);
+            background: #FFFFFF;
+            box-shadow: 0 0 0 4px rgba(109, 74, 255, .09);
+        }
+
+        .login-password-toggle {
+            position: absolute;
+            right: 12px;
+            display: grid;
+            width: 31px;
+            height: 31px;
+            place-items: center;
+            border: 0;
+            border-radius: 8px;
+            background: transparent;
+            color: #8993A9;
+            font-size: 19px;
+            cursor: pointer;
+        }
+
+        .login-password-toggle:hover {
+            background: #F0EDFF;
+            color: var(--kudix-purple);
+        }
+
+        .login-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: -3px;
+        }
+
+        .login-remember {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: #66718A;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .login-remember input {
+            width: 15px;
+            height: 15px;
+            margin: 0;
+            accent-color: var(--kudix-purple);
+            cursor: pointer;
+        }
+
+        .login-submit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            min-height: 54px;
+            margin-top: 4px;
+            padding: 14px 20px;
+            border: 0;
+            border-radius: 12px;
+            background: linear-gradient(105deg, #6D4AFF, #287BFF);
+            box-shadow: 0 9px 22px rgba(92, 83, 230, .21);
+            color: #FFFFFF;
+            font-family: "Inter", sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform .2s, box-shadow .2s, opacity .2s;
+        }
+
+        .login-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 13px 28px rgba(92, 83, 230, .28);
+        }
+
+        .login-submit:active {
+            transform: translateY(0);
+        }
+
+        .login-submit:disabled {
+            opacity: .65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-submit i {
+            font-size: 18px;
+        }
+
+        .login-status {
+            display: none;
+            padding: 12px 14px;
+            border: 1px solid #F2D0D0;
+            border-radius: 10px;
+            background: #FFF5F5;
+            color: #A92D3B;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .login-status.is-visible {
+            display: block;
+        }
+
+        .login-status.info {
+            border-color: #D8DFFF;
+            background: #F5F7FF;
+            color: #4A55A2;
+        }
+
+        .login-divider {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 26px 0 20px;
+            color: #9AA3B5;
+            font-size: 10px;
+        }
+
+        .login-divider::before,
+        .login-divider::after {
+            flex: 1;
+            height: 1px;
+            background: #E9ECF3;
+            content: "";
+        }
+
+        .login-security-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            padding: 15px;
+            border: 1px solid #E8E7FF;
+            border-radius: 12px;
+            background: #F8F7FF;
+        }
+
+        .login-security-note>i {
+            margin-top: 1px;
+            color: var(--kudix-purple);
+            font-size: 19px;
+        }
+
+        .login-security-note strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #34304F;
+            font-size: 11px;
+        }
+
+        .login-security-note p {
+            margin: 0;
+            color: #77758D;
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        .login-bottom {
+            margin-top: 30px;
+            color: #8A93A7;
+            font-size: 10px;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .login-bottom a {
+            color: #5E49D8;
+            text-decoration: none;
+        }
+
+        .login-bottom a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+            .login-shell {
+                grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+            }
+
+            .login-visual {
+                padding: 32px 28px;
+            }
+
+            .login-form-side {
+                padding: 40px 28px;
+            }
+
+            .login-visual h1 {
+                font-size: 39px;
+                letter-spacing: -1.7px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .login-shell {
+                display: block;
+            }
+
+            .login-visual {
+                display: none;
+            }
+
+            .login-form-side {
+                min-height: 100vh;
+                padding: 34px 22px;
+            }
+
+            .login-form-wrap {
+                max-width: 440px;
+                margin: auto;
+            }
+
+            .login-mobile-brand {
+                display: block;
+                margin-bottom: 42px;
+            }
+
+            .login-form-header {
+                margin-bottom: 27px;
+            }
+
+            .login-form-header h2 {
+                font-size: 31px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .login-form-side {
+                padding: 26px 17px;
+            }
+
+            .login-mobile-brand {
+                margin-bottom: 34px;
+            }
+
+            .login-form-header h2 {
+                font-size: 28px;
+            }
+
+            .login-form {
+                gap: 19px;
+            }
+
+            .login-input {
+                min-height: 51px;
+            }
+
+            .login-options {
+                align-items: flex-start;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+                animation-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="auth-page">
+
+    <main class="login-shell">
+
+        <!-- LEFT BRAND PANEL -->
+        <aside class="login-visual">
+
+            <a href="index.html" class="login-brand" aria-label="KUDIX home">
+                <img src="images/kudix-logo.png" alt="KUDIX Logo"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="login-brand-fallback" style="display:none;">
+                    KUD<span>IX</span>
+                </span>
+            </a>
+
+            <div class="login-visual-content">
+
+                <div class="login-eyebrow">
+                    <i class="bx bx-joystick" aria-hidden="true"></i>
+                    YOUR NEXT MOVE STARTS HERE
+                </div>
+
+                <h1>
+                    Welcome back to
+                    <span>your game.</span>
+                </h1>
+
+                <p class="login-visual-description">
+                    Sign in to access your KUDIX account, explore available
+                    games, and manage your rewards from one place.
+                </p>
+
+                <div class="login-benefits">
+
+                    <div class="login-benefit">
+                        <span class="login-benefit-icon">
+                            <i class="bx bx-grid-alt" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <strong>One account, multiple games</strong><br>
+                            Explore the games available on KUDIX.
+                        </span>
+                    </div>
+
+                    <div class="login-benefit">
+                        <span class="login-benefit-icon">
+                            <i class="bx bx-wallet" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <strong>Your account in one place</strong><br>
+                            Access your dashboard and account information.
+                        </span>
+                    </div>
+
+                    <div class="login-benefit">
+                        <span class="login-benefit-icon">
+                            <i class="bx bx-shield-quarter" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <strong>Account-conscious design</strong><br>
+                            Keep your sign-in details private and secure.
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="login-visual-footer">
+                &copy; <span id="currentYear">2026</span> KUDIX.
+                All rights reserved.<br>
+                Play responsibly. Review the rules before participating.
+            </div>
+
+        </aside>
+
+        <!-- RIGHT LOGIN FORM -->
+        <section class="login-form-side">
+
+            <div class="login-form-wrap">
+
+                <!-- Mobile Logo -->
+                <a href="index.html" class="login-mobile-brand" aria-label="KUDIX home">
+                    <img src="images/kudix-logo.png" alt="KUDIX Logo"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="login-brand-fallback" style="display:none; color:#0B1020;">
+                        KUD<span>IX</span>
+                    </span>
+                </a>
+
+                <header class="login-form-header">
+
+                    <div class="login-form-kicker">MEMBER SIGN IN</div>
+
+                    <h2>Welcome back 👋</h2>
+
+                    <p>
+                        Enter your account details below to continue.
+                        Don't have an account?
+                        <a href="register.html">Create one</a>.
+                    </p>
+
+                </header>
+
+                <!--
+                    FRONTEND ONLY:
+                    Connect this form to your authentication backend before use.
+                    Do not store passwords or treat a browser-side check as authentication.
+                -->
+                <form id="loginForm" class="login-form" action="#" method="post" autocomplete="on" novalidate>
+
+                    <!-- Email -->
+                    <div class="login-field">
+
+                        <label for="loginEmail">Email Address</label>
+
+                        <div class="login-input-wrap">
+
+                            <i class="bx bx-envelope login-input-icon" aria-hidden="true"></i>
+
+                            <input type="email" id="loginEmail" name="email" class="login-input"
+                                placeholder="you@example.com" autocomplete="username" autocapitalize="none"
+                                spellcheck="false" required aria-describedby="loginStatus">
+
+                        </div>
+
+                    </div>
+
+                    <!-- Password -->
+                    <div class="login-field">
+
+                        <div class="login-label-row">
+                            <label for="loginPassword">Password</label>
+
+                            <a href="forgot-password.html" class="login-forgot-link">
+                                Forgot password?
+                            </a>
+                        </div>
+
+                        <div class="login-input-wrap">
+
+                            <i class="bx bx-lock-alt login-input-icon" aria-hidden="true"></i>
+
+                            <input type="password" id="loginPassword" name="password" class="login-input"
+                                placeholder="Enter your password" autocomplete="current-password" required
+                                aria-describedby="loginStatus">
+
+                            <button type="button" id="togglePassword" class="login-password-toggle"
+                                aria-label="Show password" aria-pressed="false">
+                                <i class="bx bx-hide" aria-hidden="true"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Remember Me -->
+                    <div class="login-options">
+
+                        <label class="login-remember" for="rememberMe">
+                            <input type="checkbox" id="rememberMe" name="rememberMe">
+                            <span>Remember me</span>
+                        </label>
+
+                    </div>
+
+                    <!-- Accessible Status Message -->
+                    <div id="loginStatus" class="login-status" role="status" aria-live="polite"></div>
+
+                    <!-- Submit -->
+                    <button type="submit" id="loginSubmit" class="login-submit">
+
+                        <span id="loginButtonText">Sign In to KUDIX</span>
+
+                        <i class="bx bx-right-arrow-alt" aria-hidden="true"></i>
+
+                    </button>
+
+                </form>
+
+                <div class="login-divider">YOUR ACCOUNT MATTERS</div>
+
+                <div class="login-security-note">
+
+                    <i class="bx bx-shield-quarter" aria-hidden="true"></i>
+
+                    <div>
+                        <strong>Protect your account</strong>
+
+                        <p>
+                            Never share your password or verification codes.
+                            Always sign in through the official KUDIX website.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- <footer class="login-bottom">
+                    By continuing, you agree to our
+                    <a href="terms.html">Terms of Service</a> and
+                    <a href="privacy.html">Privacy Policy</a>.
+                    <br><br>
+                    Need help?
+                    <a href="support.html">Contact support</a>.
+                </footer> -->
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        // Current year
+        document.getElementById("currentYear").textContent =
+            new Date().getFullYear();
+
+        // Show / hide password
+        const passwordInput = document.getElementById("loginPassword");
+        const passwordToggle = document.getElementById("togglePassword");
+
+        passwordToggle.addEventListener("click", function () {
+            const isPassword = passwordInput.type === "password";
+
+            passwordInput.type = isPassword ? "text" : "password";
+
+            this.setAttribute("aria-label",
+                isPassword ? "Hide password" : "Show password"
+            );
+
+            this.setAttribute("aria-pressed", String(isPassword));
+
+            this.querySelector("i").className =
+                isPassword ? "bx bx-show" : "bx bx-hide";
+
+            passwordInput.focus();
+        });
+
+        // Frontend-only validation.
+        // This does NOT authenticate the user.
+        const loginForm = document.getElementById("loginForm");
+        const loginStatus = document.getElementById("loginStatus");
+
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("loginEmail");
+            const password = document.getElementById("loginPassword");
+
+            loginStatus.className = "login-status is-visible";
+            loginStatus.textContent = "";
+
+            if (!email.value.trim() || !password.value) {
+                loginStatus.textContent =
+                    "Please enter your email address and password.";
+                email.focus();
+                return;
+            }
+
+            if (!email.validity.valid) {
+                loginStatus.textContent =
+                    "Please enter a valid email address.";
+                email.focus();
+                return;
+            }
+
+            loginStatus.classList.add("info");
+            loginStatus.textContent =
+                "Your form is ready. Connect the login form to your authentication backend to sign in.";
+
+            // No fake login, account creation, or password storage occurs here.
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>Boost Earns | KUDIX Admin</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="css/boost-earns.css">
+    <script src="js/boost-earns.js" defer></script>
+</head>
+
+<body>
+    <div class="admin-layout">
+
+        <!-- Mobile overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="adminSidebar">
+            <div class="sidebar-brand">
+                <a href="admin-dashboqrd.html" class="logo-link">
+                    <img src="../images/kudix-logo.png" alt="KUDIX Logo" class="brand-logo">
+                </a>
+
+                <button class="icon-button sidebar-close" id="closeSidebar" type="button" aria-label="Close navigation">
+                    <i class="bx bx-x"></i>
+                </button>
+            </div>
+
+            <div class="sidebar-label">ADMINISTRATION</div>
+
+            <nav class="sidebar-nav" aria-label="Admin navigation">
+                <a href="/admin/admin-dashboard.html" class="nav-link">
+                    <i class="bx bx-grid-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="manage-game.html" class="nav-link">
+                    <i class="bx bx-joystick"></i>
+                    <span>Manage Game</span>
+                </a>
+
+                <a href="manage-streak.html" class="nav-link">
+                    <i class="bx bx-calendar-check"></i>
+                    <span>Manage Streak</span>
+                </a>
+
+                <a href="boost-earns.html" class="nav-link active" aria-current="page">
+                    <i class="bx bx-trending-up"></i>
+                    <span>Boost Earns</span>
+                </a>
+
+                <a href="config-level-up.html" class="nav-link">
+                    <i class="bx bx-layer"></i>
+                    <span>Level Up Configuration</span>
+                </a>
+
+                <a href="config-withdrawal.html" class="nav-link">
+                    <i class="bx bx-wallet"></i>
+                    <span>Withdrawal Configuration</span>
+                </a>
+
+                <a href="manage-support.html" class="nav-link">
+                    <i class="bx bx-support"></i>
+                    <span>Manage Support</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="admin-badge">
+                    <div class="admin-avatar">
+                        <i class="bx bx-shield-quarter"></i>
+                    </div>
+                    <div>
+                        <p class="admin-name">Admin Panel</p>
+                        <p class="admin-caption">Management workspace</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main content -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-button menu-toggle" id="openSidebar" type="button" aria-label="Open navigation"
+                        aria-expanded="false">
+                        <i class="bx bx-menu"></i>
+                    </button>
+
+                    <div>
+                        <p class="breadcrumb">Administration / Users</p>
+                        <h1 class="topbar-title">Boost Earns</h1>
+                    </div>
+                </div>
+
+                <div class="topbar-status">
+                    <span class="status-dot"></span>
+                    Admin workspace
+                </div>
+            </header>
+
+            <div class="page-content">
+
+                <!-- Page introduction -->
+                <section class="page-intro">
+                    <div>
+                        <h2>Find a user</h2>
+                        <p>Search for a registered user to retrieve their earnings information.</p>
+                    </div>
+
+                    <div class="page-icon">
+                        <i class="bx bx-user-search"></i>
+                    </div>
+                </section>
+
+                <!-- Search card -->
+                <section class="content-card search-card">
+                    <div class="section-heading">
+                        <div class="heading-icon">
+                            <i class="bx bx-search-alt"></i>
+                        </div>
+
+                        <div>
+                            <h3>Search user records</h3>
+                            <p>Enter a username, email address, or user ID.</p>
+                        </div>
+                    </div>
+
+                    <form id="userSearchForm" class="search-form" novalidate>
+                        <div class="search-field">
+                            <i class="bx bx-search search-input-icon"></i>
+
+                            <input type="text" id="userSearchInput" name="userSearch"
+                                placeholder="Enter username, email, or user ID" autocomplete="off"
+                                aria-label="Username, email, or user ID" aria-describedby="searchHelp searchMessage"
+                                maxlength="200" required>
+
+                            <button type="button" id="clearSearch" class="clear-search" aria-label="Clear search"
+                                hidden>
+                                <i class="bx bx-x"></i>
+                            </button>
+                        </div>
+
+                        <button type="submit" class="primary-button" id="fetchUserButton">
+                            <i class="bx bx-search-alt-2" id="fetchButtonIcon"></i>
+                            <span id="fetchButtonText">Fetch User</span>
+                        </button>
+                    </form>
+
+                    <p class="search-help" id="searchHelp">
+                        <i class="bx bx-info-circle"></i>
+                        Only search for users you are authorized to review.
+                    </p>
+
+                    <div id="searchMessage" class="feedback-message" role="status" aria-live="polite" hidden></div>
+                </section>
+
+                <!-- User results -->
+                <section class="results-section" aria-labelledby="resultsHeading">
+                    <div class="results-heading">
+                        <div>
+                            <h3 id="resultsHeading">User information</h3>
+                            <p>Account and boost earnings details</p>
+                        </div>
+                    </div>
+
+                    <!-- Empty state -->
+                    <div class="content-card empty-state" id="emptyState">
+                        <div class="empty-icon">
+                            <i class="bx bx-user-search"></i>
+                        </div>
+                        <h4>No user selected</h4>
+                        <p>Search for a user above to view their account and earnings information.</p>
+                    </div>
+
+                    <!-- Results are populated by JavaScript after a successful API response -->
+                    <div id="userResults" hidden>
+                        <div class="content-card user-profile-card">
+                            <div class="user-profile">
+                                <div class="user-avatar" id="userAvatar">
+                                    <i class="bx bx-user"></i>
+                                </div>
+
+                                <div class="user-identity">
+                                    <h4 id="resultUsername">—</h4>
+                                    <p id="resultUserId">User ID: —</p>
+                                </div>
+
+                                <span class="account-status" id="resultAccountStatus">—</span>
+                            </div>
+                        </div>
+
+                        <div class="earnings-grid">
+                            <article class="content-card earnings-card">
+                                <div class="earnings-card-top">
+                                    <span>Total earnings</span>
+                                    <span class="earnings-icon total-icon">
+                                        <i class="bx bx-wallet"></i>
+                                    </span>
+                                </div>
+                                <p class="earnings-value" id="resultTotalEarnings">—</p>
+                                <p class="earnings-caption">Recorded account earnings</p>
+                            </article>
+
+                            <article class="content-card earnings-card">
+                                <div class="earnings-card-top">
+                                    <span>Boost earnings</span>
+                                    <span class="earnings-icon boost-icon">
+                                        <i class="bx bx-trending-up"></i>
+                                    </span>
+                                </div>
+                                <p class="earnings-value" id="resultBoostEarnings">—</p>
+                                <p class="earnings-caption">Recorded boost-related earnings</p>
+                            </article>
+                        </div>
+
+                        <div class="content-card activity-card">
+                            <div class="activity-icon">
+                                <i class="bx bx-history"></i>
+                            </div>
+
+                            <div class="activity-details">
+                                <h4>Last boost activity</h4>
+                                <p id="resultLastActivity">—</p>
+                            </div>
+                        </div>
+
+                        <p class="data-note">
+                            <i class="bx bx-lock-alt"></i>
+                            Earnings information is displayed from the connected data source.
+                        </p>
+                    </div>
+                </section>
+
+                <footer class="page-footer">
+                    <p>KUDIX Administration <span>&middot;</span> Boost Earns</p>
+                </footer>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KUDIX — Premium Gaming & Rewards Platform</title>
+  
+  <!-- Google Fonts: Sora (Headings) & Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Boxicons CDN -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#0B1020',
+              purple: '#6D4AFF',
+              blue: '#287BFF',
+              light: '#F5F7FC',
+              green: '#16A36A',
+              cardDark: '#13192E',
+              borderDark: 'rgba(255, 255, 255, 0.08)'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Sora', 'sans-serif']
+          },
+          boxShadow: {
+            'glow-purple': '0 0 30px rgba(109, 74, 255, 0.3)',
+            'glow-blue': '0 0 30px rgba(40, 123, 255, 0.3)',
+            'capsule': '0 10px 30px rgba(11, 16, 32, 0.12)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Keyframes & Utility Styles */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0B1020;
+      color: #FFFFFF;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Sora', sans-serif;
+    }
+
+    /* Ambient Background Glow Effects */
+    .glow-bg {
+      background: radial-gradient(circle at 50% 20%, rgba(109, 74, 255, 0.18) 0%, rgba(40, 123, 255, 0.1) 35%, rgba(11, 16, 32, 0) 70%);
+    }
+
+    .glass-card {
+      background: rgba(19, 25, 46, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card-light {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(11, 16, 32, 0.06);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #FFFFFF 0%, #A5B4FC 50%, #6D4AFF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gradient-btn {
+      background: linear-gradient(135deg, #6D4AFF 0%, #287BFF 100%);
+      transition: all 0.3s ease;
+    }
+
+    .gradient-btn:hover {
+      box-shadow: 0 0 25px rgba(109, 74, 255, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* Loader Ring Keyframes */
+    @keyframes spin-slow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .animate-spin-slow {
+      animation: spin-slow 2.5s linear infinite;
+    }
+
+    /* Floating visual keyframes */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Active Slide styles */
+    .slide-item {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: scale(0.97) translateY(10px);
+      position: absolute;
+      inset: 0;
+    }
+    .slide-item.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      position: relative;
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0B1020;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #28304C;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #6D4AFF;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-brand-purple selection:text-white">
+
+  <!-- ========================================== -->
+  <!-- 3. PREMIUM LOADING SCREEN OVERLAY          -->
+  <!-- ========================================== -->
+  <div id="loading-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-brand-navy transition-opacity duration-700">
+    <div class="absolute inset-0 glow-bg pointer-events-none"></div>
+    
+    <div class="relative z-10 flex flex-col items-center px-6 text-center">
+      <!-- Branded Logo Container -->
+      <div class="relative mb-8 flex items-center justify-center">
+        <div class="absolute w-28 h-28 rounded-full border-2 border-dashed border-brand-purple/40 animate-spin-slow"></div>
+        <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-brand-purple to-brand-blue flex items-center justify-center shadow-glow-purple p-3">
+          <img src="images/kudix-logo.png" alt="KUDIX Logo" class="max-h-full max-w-full object-contain" onerror="this.onerror=null; this.parentNode.innerHTML='<span class=\'text-2xl font-extrabold font-heading text-white tracking-wider\'>KUDIX</span>';">
+        </div>
+      </div>
+
+      <!-- Loading Text -->
+      <h2 class="text-xl md:text-2xl font-heading font-bold text-white mb-2">KUDIX</h2>
+      <p class="text-xs uppercase tracking-widest text-brand-blue font-semibold mb-6">Preparing Your KUDIX Experience</p>
+
+      <!-- Progress Bar -->
+      <div class="w-64 max-w-xs h-1.5 bg-brand-cardDark rounded-full overflow-hidden border border-white/10 mb-3">
+        <div id="loading-bar" class="h-full bg-gradient-to-r from-brand-purple to-brand-blue w-0 transition-all duration-300 ease-out"></div>
+      </div>
+      
+      <span class="text-xs text-gray-400 font-mono" id="loading-text">Loading assets... 0%</span>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- 4. CURVED FLOATING NAVIGATION BAR          -->
+  <!-- ========================================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 pt-4 px-4 md:px-8 transition-all duration-300" id="main-header">
+    <div class="max-w-7xl mx-auto">
+      <nav class="glass-card rounded-full px-4 md:px-6 py-3 flex items-center justify-between shadow-capsule transition-all duration-300" id="navbar">
+        
+        <!-- Brand Logo -->
+        <a href="#home" class="flex items-center gap-3 group focus:outline-none">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-purple to-brand-blue p-2 flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+            <img src="images/kudix-logo.png" alt="KUDIX Logo" class="max-h-full max-w-full object-contain" onerror="this.onerror=null; this.parentNode.innerHTML='<i class=\'bx bx-game text-xl text-white\'></i>';">
+          </div>
+          <span class="font-heading font-extrabold text-xl text-white tracking-tight">KUDIX</span>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <div class="hidden lg:flex items-center gap-1 xl:gap-2">
+          <a href="#home" class="px-3 py-2 text-sm font-medium text-white/90 hover:text-white hover:bg-white/5 rounded-full transition-all active-nav-link">Home</a>
+          <a href="#games" class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Games</a>
+          <a href="#how-it-works" class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition-all">How It Works</a>
+          <a href="#rewards" class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Rewards</a>
+          <a href="#referrals" class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Referrals</a>
+          <a href="#community" class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Community</a>
+          <a href="#faq" class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition-all">FAQ</a>
+        </div>
+
+        <!-- Desktop CTA Buttons -->
+        <div class="hidden sm:flex items-center gap-3">
+          <button onclick="openAuthModal('login')" class="px-4 py-2 text-sm font-semibold text-white/90 hover:text-white hover:bg-white/10 rounded-full transition-all">Log In</button>
+          <button onclick="openAuthModal('signup')" class="gradient-btn px-5 py-2 text-sm font-semibold text-white rounded-full shadow-md">Get Started</button>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" aria-label="Toggle Navigation Menu" class="lg:hidden w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white text-xl transition-all">
+          <i class='bx bx-menu' id="menu-icon"></i>
+        </button>
+
+      </nav>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-drawer" class="fixed inset-x-4 top-20 bg-brand-navy/95 border border-white/10 rounded-2xl p-6 backdrop-blur-xl shadow-2xl transition-all duration-300 opacity-0 pointer-events-none transform -translate-y-4 lg:hidden z-40">
+      <div class="flex flex-col gap-3">
+        <a href="#home" class="mobile-link px-4 py-3 rounded-xl text-white font-medium hover:bg-white/5 flex items-center justify-between">Home <i class='bx bx-chevron-right text-gray-500'></i></a>
+        <a href="#games" class="mobile-link px-4 py-3 rounded-xl text-gray-300 font-medium hover:bg-white/5 flex items-center justify-between">Games <i class='bx bx-chevron-right text-gray-500'></i></a>
+        <a href="#how-it-works" class="mobile-link px-4 py-3 rounded-xl text-gray-300 font-medium hover:bg-white/5 flex items-center justify-between">How It Works <i class='bx bx-chevron-right text-gray-500'></i></a>
+        <a href="#rewards" class="mobile-link px-4 py-3 rounded-xl text-gray-300 font-medium hover:bg-white/5 flex items-center justify-between">Rewards <i class='bx bx-chevron-right text-gray-500'></i></a>
+        <a href="#referrals" class="mobile-link px-4 py-3 rounded-xl text-gray-300 font-medium hover:bg-white/5 flex items-center justify-between">Referrals <i class='bx bx-chevron-right text-gray-500'></i></a>
+        <a href="#faq" class="mobile-link px-4 py-3 rounded-xl text-gray-300 font-medium hover:bg-white/5 flex items-center justify-between">FAQ <i class='bx bx-chevron-right text-gray-500'></i></a>
+        
+        <div class="pt-4 border-t border-white/10 flex flex-col gap-2">
+          <button onclick="openAuthModal('login')" class="w-full py-3 text-center text-sm font-semibold text-white bg-white/5 hover:bg-white/10 rounded-xl">Log In</button>
+          <button onclick="openAuthModal('signup')" class="w-full gradient-btn py-3 text-center text-sm font-semibold text-white rounded-xl shadow-lg">Get Started</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ========================================== -->
+  <!-- 5 & 6. HERO SECTION WITH SLIDESHOW        -->
+  <!-- ========================================== -->
+  <section id="home" class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden glow-bg min-h-[90vh] flex items-center">
+    
+    <!-- Hero Ambient Visual Background Elements -->
+    <div class="absolute top-1/4 left-10 w-72 h-72 bg-brand-purple/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 right-10 w-96 h-96 bg-brand-blue/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(#rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 md:px-8 w-full relative z-10">
+      
+      <!-- Slides Container -->
+      <div class="relative min-h-[500px] md:min-h-[460px] flex items-center" id="slideshow-wrapper">
+        
+        <!-- SLIDE 1: Welcome to KUDIX -->
+        <div class="slide-item active w-full" data-slide="0">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 text-center lg:text-left">
+              <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-purple/10 border border-brand-purple/30 text-brand-purple text-xs font-semibold uppercase tracking-wider mb-6">
+                <i class='bx bx-sparkles'></i> Premium Gaming & Rewards
+              </div>
+              <h1 class="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-heading font-extrabold text-white leading-tight mb-6">
+                Your Next Gaming <br class="hidden sm:inline"><span class="gradient-text">Experience Starts Here.</span>
+              </h1>
+              <p class="text-base sm:text-lg text-gray-300 max-w-2xl mb-8 mx-auto lg:mx-0 leading-relaxed">
+                Discover exciting prediction games, explore new challenges, and experience a modern gaming platform designed around you.
+              </p>
+              <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <a href="#games" class="w-full sm:w-auto gradient-btn px-8 py-3.5 text-center font-semibold text-white rounded-full shadow-lg">Explore Games</a>
+                <button onclick="openAuthModal('signup')" class="w-full sm:w-auto px-8 py-3.5 text-center font-semibold text-white bg-white/10 hover:bg-white/15 rounded-full border border-white/10 transition-all">Create Account</button>
+              </div>
+            </div>
+            <div class="lg:col-span-5 relative flex justify-center">
+              <div class="relative w-full max-w-sm md:max-w-md animate-float">
+                <div class="glass-card rounded-3xl p-6 shadow-2xl relative overflow-hidden border border-white/10">
+                  <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
+                    <span class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Live Preview</span>
+                    <span class="inline-flex items-center gap-1.5 text-xs text-brand-green font-medium"><span class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span> Active Platform</span>
+                  </div>
+                  <div class="bg-brand-navy/80 rounded-2xl p-4 mb-4 border border-white/5">
+                    <div class="text-xs text-gray-400 mb-1">Welcome Gaming Credit</div>
+                    <div class="text-2xl md:text-3xl font-heading font-extrabold text-white">₦20,000.00</div>
+                    <div class="mt-2 text-[10px] bg-brand-purple/20 text-brand-purple px-2 py-0.5 rounded inline-block font-medium">Promotional Gaming Credit</div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-3 text-center">
+                    <div class="bg-white/5 p-3 rounded-xl border border-white/5">
+                      <div class="text-lg font-bold text-white">6</div>
+                      <div class="text-xs text-gray-400">Available Games</div>
+                    </div>
+                    <div class="bg-white/5 p-3 rounded-xl border border-white/5">
+                      <div class="text-lg font-bold text-brand-green">₦1,000</div>
+                      <div class="text-xs text-gray-400">Per Referral</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 2: Explore the Games -->
+        <div class="slide-item w-full" data-slide="1">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 text-center lg:text-left">
+              <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/30 text-brand-blue text-xs font-semibold uppercase tracking-wider mb-6">
+                <i class='bx bx-joystick'></i> Six Thrilling Modes
+              </div>
+              <h1 class="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-heading font-extrabold text-white leading-tight mb-6">
+                Six Games. <br class="hidden sm:inline"><span class="gradient-text">Endless Ways to Play.</span>
+              </h1>
+              <p class="text-base sm:text-lg text-gray-300 max-w-2xl mb-8 mx-auto lg:mx-0 leading-relaxed">
+                Explore colour prediction, number prediction, heads or tails, up or down, lucky number, and higher or lower.
+              </p>
+              <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <a href="#games" class="w-full sm:w-auto gradient-btn px-8 py-3.5 text-center font-semibold text-white rounded-full shadow-lg">Discover Our Games</a>
+                <a href="#how-it-works" class="w-full sm:w-auto px-8 py-3.5 text-center font-semibold text-white bg-white/10 hover:bg-white/15 rounded-full border border-white/10 transition-all">How It Works</a>
+              </div>
+            </div>
+            <div class="lg:col-span-5 flex justify-center">
+              <div class="grid grid-cols-2 gap-3 w-full max-w-md">
+                <div class="glass-card p-4 rounded-2xl border border-brand-purple/30 text-center hover:scale-105 transition-transform">
+                  <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl"><i class='bx bx-palette'></i></div>
+                  <div class="text-sm font-bold text-white">Colour Prediction</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl border border-blue-500/30 text-center hover:scale-105 transition-transform">
+                  <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl"><i class='bx bx-hash'></i></div>
+                  <div class="text-sm font-bold text-white">Number Prediction</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl border border-emerald-500/30 text-center hover:scale-105 transition-transform">
+                  <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl"><i class='bx bx-coin-stack'></i></div>
+                  <div class="text-sm font-bold text-white">Heads or Tails</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl border border-amber-500/30 text-center hover:scale-105 transition-transform">
+                  <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl"><i class='bx bx-trending-up'></i></div>
+                  <div class="text-sm font-bold text-white">Up or Down</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 3: Discover Rewards -->
+        <div class="slide-item w-full" data-slide="2">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 text-center lg:text-left">
+              <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-green/10 border border-brand-green/30 text-brand-green text-xs font-semibold uppercase tracking-wider mb-6">
+                <i class='bx bx-gift'></i> Network & Earn
+              </div>
+              <h1 class="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-heading font-extrabold text-white leading-tight mb-6">
+                Every Connection Can <br class="hidden sm:inline"><span class="gradient-text">Bring New Opportunities.</span>
+              </h1>
+              <p class="text-base sm:text-lg text-gray-300 max-w-2xl mb-8 mx-auto lg:mx-0 leading-relaxed">
+                Explore referral rewards, complete eligible social tasks, and keep track of your progress from one convenient dashboard.
+              </p>
+              <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <a href="#rewards" class="w-full sm:w-auto gradient-btn px-8 py-3.5 text-center font-semibold text-white rounded-full shadow-lg">Explore Rewards</a>
+                <a href="#referrals" class="w-full sm:w-auto px-8 py-3.5 text-center font-semibold text-white bg-white/10 hover:bg-white/15 rounded-full border border-white/10 transition-all">Learn More</a>
+              </div>
+            </div>
+            <div class="lg:col-span-5 flex justify-center">
+              <div class="glass-card rounded-3xl p-6 w-full max-w-md border border-white/10">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-sm font-bold text-white">Referral Tracker</span>
+                  <span class="text-xs text-brand-purple font-semibold">2 / 3 Unlocked</span>
+                </div>
+                <div class="w-full bg-white/10 h-3 rounded-full overflow-hidden mb-4">
+                  <div class="bg-gradient-to-r from-brand-purple to-brand-blue h-full w-2/3"></div>
+                </div>
+                <p class="text-xs text-gray-400 mb-4">Invite 1 more friend to unlock game access!</p>
+                <div class="bg-white/5 p-3 rounded-xl flex items-center justify-between text-xs">
+                  <span class="text-gray-300">Referral Commission:</span>
+                  <span class="font-bold text-brand-green">₦1,000 per referral</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 4: Your KUDIX Journey -->
+        <div class="slide-item w-full" data-slide="3">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 text-center lg:text-left">
+              <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs font-semibold uppercase tracking-wider mb-6">
+                <i class='bx bx-rocket'></i> Seamless Experience
+              </div>
+              <h1 class="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-heading font-extrabold text-white leading-tight mb-6">
+                One Platform. <br class="hidden sm:inline"><span class="gradient-text">More Ways to Engage.</span>
+              </h1>
+              <p class="text-base sm:text-lg text-gray-300 max-w-2xl mb-8 mx-auto lg:mx-0 leading-relaxed">
+                Create your account, discover the available games, connect with the community, and manage your activities in one place.
+              </p>
+              <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <button onclick="openAuthModal('signup')" class="w-full sm:w-auto gradient-btn px-8 py-3.5 text-center font-semibold text-white rounded-full shadow-lg">Get Started</button>
+                <a href="#how-it-works" class="w-full sm:w-auto px-8 py-3.5 text-center font-semibold text-white bg-white/10 hover:bg-white/15 rounded-full border border-white/10 transition-all">View How It Works</a>
+              </div>
+            </div>
+            <div class="lg:col-span-5 flex justify-center">
+              <div class="glass-card p-6 rounded-3xl w-full max-w-md border border-white/10 text-center">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-brand-purple to-brand-blue flex items-center justify-center text-3xl text-white shadow-glow-purple">
+                  <i class='bx bx-user-check'></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Ready to Start?</h3>
+                <p class="text-xs text-gray-400 mb-6">Join thousands of users enjoying KUDIX daily.</p>
+                <div class="text-2xl font-extrabold text-brand-green mb-1">₦20,000</div>
+                <div class="text-[11px] text-gray-400">Welcome Gaming Credit Upon Sign-Up</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Slideshow Controls Footer Bar -->
+      <div class="mt-10 flex items-center justify-between pt-6 border-t border-white/10">
+        <!-- Slide Indicators -->
+        <div class="flex items-center gap-2" id="slide-indicators">
+          <button onclick="goToSlide(0)" aria-label="Go to slide 1" class="w-8 h-2 rounded-full bg-brand-purple transition-all indicator-btn"></button>
+          <button onclick="goToSlide(1)" aria-label="Go to slide 2" class="w-2 h-2 rounded-full bg-white/30 hover:bg-white/60 transition-all indicator-btn"></button>
+          <button onclick="goToSlide(2)" aria-label="Go to slide 3" class="w-2 h-2 rounded-full bg-white/30 hover:bg-white/60 transition-all indicator-btn"></button>
+          <button onclick="goToSlide(3)" aria-label="Go to slide 4" class="w-2 h-2 rounded-full bg-white/30 hover:bg-white/60 transition-all indicator-btn"></button>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <div class="flex items-center gap-2">
+          <button id="prev-slide" aria-label="Previous Slide" class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white transition-all">
+            <i class='bx bx-chevron-left text-xl'></i>
+          </button>
+          <button id="next-slide" aria-label="Next Slide" class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white transition-all">
+            <i class='bx bx-chevron-right text-xl'></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 7. TRUST AND PLATFORM HIGHLIGHTS STRIP     -->
+  <!-- ========================================== -->
+  <section class="py-6 bg-brand-cardDark/80 border-y border-white/5">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+        
+        <div class="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.02]">
+          <div class="w-10 h-10 rounded-xl bg-brand-purple/20 text-brand-purple flex items-center justify-center text-xl flex-shrink-0">
+            <i class='bx bx-game'></i>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-white">6 Available Games</div>
+            <div class="text-xs text-gray-400">Multiple prediction modes</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.02]">
+          <div class="w-10 h-10 rounded-xl bg-brand-blue/20 text-brand-blue flex items-center justify-center text-xl flex-shrink-0">
+            <i class='bx bx-group'></i>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-white">Referral Rewards</div>
+            <div class="text-xs text-gray-400">₦1,000 per referral</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.02]">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl flex-shrink-0">
+            <i class='bx bx-task'></i>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-white">Social Tasks</div>
+            <div class="text-xs text-gray-400">Earn extra credits</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.02]">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl flex-shrink-0">
+            <i class='bx bx-history'></i>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-white">Transparent History</div>
+            <div class="text-xs text-gray-400">Complete activity logs</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 8. GAMES SHOWCASE SECTION                 -->
+  <!-- ========================================== -->
+  <section id="games" class="py-20 md:py-28 relative">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-purple/10 border border-brand-purple/30 text-brand-purple text-xs font-semibold uppercase tracking-wider mb-4">
+          Interactive Library
+        </div>
+        <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-white mb-4">
+          Find Your Next Favourite Game
+        </h2>
+        <p class="text-gray-300 text-base md:text-lg">
+          Explore the games available on KUDIX and choose where you want to begin.
+        </p>
+      </div>
+
+      <!-- 6 Game Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Game 1: Colour Prediction -->
+        <div class="glass-card rounded-3xl p-6 border border-white/10 flex flex-col justify-between hover:border-brand-purple/50 transition-all duration-300 group">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center text-2xl text-white shadow-lg group-hover:scale-110 transition-transform">
+                <i class='bx bx-palette'></i>
+              </div>
+              <span class="px-3 py-1 rounded-full text-[11px] font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20">Prediction</span>
+            </div>
+            <h3 class="text-xl font-heading font-bold text-white mb-2">Colour Prediction</h3>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              Predict the next winning colour sequence (Red, Green, or Violet) in fast-paced rounds.
+            </p>
+          </div>
+          <button onclick="handleGameAccess('Colour Prediction')" class="w-full py-3 px-4 rounded-xl bg-white/5 hover:bg-brand-purple hover:text-white text-gray-200 font-semibold text-sm transition-all flex items-center justify-center gap-2 group-hover:bg-brand-purple">
+            <span>Explore Game</span> <i class='bx bx-right-arrow-alt text-lg'></i>
+          </button>
+        </div>
+
+        <!-- Game 2: Number Prediction -->
+        <div class="glass-card rounded-3xl p-6 border border-white/10 flex flex-col justify-between hover:border-brand-blue/50 transition-all duration-300 group">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-2xl text-white shadow-lg group-hover:scale-110 transition-transform">
+                <i class='bx bx-hash'></i>
+              </div>
+              <span class="px-3 py-1 rounded-full text-[11px] font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">Numbers</span>
+            </div>
+            <h3 class="text-xl font-heading font-bold text-white mb-2">Number Prediction</h3>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              Select numbers between 0 and 9 and match the drawn outcome for high-tier multipliers.
+            </p>
+          </div>
+          <button onclick="handleGameAccess('Number Prediction')" class="w-full py-3 px-4 rounded-xl bg-white/5 hover:bg-brand-blue hover:text-white text-gray-200 font-semibold text-sm transition-all flex items-center justify-center gap-2 group-hover:bg-brand-blue">
+            <span>Explore Game</span> <i class='bx bx-right-arrow-alt text-lg'></i>
+          </button>
+        </div>
+
+        <!-- Game 3: Heads or Tails -->
+        <div class="glass-card rounded-3xl p-6 border border-white/10 flex flex-col justify-between hover:border-emerald-500/50 transition-all duration-300 group">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-2xl text-white shadow-lg group-hover:scale-110 transition-transform">
+                <i class='bx bx-coin-stack'></i>
+              </div>
+              <span class="px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Classic</span>
+            </div>
+            <h3 class="text-xl font-heading font-bold text-white mb-2">Heads or Tails</h3>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              A classic 50/50 probability coin toss challenge with instant, animated outcomes.
+            </p>
+          </div>
+          <button onclick="handleGameAccess('Heads or Tails')" class="w-full py-3 px-4 rounded-xl bg-white/5 hover:bg-emerald-600 hover:text-white text-gray-200 font-semibold text-sm transition-all flex items-center justify-center gap-2 group-hover:bg-emerald-600">
+            <span>Explore Game</span> <i class='bx bx-right-arrow-alt text-lg'></i>
+          </button>
+        </div>
+
+        <!-- Game 4: Up or Down -->
+        <div class="glass-card rounded-3xl p-6 border border-white/10 flex flex-col justify-between hover:border-amber-500/50 transition-all duration-300 group">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-600 to-yellow-500 flex items-center justify-center text-2xl text-white shadow-lg group-hover:scale-110 transition-transform">
+                <i class='bx bx-trending-up'></i>
+              </div>
+              <span class="px-3 py-1 rounded-full text-[11px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">Market Simulation</span>
+            </div>
+            <h3 class="text-xl font-heading font-bold text-white mb-2">Up or Down</h3>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              Predict whether the simulated index trend line moves upwards or downwards over a 10-second interval.
+            </p>
+          </div>
+          <button onclick="handleGameAccess('Up or Down')" class="w-full py-3 px-4 rounded-xl bg-white/5 hover:bg-amber-600 hover:text-white text-gray-200 font-semibold text-sm transition-all flex items-center justify-center gap-2 group-hover:bg-amber-600">
+            <span>Explore Game</span> <i class='bx bx-right-arrow-alt text-lg'></i>
+          </button>
+        </div>
+
+        <!-- Game 5: Lucky Number -->
+        <div class="glass-card rounded-3xl p-6 border border-white/10 flex flex-col justify-between hover:border-rose-500/50 transition-all duration-300 group">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-rose-600 to-pink-500 flex items-center justify-center text-2xl text-white shadow-lg group-hover:scale-110 transition-transform">
+                <i class='bx bx-clover'></i>
+              </div>
+              <span class="px-3 py-1 rounded-full text-[11px] font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">Raffle</span>
+            </div>
+            <h3 class="text-xl font-heading font-bold text-white mb-2">Lucky Number</h3>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              Enter your lucky combination in the scheduled draw rounds to hit instant bonus rewards.
+            </p>
+          </div>
+          <button onclick="handleGameAccess('Lucky Number')" class="w-full py-3 px-4 rounded-xl bg-white/5 hover:bg-rose-600 hover:text-white text-gray-200 font-semibold text-sm transition-all flex items-center justify-center gap-2 group-hover:bg-rose-600">
+            <span>Explore Game</span> <i class='bx bx-right-arrow-alt text-lg'></i>
+          </button>
+        </div>
+
+        <!-- Game 6: Higher or Lower -->
+        <div class="glass-card rounded-3xl p-6 border border-white/10 flex flex-col justify-between hover:border-indigo-500/50 transition-all duration-300 group">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-2xl text-white shadow-lg group-hover:scale-110 transition-transform">
+                <i class='bx bx-[up-arrow-circle]'></i>
+              </div>
+              <span class="px-3 py-1 rounded-full text-[11px] font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Card Logic</span>
+            </div>
+            <h3 class="text-xl font-heading font-bold text-white mb-2">Higher or Lower</h3>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              Determine if the next drawn card value will be higher or lower than the currently shown card.
+            </p>
+          </div>
+          <button onclick="handleGameAccess('Higher or Lower')" class="w-full py-3 px-4 rounded-xl bg-white/5 hover:bg-indigo-600 hover:text-white text-gray-200 font-semibold text-sm transition-all flex items-center justify-center gap-2 group-hover:bg-indigo-600">
+            <span>Explore Game</span> <i class='bx bx-right-arrow-alt text-lg'></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 9. HOW KUDIX WORKS SECTION                 -->
+  <!-- ========================================== -->
+  <section id="how-it-works" class="py-20 md:py-28 bg-brand-cardDark/50 border-y border-white/5 relative">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/30 text-brand-blue text-xs font-semibold uppercase tracking-wider mb-4">
+          Step-By-Step
+        </div>
+        <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-white mb-4">
+          Your Journey Starts in Four Simple Steps
+        </h2>
+        <p class="text-gray-300 text-base md:text-lg">
+          Follow our transparent onboarding workflow to unlock full gaming access and track your platform rewards.
+        </p>
+      </div>
+
+      <!-- 4 Steps Process -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+        
+        <!-- Step 1 -->
+        <div class="glass-card p-6 rounded-3xl border border-white/10 relative">
+          <div class="w-12 h-12 rounded-2xl bg-brand-purple/20 text-brand-purple font-heading font-extrabold text-xl flex items-center justify-center mb-6">
+            01
+          </div>
+          <h3 class="text-lg font-heading font-bold text-white mb-2">Create Your Account</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Register for a KUDIX account to immediately receive your ₦20,000 promotional welcome gaming credit.
+          </p>
+          <span class="text-[11px] font-semibold text-brand-purple bg-brand-purple/10 px-2.5 py-1 rounded-md">Account Activation</span>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="glass-card p-6 rounded-3xl border border-white/10 relative">
+          <div class="w-12 h-12 rounded-2xl bg-brand-blue/20 text-brand-blue font-heading font-extrabold text-xl flex items-center justify-center mb-6">
+            02
+          </div>
+          <h3 class="text-lg font-heading font-bold text-white mb-2">Build Referral Network</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Invite friends using your personal unique referral link and track eligible registrations from your dashboard.
+          </p>
+          <span class="text-[11px] font-semibold text-brand-blue bg-brand-blue/10 px-2.5 py-1 rounded-md">Referral Share</span>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="glass-card p-6 rounded-3xl border border-white/10 relative">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 font-heading font-extrabold text-xl flex items-center justify-center mb-6">
+            03
+          </div>
+          <h3 class="text-lg font-heading font-bold text-white mb-2">Unlock Game Access</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Meet the platform's requirement of <strong>3 eligible referrals</strong> to unlock access to restricted gameplay.
+          </p>
+          <span class="text-[11px] font-semibold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md">Access Requirement</span>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="glass-card p-6 rounded-3xl border border-white/10 relative">
+          <div class="w-12 h-12 rounded-2xl bg-brand-green/20 text-brand-green font-heading font-extrabold text-xl flex items-center justify-center mb-6">
+            04
+          </div>
+          <h3 class="text-lg font-heading font-bold text-white mb-2">Explore the Platform</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Discover available games, participate in social tasks, track activities, and manage referral commissions.
+          </p>
+          <span class="text-[11px] font-semibold text-brand-green bg-brand-green/10 px-2.5 py-1 rounded-md">Active Gameplay</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 10. REWARDS AND GAMING CREDIT SECTION      -->
+  <!-- ========================================== -->
+  <section id="rewards" class="py-20 md:py-28 relative">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-green/10 border border-brand-green/30 text-brand-green text-xs font-semibold uppercase tracking-wider mb-4">
+          Transparent Value
+        </div>
+        <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-white mb-4">
+          Start Exploring with KUDIX Rewards
+        </h2>
+        <p class="text-gray-300 text-base md:text-lg">
+          Get familiar with the platform, track your progress, and discover the rewards available through eligible activities.
+        </p>
+      </div>
+
+      <!-- Rewards Breakdown Cards -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <!-- Welcome Gaming Credit Card -->
+        <div class="glass-card rounded-3xl p-8 border border-white/10 relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-brand-purple/20 rounded-full blur-2xl pointer-events-none"></div>
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-purple/20 text-brand-purple text-xs font-bold mb-6">
+              <i class='bx bx-gift'></i> Welcome Bonus
+            </div>
+            <h3 class="text-2xl font-heading font-bold text-white mb-2">₦20,000 Welcome Credit</h3>
+            <p class="text-gray-300 text-sm leading-relaxed mb-6">
+              New registered users receive ₦20,000 in promotional gaming credit upon successful account creation, subject to platform terms.
+            </p>
+            
+            <div class="bg-brand-navy/90 p-4 rounded-2xl border border-white/10 mb-6">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs text-gray-400">Credit Label</span>
+                <span class="text-xs font-bold text-amber-400 uppercase">Important Notice</span>
+              </div>
+              <div class="text-base font-bold text-white">Promotional Gaming Credit — Not Withdrawable Cash</div>
+              <p class="text-xs text-gray-400 mt-2 leading-normal">
+                This credit is designed exclusively for exploring platform features and participating in eligible games. It cannot be directly withdrawn to external bank accounts.
+              </p>
+            </div>
+          </div>
+
+          <button onclick="openAuthModal('signup')" class="w-full gradient-btn py-3.5 rounded-xl text-center font-semibold text-white shadow-lg">
+            Claim Your Welcome Credit
+          </button>
+        </div>
+
+        <!-- Referral Commission Card -->
+        <div class="glass-card rounded-3xl p-8 border border-white/10 relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-brand-green/20 rounded-full blur-2xl pointer-events-none"></div>
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-green/20 text-brand-green text-xs font-bold mb-6">
+              <i class='bx bx-group'></i> Referral Program
+            </div>
+            <h3 class="text-2xl font-heading font-bold text-white mb-2">₦1,000 Per Eligible Referral</h3>
+            <p class="text-gray-300 text-sm leading-relaxed mb-6">
+              Earn commissions by referring friends who register and meet platform eligibility criteria.
+            </p>
+            
+            <div class="space-y-3 mb-6">
+              <div class="flex items-start gap-3 p-3 rounded-xl bg-white/5">
+                <i class='bx bx-check-circle text-brand-green text-xl flex-shrink-0 mt-0.5'></i>
+                <div class="text-xs text-gray-300"><strong>Transparent Tracking:</strong> Real-time referral activity logged directly in your dashboard.</div>
+              </div>
+              <div class="flex items-start gap-3 p-3 rounded-xl bg-white/5">
+                <i class='bx bx-check-circle text-brand-green text-xl flex-shrink-0 mt-0.5'></i>
+                <div class="text-xs text-gray-300"><strong>Game Access Unlock:</strong> Accumulate 3 eligible referrals to unlock restricted game modes.</div>
+              </div>
+            </div>
+          </div>
+
+          <a href="#referrals" class="w-full bg-white/10 hover:bg-white/15 border border-white/10 py-3.5 rounded-xl text-center font-semibold text-white transition-all">
+            Learn About Referrals
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 11. REFERRAL SECTION                       -->
+  <!-- ========================================== -->
+  <section id="referrals" class="py-20 md:py-28 bg-brand-cardDark/50 border-y border-white/5 relative">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-6">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-purple/10 border border-brand-purple/30 text-brand-purple text-xs font-semibold uppercase tracking-wider mb-6">
+            Grow Together
+          </div>
+          <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-white mb-6 leading-tight">
+            Share KUDIX. <br><span class="gradient-text">Track Your Rewards.</span>
+          </h2>
+          <p class="text-gray-300 text-base leading-relaxed mb-6">
+            Invite friends to join KUDIX using your unique personal invite link. Monitor your successful conversions, accumulate referral bonuses, and fulfill platform criteria seamlessly.
+          </p>
+
+          <div class="space-y-4 mb-8">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full bg-brand-purple/20 text-brand-purple flex items-center justify-center font-bold">1</div>
+              <div class="text-sm text-gray-300">Share your unique invite link with friends or social networks.</div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full bg-brand-blue/20 text-brand-blue flex items-center justify-center font-bold">2</div>
+              <div class="text-sm text-gray-300">Friends register and complete their account verification.</div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full bg-brand-green/20 text-brand-green flex items-center justify-center font-bold">3</div>
+              <div class="text-sm text-gray-300">Earn ₦1,000 commission and unlock game access after 3 referrals.</div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-4">
+            <button onclick="openAuthModal('signup')" class="gradient-btn px-6 py-3 rounded-full font-semibold text-white shadow-lg">Create Your Account</button>
+            <a href="#faq" class="px-6 py-3 rounded-full font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all">Referral Rules</a>
+          </div>
+        </div>
+
+        <!-- Referral Link Interactive Mock Preview -->
+        <div class="lg:col-span-6">
+          <div class="glass-card rounded-3xl p-6 md:p-8 border border-white/10 shadow-2xl">
+            <h3 class="text-lg font-heading font-bold text-white mb-4 flex items-center gap-2">
+              <i class='bx bx-link text-brand-purple text-xl'></i> Referral Link Preview
+            </h3>
+            
+            <div class="bg-brand-navy p-3 rounded-2xl border border-white/10 flex items-center justify-between mb-6">
+              <span class="text-xs font-mono text-gray-300 truncate pr-2">https://kudix.app/ref/demo123</span>
+              <button onclick="copyToClipboard('https://kudix.app/ref/demo123')" class="px-3 py-1.5 bg-brand-purple hover:bg-brand-purple/80 text-white rounded-lg text-xs font-semibold flex items-center gap-1 transition-all flex-shrink-0">
+                <i class='bx bx-copy'></i> Copy
+              </button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
+                <div class="text-xs text-gray-400 mb-1">Eligible Referrals</div>
+                <div class="text-2xl font-bold text-white">2 / 3</div>
+                <div class="text-[10px] text-amber-400 mt-1">1 Referral Needed</div>
+              </div>
+              <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
+                <div class="text-xs text-gray-400 mb-1">Total Earned</div>
+                <div class="text-2xl font-bold text-brand-green">₦2,000</div>
+                <div class="text-[10px] text-gray-400 mt-1">Accrued Commissions</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 12. SIGNALS AND COMMUNITY SECTION          -->
+  <!-- ========================================== -->
+  <section id="community" class="py-20 md:py-28 relative">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 text-center">
+      
+      <div class="max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
+          Official Community
+        </div>
+        <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-white mb-4">
+          Stay Connected with the KUDIX Community
+        </h2>
+        <p class="text-gray-300 text-base md:text-lg">
+          Follow official channels for announcements, platform updates, community insights, and published prediction signals where available.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+        <!-- Telegram Button -->
+        <a id="telegram-btn" href="https://t.me/kudix_official" target="_blank" rel="noopener noreferrer" class="glass-card p-6 rounded-3xl border border-white/10 hover:border-blue-400/50 transition-all flex items-center justify-between group">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+              <i class='bx bxl-telegram'></i>
+            </div>
+            <div class="text-left">
+              <div class="text-base font-bold text-white">Telegram Channel</div>
+              <div class="text-xs text-gray-400">Official Announcements</div>
+            </div>
+          </div>
+          <i class='bx bx-right-arrow-alt text-2xl text-gray-400 group-hover:text-blue-400 group-hover:translate-x-1 transition-all'></i>
+        </a>
+
+        <!-- WhatsApp Button -->
+        <a id="whatsapp-btn" href="https://whatsapp.com/channel/kudix_official" target="_blank" rel="noopener noreferrer" class="glass-card p-6 rounded-3xl border border-white/10 hover:border-emerald-400/50 transition-all flex items-center justify-between group">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+              <i class='bx bxl-whatsapp'></i>
+            </div>
+            <div class="text-left">
+              <div class="text-base font-bold text-white">WhatsApp Channel</div>
+              <div class="text-xs text-gray-400">Community & Updates</div>
+            </div>
+          </div>
+          <i class='bx bx-right-arrow-alt text-2xl text-gray-400 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all'></i>
+        </a>
+      </div>
+
+      <p class="text-xs text-gray-400 mt-8 max-w-xl mx-auto">
+        Note: Prediction signals shared in community channels represent informational estimations and do not guarantee specific outcomes.
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 13. SOCIAL TASKS SECTION                   -->
+  <!-- ========================================== -->
+  <section class="py-20 md:py-28 bg-brand-cardDark/50 border-y border-white/5 relative">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-purple/10 border border-brand-purple/30 text-brand-purple text-xs font-semibold uppercase tracking-wider mb-4">
+          Micro-Tasks
+        </div>
+        <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-white mb-4">
+          Discover More Ways to Participate
+        </h2>
+        <p class="text-gray-300 text-base md:text-lg">
+          Complete eligible social media tasks and community activities to earn configured promotional rewards.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        
+        <div class="glass-card p-6 rounded-3xl border border-white/10 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl"><i class='bx bxl-twitter'></i></div>
+              <span class="px-2.5 py-0.5 rounded text-[10px] font-bold bg-brand-green/20 text-brand-green">Active Task</span>
+            </div>
+            <h3 class="text-base font-bold text-white mb-1">Follow Official Twitter/X</h3>
+            <p class="text-xs text-gray-400 mb-4">Follow @KudixOfficial on X and stay updated with live news.</p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-white/5">
+            <span class="text-xs text-brand-purple font-semibold">+ ₦500 Credit</span>
+            <button onclick="handleTaskAction('twitter')" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-semibold transition-all">Claim Task</button>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-3xl border border-white/10 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center text-xl"><i class='bx bxl-telegram'></i></div>
+              <span class="px-2.5 py-0.5 rounded text-[10px] font-bold bg-brand-green/20 text-brand-green">Active Task</span>
+            </div>
+            <h3 class="text-base font-bold text-white mb-1">Join Telegram Group</h3>
+            <p class="text-xs text-gray-400 mb-4">Join our main public Telegram community chat channel.</p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-white/5">
+            <span class="text-xs text-brand-purple font-semibold">+ ₦500 Credit</span>
+            <button onclick="handleTaskAction('telegram')" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-semibold transition-all">Claim Task</button>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-3xl border border-white/10 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-xl"><i class='bx bxl-instagram'></i></div>
+              <span class="px-2.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400">Upcoming</span>
+            </div>
+            <h3 class="text-base font-bold text-white mb-1">Share Campaign Post</h3>
+            <p class="text-xs text-gray-400 mb-4">Repost our promotional banner to your social story or feed.</p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-white/5">
+            <span class="text-xs text-gray-400 font-semibold">+ ₦1,000 Credit</span>
+            <button disabled class="px-3 py-1.5 bg-white/5 text-gray-500 rounded-lg text-xs font-semibold cursor-not-allowed">Coming Soon</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="text-center">
+        <button onclick="openAuthModal('signup')" class="gradient-btn px-8 py-3 rounded-full text-sm font-semibold text-white">Explore All Tasks</button>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 14. PLATFORM PREVIEW SECTION (DASHBOARD)   -->
+  <!-- ========================================== -->
+  <section class="py-20 md:py-28 relative">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/30 text-brand-blue text-xs font-semibold uppercase tracking-wider mb-4">
+          User Dashboard
+        </div>
+        <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-white mb-4">
+          Streamlined Interface Designed for You
+        </h2>
+        <p class="text-gray-300 text-base md:text-lg">
+          Preview the intuitive KUDIX control center where you manage games, rewards, and referrals.
+        </p>
+      </div>
+
+      <!-- High Fidelity Mock Dashboard Component -->
+      <div class="glass-card rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+        
+        <!-- Dashboard Top Header Bar -->
+        <div class="bg-brand-navy/90 p-4 border-b border-white/10 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="flex gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+            </div>
+            <span class="text-xs text-gray-400 font-mono hidden sm:inline">kudix.app/user/dashboard</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-semibold text-brand-purple bg-brand-purple/10 px-3 py-1 rounded-full border border-brand-purple/20">Demo Preview</span>
+          </div>
+        </div>
+
+        <!-- Dashboard Body Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[400px]">
+          
+          <!-- Sidebar -->
+          <div class="lg:col-span-3 bg-brand-navy/40 p-4 border-r border-white/10 hidden lg:flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="p-2.5 rounded-xl bg-brand-purple/20 text-white font-medium text-xs flex items-center gap-3">
+                <i class='bx bx-grid-alt text-brand-purple text-base'></i> Dashboard
+              </div>
+              <div class="p-2.5 rounded-xl text-gray-400 hover:bg-white/5 font-medium text-xs flex items-center gap-3 cursor-pointer">
+                <i class='bx bx-game text-base'></i> Game Hub
+              </div>
+              <div class="p-2.5 rounded-xl text-gray-400 hover:bg-white/5 font-medium text-xs flex items-center gap-3 cursor-pointer">
+                <i class='bx bx-group text-base'></i> Referrals
+              </div>
+              <div class="p-2.5 rounded-xl text-gray-400 hover:bg-white/5 font-medium text-xs flex items-center gap-3 cursor-pointer">
+                <i class='bx bx-task text-base'></i> Tasks
+              </div>
+            </div>
+            <div class="p-3 bg-white/5 rounded-2xl border border-white/5 text-xs">
+              <div class="text-gray-400">Account Status</div>
+              <div class="text-brand-green font-bold flex items-center gap-1 mt-1"><i class='bx bx-check-circle'></i> Verified Member</div>
+            </div>
+          </div>
+
+          <!-- Dashboard Content Panel -->
+          <div class="lg:col-span-9 p-6 bg-brand-cardDark/60">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              <div class="bg-brand-navy p-4 rounded-2xl border border-white/10">
+                <div class="text-xs text-gray-400 mb-1">Gaming Credit Balance</div>
+                <div class="text-2xl font-bold text-white">₦20,000.00</div>
+                <span class="text-[10px] text-brand-purple font-medium">Non-Withdrawable Promotional</span>
+              </div>
+              <div class="bg-brand-navy p-4 rounded-2xl border border-white/10">
+                <div class="text-xs text-gray-400 mb-1">Referral Earnings</div>
+                <div class="text-2xl font-bold text-brand-green">₦2,000.00</div>
+                <span class="text-[10px] text-gray-400 font-medium">Accumulated Commission</span>
+              </div>
+            </div>
+
+            <!-- Recent Activity Simulation Table -->
+            <div class="bg-brand-navy rounded-2xl p-4 border border-white/10">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">Recent Activity Logs</h4>
+              <div class="space-y-2 text-xs">
+                <div class="flex items-center justify-between p-2 rounded-xl bg-white/5">
+                  <span class="text-gray-300">Welcome Gaming Bonus Credited</span>
+                  <span class="font-mono text-brand-green">+₦20,000</span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-xl bg-white/5">
+                  <span class="text-gray-300">Successful Referral Bonus (User #984)</span>
+                  <span class="font-mono text-brand-green">+₦1,000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 15. FAQ ACCORDION SECTION                  -->
+  <!-- ========================================== -->
+  <section id="faq" class="py-20 md:py-28 bg-brand-cardDark/50 border-y border-white/5 relative">
+    <div class="max-w-4xl mx-auto px-4 md:px-8">
+      
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-purple/10 border border-brand-purple/30 text-brand-purple text-xs font-semibold uppercase tracking-wider mb-4">
+          Clear Answers
+        </div>
+        <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-white mb-4">
+          Frequently Asked Questions
+        </h2>
+        <p class="text-gray-300 text-base">
+          Find accurate answers regarding KUDIX rules, gaming credits, and referral terms.
+        </p>
+      </div>
+
+      <!-- FAQ Accordions -->
+      <div class="space-y-4" id="faq-accordion">
+        
+        <!-- Q1 -->
+        <div class="glass-card rounded-2xl border border-white/10 overflow-hidden transition-all">
+          <button onclick="toggleFaq(0)" class="w-full p-5 text-left font-heading font-semibold text-white flex items-center justify-between gap-4 focus:outline-none">
+            <span>What is KUDIX?</span>
+            <i class='bx bx-chevron-down text-xl transition-transform duration-300 faq-icon' id="faq-icon-0"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-sm text-gray-300 leading-relaxed border-t border-white/5 pt-3" id="faq-content-0">
+            KUDIX is a modern online gaming and rewards platform offering interactive prediction challenges, referral commissions, and social task rewards in a sleek, user-friendly digital environment.
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="glass-card rounded-2xl border border-white/10 overflow-hidden transition-all">
+          <button onclick="toggleFaq(1)" class="w-full p-5 text-left font-heading font-semibold text-white flex items-center justify-between gap-4 focus:outline-none">
+            <span>How do I create an account?</span>
+            <i class='bx bx-chevron-down text-xl transition-transform duration-300 faq-icon' id="faq-icon-1"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-sm text-gray-300 leading-relaxed border-t border-white/5 pt-3" id="faq-content-1">
+            Simply click on the "Get Started" or "Sign Up" buttons located across the website, complete the quick registration form with your email and basic details, and access your dashboard instantly.
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="glass-card rounded-2xl border border-white/10 overflow-hidden transition-all">
+          <button onclick="toggleFaq(2)" class="w-full p-5 text-left font-heading font-semibold text-white flex items-center justify-between gap-4 focus:outline-none">
+            <span>What is the ₦20,000 welcome bonus?</span>
+            <i class='bx bx-chevron-down text-xl transition-transform duration-300 faq-icon' id="faq-icon-2"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-sm text-gray-300 leading-relaxed border-t border-white/5 pt-3" id="faq-content-2">
+            Every newly registered KUDIX user receives ₦20,000 in promotional gaming credit credited to their account. This allows you to explore gameplay modes and platform features right away.
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="glass-card rounded-2xl border border-white/10 overflow-hidden transition-all">
+          <button onclick="toggleFaq(3)" class="w-full p-5 text-left font-heading font-semibold text-white flex items-center justify-between gap-4 focus:outline-none">
+            <span>Can I withdraw my welcome gaming credit?</span>
+            <i class='bx bx-chevron-down text-xl transition-transform duration-300 faq-icon' id="faq-icon-3"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-sm text-gray-300 leading-relaxed border-t border-white/5 pt-3" id="faq-content-3">
+            No. The ₦20,000 welcome credit is promotional gaming credit meant exclusively for gameplay experience on the platform and cannot be directly withdrawn as cash.
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="glass-card rounded-2xl border border-white/10 overflow-hidden transition-all">
+          <button onclick="toggleFaq(4)" class="w-full p-5 text-left font-heading font-semibold text-white flex items-center justify-between gap-4 focus:outline-none">
+            <span>How do I unlock access to restricted games?</span>
+            <i class='bx bx-chevron-down text-xl transition-transform duration-300 faq-icon' id="faq-icon-4"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-sm text-gray-300 leading-relaxed border-t border-white/5 pt-3" id="faq-content-4">
+            To unlock restricted games, you must complete the platform requirement of inviting 3 eligible referrals using your unique personal invitation link.
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="glass-card rounded-2xl border border-white/10 overflow-hidden transition-all">
+          <button onclick="toggleFaq(5)" class="w-full p-5 text-left font-heading font-semibold text-white flex items-center justify-between gap-4 focus:outline-none">
+            <span>How does the referral programme work?</span>
+            <i class='bx bx-chevron-down text-xl transition-transform duration-300 faq-icon' id="faq-icon-5"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-sm text-gray-300 leading-relaxed border-t border-white/5 pt-3" id="faq-content-5">
+            You receive a personal invite link in your dashboard. For every friend who signs up through your link and fulfills eligibility criteria, you earn a ₦1,000 referral commission.
+          </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="glass-card rounded-2xl border border-white/10 overflow-hidden transition-all">
+          <button onclick="toggleFaq(6)" class="w-full p-5 text-left font-heading font-semibold text-white flex items-center justify-between gap-4 focus:outline-none">
+            <span>When is a referral considered successful?</span>
+            <i class='bx bx-chevron-down text-xl transition-transform duration-300 faq-icon' id="faq-icon-6"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-sm text-gray-300 leading-relaxed border-t border-white/5 pt-3" id="faq-content-6">
+            A referral is marked as eligible once the invited user successfully registers a verified account and completes basic onboarding activities.
+          </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="glass-card rounded-2xl border border-white/10 overflow-hidden transition-all">
+          <button onclick="toggleFaq(7)" class="w-full p-5 text-left font-heading font-semibold text-white flex items-center justify-between gap-4 focus:outline-none">
+            <span>How do social tasks work?</span>
+            <i class='bx bx-chevron-down text-xl transition-transform duration-300 faq-icon' id="faq-icon-7"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-sm text-gray-300 leading-relaxed border-t border-white/5 pt-3" id="faq-content-7">
+            Users can choose active tasks (such as following social accounts or joining Telegram channels) and submit proof of completion to receive extra gaming credits.
+          </div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="glass-card rounded-2xl border border-white/10 overflow-hidden transition-all">
+          <button onclick="toggleFaq(8)" class="w-full p-5 text-left font-heading font-semibold text-white flex items-center justify-between gap-4 focus:outline-none">
+            <span>Where can I find official KUDIX announcements?</span>
+            <i class='bx bx-chevron-down text-xl transition-transform duration-300 faq-icon' id="faq-icon-8"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-sm text-gray-300 leading-relaxed border-t border-white/5 pt-3" id="faq-content-8">
+            Official announcements are published directly through our verified Telegram and WhatsApp channels linked in the Community section.
+          </div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="glass-card rounded-2xl border border-white/10 overflow-hidden transition-all">
+          <button onclick="toggleFaq(9)" class="w-full p-5 text-left font-heading font-semibold text-white flex items-center justify-between gap-4 focus:outline-none">
+            <span>How can I contact customer support?</span>
+            <i class='bx bx-chevron-down text-xl transition-transform duration-300 faq-icon' id="faq-icon-9"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-sm text-gray-300 leading-relaxed border-t border-white/5 pt-3" id="faq-content-9">
+            You can reach support anytime using the floating support widget at the bottom right corner of the page to browse common topics or submit an inquiry.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 16. FINAL CALL-TO-ACTION SECTION          -->
+  <!-- ========================================== -->
+  <section class="py-20 md:py-28 relative glow-bg">
+    <div class="max-w-5xl mx-auto px-4 md:px-8 text-center">
+      <div class="glass-card rounded-3xl p-8 md:p-14 border border-white/15 shadow-glow-purple relative overflow-hidden">
+        <div class="absolute -top-12 -left-12 w-40 h-40 bg-brand-purple/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-12 -right-12 w-40 h-40 bg-brand-blue/30 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold text-white mb-6 leading-tight">
+          Ready to Explore KUDIX?
+        </h2>
+        <p class="text-gray-300 text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+          Create your account today and discover a modern gaming platform built around games, community, and transparent rewards.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button onclick="openAuthModal('signup')" class="w-full sm:w-auto gradient-btn px-9 py-4 text-center font-semibold text-white rounded-full shadow-lg">Get Started Now</button>
+          <a href="#games" class="w-full sm:w-auto px-9 py-4 text-center font-semibold text-white bg-white/10 hover:bg-white/15 rounded-full border border-white/10 transition-all">Explore Games</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- 17. PREMIUM FOOTER SECTION                 -->
+  <!-- ========================================== -->
+  <footer class="bg-brand-navy border-t border-white/10 pt-16 pb-12 text-gray-400 text-sm">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+        
+        <!-- Brand Info Column -->
+        <div class="lg:col-span-2">
+          <a href="#home" class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-purple to-brand-blue p-2 flex items-center justify-center">
+              <img src="images/kudix-logo.png" alt="KUDIX Logo" class="max-h-full max-w-full object-contain" onerror="this.onerror=null; this.parentNode.innerHTML='<i class=\'bx bx-game text-xl text-white\'></i>';">
+            </div>
+            <span class="font-heading font-extrabold text-xl text-white tracking-tight">KUDIX</span>
+          </a>
+          <p class="text-gray-400 text-xs leading-relaxed max-w-sm mb-6">
+            KUDIX is a premier online gaming and rewards platform offering prediction challenges, referral benefits, and community participation.
+          </p>
+          <div class="flex items-center gap-3">
+            <a href="https://t.me/kudix_official" target="_blank" aria-label="Telegram Channel" class="w-9 h-9 rounded-full bg-white/5 hover:bg-brand-purple flex items-center justify-center text-white transition-all"><i class='bx bxl-telegram text-lg'></i></a>
+            <a href="https://whatsapp.com/channel/kudix_official" target="_blank" aria-label="WhatsApp Channel" class="w-9 h-9 rounded-full bg-white/5 hover:bg-brand-green flex items-center justify-center text-white transition-all"><i class='bx bxl-whatsapp text-lg'></i></a>
+            <a href="https://twitter.com" target="_blank" aria-label="Twitter Page" class="w-9 h-9 rounded-full bg-white/5 hover:bg-brand-blue flex items-center justify-center text-white transition-all"><i class='bx bxl-twitter text-lg'></i></a>
+          </div>
+        </div>
+
+        <!-- Nav Links -->
+        <div>
+          <h4 class="font-heading font-bold text-white text-sm mb-4">Navigation</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li><a href="#home" class="hover:text-white transition-colors">Home</a></li>
+            <li><a href="#games" class="hover:text-white transition-colors">Games Hub</a></li>
+            <li><a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a></li>
+            <li><a href="#rewards" class="hover:text-white transition-colors">Rewards & Bonus</a></li>
+            <li><a href="#referrals" class="hover:text-white transition-colors">Referral Hub</a></li>
+          </ul>
+        </div>
+
+        <!-- Games Links -->
+        <div>
+          <h4 class="font-heading font-bold text-white text-sm mb-4">Games</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li><button onclick="handleGameAccess('Colour Prediction')" class="hover:text-white transition-colors text-left">Colour Prediction</button></li>
+            <li><button onclick="handleGameAccess('Number Prediction')" class="hover:text-white transition-colors text-left">Number Prediction</button></li>
+            <li><button onclick="handleGameAccess('Heads or Tails')" class="hover:text-white transition-colors text-left">Heads or Tails</button></li>
+            <li><button onclick="handleGameAccess('Up or Down')" class="hover:text-white transition-colors text-left">Up or Down</button></li>
+            <li><button onclick="handleGameAccess('Lucky Number')" class="hover:text-white transition-colors text-left">Lucky Number</button></li>
+          </ul>
+        </div>
+
+        <!-- Legal & Help -->
+        <div>
+          <h4 class="font-heading font-bold text-white text-sm mb-4">Support & Legal</h4>
+          <ul class="space-y-2.5 text-xs">
+            <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+            <li><button onclick="openSupportModal()" class="hover:text-white transition-colors text-left">Customer Support</button></li>
+            <li><a href="#terms" onclick="alert('Terms & Conditions placeholder'); return false;" class="hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="#privacy" onclick="alert('Privacy Policy placeholder'); return false;" class="hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="#responsible" onclick="alert('Responsible Gaming guidelines placeholder'); return false;" class="hover:text-white transition-colors">Responsible Gaming</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Divider -->
+      <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500 gap-4">
+        <div>&copy; 2026 KUDIX Platform. All rights reserved. Primary currency: Nigerian Naira (₦).</div>
+        <div class="flex items-center gap-4">
+          <span>Terms & Conditions Apply</span>
+          <span>&bull;</span>
+          <span>18+ Play Responsibly</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ========================================== -->
+  <!-- 18. FLOATING CUSTOMER SUPPORT BUTTON & MODAL-->
+  <!-- ========================================== -->
+  <div class="fixed bottom-6 right-6 z-40">
+    <button onclick="openSupportModal()" aria-label="Open Customer Support Chat" class="gradient-btn w-14 h-14 rounded-full shadow-glow-purple flex items-center justify-center text-white text-2xl hover:scale-110 transition-transform">
+      <i class='bx bx-support'></i>
+    </button>
+  </div>
+
+  <!-- Customer Support Chat Panel Modal -->
+  <div id="support-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="glass-card rounded-3xl w-full max-w-md border border-white/15 overflow-hidden shadow-2xl flex flex-col h-[520px]">
+      
+      <!-- Panel Header -->
+      <div class="bg-brand-navy p-4 border-b border-white/10 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-brand-purple/20 text-brand-purple flex items-center justify-center text-xl font-bold">
+            <i class='bx bx-headphone'></i>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-white">KUDIX Support Assistant</div>
+            <div class="text-[11px] text-brand-green font-medium flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span> Online Help Desk
+            </div>
+          </div>
+        </div>
+        <button onclick="closeSupportModal()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white">
+          <i class='bx bx-x text-xl'></i>
+        </button>
+      </div>
+
+      <!-- Chat Stream Body -->
+      <div class="p-4 flex-1 overflow-y-auto space-y-3 text-xs" id="chat-stream">
+        <div class="bg-white/5 p-3.5 rounded-2xl border border-white/5 text-gray-200">
+          Hi! Welcome to KUDIX Support. How can we help you today? Please choose a topic below:
+        </div>
+      </div>
+
+      <!-- Support Topic Quick Options -->
+      <div class="p-4 bg-brand-navy/90 border-t border-white/10 space-y-2">
+        <div class="grid grid-cols-2 gap-2 text-[11px]">
+          <button onclick="sendSupportTopic('Game Access')" class="p-2 rounded-xl bg-white/5 hover:bg-brand-purple hover:text-white text-gray-300 text-left transition-all truncate">🎯 Game Access</button>
+          <button onclick="sendSupportTopic('Welcome Bonus')" class="p-2 rounded-xl bg-white/5 hover:bg-brand-purple hover:text-white text-gray-300 text-left transition-all truncate">🎁 Welcome Bonus</button>
+          <button onclick="sendSupportTopic('Referral Issues')" class="p-2 rounded-xl bg-white/5 hover:bg-brand-purple hover:text-white text-gray-300 text-left transition-all truncate">👥 Referral Issues</button>
+          <button onclick="sendSupportTopic('Speak to Agent')" class="p-2 rounded-xl bg-white/5 hover:bg-brand-purple hover:text-white text-gray-300 text-left transition-all truncate">💬 Speak to Agent</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- GAME ELIGIBILITY LOCK MODAL                -->
+  <!-- ========================================== -->
+  <div id="game-lock-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="glass-card rounded-3xl p-6 md:p-8 w-full max-w-md border border-white/15 text-center relative shadow-2xl">
+      <button onclick="closeGameLockModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white">
+        <i class='bx bx-x text-xl'></i>
+      </button>
+
+      <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-3xl">
+        <i class='bx bx-lock-alt'></i>
+      </div>
+
+      <h3 class="text-xl font-heading font-bold text-white mb-2" id="modal-game-title">Game Access Locked</h3>
+      <p class="text-sm text-gray-300 mb-6 leading-relaxed">
+        Under KUDIX platform rules, you must complete <strong>3 eligible referrals</strong> before gaining access to restricted games.
+      </p>
+
+      <div class="bg-white/5 p-4 rounded-2xl border border-white/5 mb-6 text-left">
+        <div class="flex items-center justify-between text-xs text-gray-400 mb-2">
+          <span>Your Progress:</span>
+          <span class="text-amber-400 font-bold">2 / 3 Referrals</span>
+        </div>
+        <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+          <div class="bg-amber-400 h-full w-2/3"></div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <button onclick="closeGameLockModal(); openAuthModal('signup');" class="gradient-btn py-3 rounded-xl font-semibold text-white shadow-lg text-sm">
+          Get Your Invite Link
+        </button>
+        <button onclick="closeGameLockModal()" class="py-2.5 text-xs text-gray-400 hover:text-white">
+          Close Window
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- AUTH / REGISTRATION MOCK MODAL             -->
+  <!-- ========================================== -->
+  <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="glass-card rounded-3xl p-6 md:p-8 w-full max-w-md border border-white/15 relative shadow-2xl">
+      <button onclick="closeAuthModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white">
+        <i class='bx bx-x text-xl'></i>
+      </button>
+
+      <h3 class="text-2xl font-heading font-bold text-white mb-2 text-center" id="auth-modal-title">Create Account</h3>
+      <p class="text-xs text-gray-400 mb-6 text-center">Join KUDIX today and claim ₦20,000 welcome credit.</p>
+
+      <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-gray-300 mb-1">Email Address</label>
+          <input type="email" required placeholder="you@example.com" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-brand-purple">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-300 mb-1">Password</label>
+          <input type="password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-brand-purple">
+        </div>
+        <button type="submit" class="w-full gradient-btn py-3.5 rounded-xl text-sm font-semibold text-white shadow-lg mt-2">
+          Continue to KUDIX
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- JAVASCRIPT LOGIC                           -->
+  <!-- ========================================== -->
+  <script>
+    // Global State
+    let currentSlide = 0;
+    const totalSlides = 4;
+    let slideInterval;
+
+    // 1. Loading Screen Simulation & Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      const bar = document.getElementById('loading-bar');
+      const text = document.getElementById('loading-text');
+      const screen = document.getElementById('loading-screen');
+      
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 25) + 10;
+        if (progress > 100) progress = 100;
+        
+        if (bar) bar.style.width = progress + '%';
+        if (text) text.innerText = `Preparing platform assets... ${progress}%`;
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            if (screen) {
+              screen.style.opacity = '0';
+              setTimeout(() => screen.style.display = 'none', 700);
+            }
+          }, 300);
+        }
+      }, 120);
+
+      // Initialize Auto Slideshow
+      startSlideAutoplay();
+    });
+
+    // 2. Navigation Bar Logic
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    const menuIcon = document.getElementById('menu-icon');
+
+    if (mobileBtn && mobileDrawer) {
+      mobileBtn.addEventListener('click', () => {
+        const isOpen = !mobileDrawer.classList.contains('pointer-events-none');
+        if (isOpen) {
+          mobileDrawer.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+          menuIcon.className = 'bx bx-menu';
+        } else {
+          mobileDrawer.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-4');
+          menuIcon.className = 'bx bx-x';
+        }
+      });
+
+      // Close mobile drawer on link selection
+      document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileDrawer.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+          if (menuIcon) menuIcon.className = 'bx bx-menu';
+        });
+      });
+    }
+
+    // Navbar Scrolled Glass Effect
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('main-header');
+      if (window.scrollY > 40) {
+        header.classList.add('py-2');
+      } else {
+        header.classList.remove('py-2');
+      }
+    });
+
+    // 3. Slideshow Functionality
+    function showSlide(index) {
+      const slides = document.querySelectorAll('.slide-item');
+      const indicators = document.querySelectorAll('#slide-indicators button');
+
+      slides.forEach((slide, i) => {
+        if (i === index) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      indicators.forEach((ind, i) => {
+        if (i === index) {
+          ind.className = 'w-8 h-2 rounded-full bg-brand-purple transition-all indicator-btn';
+        } else {
+          ind.className = 'w-2 h-2 rounded-full bg-white/30 hover:bg-white/60 transition-all indicator-btn';
+        }
+      });
+
+      currentSlide = index;
+    }
+
+    function goToSlide(index) {
+      showSlide(index);
+      resetSlideAutoplay();
+    }
+
+    function nextSlide() {
+      const newIndex = (currentSlide + 1) % totalSlides;
+      showSlide(newIndex);
+    }
+
+    function prevSlide() {
+      const newIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+      showSlide(newIndex);
+    }
+
+    function startSlideAutoplay() {
+      slideInterval = setInterval(nextSlide, 5000);
+    }
+
+    function resetSlideAutoplay() {
+      clearInterval(slideInterval);
+      startSlideAutoplay();
+    }
+
+    document.getElementById('next-slide')?.addEventListener('click', () => {
+      nextSlide();
+      resetSlideAutoplay();
+    });
+
+    document.getElementById('prev-slide')?.addEventListener('click', () => {
+      prevSlide();
+      resetSlideAutoplay();
+    });
+
+    // Pause slideshow on hover
+    const slideshowWrapper = document.getElementById('slideshow-wrapper');
+    slideshowWrapper?.addEventListener('mouseenter', () => clearInterval(slideInterval));
+    slideshowWrapper?.addEventListener('mouseleave', () => startSlideAutoplay());
+
+    // 4. FAQ Accordion Handler
+    function toggleFaq(index) {
+      const content = document.getElementById(`faq-content-${index}`);
+      const icon = document.getElementById(`faq-icon-${index}`);
+
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      } else {
+        content.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    // 5. Game Lock Modal Logic
+    function handleGameAccess(gameName) {
+      const modal = document.getElementById('game-lock-modal');
+      const title = document.getElementById('modal-game-title');
+      if (title) title.innerText = `${gameName} Access`;
+      
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    function closeGameLockModal() {
+      const modal = document.getElementById('game-lock-modal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    // 6. Auth Modal Handler
+    function openAuthModal(type) {
+      const modal = document.getElementById('auth-modal');
+      const title = document.getElementById('auth-modal-title');
+      if (title) title.innerText = type === 'login' ? 'Log In to KUDIX' : 'Create Account';
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    function closeAuthModal() {
+      const modal = document.getElementById('auth-modal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      alert('Registration successful! Directing to dashboard preview...');
+      closeAuthModal();
+    }
+
+    // 7. Customer Support Widget Handler
+    function openSupportModal() {
+      const modal = document.getElementById('support-modal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    function closeSupportModal() {
+      const modal = document.getElementById('support-modal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    function sendSupportTopic(topic) {
+      const stream = document.getElementById('chat-stream');
+      
+      // User choice bubble
+      const userBubble = document.createElement('div');
+      userBubble.className = 'bg-brand-purple/20 p-3 rounded-2xl border border-brand-purple/30 text-white text-right ml-8';
+      userBubble.innerText = topic;
+      stream.appendChild(userBubble);
+
+      // Automated Bot Answer
+      setTimeout(() => {
+        const botBubble = document.createElement('div');
+        botBubble.className = 'bg-white/5 p-3.5 rounded-2xl border border-white/5 text-gray-200';
+        
+        if (topic === 'Game Access') {
+          botBubble.innerText = 'To unlock restricted games, you must invite at least 3 eligible referrals using your unique invite link.';
+        } else if (topic === 'Welcome Bonus') {
+          botBubble.innerText = 'The ₦20,000 welcome bonus is promotional gaming credit given upon sign-up and is non-withdrawable cash.';
+        } else if (topic === 'Referral Issues') {
+          botBubble.innerText = 'Referrals are marked as valid once the invited user registers and completes initial profile setup.';
+        } else {
+          botBubble.innerText = 'Thank you for reaching out. A support representative will follow up with your account shortly.';
+        }
+        
+        stream.appendChild(botBubble);
+        stream.scrollTop = stream.scrollHeight;
+      }, 400);
+    }
+
+    // 8. Clipboard Copy Helper
+    function copyToClipboard(text) {
+      const dummy = document.createElement('textarea');
+      document.body.appendChild(dummy);
+      dummy.value = text;
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
+      alert('Referral link copied to clipboard!');
+    }
+
+    // 9. Task Action Handler
+    function handleTaskAction(task) {
+      alert(`Task initiated for ${task.toUpperCase()}. Follow the official instructions to receive credit after verification.`);
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>Manage Streak | KUDIX Admin</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/manage-streak.css">
+    <script src="js/manage-streak.js" defer></script>
+</head>
+
+<body>
+    <div class="admin-layout">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="admin-dashboqrd.html" class="brand">
+                    <img src="../images/kudix-logo.png" alt="KUDIX Logo">
+                </a>
+
+                <button class="icon-button sidebar-close" id="closeSidebar" aria-label="Close navigation">
+                    <i class="bx bx-x"></i>
+                </button>
+            </div>
+
+            <p class="sidebar-label">ADMINISTRATION</p>
+
+            <nav class="sidebar-nav" aria-label="Admin navigation">
+                <a href="/admin/admin-dashboard.html" class="nav-link">
+                    <i class="bx bx-grid-alt"></i><span>Dashboard</span>
+                </a>
+
+                <a href="manage-game.html" class="nav-link">
+                    <i class="bx bx-joystick"></i><span>Manage Games</span>
+                </a>
+
+                <a href="manage-streak.html" class="nav-link active" aria-current="page">
+                    <i class="bx bx-calendar-check"></i><span>Manage Streak</span>
+                </a>
+
+                <a href="boost-earns.html" class="nav-link">
+                    <i class="bx bx-trending-up"></i><span>Boost Earns</span>
+                </a>
+
+                <a href="config-level-up.html" class="nav-link">
+                    <i class="bx bx-layer"></i><span>Configure Level Up</span>
+                </a>
+
+                <a href="config-withdrawal.html" class="nav-link">
+                    <i class="bx bx-wallet"></i><span>Configure Withdrawal</span>
+                </a>
+
+                <a href="manage-support.html" class="nav-link">
+                    <i class="bx bx-support"></i><span>Manage Support</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="admin-avatar">
+                    <i class="bx bx-shield-quarter"></i>
+                </div>
+                <div class="admin-info">
+                    <strong>Administrator</strong>
+                    <span>Admin Panel</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-button mobile-menu" id="openSidebar" aria-label="Open navigation">
+                        <i class="bx bx-menu"></i>
+                    </button>
+
+                    <div>
+                        <p class="eyebrow">KUDIX MANAGEMENT</p>
+                        <h1>Manage Streak</h1>
+                    </div>
+                </div>
+
+                <div class="connection-status" id="connectionStatus">
+                    <span class="status-dot"></span>
+                    <span id="connectionText">Backend not configured</span>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <section class="page-intro">
+                    <div>
+                        <h2>Daily Streak Management</h2>
+                        <p>Manage streak availability, referral requirements, reward limits, and user claims.</p>
+                    </div>
+                </section>
+
+                <div class="notice" id="backendNotice" role="status">
+                    <i class="bx bx-info-circle"></i>
+                    <div>
+                        <strong>Backend connection required</strong>
+                        <p>Connect your backend to load actual statistics, retrieve saved rules, and update the streak
+                            configuration.</p>
+                    </div>
+                </div>
+
+                <!-- Summary cards -->
+                <section class="summary-grid" aria-label="Streak summary">
+                    <article class="summary-card">
+                        <div class="summary-card-top">
+                            <div>
+                                <p class="summary-label">Total Streak Claimed</p>
+                                <h2 id="totalClaims">—</h2>
+                            </div>
+                            <div class="summary-icon blue">
+                                <i class="bx bx-calendar-check"></i>
+                            </div>
+                        </div>
+                        <p class="summary-description">Total recorded streak claims</p>
+                    </article>
+
+                    <article class="summary-card">
+                        <div class="summary-card-top">
+                            <div>
+                                <p class="summary-label">Total Funds</p>
+                                <h2 id="totalFunds">—</h2>
+                            </div>
+                            <div class="summary-icon green">
+                                <i class="bx bx-wallet"></i>
+                            </div>
+                        </div>
+                        <p class="summary-description">Total rewards actually awarded</p>
+                    </article>
+                </section>
+
+                <!-- Streak Rules -->
+                <section class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <span class="section-kicker">CONFIGURATION</span>
+                            <h2>Streak Rules</h2>
+                            <p>Set the eligibility requirements and reward limits for daily streak claims.</p>
+                        </div>
+
+                        <span class="heading-icon">
+                            <i class="bx bx-cog"></i>
+                        </span>
+                    </div>
+
+                    <form id="streakRulesForm" class="rules-form">
+                        <div class="form-grid">
+                            <div class="field">
+                                <label for="systemStatus">System Status</label>
+                                <select id="systemStatus" name="systemStatus" required>
+                                    <option value="enabled">Enable</option>
+                                    <option value="disabled">Disable</option>
+                                </select>
+                                <small>Disabling the system should prevent new claims on the server.</small>
+                            </div>
+
+                            <div class="field">
+                                <label for="referralRequired">Referral Required Per Streak</label>
+                                <input type="number" id="referralRequired" name="referralRequired" min="0" step="1"
+                                    inputmode="numeric" placeholder="e.g. 2" required>
+                                <small>Only verified, qualifying referrals should count.</small>
+                            </div>
+
+                            <div class="field">
+                                <label for="minReward">Minimum Reward (NGN)</label>
+                                <div class="input-prefix">
+                                    <span>₦</span>
+                                    <input type="number" id="minReward" name="minReward" min="0" step="0.01"
+                                        inputmode="decimal" placeholder="0.00" required>
+                                </div>
+                                <small>Lowest permitted reward amount.</small>
+                            </div>
+
+                            <div class="field">
+                                <label for="maxReward">Maximum Reward (NGN)</label>
+                                <div class="input-prefix">
+                                    <span>₦</span>
+                                    <input type="number" id="maxReward" name="maxReward" min="0" step="0.01"
+                                        inputmode="decimal" placeholder="0.00" required>
+                                </div>
+                                <small>Highest permitted reward amount.</small>
+                            </div>
+                        </div>
+
+                        <div class="reward-preview">
+                            <div class="reward-preview-icon">
+                                <i class="bx bx-gift"></i>
+                            </div>
+                            <div>
+                                <strong>Configured reward range</strong>
+                                <p id="rewardRange">Enter a minimum and maximum reward to preview the range.</p>
+                            </div>
+                        </div>
+
+                        <div id="formMessage" class="form-message" role="status" aria-live="polite" hidden></div>
+
+                        <div class="form-footer">
+                            <p><i class="bx bx-shield-quarter"></i> Changes must be validated and saved by the backend.
+                            </p>
+                            <button type="submit" class="btn btn-primary" id="saveConfiguration">
+                                <i class="bx bx-save"></i>
+                                <span>Save Configuration</span>
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Recent streak activity -->
+                <section class="panel activity-panel">
+                    <div class="panel-heading activity-heading">
+                        <div>
+                            <span class="section-kicker">USER ACTIVITY</span>
+                            <h2>Recent Streak Activity</h2>
+                            <p>Review recorded claims and their reward and referral statuses.</p>
+                        </div>
+
+                        <button type="button" class="btn btn-secondary" id="refreshActivity">
+                            <i class="bx bx-refresh"></i>
+                            Refresh
+                        </button>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Date Claimed</th>
+                                    <th>Reward (NGN)</th>
+                                    <th>Referral Status</th>
+                                    <th>Claim Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="activityTableBody">
+                                <tr>
+                                    <td colspan="5" class="table-state">
+                                        <i class="bx bx-folder-open"></i>
+                                        <strong>No activity loaded</strong>
+                                        <span>Connect the backend to view actual streak claims.</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-footer">
+                        <span id="activityCount">No records loaded</span>
+                    </div>
+                </section>
+
+                <footer class="page-footer">
+                    <span>KUDIX Admin Panel</span>
+                    <span>Manage Streak</span>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+        <i class="bx bx-info-circle"></i>
+        <span id="toastText"></span>
+    </div>
+</body>
+
+</html>

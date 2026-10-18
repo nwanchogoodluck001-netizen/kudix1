@@ -1,0 +1,2397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B1228">
+    <title>User Management | KUDIX Admin</title>
+    <meta name="description" content="Manage KUDIX user accounts, account status, and user records.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kudix: {
+                            bg: "#0B1228",
+                            panel: "#111A35",
+                            panel2: "#171F40",
+                            violet: "#8B5CF6",
+                            purple: "#A477FF",
+                            blue: "#38BDF8",
+                            green: "#4ADE80",
+                            coral: "#FB7185",
+                            gold: "#FBBF24"
+                        }
+                    },
+                    fontFamily: {
+                        sans: ["Inter", "sans-serif"],
+                        heading: ["Sora", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0B1228;
+            --panel: #111A35;
+            --panel2: #171F40;
+            --border: rgba(148, 163, 184, .14);
+            --muted: #929DB9;
+            --violet: #8B5CF6;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--bg);
+            color: #F5F7FF;
+            font-family: Inter, sans-serif;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .sidebar {
+            width: 258px;
+            position: fixed;
+            inset: 0 auto 0 0;
+            z-index: 60;
+            display: flex;
+            flex-direction: column;
+            background: #0D152E;
+            border-right: 1px solid var(--border);
+            transition: transform .25s ease;
+        }
+
+        .main-area {
+            margin-left: 258px;
+            min-width: 0;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 76px;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            background: rgba(11, 18, 40, .9);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(18px);
+        }
+
+        .surface {
+            background: linear-gradient(145deg, rgba(23, 31, 64, .96), rgba(17, 26, 53, .98));
+            border: 1px solid var(--border);
+            border-radius: 17px;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .nav-heading {
+            color: #65718F;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .15em;
+            padding: 20px 13px 9px;
+            text-transform: uppercase;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 11px 13px;
+            border-radius: 10px;
+            color: #A6B0CA;
+            font-size: 13px;
+            font-weight: 500;
+            transition: .2s;
+        }
+
+        .nav-link i {
+            font-size: 19px;
+        }
+
+        .nav-link:hover {
+            background: rgba(139, 92, 246, .09);
+            color: white;
+        }
+
+        .nav-link.active {
+            color: #D8C6FF;
+            background: rgba(139, 92, 246, .15);
+            box-shadow: inset 3px 0 #A477FF;
+        }
+
+        .nav-link.active i {
+            color: #B69AFF;
+        }
+
+        .icon-button {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            color: #D5DDF2;
+            background: rgba(255, 255, 255, .025);
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            transition: .2s;
+        }
+
+        .icon-button:hover {
+            background: rgba(139, 92, 246, .13);
+            border-color: rgba(139, 92, 246, .3);
+        }
+
+        .icon-button i {
+            font-size: 20px;
+        }
+
+        .btn-primary,
+        .btn-secondary,
+        .btn-danger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            transition: .2s;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            color: white;
+            background: linear-gradient(110deg, #7951E8, #9568FA);
+            border: 1px solid rgba(196, 181, 253, .15);
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.1);
+        }
+
+        .btn-secondary {
+            color: #DCE3F6;
+            background: rgba(255, 255, 255, .025);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, .06);
+        }
+
+        .btn-danger {
+            color: #FDA4AF;
+            background: rgba(251, 113, 133, .08);
+            border: 1px solid rgba(251, 113, 133, .2);
+        }
+
+        .btn-danger:hover {
+            background: rgba(251, 113, 133, .14);
+        }
+
+        .stat-card {
+            padding: 19px;
+            min-width: 0;
+            transition: border-color .2s, transform .2s;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(139, 92, 246, .3);
+            transform: translateY(-2px);
+        }
+
+        .stat-icon {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .field {
+            width: 100%;
+            min-width: 0;
+            padding: 11px 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: #0D152E;
+            color: #E6EAF7;
+            font-size: 12px;
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        .field::placeholder {
+            color: #65718F;
+        }
+
+        .field:focus {
+            border-color: rgba(139, 92, 246, .65);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, .08);
+        }
+
+        .field:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+        }
+
+        .field-label {
+            display: block;
+            color: #AAB4CC;
+            font-size: 11px;
+            font-weight: 500;
+            margin-bottom: 7px;
+        }
+
+        .section-title {
+            font-family: Sora, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .section-subtitle {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .data-table th {
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, .018);
+            color: #7F8BA8;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .data-table td {
+            padding: 14px 16px;
+            border-top: 1px solid rgba(148, 163, 184, .09);
+            font-size: 11px;
+            vertical-align: middle;
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(255, 255, 255, .018);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 9px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            border: 1px solid transparent;
+        }
+
+        .status-badge::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .status-active {
+            color: #86EFAC;
+            background: rgba(74, 222, 128, .08);
+            border-color: rgba(74, 222, 128, .12);
+        }
+
+        .status-suspended {
+            color: #FDA4AF;
+            background: rgba(251, 113, 133, .08);
+            border-color: rgba(251, 113, 133, .12);
+        }
+
+        .status-pending {
+            color: #FCD34D;
+            background: rgba(251, 191, 36, .08);
+            border-color: rgba(251, 191, 36, .12);
+        }
+
+        .status-unknown {
+            color: #CBD5E1;
+            background: rgba(148, 163, 184, .08);
+            border-color: rgba(148, 163, 184, .12);
+        }
+
+        .avatar {
+            width: 37px;
+            height: 37px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #D8C6FF;
+            background: rgba(139, 92, 246, .13);
+            border: 1px solid rgba(139, 92, 246, .13);
+            font-size: 11px;
+            font-weight: 700;
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 190px;
+            padding: 7px;
+            background: #151E3A;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            box-shadow: 0 20px 55px rgba(0, 0, 0, .35);
+            z-index: 80;
+        }
+
+        .dropdown button,
+        .dropdown a {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 10px;
+            color: #D7DDF0;
+            font-size: 11px;
+            text-align: left;
+            border-radius: 8px;
+        }
+
+        .dropdown button:hover,
+        .dropdown a:hover {
+            background: rgba(255, 255, 255, .05);
+        }
+
+        .empty-state {
+            min-height: 220px;
+            padding: 30px 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            margin-bottom: 13px;
+            color: #B69AFF;
+            background: rgba(139, 92, 246, .1);
+            font-size: 24px;
+        }
+
+        .notice {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            padding: 13px 15px;
+            border-radius: 12px;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .notice.warning {
+            color: #F6D89B;
+            background: rgba(251, 191, 36, .06);
+            border: 1px solid rgba(251, 191, 36, .16);
+        }
+
+        .notice.info {
+            color: #B8DDF8;
+            background: rgba(56, 189, 248, .06);
+            border: 1px solid rgba(56, 189, 248, .15);
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            background: rgba(0, 0, 0, .65);
+            display: none;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            background: rgba(3, 7, 18, .78);
+            backdrop-filter: blur(6px);
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 560px;
+            max-height: calc(100vh - 32px);
+            overflow-y: auto;
+            background: #111A35;
+            border: 1px solid rgba(148, 163, 184, .19);
+            border-radius: 19px;
+            box-shadow: 0 30px 100px rgba(0, 0, 0, .4);
+        }
+
+        .modal-header {
+            padding: 20px 22px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .modal-body {
+            padding: 22px;
+        }
+
+        .detail-row {
+            padding: 13px 0;
+            border-bottom: 1px solid rgba(148, 163, 184, .09);
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            font-size: 11px;
+        }
+
+        .detail-row:last-child {
+            border-bottom: 0;
+        }
+
+        .detail-value {
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .toast {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 150;
+            width: max-content;
+            max-width: calc(100vw - 40px);
+            padding: 13px 16px;
+            color: #E8ECFA;
+            background: #171F40;
+            border: 1px solid rgba(148, 163, 184, .2);
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, .3);
+            font-size: 12px;
+        }
+
+        .check-input {
+            accent-color: #8B5CF6;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+        }
+
+        .pagination-button {
+            min-width: 34px;
+            height: 34px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            color: #B9C3DA;
+            background: rgba(255, 255, 255, .025);
+            font-size: 11px;
+        }
+
+        .pagination-button:disabled {
+            opacity: .35;
+            cursor: not-allowed;
+        }
+
+        .pagination-button.current {
+            color: white;
+            border-color: rgba(139, 92, 246, .45);
+            background: rgba(139, 92, 246, .2);
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, rgba(148, 163, 184, .04), rgba(148, 163, 184, .11), rgba(148, 163, 184, .04));
+            background-size: 200% 100%;
+            animation: shimmer 1.4s infinite;
+            border-radius: 6px;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .sidebar {
+                width: 235px;
+            }
+
+            .main-area {
+                margin-left: 235px;
+            }
+
+            .topbar {
+                padding: 0 22px;
+            }
+
+            .page-content {
+                padding: 22px !important;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .sidebar {
+                width: 270px;
+                transform: translateX(-100%);
+                box-shadow: 15px 0 45px rgba(0, 0, 0, .25);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-area {
+                margin-left: 0;
+            }
+
+            .topbar {
+                height: 68px;
+                padding: 0 16px;
+            }
+
+            .page-content {
+                padding: 18px 14px !important;
+            }
+
+            .mobile-only {
+                display: inline-flex !important;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .topbar {
+                padding: 0 11px;
+                gap: 8px;
+            }
+
+            .topbar-title {
+                display: none;
+            }
+
+            .page-content {
+                padding: 15px 11px !important;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+
+            .stat-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 19px;
+            }
+
+            .modal-header,
+            .modal-body {
+                padding: 17px;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mobile-hide {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="sidebarOverlay" class="overlay" aria-hidden="true"></div>
+
+    <!-- SIDEBAR: shared KUDIX admin layout -->
+    <aside id="sidebar" class="sidebar" aria-label="Admin navigation">
+        <div class="px-5 py-5 flex items-center gap-3 border-b border-white/5 min-h-[76px]">
+            <a href="dashboard.html" class="flex items-center gap-3 min-w-0" aria-label="KUDIX admin dashboard">
+                <img src="../images/kudix-logo.png" alt="KUDIX Logo" class="w-10 h-10 object-contain shrink-0"
+                    onerror="this.style.display='none';document.getElementById('logoFallback').classList.remove('hidden')">
+                <span id="logoFallback"
+                    class="hidden w-10 h-10 rounded-xl bg-violet-500/15 text-violet-300 items-center justify-center text-xl shrink-0">
+                    <i class="bx bx-game"></i>
+                </span>
+                <span class="min-w-0">
+                    <span class="block font-heading font-bold tracking-[.16em] text-white text-lg">KUDIX</span>
+                    <span class="block text-[9px] text-slate-500 tracking-[.19em] mt-0.5">ADMINISTRATION</span>
+                </span>
+            </a>
+            <button id="closeSidebar" class="icon-button ml-auto mobile-only hidden !w-8 !h-8" aria-label="Close menu">
+                <i class="bx bx-x"></i>
+            </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto px-4 pb-5">
+            <div class="nav-heading">Workspace</div>
+            <nav class="space-y-1">
+                <a href="dashboard.html" class="nav-link"><i class="bx bxs-dashboard"></i><span>Dashboard</span></a>
+                <a href="users.html" class="nav-link active" aria-current="page"><i
+                        class="bx bx-group"></i><span>Users</span></a>
+                <a href="games.html" class="nav-link"><i class="bx bx-joystick"></i><span>Games</span></a>
+                <a href="game-rounds.html" class="nav-link"><i class="bx bx-layer"></i><span>Game Rounds</span></a>
+                <a href="game-results.html" class="nav-link"><i class="bx bx-trophy"></i><span>Game Results</span></a>
+                <a href="signals.html" class="nav-link"><i class="bx bx-pulse"></i><span>Signals</span></a>
+            </nav>
+
+            <div class="nav-heading">Management</div>
+            <nav class="space-y-1">
+                <a href="referrals.html" class="nav-link"><i class="bx bx-git-branch"></i><span>Referrals</span></a>
+                <a href="transactions.html" class="nav-link"><i
+                        class="bx bx-transfer-alt"></i><span>Transactions</span></a>
+                <a href="tasks.html" class="nav-link"><i class="bx bx-task"></i><span>Tasks</span></a>
+                <a href="task-submissions.html" class="nav-link"><i class="bx bx-file"></i><span>Task
+                        Submissions</span></a>
+                <a href="support.html" class="nav-link"><i class="bx bx-message-square-dots"></i><span>Support
+                        Tickets</span></a>
+                <a href="announcements.html" class="nav-link"><i
+                        class="bx bx-megaphone"></i><span>Announcements</span></a>
+            </nav>
+
+            <div class="nav-heading">System</div>
+            <nav class="space-y-1">
+                <a href="settings.html" class="nav-link"><i class="bx bx-cog"></i><span>Settings</span></a>
+                <a href="activity-logs.html" class="nav-link"><i class="bx bx-history"></i><span>Activity
+                        Logs</span></a>
+            </nav>
+        </div>
+
+        <div class="p-4 border-t border-white/5">
+            <div class="flex items-center gap-3 rounded-xl p-3 bg-white/[.025]">
+                <div class="w-9 h-9 rounded-full bg-violet-500/15 flex items-center justify-center text-violet-300">
+                    <i class="bx bx-shield-quarter text-xl"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <p id="sidebarAdminName" class="text-xs font-semibold text-slate-200">Administrator</p>
+                    <p class="text-[10px] muted mt-1">Authenticated profile required</p>
+                </div>
+            </div>
+            <p class="text-[10px] text-slate-600 mt-3 text-center">KUDIX Admin Portal</p>
+        </div>
+    </aside>
+
+    <div class="main-area">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="flex items-center gap-3 min-w-0">
+                <button id="openSidebar" class="icon-button mobile-only hidden" aria-label="Open navigation">
+                    <i class="bx bx-menu"></i>
+                </button>
+                <div class="topbar-title">
+                    <p class="text-[10px] muted mb-1">Workspace / Users</p>
+                    <p class="text-sm font-semibold">User Management</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3">
+                <span id="currentDate" class="hidden md:inline text-[11px] muted"></span>
+
+                <button id="refreshButton" class="icon-button" title="Refresh users" aria-label="Refresh users">
+                    <i id="refreshIcon" class="bx bx-refresh"></i>
+                </button>
+
+                <div class="relative">
+                    <button id="notificationButton" class="icon-button" aria-label="Notifications"
+                        aria-expanded="false">
+                        <i class="bx bx-bell"></i>
+                    </button>
+                    <div id="notificationMenu" class="dropdown hidden">
+                        <p class="text-xs font-semibold px-3 py-2">Notifications</p>
+                        <div class="border-t border-white/5 px-3 py-4 text-[11px] muted leading-5">
+                            Notifications will appear here when the notification service is connected.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <button id="profileButton"
+                        class="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[.025] px-2.5 py-2 hover:bg-white/[.05]"
+                        aria-expanded="false">
+                        <span
+                            class="w-7 h-7 rounded-lg bg-violet-500/15 flex items-center justify-center text-violet-300">
+                            <i class="bx bx-user text-lg"></i>
+                        </span>
+                        <span class="hidden sm:block text-left">
+                            <span id="adminDisplayName" class="block text-[11px] font-semibold">Administrator</span>
+                            <span class="block text-[9px] muted mt-0.5">Account status unavailable</span>
+                        </span>
+                        <i class="bx bx-chevron-down muted"></i>
+                    </button>
+                    <div id="profileMenu" class="dropdown hidden">
+                        <p class="text-[10px] muted px-3 py-2">Account</p>
+                        <a href="settings.html"><i class="bx bx-cog text-base"></i> Account settings</a>
+                        <button id="signOutButton"><i class="bx bx-log-out text-base"></i> Sign out</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="page-content p-7 max-w-[1700px] mx-auto">
+            <!-- PAGE HEADING -->
+            <section class="flex flex-col xl:flex-row xl:items-end justify-between gap-5 mb-6">
+                <div>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="w-2 h-2 rounded-full bg-violet-400"></span>
+                        <span class="text-[10px] font-bold uppercase tracking-[.17em] text-violet-300">Account
+                            administration</span>
+                    </div>
+                    <h1 class="font-heading text-2xl sm:text-3xl font-semibold tracking-tight">User Management</h1>
+                    <p class="muted text-xs sm:text-sm mt-2 max-w-2xl leading-6">
+                        Manage user accounts, review account status, and maintain a clear overview of platform
+                        membership.
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2">
+                    <button id="exportButton" class="btn-secondary">
+                        <i class="bx bx-download text-base"></i> Export CSV
+                    </button>
+                    <button id="bulkActionButton" class="btn-primary" disabled>
+                        <i class="bx bx-check-square text-base"></i>
+                        <span id="bulkActionLabel">Bulk actions (0)</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- CONNECTION NOTICE -->
+            <section id="connectionNotice" class="notice warning mb-6" role="status" aria-live="polite">
+                <i class="bx bx-info-circle text-lg mt-0.5 shrink-0"></i>
+                <div class="flex-1">
+                    <p class="font-semibold mb-1">Live user data is not connected</p>
+                    <p>
+                        Configure your actual backend API and authentication before loading or modifying user accounts.
+                        No fictional user records or statistics are displayed.
+                    </p>
+                </div>
+                <button id="dismissNotice" class="opacity-70 hover:opacity-100" aria-label="Dismiss notice">
+                    <i class="bx bx-x text-xl"></i>
+                </button>
+            </section>
+
+            <!-- STATISTICS -->
+            <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6" aria-label="User statistics">
+                <article class="surface stat-card">
+                    <div class="flex items-center justify-between gap-3 mb-5">
+                        <div class="stat-icon bg-violet-500/10 text-violet-300"><i class="bx bx-group"></i></div>
+                        <span class="text-[10px] muted">All registered accounts</span>
+                    </div>
+                    <p class="text-xs muted">Total Users</p>
+                    <p id="totalUsers" class="font-heading text-2xl font-semibold mt-2">—</p>
+                    <p class="text-[10px] muted mt-2">Awaiting backend data</p>
+                </article>
+
+                <article class="surface stat-card">
+                    <div class="flex items-center justify-between gap-3 mb-5">
+                        <div class="stat-icon bg-emerald-500/10 text-emerald-300"><i class="bx bx-user-check"></i></div>
+                        <span class="text-[10px] muted">Account status</span>
+                    </div>
+                    <p class="text-xs muted">Active Users</p>
+                    <p id="activeUsers" class="font-heading text-2xl font-semibold mt-2">—</p>
+                    <p class="text-[10px] muted mt-2">Awaiting backend data</p>
+                </article>
+
+                <article class="surface stat-card">
+                    <div class="flex items-center justify-between gap-3 mb-5">
+                        <div class="stat-icon bg-rose-500/10 text-rose-300"><i class="bx bx-user-x"></i></div>
+                        <span class="text-[10px] muted">Account status</span>
+                    </div>
+                    <p class="text-xs muted">Suspended Users</p>
+                    <p id="suspendedUsers" class="font-heading text-2xl font-semibold mt-2">—</p>
+                    <p class="text-[10px] muted mt-2">Awaiting backend data</p>
+                </article>
+
+                <article class="surface stat-card">
+                    <div class="flex items-center justify-between gap-3 mb-5">
+                        <div class="stat-icon bg-sky-500/10 text-sky-300"><i class="bx bx-user-plus"></i></div>
+                        <span class="text-[10px] muted">Selected reporting period</span>
+                    </div>
+                    <p class="text-xs muted">New Users</p>
+                    <p id="newUsers" class="font-heading text-2xl font-semibold mt-2">—</p>
+                    <p class="text-[10px] muted mt-2">Awaiting backend data</p>
+                </article>
+            </section>
+
+            <!-- SEARCH AND FILTERS -->
+            <section class="surface p-5 mb-5">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-5">
+                    <div>
+                        <h2 class="section-title">User Directory</h2>
+                        <p class="section-subtitle mt-1.5">Search and filter authorised user records.</p>
+                    </div>
+                    <div class="flex items-center gap-2 text-[10px] muted">
+                        <i class="bx bx-shield-quarter text-base text-violet-300"></i>
+                        <span>Access-controlled user data</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 filters-grid">
+                    <div class="xl:col-span-2">
+                        <label for="searchInput" class="field-label">Search users</label>
+                        <div class="relative">
+                            <i class="bx bx-search absolute left-3 top-1/2 -translate-y-1/2 muted text-lg"></i>
+                            <input id="searchInput" class="field !pl-10" type="search"
+                                placeholder="Search by name, username, email or ID" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="statusFilter" class="field-label">Account status</label>
+                        <select id="statusFilter" class="field">
+                            <option value="all">All statuses</option>
+                            <option value="active">Active</option>
+                            <option value="suspended">Suspended</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="sortFilter" class="field-label">Sort by</label>
+                        <select id="sortFilter" class="field">
+                            <option value="newest">Newest first</option>
+                            <option value="oldest">Oldest first</option>
+                            <option value="name-asc">Name A–Z</option>
+                            <option value="name-desc">Name Z–A</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 mt-3">
+                    <div>
+                        <label for="dateFrom" class="field-label">Registered from</label>
+                        <input id="dateFrom" class="field" type="date">
+                    </div>
+                    <div>
+                        <label for="dateTo" class="field-label">Registered to</label>
+                        <input id="dateTo" class="field" type="date">
+                    </div>
+                    <div class="flex items-end">
+                        <button id="applyFiltersButton" class="btn-primary w-full">
+                            <i class="bx bx-filter-alt text-base"></i> Apply filters
+                        </button>
+                    </div>
+                    <div class="flex items-end">
+                        <button id="clearFiltersButton" class="btn-secondary w-full">
+                            <i class="bx bx-reset text-base"></i> Clear filters
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- USER TABLE -->
+            <section class="surface overflow-hidden">
+                <div class="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="section-title">All Users</h2>
+                        <p class="section-subtitle mt-1.5">
+                            <span id="resultCount">No records loaded</span>
+                        </p>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <label for="pageSize" class="text-[10px] muted whitespace-nowrap">Rows per page</label>
+                        <select id="pageSize" class="field !w-auto !py-2">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="tableLoading" class="hidden px-5 pb-5" aria-live="polite">
+                    <div class="space-y-3">
+                        <div class="skeleton h-10 w-full"></div>
+                        <div class="skeleton h-12 w-full"></div>
+                        <div class="skeleton h-12 w-full"></div>
+                        <div class="skeleton h-12 w-full"></div>
+                    </div>
+                </div>
+
+                <div id="tableContainer" class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input id="selectAllCheckbox" class="check-input" type="checkbox"
+                                        aria-label="Select all visible users">
+                                </th>
+                                <th>User</th>
+                                <th>User ID</th>
+                                <th>Email</th>
+                                <th>Registered</th>
+                                <th>Status</th>
+                                <th>Last Active</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <tr>
+                                <td colspan="8">
+                                    <div class="empty-state">
+                                        <div class="empty-icon"><i class="bx bx-group"></i></div>
+                                        <p class="text-xs text-slate-200 font-semibold">User records unavailable</p>
+                                        <p class="text-[11px] muted mt-2 max-w-sm leading-5">
+                                            Configure the user API and authentication to load real accounts. No
+                                            placeholder users have been added.
+                                        </p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div
+                    class="p-4 sm:px-5 border-t border-white/[.06] flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <p id="paginationSummary" class="text-[10px] muted">No records to display</p>
+                    <div class="flex items-center gap-2">
+                        <button id="previousPage" class="pagination-button" disabled aria-label="Previous page">
+                            <i class="bx bx-chevron-left text-lg"></i>
+                        </button>
+                        <div id="pageNumbers" class="flex items-center gap-1"></div>
+                        <button id="nextPage" class="pagination-button" disabled aria-label="Next page">
+                            <i class="bx bx-chevron-right text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PRIVACY NOTICE -->
+            <section class="notice info mt-5">
+                <i class="bx bx-shield-quarter text-lg shrink-0"></i>
+                <div>
+                    <p class="font-semibold mb-1">User privacy and account security</p>
+                    <p>
+                        Account details and administrative changes must be protected by server-side authentication
+                        and permissions. Passwords, secret tokens, and unnecessary sensitive information must never
+                        appear in this directory.
+                    </p>
+                </div>
+            </section>
+
+            <footer class="flex flex-col sm:flex-row justify-between gap-2 py-6 mt-6 border-t border-white/[.06]">
+                <p class="text-[10px] muted">KUDIX Administration Portal</p>
+                <p class="text-[10px] text-slate-600">User records are subject to backend access permissions.</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- USER DETAILS MODAL -->
+    <div id="detailsModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="detailsTitle">
+        <div class="modal">
+            <div class="modal-header">
+                <div>
+                    <h2 id="detailsTitle" class="font-heading text-base font-semibold">User Details</h2>
+                    <p class="section-subtitle mt-1">Information returned by the user service.</p>
+                </div>
+                <button class="icon-button" data-close-modal="detailsModal" aria-label="Close user details">
+                    <i class="bx bx-x"></i>
+                </button>
+            </div>
+            <div id="detailsContent" class="modal-body"></div>
+            <div class="p-5 border-t border-white/[.06] flex justify-end gap-2">
+                <button class="btn-secondary" data-close-modal="detailsModal">Close</button>
+                <button id="editFromDetailsButton" class="btn-primary">
+                    <i class="bx bx-edit"></i> Edit User
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT USER MODAL -->
+    <div id="editModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+        <div class="modal">
+            <div class="modal-header">
+                <div>
+                    <h2 id="editTitle" class="font-heading text-base font-semibold">Edit User</h2>
+                    <p class="section-subtitle mt-1">Edit only fields authorised by your backend.</p>
+                </div>
+                <button class="icon-button" data-close-modal="editModal" aria-label="Close edit form">
+                    <i class="bx bx-x"></i>
+                </button>
+            </div>
+
+            <form id="editUserForm" class="modal-body space-y-4">
+                <input type="hidden" id="editUserId">
+
+                <div>
+                    <label for="editFullName" class="field-label">Full name</label>
+                    <input id="editFullName" name="fullName" class="field" maxlength="120" autocomplete="name" required>
+                </div>
+
+                <div>
+                    <label for="editUsername" class="field-label">Username</label>
+                    <input id="editUsername" name="username" class="field" maxlength="60" autocomplete="username"
+                        required>
+                </div>
+
+                <div>
+                    <label for="editEmail" class="field-label">Email address</label>
+                    <input id="editEmail" name="email" class="field" type="email" maxlength="254" autocomplete="email"
+                        required>
+                </div>
+
+                <p class="text-[10px] muted leading-5">
+                    These fields are not saved until the actual backend update endpoint is configured and confirms
+                    success.
+                </p>
+
+                <div class="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-3 border-t border-white/[.06]">
+                    <button type="button" class="btn-secondary" data-close-modal="editModal">Cancel</button>
+                    <button id="saveUserButton" type="submit" class="btn-primary">
+                        <i class="bx bx-save"></i> Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- CONFIRM ACCOUNT STATUS CHANGE -->
+    <div id="confirmModal" class="modal-overlay" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle">
+        <div class="modal !max-w-[430px]">
+            <div class="modal-body">
+                <div
+                    class="w-12 h-12 rounded-2xl bg-rose-500/10 text-rose-300 flex items-center justify-center text-2xl mb-4">
+                    <i class="bx bx-shield-quarter"></i>
+                </div>
+                <h2 id="confirmTitle" class="font-heading text-lg font-semibold">Confirm account change</h2>
+                <p id="confirmMessage" class="text-xs muted leading-6 mt-3">
+                    Confirm that you want to change this account's status.
+                </p>
+                <p class="text-[10px] text-slate-500 leading-5 mt-3">
+                    This action will only be performed if the backend authorises and confirms the request.
+                </p>
+            </div>
+            <div class="px-5 pb-5 flex flex-col-reverse sm:flex-row justify-end gap-2">
+                <button class="btn-secondary" data-close-modal="confirmModal">Cancel</button>
+                <button id="confirmStatusButton" class="btn-danger">Confirm Change</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BULK ACTION MODAL -->
+    <div id="bulkModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="bulkTitle">
+        <div class="modal !max-w-[430px]">
+            <div class="modal-header">
+                <div>
+                    <h2 id="bulkTitle" class="font-heading text-base font-semibold">Bulk User Actions</h2>
+                    <p class="section-subtitle mt-1">Select an action for the selected records.</p>
+                </div>
+                <button class="icon-button" data-close-modal="bulkModal" aria-label="Close bulk actions">
+                    <i class="bx bx-x"></i>
+                </button>
+            </div>
+            <div class="modal-body space-y-3">
+                <p id="bulkSelectedCount" class="text-xs muted">0 users selected.</p>
+                <button id="bulkExportButton" class="btn-secondary w-full">
+                    <i class="bx bx-download"></i> Export Selected Users
+                </button>
+                <div class="notice warning">
+                    <i class="bx bx-info-circle text-lg shrink-0"></i>
+                    <p>Bulk account-status changes are unavailable until the real backend supports them.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+    <script>
+        /*
+         * KUDIX USER MANAGEMENT
+         *
+         * No sample user records are included.
+         *
+         * Configure the real API base URL, endpoints, authentication, and response
+         * adapters before enabling live data and account modifications.
+         *
+         * This frontend alone does not provide authentication or access control.
+         * Every protected action must be authorised and validated on the server.
+         */
+
+        const KUDIX_CONFIG = {
+            apiBase: "",
+
+            endpoints: {
+                statistics: "",
+                users: "",
+                userDetails: "",
+                updateUser: "",
+                changeUserStatus: "",
+                userActivity: "",
+                exportUsers: "",
+                adminProfile: "",
+                signOut: ""
+            },
+
+            pageSize: 10,
+            requestTimeoutMs: 15000,
+
+            /*
+             * Set this to true only when the corresponding endpoint, payload,
+             * response mapping, and server-side permission checks are implemented.
+             */
+            capabilities: {
+                editUser: false,
+                changeStatus: false,
+                serverExport: false,
+                adminCreatedAccounts: false
+            }
+        };
+
+        const state = {
+            users: [],
+            selectedIds: new Set(),
+            currentPage: 1,
+            pageSize: KUDIX_CONFIG.pageSize,
+            search: "",
+            status: "all",
+            sort: "newest",
+            dateFrom: "",
+            dateTo: "",
+            loading: false,
+            currentUser: null,
+            pendingStatusChange: null,
+            toastTimer: null
+        };
+
+        const $ = id => document.getElementById(id);
+
+        function escapeHTML(value) {
+            return String(value ?? "").replace(/[&<>"']/g, char => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#039;"
+            })[char]);
+        }
+
+        function formatNumber(value) {
+            return typeof value === "number" && Number.isFinite(value)
+                ? new Intl.NumberFormat().format(value)
+                : "—";
+        }
+
+        function formatDate(value) {
+            if (!value) return "—";
+
+            const date = new Date(value);
+            if (Number.isNaN(date.getTime())) return "—";
+
+            return new Intl.DateTimeFormat(undefined, {
+                year: "numeric",
+                month: "short",
+                day: "numeric"
+            }).format(date);
+        }
+
+        function formatDateTime(value) {
+            if (!value) return "—";
+
+            const date = new Date(value);
+            if (Number.isNaN(date.getTime())) return "—";
+
+            return new Intl.DateTimeFormat(undefined, {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            }).format(date);
+        }
+
+        function initials(name) {
+            const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
+            if (!parts.length) return "U";
+            return parts.slice(0, 2).map(part => part[0].toUpperCase()).join("");
+        }
+
+        function normaliseStatus(value) {
+            const status = String(value || "").trim().toLowerCase();
+
+            if (["active", "enabled"].includes(status)) return "active";
+            if (["suspended", "disabled", "blocked"].includes(status)) return "suspended";
+            if (["pending", "pending verification", "unverified"].includes(status)) return "pending";
+
+            return "unknown";
+        }
+
+        function statusLabel(status) {
+            const labels = {
+                active: "Active",
+                suspended: "Suspended",
+                pending: "Pending",
+                unknown: "Unknown"
+            };
+
+            return labels[normaliseStatus(status)];
+        }
+
+        function statusBadge(status) {
+            const normalised = normaliseStatus(status);
+            const classNames = {
+                active: "status-active",
+                suspended: "status-suspended",
+                pending: "status-pending",
+                unknown: "status-unknown"
+            };
+
+            return `<span class="status-badge ${classNames[normalised]}">${escapeHTML(statusLabel(normalised))}</span>`;
+        }
+
+        function toast(message) {
+            const element = $("toast");
+            element.textContent = message;
+            element.classList.remove("hidden");
+
+            clearTimeout(state.toastTimer);
+            state.toastTimer = setTimeout(() => {
+                element.classList.add("hidden");
+            }, 3800);
+        }
+
+        function showNotice(title, message, type = "warning") {
+            const notice = $("connectionNotice");
+
+            notice.className = `notice ${type} mb-6`;
+            notice.innerHTML = `
+        <i class="bx ${type === "info" ? "bx-info-circle" : "bx-error-circle"} text-lg mt-0.5 shrink-0"></i>
+        <div class="flex-1">
+          <p class="font-semibold mb-1">${escapeHTML(title)}</p>
+          <p>${escapeHTML(message)}</p>
+        </div>
+        <button id="dismissNotice" class="opacity-70 hover:opacity-100" aria-label="Dismiss notice">
+          <i class="bx bx-x text-xl"></i>
+        </button>
+      `;
+
+            $("dismissNotice").addEventListener("click", () => notice.classList.add("hidden"));
+        }
+
+        function endpointConfigured(key) {
+            return Boolean(
+                KUDIX_CONFIG.apiBase.trim() &&
+                KUDIX_CONFIG.endpoints[key] &&
+                KUDIX_CONFIG.endpoints[key].trim()
+            );
+        }
+
+        async function apiRequest(key, options = {}) {
+            if (!endpointConfigured(key)) {
+                throw new Error("This backend endpoint has not been configured.");
+            }
+
+            const base = KUDIX_CONFIG.apiBase.replace(/\/+$/, "");
+            const path = KUDIX_CONFIG.endpoints[key].replace(/^\/+/, "");
+            const controller = new AbortController();
+            const timeoutId = setTimeout(
+                () => controller.abort(),
+                KUDIX_CONFIG.requestTimeoutMs
+            );
+
+            try {
+                const response = await fetch(`${base}/${path}`, {
+                    ...options,
+                    signal: controller.signal,
+                    credentials: "same-origin",
+                    headers: {
+                        Accept: "application/json",
+                        ...(options.body ? { "Content-Type": "application/json" } : {}),
+                        ...(options.headers || {})
+                    }
+                });
+
+                if (response.status === 401) {
+                    throw new Error("Your admin session has expired. Please sign in again.");
+                }
+
+                if (response.status === 403) {
+                    throw new Error("You do not have permission to perform this action.");
+                }
+
+                if (!response.ok) {
+                    throw new Error(`The server returned HTTP ${response.status}.`);
+                }
+
+                if (response.status === 204) return null;
+
+                return await response.json();
+            } finally {
+                clearTimeout(timeoutId);
+            }
+        }
+
+        /*
+         * IMPORTANT:
+         * These adapter functions must be implemented using the actual backend
+         * response contract. Do not assume field names or response structures.
+         */
+        function adaptStatistics(/* backendResponse */) {
+            throw new Error("The statistics response adapter has not been implemented.");
+        }
+
+        function adaptUserList(/* backendResponse */) {
+            throw new Error("The user-list response adapter has not been implemented.");
+        }
+
+        function adaptUserDetails(/* backendResponse */) {
+            throw new Error("The user-details response adapter has not been implemented.");
+        }
+
+        function renderStatistics(stats) {
+            $("totalUsers").textContent = formatNumber(stats.totalUsers);
+            $("activeUsers").textContent = formatNumber(stats.activeUsers);
+            $("suspendedUsers").textContent = formatNumber(stats.suspendedUsers);
+            $("newUsers").textContent = formatNumber(stats.newUsers);
+        }
+
+        function setStatisticsUnavailable() {
+            ["totalUsers", "activeUsers", "suspendedUsers", "newUsers"].forEach(id => {
+                $(id).textContent = "—";
+            });
+        }
+
+        function filteredUsers() {
+            const query = state.search.trim().toLowerCase();
+
+            const result = state.users.filter(user => {
+                const userStatus = normaliseStatus(user.status);
+                const registered = user.createdAt ? new Date(user.createdAt) : null;
+
+                const matchesQuery = !query || [
+                    user.id,
+                    user.username,
+                    user.fullName,
+                    user.email
+                ].some(value => String(value ?? "").toLowerCase().includes(query));
+
+                const matchesStatus =
+                    state.status === "all" || userStatus === state.status;
+
+                const matchesFrom = !state.dateFrom || (
+                    registered &&
+                    !Number.isNaN(registered.getTime()) &&
+                    registered >= new Date(`${state.dateFrom}T00:00:00`)
+                );
+
+                const matchesTo = !state.dateTo || (
+                    registered &&
+                    !Number.isNaN(registered.getTime()) &&
+                    registered <= new Date(`${state.dateTo}T23:59:59.999`)
+                );
+
+                return matchesQuery && matchesStatus && matchesFrom && matchesTo;
+            });
+
+            result.sort((a, b) => {
+                const nameA = String(a.fullName || a.username || "").toLowerCase();
+                const nameB = String(b.fullName || b.username || "").toLowerCase();
+
+                if (state.sort === "name-asc") return nameA.localeCompare(nameB);
+                if (state.sort === "name-desc") return nameB.localeCompare(nameA);
+
+                const timeA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+                const timeB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+
+                return state.sort === "oldest" ? timeA - timeB : timeB - timeA;
+            });
+
+            return result;
+        }
+
+        function getVisiblePageUsers() {
+            const filtered = filteredUsers();
+            const totalPages = Math.max(1, Math.ceil(filtered.length / state.pageSize));
+
+            state.currentPage = Math.min(state.currentPage, totalPages);
+
+            const start = (state.currentPage - 1) * state.pageSize;
+            return {
+                filtered,
+                visible: filtered.slice(start, start + state.pageSize),
+                totalPages,
+                start
+            };
+        }
+
+        function renderEmptyState(title, description, icon = "bx-group") {
+            $("usersTableBody").innerHTML = `
+        <tr>
+          <td colspan="8">
+            <div class="empty-state">
+              <div class="empty-icon"><i class="bx ${escapeHTML(icon)}"></i></div>
+              <p class="text-xs text-slate-200 font-semibold">${escapeHTML(title)}</p>
+              <p class="text-[11px] muted mt-2 max-w-sm leading-5">${escapeHTML(description)}</p>
+            </div>
+          </td>
+        </tr>
+      `;
+        }
+
+        function renderActionMenu(user) {
+            const safeId = escapeHTML(user.id);
+
+            return `
+        <div class="relative inline-block">
+          <button
+            class="icon-button !w-8 !h-8"
+            data-action="toggle-row-menu"
+            data-id="${safeId}"
+            aria-label="Actions for user ${safeId}"
+            aria-expanded="false"
+          >
+            <i class="bx bx-dots-horizontal-rounded"></i>
+          </button>
+          <div class="dropdown hidden" data-row-menu="${safeId}">
+            <button data-action="view" data-id="${safeId}">
+              <i class="bx bx-show text-base"></i> View Details
+            </button>
+            <button data-action="edit" data-id="${safeId}">
+              <i class="bx bx-edit text-base"></i> Edit User
+            </button>
+            <button data-action="activity" data-id="${safeId}">
+              <i class="bx bx-history text-base"></i> View Activity
+            </button>
+            <button data-action="status" data-id="${safeId}">
+              <i class="bx bx-shield-quarter text-base"></i>
+              ${normaliseStatus(user.status) === "suspended" ? "Reactivate Account" : "Suspend Account"}
+            </button>
+          </div>
+        </div>
+      `;
+        }
+
+        function renderUserRow(user) {
+            const id = escapeHTML(user.id);
+            const name = escapeHTML(user.fullName || user.username || "Unnamed user");
+            const username = escapeHTML(user.username || "");
+            const email = escapeHTML(user.email || "Not provided");
+            const registered = escapeHTML(formatDate(user.createdAt));
+            const lastActive = escapeHTML(formatDateTime(user.lastActiveAt));
+            const imageUrl = typeof user.avatarUrl === "string" ? user.avatarUrl : "";
+
+            const avatarHTML = imageUrl
+                ? `<span class="avatar"><img src="${escapeHTML(imageUrl)}" alt="" loading="lazy" referrerpolicy="no-referrer"></span>`
+                : `<span class="avatar">${escapeHTML(initials(user.fullName || user.username))}</span>`;
+
+            const selected = state.selectedIds.has(String(user.id));
+
+            return `
+        <tr>
+          <td>
+            <input
+              class="check-input row-checkbox"
+              type="checkbox"
+              data-select-id="${id}"
+              aria-label="Select user ${name}"
+              ${selected ? "checked" : ""}
+            >
+          </td>
+          <td>
+            <div class="flex items-center gap-3 min-w-[190px]">
+              ${avatarHTML}
+              <div class="min-w-0">
+                <p class="text-xs font-semibold text-slate-100 truncate max-w-[180px]">${name}</p>
+                <p class="text-[10px] muted mt-1 truncate max-w-[180px]">${username ? "@" + username : "Username unavailable"}</p>
+              </div>
+            </div>
+          </td>
+          <td><span class="text-slate-300 font-mono text-[10px]">${id}</span></td>
+          <td><span class="text-slate-300">${email}</span></td>
+          <td><span class="text-slate-300">${registered}</span></td>
+          <td>${statusBadge(user.status)}</td>
+          <td><span class="text-slate-400">${lastActive}</span></td>
+          <td>${renderActionMenu(user)}</td>
+        </tr>
+      `;
+        }
+
+        function renderPagination(totalRecords, start) {
+            const totalPages = Math.max(1, Math.ceil(totalRecords / state.pageSize));
+            const displayedStart = totalRecords ? start + 1 : 0;
+            const displayedEnd = Math.min(start + state.pageSize, totalRecords);
+
+            $("paginationSummary").textContent = totalRecords
+                ? `Showing ${displayedStart}–${displayedEnd} of ${totalRecords} loaded records`
+                : "No records to display";
+
+            $("previousPage").disabled = state.currentPage <= 1 || !totalRecords;
+            $("nextPage").disabled = state.currentPage >= totalPages || !totalRecords;
+
+            const numbers = $("pageNumbers");
+            numbers.innerHTML = "";
+
+            if (!totalRecords) return;
+
+            const pages = new Set([
+                1,
+                totalPages,
+                state.currentPage - 1,
+                state.currentPage,
+                state.currentPage + 1
+            ]);
+
+            let last = 0;
+
+            [...pages].filter(n => n >= 1 && n <= totalPages).sort((a, b) => a - b).forEach(page => {
+                if (last && page - last > 1) {
+                    const ellipsis = document.createElement("span");
+                    ellipsis.className = "px-1 text-slate-500 text-xs";
+                    ellipsis.textContent = "…";
+                    numbers.appendChild(ellipsis);
+                }
+
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = `pagination-button ${page === state.currentPage ? "current" : ""}`;
+                button.textContent = String(page);
+                button.setAttribute("aria-label", `Go to page ${page}`);
+
+                if (page === state.currentPage) button.setAttribute("aria-current", "page");
+
+                button.addEventListener("click", () => {
+                    state.currentPage = page;
+                    renderUsers();
+                });
+
+                numbers.appendChild(button);
+                last = page;
+            });
+        }
+
+        function renderUsers() {
+            const { filtered, visible, start } = getVisiblePageUsers();
+
+            $("resultCount").textContent = `${filtered.length} matching record${filtered.length === 1 ? "" : "s"}`;
+
+            if (!filtered.length) {
+                const hasAnyRecords = state.users.length > 0;
+
+                renderEmptyState(
+                    hasAnyRecords ? "No matching users" : "No user records loaded",
+                    hasAnyRecords
+                        ? "Try adjusting your search terms or filters."
+                        : "Connect the real user API to load authorised user records.",
+                    hasAnyRecords ? "bx-search-alt" : "bx-group"
+                );
+            } else {
+                $("usersTableBody").innerHTML = visible.map(renderUserRow).join("");
+            }
+
+            const visibleIds = new Set(visible.map(user => String(user.id)));
+            const selectedVisible = [...state.selectedIds].filter(id => visibleIds.has(id));
+
+            $("selectAllCheckbox").checked =
+                visible.length > 0 && selectedVisible.length === visible.length;
+
+            $("selectAllCheckbox").indeterminate =
+                selectedVisible.length > 0 && selectedVisible.length < visible.length;
+
+            renderPagination(filtered.length, start);
+            updateBulkControls();
+        }
+
+        function updateBulkControls() {
+            const count = state.selectedIds.size;
+
+            $("bulkActionLabel").textContent = `Bulk actions (${count})`;
+            $("bulkActionButton").disabled = count === 0;
+            $("bulkActionButton").classList.toggle("opacity-50", count === 0);
+            $("bulkSelectedCount").textContent = `${count} user${count === 1 ? "" : "s"} selected.`;
+        }
+
+        function getUserById(id) {
+            return state.users.find(user => String(user.id) === String(id)) || null;
+        }
+
+        function openModal(id) {
+            $(id).classList.add("show");
+            document.body.style.overflow = "hidden";
+
+            const focusTarget = $(id).querySelector(
+                "button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled])"
+            );
+
+            if (focusTarget) setTimeout(() => focusTarget.focus(), 40);
+        }
+
+        function closeModal(id) {
+            $(id).classList.remove("show");
+
+            if (!document.querySelector(".modal-overlay.show")) {
+                document.body.style.overflow = "";
+            }
+        }
+
+        function closeAllModals() {
+            document.querySelectorAll(".modal-overlay.show").forEach(modal => {
+                modal.classList.remove("show");
+            });
+
+            document.body.style.overflow = "";
+        }
+
+        function detailRow(label, value) {
+            return `
+        <div class="detail-row">
+          <span class="muted">${escapeHTML(label)}</span>
+          <span class="detail-value text-slate-200">${escapeHTML(value || "Not available")}</span>
+        </div>
+      `;
+        }
+
+        function showUserDetails(user) {
+            state.currentUser = user;
+
+            $("detailsContent").innerHTML = `
+        <div class="flex items-center gap-4 pb-5 border-b border-white/[.06]">
+          <div class="avatar !w-14 !h-14 !rounded-2xl !text-base">${escapeHTML(initials(user.fullName || user.username))}</div>
+          <div class="min-w-0 flex-1">
+            <p class="font-heading text-sm font-semibold break-words">${escapeHTML(user.fullName || user.username || "Unnamed user")}</p>
+            <p class="text-[11px] muted mt-1 break-all">${escapeHTML(user.email || "Email unavailable")}</p>
+            <div class="mt-2">${statusBadge(user.status)}</div>
+          </div>
+        </div>
+        <div class="mt-2">
+          ${detailRow("User ID", user.id)}
+          ${detailRow("Username", user.username)}
+          ${detailRow("Email", user.email)}
+          ${detailRow("Registered", formatDateTime(user.createdAt))}
+          ${detailRow("Last active", formatDateTime(user.lastActiveAt))}
+          ${detailRow("Account status", statusLabel(user.status))}
+        </div>
+      `;
+
+            $("editFromDetailsButton").disabled = !KUDIX_CONFIG.capabilities.editUser;
+            $("editFromDetailsButton").classList.toggle("opacity-50", !KUDIX_CONFIG.capabilities.editUser);
+
+            openModal("detailsModal");
+        }
+
+        function showEditForm(user) {
+            if (!KUDIX_CONFIG.capabilities.editUser || !endpointConfigured("updateUser")) {
+                toast("User editing is unavailable until the real update API is configured.");
+                return;
+            }
+
+            state.currentUser = user;
+
+            $("editUserId").value = String(user.id);
+            $("editFullName").value = user.fullName || "";
+            $("editUsername").value = user.username || "";
+            $("editEmail").value = user.email || "";
+
+            openModal("editModal");
+        }
+
+        function requestStatusChange(user) {
+            if (!KUDIX_CONFIG.capabilities.changeStatus || !endpointConfigured("changeUserStatus")) {
+                toast("Account status changes require a configured, authorised backend endpoint.");
+                return;
+            }
+
+            const currentStatus = normaliseStatus(user.status);
+
+            if (!["active", "suspended"].includes(currentStatus)) {
+                toast("This account status cannot be changed using the current configuration.");
+                return;
+            }
+
+            const nextStatus = currentStatus === "suspended" ? "active" : "suspended";
+
+            state.pendingStatusChange = {
+                id: user.id,
+                currentStatus,
+                nextStatus
+            };
+
+            $("confirmTitle").textContent = nextStatus === "suspended"
+                ? "Suspend this account?"
+                : "Reactivate this account?";
+
+            $("confirmMessage").textContent = nextStatus === "suspended"
+                ? "The account will be suspended only if the server authorises and confirms the request."
+                : "The account will be reactivated only if the server authorises and confirms the request.";
+
+            $("confirmStatusButton").textContent = nextStatus === "suspended"
+                ? "Suspend Account"
+                : "Reactivate Account";
+
+            openModal("confirmModal");
+        }
+
+        async function executeStatusChange() {
+            const pending = state.pendingStatusChange;
+            if (!pending) return;
+
+            const button = $("confirmStatusButton");
+            button.disabled = true;
+            button.textContent = "Processing…";
+
+            try {
+                /*
+                 * Replace the payload and response handling with the actual API
+                 * contract. This request is intentionally not sent until configured.
+                 */
+                await apiRequest("changeUserStatus", {
+                    method: "PATCH",
+                    body: JSON.stringify({
+                        userId: pending.id,
+                        status: pending.nextStatus
+                    })
+                });
+
+                closeModal("confirmModal");
+                state.pendingStatusChange = null;
+                toast("The server accepted the status-change request.");
+                await loadUsers();
+            } catch (error) {
+                toast(error.message || "The status change could not be completed.");
+            } finally {
+                button.disabled = false;
+                button.textContent = pending?.nextStatus === "suspended"
+                    ? "Suspend Account"
+                    : "Reactivate Account";
+            }
+        }
+
+        async function viewUserActivity(user) {
+            if (!endpointConfigured("userActivity")) {
+                toast("User activity is unavailable until the activity API is configured.");
+                return;
+            }
+
+            try {
+                /*
+                 * Adapt the request path and render the returned activity according
+                 * to the actual backend contract. Never invent activity records.
+                 */
+                await apiRequest("userActivity", {
+                    method: "POST",
+                    body: JSON.stringify({ userId: user.id })
+                });
+
+                toast("Activity was retrieved. Configure its response adapter to display the records.");
+            } catch (error) {
+                toast(error.message || "Unable to retrieve user activity.");
+            }
+        }
+
+        async function saveUserChanges(event) {
+            event.preventDefault();
+
+            if (!KUDIX_CONFIG.capabilities.editUser || !endpointConfigured("updateUser")) {
+                toast("User editing is unavailable until the backend is configured.");
+                return;
+            }
+
+            const userId = $("editUserId").value;
+
+            const payload = {
+                fullName: $("editFullName").value.trim(),
+                username: $("editUsername").value.trim(),
+                email: $("editEmail").value.trim()
+            };
+
+            if (!payload.fullName || !payload.username || !payload.email) {
+                toast("Complete all required fields.");
+                return;
+            }
+
+            const button = $("saveUserButton");
+            button.disabled = true;
+            button.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Saving…';
+
+            try {
+                /*
+                 * The payload must be adapted to your real API. Server-side validation
+                 * and permission checks remain mandatory.
+                 */
+                await apiRequest("updateUser", {
+                    method: "PATCH",
+                    body: JSON.stringify({
+                        userId,
+                        ...payload
+                    })
+                });
+
+                closeModal("editModal");
+                toast("The server accepted the update request.");
+                await loadUsers();
+            } catch (error) {
+                toast(error.message || "Unable to update this user.");
+            } finally {
+                button.disabled = false;
+                button.innerHTML = '<i class="bx bx-save"></i> Save Changes';
+            }
+        }
+
+        function csvEscape(value) {
+            const text = String(value ?? "");
+            return `"${text.replace(/"/g, '""')}"`;
+        }
+
+        function exportUsers(users) {
+            if (!users.length) {
+                toast("There are no actual user records available to export.");
+                return;
+            }
+
+            const columns = [
+                ["User ID", user => user.id],
+                ["Full Name", user => user.fullName],
+                ["Username", user => user.username],
+                ["Email", user => user.email],
+                ["Registration Date", user => user.createdAt],
+                ["Status", user => statusLabel(user.status)],
+                ["Last Active", user => user.lastActiveAt]
+            ];
+
+            const rows = [
+                columns.map(([label]) => csvEscape(label)).join(","),
+                ...users.map(user => columns
+                    .map(([, getter]) => csvEscape(getter(user)))
+                    .join(","))
+            ];
+
+            const blob = new Blob(["\uFEFF" + rows.join("\r\n")], {
+                type: "text/csv;charset=utf-8;"
+            });
+
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+
+            link.href = url;
+            link.download = "kudix-users.csv";
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+            toast("CSV export created from the currently loaded user records.");
+        }
+
+        async function exportFromBackend() {
+            if (!KUDIX_CONFIG.capabilities.serverExport || !endpointConfigured("exportUsers")) {
+                exportUsers(filteredUsers());
+                return;
+            }
+
+            try {
+                const result = await apiRequest("exportUsers", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        search: state.search,
+                        status: state.status,
+                        dateFrom: state.dateFrom,
+                        dateTo: state.dateTo
+                    })
+                });
+
+                /*
+                 * Adapt the server export response according to the real contract.
+                 * This page does not assume whether the server returns JSON or a file.
+                 */
+                if (!result) {
+                    toast("The server returned no export data.");
+                    return;
+                }
+
+                toast("Export response received. Configure the response adapter to download it.");
+            } catch (error) {
+                toast(error.message || "The export could not be completed.");
+            }
+        }
+
+        async function loadStatistics() {
+            if (!endpointConfigured("statistics")) {
+                setStatisticsUnavailable();
+                return;
+            }
+
+            try {
+                const response = await apiRequest("statistics");
+                const stats = adaptStatistics(response);
+                renderStatistics(stats);
+            } catch (error) {
+                setStatisticsUnavailable();
+                console.error("User statistics unavailable:", error.message);
+            }
+        }
+
+        async function loadUsers() {
+            if (state.loading) return;
+
+            if (!endpointConfigured("users")) {
+                state.users = [];
+                state.selectedIds.clear();
+                renderUsers();
+
+                showNotice(
+                    "User API not configured",
+                    "Set the real users endpoint, authentication method, and response adapter before loading user records.",
+                    "warning"
+                );
+
+                return;
+            }
+
+            state.loading = true;
+            $("refreshButton").disabled = true;
+            $("refreshIcon").classList.add("animate-spin");
+            $("tableContainer").classList.add("hidden");
+            $("tableLoading").classList.remove("hidden");
+
+            try {
+                /*
+                 * Configure the query parameters and response adapter to match the
+                 * actual backend. This example does not assume a response schema.
+                 */
+                const response = await apiRequest("users");
+                const users = adaptUserList(response);
+
+                if (!Array.isArray(users)) {
+                    throw new Error("The user response adapter must return an array.");
+                }
+
+                state.users = users;
+                state.selectedIds.clear();
+                state.currentPage = 1;
+
+                renderUsers();
+
+                showNotice(
+                    "User records loaded",
+                    "User records were returned by the configured service. Administrative actions remain subject to server permissions.",
+                    "info"
+                );
+            } catch (error) {
+                state.users = [];
+                state.selectedIds.clear();
+                renderUsers();
+
+                showNotice(
+                    "Unable to load user records",
+                    error.message || "The user service could not return records.",
+                    "warning"
+                );
+            } finally {
+                state.loading = false;
+                $("tableLoading").classList.add("hidden");
+                $("tableContainer").classList.remove("hidden");
+                $("refreshButton").disabled = false;
+                $("refreshIcon").classList.remove("animate-spin");
+            }
+        }
+
+        async function refreshPageData() {
+            await Promise.allSettled([
+                loadUsers(),
+                loadStatistics()
+            ]);
+        }
+
+        // Sidebar navigation
+        const sidebar = $("sidebar");
+        const sidebarOverlay = $("sidebarOverlay");
+
+        function openSidebar() {
+            sidebar.classList.add("open");
+            sidebarOverlay.classList.add("show");
+            sidebarOverlay.setAttribute("aria-hidden", "false");
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove("open");
+            sidebarOverlay.classList.remove("show");
+            sidebarOverlay.setAttribute("aria-hidden", "true");
+        }
+
+        $("openSidebar").addEventListener("click", openSidebar);
+        $("closeSidebar").addEventListener("click", closeSidebar);
+        sidebarOverlay.addEventListener("click", closeSidebar);
+
+        document.querySelectorAll("#sidebar .nav-link").forEach(link => {
+            link.addEventListener("click", () => {
+                if (window.innerWidth <= 800) closeSidebar();
+            });
+        });
+
+        // Header dropdowns
+        function toggleDropdown(menuId, buttonId) {
+            const menu = $(menuId);
+            const button = $(buttonId);
+            const shouldOpen = menu.classList.contains("hidden");
+
+            $("notificationMenu").classList.add("hidden");
+            $("profileMenu").classList.add("hidden");
+            $("notificationButton").setAttribute("aria-expanded", "false");
+            $("profileButton").setAttribute("aria-expanded", "false");
+
+            if (shouldOpen) {
+                menu.classList.remove("hidden");
+                button.setAttribute("aria-expanded", "true");
+            }
+        }
+
+        $("notificationButton").addEventListener("click", event => {
+            event.stopPropagation();
+            toggleDropdown("notificationMenu", "notificationButton");
+        });
+
+        $("profileButton").addEventListener("click", event => {
+            event.stopPropagation();
+            toggleDropdown("profileMenu", "profileButton");
+        });
+
+        document.addEventListener("click", event => {
+            if (!event.target.closest("#notificationMenu") &&
+                !event.target.closest("#notificationButton")) {
+                $("notificationMenu").classList.add("hidden");
+                $("notificationButton").setAttribute("aria-expanded", "false");
+            }
+
+            if (!event.target.closest("#profileMenu") &&
+                !event.target.closest("#profileButton")) {
+                $("profileMenu").classList.add("hidden");
+                $("profileButton").setAttribute("aria-expanded", "false");
+            }
+        });
+
+        // Modal controls
+        document.querySelectorAll("[data-close-modal]").forEach(button => {
+            button.addEventListener("click", () => closeModal(button.dataset.closeModal));
+        });
+
+        document.querySelectorAll(".modal-overlay").forEach(modal => {
+            modal.addEventListener("click", event => {
+                if (event.target === modal) closeModal(modal.id);
+            });
+        });
+
+        document.addEventListener("keydown", event => {
+            if (event.key === "Escape") {
+                closeAllModals();
+                closeSidebar();
+            }
+        });
+
+        // Table actions: delegated so rerendering does not remove listeners.
+        $("usersTableBody").addEventListener("click", event => {
+            const button = event.target.closest("[data-action]");
+            if (!button) return;
+
+            const action = button.dataset.action;
+            const id = button.dataset.id;
+            const user = getUserById(id);
+
+            if (!user) {
+                toast("That user record is no longer available.");
+                return;
+            }
+
+            if (action === "toggle-row-menu") {
+                const menu = button.parentElement.querySelector("[data-row-menu]");
+                const isHidden = menu.classList.contains("hidden");
+
+                document.querySelectorAll("[data-row-menu]").forEach(item => {
+                    item.classList.add("hidden");
+                });
+
+                menu.classList.toggle("hidden", !isHidden);
+                button.setAttribute("aria-expanded", String(isHidden));
+                return;
+            }
+
+            document.querySelectorAll("[data-row-menu]").forEach(item => item.classList.add("hidden"));
+
+            if (action === "view") showUserDetails(user);
+            if (action === "edit") showEditForm(user);
+            if (action === "activity") viewUserActivity(user);
+            if (action === "status") requestStatusChange(user);
+        });
+
+        $("usersTableBody").addEventListener("change", event => {
+            const checkbox = event.target.closest("[data-select-id]");
+            if (!checkbox) return;
+
+            const id = checkbox.dataset.selectId;
+
+            if (checkbox.checked) state.selectedIds.add(id);
+            else state.selectedIds.delete(id);
+
+            updateBulkControls();
+            renderUsers();
+        });
+
+        $("selectAllCheckbox").addEventListener("change", event => {
+            const { visible } = getVisiblePageUsers();
+
+            visible.forEach(user => {
+                const id = String(user.id);
+
+                if (event.target.checked) state.selectedIds.add(id);
+                else state.selectedIds.delete(id);
+            });
+
+            renderUsers();
+        });
+
+        $("editFromDetailsButton").addEventListener("click", () => {
+            const user = state.currentUser;
+            if (!user) return;
+
+            closeModal("detailsModal");
+            showEditForm(user);
+        });
+
+        $("editUserForm").addEventListener("submit", saveUserChanges);
+        $("confirmStatusButton").addEventListener("click", executeStatusChange);
+
+        // Search and filters
+        let searchDebounce = null;
+
+        $("searchInput").addEventListener("input", event => {
+            clearTimeout(searchDebounce);
+
+            searchDebounce = setTimeout(() => {
+                state.search = event.target.value;
+                state.currentPage = 1;
+                renderUsers();
+            }, 180);
+        });
+
+        $("statusFilter").addEventListener("change", event => {
+            state.status = event.target.value;
+            state.currentPage = 1;
+            renderUsers();
+        });
+
+        $("sortFilter").addEventListener("change", event => {
+            state.sort = event.target.value;
+            state.currentPage = 1;
+            renderUsers();
+        });
+
+        $("applyFiltersButton").addEventListener("click", () => {
+            const from = $("dateFrom").value;
+            const to = $("dateTo").value;
+
+            if (from && to && from > to) {
+                toast("The start date must be on or before the end date.");
+                return;
+            }
+
+            state.dateFrom = from;
+            state.dateTo = to;
+            state.currentPage = 1;
+            renderUsers();
+        });
+
+        $("clearFiltersButton").addEventListener("click", () => {
+            $("searchInput").value = "";
+            $("statusFilter").value = "all";
+            $("sortFilter").value = "newest";
+            $("dateFrom").value = "";
+            $("dateTo").value = "";
+
+            state.search = "";
+            state.status = "all";
+            state.sort = "newest";
+            state.dateFrom = "";
+            state.dateTo = "";
+            state.currentPage = 1;
+
+            renderUsers();
+        });
+
+        $("pageSize").addEventListener("change", event => {
+            state.pageSize = Number(event.target.value) || 10;
+            state.currentPage = 1;
+            renderUsers();
+        });
+
+        $("previousPage").addEventListener("click", () => {
+            if (state.currentPage > 1) {
+                state.currentPage--;
+                renderUsers();
+            }
+        });
+
+        $("nextPage").addEventListener("click", () => {
+            const totalPages = Math.max(1, Math.ceil(filteredUsers().length / state.pageSize));
+
+            if (state.currentPage < totalPages) {
+                state.currentPage++;
+                renderUsers();
+            }
+        });
+
+        // Export and bulk actions
+        $("exportButton").addEventListener("click", exportFromBackend);
+
+        $("bulkActionButton").addEventListener("click", () => {
+            if (!state.selectedIds.size) return;
+            openModal("bulkModal");
+        });
+
+        $("bulkExportButton").addEventListener("click", () => {
+            const selected = state.users.filter(user => state.selectedIds.has(String(user.id)));
+            exportUsers(selected);
+            closeModal("bulkModal");
+        });
+
+        // Header and date
+        $("refreshButton").addEventListener("click", refreshPageData);
+
+        $("dismissNotice").addEventListener("click", () => {
+            $("connectionNotice").classList.add("hidden");
+        });
+
+        $("signOutButton").addEventListener("click", async () => {
+            if (!endpointConfigured("signOut")) {
+                toast("Connect sign-out to your actual admin authentication provider.");
+                return;
+            }
+
+            try {
+                await apiRequest("signOut", { method: "POST" });
+                window.location.href = "index.html";
+            } catch (error) {
+                toast(error.message || "Sign-out could not be completed.");
+            }
+        });
+
+        $("currentDate").textContent = new Intl.DateTimeFormat(undefined, {
+            weekday: "short",
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+        }).format(new Date());
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 800) closeSidebar();
+        });
+
+        // Initial state: no fabricated users or statistics.
+        renderUsers();
+        setStatisticsUnavailable();
+
+        if (endpointConfigured("users")) {
+            refreshPageData();
+        } else {
+            showNotice(
+                "Live user data is not connected",
+                "Configure KUDIX's actual API endpoints, authentication, and response adapters before loading or modifying user accounts.",
+                "warning"
+            );
+        }
+    </script>
+</body>
+
+</html>

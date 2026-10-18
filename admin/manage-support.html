@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>Manage Support | KUDIX Admin</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="/admin/css/manage-support.css">
+    <script src="/admin/js/manage-support.js" defer></script>
+</head>
+
+<body>
+    <div class="admin-layout">
+
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="adminSidebar">
+            <div class="sidebar-brand">
+                <a href="/admin/admin-dashboard.html" class="logo-link">
+                    <img src="../images/kudix-logo.png" alt="KUDIX Logo" class="brand-logo">
+                </a>
+
+                <button type="button" class="icon-button sidebar-close" id="closeSidebar" aria-label="Close navigation">
+                    <i class="bx bx-x"></i>
+                </button>
+            </div>
+
+            <div class="sidebar-label">ADMINISTRATION</div>
+
+            <nav class="sidebar-nav" aria-label="Admin navigation">
+                <a href="/admin/admin-dashboard.html" class="nav-link">
+                    <i class="bx bx-grid-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="manage-game.html" class="nav-link">
+                    <i class="bx bx-joystick"></i>
+                    <span>Manage Game</span>
+                </a>
+
+                <a href="manage-streak.html" class="nav-link">
+                    <i class="bx bx-calendar-check"></i>
+                    <span>Manage Streak</span>
+                </a>
+
+                <a href="boost-earns.html" class="nav-link">
+                    <i class="bx bx-trending-up"></i>
+                    <span>Boost Earns</span>
+                </a>
+
+                <a href="config-level-up.html" class="nav-link">
+                    <i class="bx bx-layer"></i>
+                    <span>Level Up Configuration</span>
+                </a>
+
+                <a href="config-withdrawal.html" class="nav-link">
+                    <i class="bx bx-wallet"></i>
+                    <span>Withdrawal Configuration</span>
+                </a>
+
+                <a href="manage-support.html" class="nav-link active" aria-current="page">
+                    <i class="bx bx-support"></i>
+                    <span>Manage Support</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="admin-badge">
+                    <div class="admin-avatar">
+                        <i class="bx bx-shield-quarter"></i>
+                    </div>
+                    <div>
+                        <p class="admin-name">Admin Panel</p>
+                        <p class="admin-caption">Management workspace</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main content -->
+        <main class="main-content">
+
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button type="button" class="icon-button menu-toggle" id="openSidebar" aria-label="Open navigation"
+                        aria-expanded="false">
+                        <i class="bx bx-menu"></i>
+                    </button>
+
+                    <div>
+                        <p class="breadcrumb">Administration / Settings</p>
+                        <h1 class="topbar-title">Manage Support</h1>
+                    </div>
+                </div>
+
+                <div class="topbar-status">
+                    <span class="status-dot"></span>
+                    Admin workspace
+                </div>
+            </header>
+
+            <div class="page-content">
+
+                <!-- Heading -->
+                <section class="page-intro">
+                    <div>
+                        <h2>Support Settings</h2>
+                        <p>Manage your platform's support contact links.</p>
+                    </div>
+                </section>
+
+                <!-- Feedback -->
+                <div id="pageMessage" class="page-message" role="status" aria-live="polite" hidden></div>
+
+                <!-- Support form -->
+                <section class="support-card">
+
+                    <div class="card-heading">
+                        <div class="heading-icon">
+                            <i class="bx bx-support"></i>
+                        </div>
+
+                        <div>
+                            <h3>Support Contact Links</h3>
+                            <p>Update the contact channels users can use to reach your support team.</p>
+                        </div>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <form id="supportForm" novalidate>
+
+                        <!-- Telegram -->
+                        <div class="form-group">
+                            <label for="telegram">
+                                <span class="label-icon telegram-icon">
+                                    <i class="bx bxl-telegram"></i>
+                                </span>
+                                Telegram Support
+                            </label>
+
+                            <input type="url" id="telegram" name="telegram" placeholder="https://t.me/your_support"
+                                autocomplete="url" spellcheck="false" maxlength="500" required>
+
+                            <p class="field-help">
+                                Enter the public Telegram support link for your platform.
+                            </p>
+                        </div>
+
+                        <!-- WhatsApp -->
+                        <div class="form-group">
+                            <label for="whatsapp">
+                                <span class="label-icon whatsapp-icon">
+                                    <i class="bx bxl-whatsapp"></i>
+                                </span>
+                                WhatsApp Support
+                            </label>
+
+                            <input type="url" id="whatsapp" name="whatsapp" placeholder="https://wa.me/234XXXXXXXXXX"
+                                autocomplete="url" spellcheck="false" maxlength="500" required>
+
+                            <p class="field-help">
+                                Enter your WhatsApp contact link, including the country code.
+                            </p>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="email">
+                                <span class="label-icon email-icon">
+                                    <i class="bx bx-envelope"></i>
+                                </span>
+                                Email Support
+                            </label>
+
+                            <input type="email" id="email" name="email" placeholder="support@example.com"
+                                autocomplete="email" spellcheck="false" maxlength="254" required>
+
+                            <p class="field-help">
+                                Enter the email address users should contact for assistance.
+                            </p>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="save-button" id="saveButton">
+                                <i class="bx bx-save" id="saveIcon"></i>
+                                <span id="saveButtonText">Save</span>
+                            </button>
+                        </div>
+
+                    </form>
+                </section>
+
+                <footer class="page-footer">
+                    <p>KUDIX Administration <span>&middot;</span> Manage Support</p>
+                </footer>
+
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

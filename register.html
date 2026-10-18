@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Create your KUDIX account to explore gaming experiences, track referrals, and discover eligible rewards."
+    >
+    <meta name="theme-color" content="#0B1020">
+
+    <title>Create Your Account | KUDIX</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Boxicons -->
+    <link
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kudix: {
+                            navy: "#0B1020",
+                            purple: "#6D4AFF",
+                            blue: "#287BFF",
+                            white: "#FFFFFF",
+                            background: "#F5F7FC",
+                            green: "#16A36A"
+                        }
+                    },
+                    fontFamily: {
+                        sora: ["Sora", "sans-serif"],
+                        inter: ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
+
+    <!-- Shared website styles -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Registration page styles -->
+    <link rel="stylesheet" href="css/auth.css">
+
+    <!-- Apply theme before rendering -->
+    <script>
+        document.documentElement.classList.add("js-enabled");
+    </script>
+</head>
+
+<body class="auth-page">
+
+    <!-- =====================================================
+         PREMIUM LOADING SCREEN
+    ====================================================== -->
+    <div
+        class="kudix-loader"
+        id="pageLoader"
+        role="status"
+        aria-live="polite"
+        aria-label="Preparing your KUDIX experience"
+    >
+        <div class="loader-glow loader-glow-one"></div>
+        <div class="loader-glow loader-glow-two"></div>
+
+        <div class="loader-content">
+            <img
+                src="images/kudix-logo.png"
+                alt="KUDIX Logo"
+                class="loader-logo"
+                onerror="this.style.display='none'"
+            >
+
+            <div class="loader-ring" aria-hidden="true"></div>
+
+            <h2>Preparing Your KUDIX Experience</h2>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+         MAIN REGISTRATION PAGE
+    ====================================================== -->
+    <main class="auth-layout">
+
+        <!-- LEFT BRAND PANEL -->
+        <aside class="auth-visual-panel">
+
+            <div class="visual-orb visual-orb-one"></div>
+            <div class="visual-orb visual-orb-two"></div>
+            <div class="visual-grid" aria-hidden="true"></div>
+
+            <div class="visual-panel-inner">
+
+                <!-- Brand -->
+                <a href="index.html" class="auth-brand" aria-label="KUDIX home">
+                    <img
+                        src="images/kudix-logo.png"
+                        alt="KUDIX Logo"
+                        class="auth-brand-logo"
+                        onerror="this.style.display='none'"
+                    >
+                </a>
+
+                <!-- Introduction -->
+                <div class="visual-intro">
+                    <span class="eyebrow-label">
+                        <span class="eyebrow-dot"></span>
+                        YOUR NEXT CHAPTER STARTS HERE
+                    </span>
+
+                    <h1>
+                        Your KUDIX<br>
+                        Journey <span>Starts Here.</span>
+                    </h1>
+
+                    <p>
+                        Create your account to explore prediction games,
+                        track your progress, connect with the community,
+                        and discover eligible rewards.
+                    </p>
+                </div>
+
+                <!-- Platform highlights -->
+                <div class="visual-highlights">
+
+                    <div class="highlight-item">
+                        <div class="highlight-icon">
+                            <i class="bx bx-joystick" aria-hidden="true"></i>
+                        </div>
+
+                        <div>
+                            <h3>Six Game Experiences</h3>
+                            <p>Discover different ways to play.</p>
+                        </div>
+
+                        <i
+                            class="bx bx-check-circle highlight-check"
+                            aria-hidden="true"
+                        ></i>
+                    </div>
+
+                    <div class="highlight-item">
+                        <div class="highlight-icon">
+                            <i class="bx bx-gift" aria-hidden="true"></i>
+                        </div>
+
+                        <div>
+                            <h3>Referral Rewards</h3>
+                            <p>Rewards for eligible referrals.</p>
+                        </div>
+
+                        <i
+                            class="bx bx-check-circle highlight-check"
+                            aria-hidden="true"
+                        ></i>
+                    </div>
+
+                    <div class="highlight-item">
+                        <div class="highlight-icon">
+                            <i class="bx bx-task" aria-hidden="true"></i>
+                        </div>
+
+                        <div>
+                            <h3>Tasks & Progress</h3>
+                            <p>Follow activities and your progress.</p>
+                        </div>
+
+                        <i
+                            class="bx bx-check-circle highlight-check"
+                            aria-hidden="true"
+                        ></i>
+                    </div>
+
+                </div>
+
+
+                <!-- CSS / HTML dashboard preview -->
+                <div class="dashboard-preview" aria-label="Illustrative dashboard preview">
+
+                    <div class="preview-topbar">
+                        <div class="preview-window-dots" aria-hidden="true">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <span class="preview-label">KUDIX OVERVIEW</span>
+
+                        <i class="bx bx-dots-horizontal-rounded" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="preview-body">
+
+                        <div class="preview-greeting">
+                            <div>
+                                <span>YOUR GAMING SPACE</span>
+                                <h3>Everything in one place.</h3>
+                            </div>
+
+                            <div class="preview-avatar">
+                                <i class="bx bx-user" aria-hidden="true"></i>
+                            </div>
+                        </div>
+
+                        <div class="preview-credit-card">
+                            <div class="preview-credit-top">
+                                <span>ILLUSTRATIVE WELCOME CREDIT</span>
+                                <i class="bx bx-wallet-alt" aria-hidden="true"></i>
+                            </div>
+
+                            <div class="preview-credit-amount">₦20,000</div>
+
+                            <div class="preview-credit-bottom">
+                                <span>Promotional gaming credit</span>
+                                <span class="preview-status">
+                                    <span></span> Example
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="preview-stats">
+
+                            <div class="preview-stat">
+                                <div class="preview-stat-icon purple-stat">
+                                    <i class="bx bx-joystick" aria-hidden="true"></i>
+                                </div>
+
+                                <div>
+                                    <span>Game library</span>
+                                    <strong>6 experiences</strong>
+                                </div>
+                            </div>
+
+                            <div class="preview-stat">
+                                <div class="preview-stat-icon blue-stat">
+                                    <i class="bx bx-group" aria-hidden="true"></i>
+                                </div>
+
+                                <div>
+                                    <span>Referral progress</span>
+                                    <strong>Track in dashboard</strong>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <p class="preview-disclaimer">
+                            Illustrative preview. Not an actual account balance.
+                        </p>
+
+                    </div>
+                </div>
+
+
+                <!-- Visual panel footer -->
+                <div class="visual-footer">
+                    <span>
+                        <i class="bx bx-shield-quarter" aria-hidden="true"></i>
+                        Clear rules. Transparent rewards.
+                    </span>
+
+                    <span>Built for your next move.</span>
+                </div>
+
+            </div>
+        </aside>
+
+
+
+        <!-- RIGHT FORM PANEL -->
+        <section class="auth-form-panel">
+
+            <!-- Mobile logo -->
+            <div class="mobile-auth-header">
+                <a href="index.html" aria-label="KUDIX home">
+                    <img
+                        src="images/kudix-logo.png"
+                        alt="KUDIX Logo"
+                        class="mobile-auth-logo"
+                        onerror="this.style.display='none'"
+                    >
+                </a>
+
+                <a href="login.html" class="mobile-login-link">
+                    Log in
+                </a>
+            </div>
+
+
+            <div class="auth-form-container">
+
+                <!-- Form heading -->
+                <div class="form-heading">
+
+                    <div class="form-heading-badge">
+                        <i class="bx bx-user-plus" aria-hidden="true"></i>
+                        CREATE YOUR ACCOUNT
+                    </div>
+
+                    <h2>Create Your Account</h2>
+
+                    <p>
+                        Join KUDIX and get started in a few simple steps.
+                    </p>
+
+                    <div class="existing-account">
+                        Already have an account?
+                        <a href="login.html">Log in</a>
+                    </div>
+
+                </div>
+
+
+                <!-- General message area -->
+                <div
+                    class="form-alert"
+                    id="formAlert"
+                    role="status"
+                    aria-live="polite"
+                    hidden
+                >
+                    <i class="bx bx-info-circle" aria-hidden="true"></i>
+                    <span id="formAlertText"></span>
+                </div>
+
+
+                <!-- Registration form -->
+                <form id="registrationForm" novalidate>
+
+                    <!-- Full Name -->
+                    <div class="form-field">
+                        <label for="fullName">Full Name</label>
+
+                        <div class="input-wrap">
+                            <i class="bx bx-user input-icon" aria-hidden="true"></i>
+
+                            <input
+                                type="text"
+                                id="fullName"
+                                name="fullName"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                                maxlength="100"
+                                required
+                                aria-describedby="fullNameError"
+                            >
+                        </div>
+
+                        <small
+                            class="field-error"
+                            id="fullNameError"
+                        ></small>
+                    </div>
+
+
+                    <!-- Username -->
+                    <div class="form-field">
+                        <label for="username">Username</label>
+
+                        <div class="input-wrap">
+                            <i class="bx bx-user-circle input-icon" aria-hidden="true"></i>
+
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                placeholder="Choose a username"
+                                autocomplete="username"
+                                minlength="3"
+                                maxlength="20"
+                                autocapitalize="none"
+                                spellcheck="false"
+                                required
+                                aria-describedby="usernameHint usernameError"
+                            >
+                        </div>
+
+                        <small class="field-hint" id="usernameHint">
+                            Your unique username will identify you on KUDIX.
+                            Use 3–20 letters, numbers, or underscores.
+                        </small>
+
+                        <small
+                            class="field-error"
+                            id="usernameError"
+                        ></small>
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="form-field">
+                        <label for="email">Email Address</label>
+
+                        <div class="input-wrap">
+                            <i class="bx bx-envelope input-icon" aria-hidden="true"></i>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email address"
+                                autocomplete="email"
+                                autocapitalize="none"
+                                spellcheck="false"
+                                maxlength="254"
+                                required
+                                aria-describedby="emailError"
+                            >
+                        </div>
+
+                        <small
+                            class="field-error"
+                            id="emailError"
+                        ></small>
+                    </div>
+
+
+                    <!-- Phone -->
+                    <div class="form-field">
+                        <label for="phone">Phone Number</label>
+
+                        <div class="phone-input-wrap">
+
+                            <div class="country-code-wrap">
+                                <i class="bx bx-globe" aria-hidden="true"></i>
+
+                                <label class="sr-only" for="countryCode">
+                                    Country calling code
+                                </label>
+
+                                <select
+                                    id="countryCode"
+                                    name="countryCode"
+                                    aria-label="Country calling code"
+                                >
+                                    <option value="+234" selected>+234 (NG)</option>
+                                    <option value="+1">+1 (US/CA)</option>
+                                    <option value="+44">+44 (UK)</option>
+                                    <option value="+233">+233 (GH)</option>
+                                    <option value="+254">+254 (KE)</option>
+                                    <option value="+27">+27 (ZA)</option>
+                                    <option value="+256">+256 (UG)</option>
+                                    <option value="+255">+255 (TZ)</option>
+                                    <option value="+91">+91 (IN)</option>
+                                </select>
+
+                                <i class="bx bx-chevron-down country-chevron" aria-hidden="true"></i>
+                            </div>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="801 234 5678"
+                                autocomplete="tel-national"
+                                inputmode="tel"
+                                maxlength="20"
+                                required
+                                aria-describedby="phoneHint phoneError"
+                            >
+
+                        </div>
+
+                        <small class="field-hint" id="phoneHint">
+                            Enter your number without the country code.
+                            For Nigerian numbers, you can enter the leading zero.
+                        </small>
+
+                        <small
+                            class="field-error"
+                            id="phoneError"
+                        ></small>
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="form-field">
+                        <label for="password">Password</label>
+
+                        <div class="input-wrap password-wrap">
+                            <i class="bx bx-lock-alt input-icon" aria-hidden="true"></i>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Create a strong password"
+                                autocomplete="new-password"
+                                minlength="8"
+                                maxlength="128"
+                                required
+                                aria-describedby="passwordHint passwordStrengthText passwordError"
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-password-target="password"
+                                aria-label="Show password"
+                                aria-pressed="false"
+                            >
+                                <i class="bx bx-show" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                        <small class="field-hint" id="passwordHint">
+                            Use at least 8 characters, including uppercase,
+                            lowercase, a number, and a symbol.
+                        </small>
+
+                        <div
+                            class="password-strength"
+                            id="passwordStrength"
+                            aria-hidden="true"
+                        >
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <small
+                            class="strength-text"
+                            id="passwordStrengthText"
+                        >Password strength will appear here.</small>
+
+                        <small
+                            class="field-error"
+                            id="passwordError"
+                        ></small>
+                    </div>
+
+
+                    <!-- Confirm Password -->
+                    <div class="form-field">
+                        <label for="confirmPassword">Confirm Password</label>
+
+                        <div class="input-wrap password-wrap">
+                            <i class="bx bx-lock input-icon" aria-hidden="true"></i>
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                placeholder="Re-enter your password"
+                                autocomplete="new-password"
+                                maxlength="128"
+                                required
+                                aria-describedby="confirmPasswordError"
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-password-target="confirmPassword"
+                                aria-label="Show confirmation password"
+                                aria-pressed="false"
+                            >
+                                <i class="bx bx-show" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                        <small
+                            class="field-error"
+                            id="confirmPasswordError"
+                        ></small>
+                    </div>
+
+
+            <!-- Optional Referral Code -->
+            <div class="referral-section">
+            
+                <label for="referralCode" class="field-label">
+                    Referral Code <span>(Optional)</span>
+                </label>
+            
+                <div class="input-wrap">
+                    <i class="bx bx-purchase-tag input-icon" aria-hidden="true"></i>
+            
+                    <input type="text" id="referralCode" name="referralCode" class="form-input" placeholder="Enter a referral code"
+                        maxlength="64" autocapitalize="characters" spellcheck="false"
+                        aria-describedby="referralHint referralCodeError">
+                </div>
+            
+                <small class="field-hint" id="referralHint">
+                    Have a referral code? Enter it here. This field is optional.
+                </small>
+            
+                <small class="field-error" id="referralCodeError" aria-live="polite"></small>
+            
+            </div>
+
+
+
+                    <!-- Terms -->
+                 
+
+
+                    <!-- Submit -->
+                    <button
+                        type="submit"
+                        id="registerButton"
+                        class="register-button"
+                    >
+                        <span class="button-label">Create My Account</span>
+
+                        <span class="button-spinner" aria-hidden="true"></span>
+
+                        <i
+                            class="bx bx-right-arrow-alt button-arrow"
+                            aria-hidden="true"
+                        ></i>
+                    </button>
+
+
+                </form>
+
+
+
+
+                <!-- Compact footer -->
+                <footer class="auth-footer">
+
+                    <div class="auth-footer-links">
+                        <a href="terms.html">Terms</a>
+                        <span aria-hidden="true">·</span>
+                        <a href="privacy.html">Privacy</a>
+                        <span aria-hidden="true">·</span>
+                        <a href="responsible-gaming.html">Responsible Gaming</a>
+                    </div>
+
+                    <p>
+                        &copy; <span id="currentYear"></span> KUDIX.
+                        All rights reserved.
+                    </p>
+
+                </footer>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- Application configuration, if your project uses one -->
+    <!-- <script src="config/app-config.js"></script> -->
+
+    <!-- Registration interactions -->
+    <script src="js/auth.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>Manage Games | KUDIX Admin</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/manage-game.css">
+    <script src="js/manage-game.js" defer></script>
+</head>
+
+<body>
+    <div class="admin-layout">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="/admin/admin-dashboard.html" class="brand">
+                    <img src="../images/kudix-logo.png" alt="KUDIX Logo">
+                </a>
+                <button class="icon-button sidebar-close" id="closeSidebar" aria-label="Close navigation">
+                    <i class="bx bx-x"></i>
+                </button>
+            </div>
+
+            <p class="sidebar-label">ADMINISTRATION</p>
+
+            <nav class="sidebar-nav" aria-label="Admin navigation">
+                <a href="/admin/admin-dashboard.html" class="nav-link">
+                    <i class="bx bx-grid-alt"></i><span>Dashboard</span>
+                </a>
+                <a href="manage-game.html" class="nav-link active" aria-current="page">
+                    <i class="bx bx-joystick"></i><span>Manage Games</span>
+                </a>
+                <a href="manage-streak.html" class="nav-link">
+                    <i class="bx bx-calendar-check"></i><span>Manage Streak</span>
+                </a>
+                <a href="boost-earns.html" class="nav-link">
+                    <i class="bx bx-trending-up"></i><span>Boost Earns</span>
+                </a>
+                <a href="config-level-up.html" class="nav-link">
+                    <i class="bx bx-layer"></i><span>Configure Level Up</span>
+                </a>
+                <a href="config-withdrawal.html" class="nav-link">
+                    <i class="bx bx-wallet"></i><span>Configure Withdrawal</span>
+                </a>
+                <a href="manage-support.html" class="nav-link">
+                    <i class="bx bx-support"></i><span>Manage Support</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="admin-avatar"><i class="bx bx-shield-quarter"></i></div>
+                <div class="admin-info">
+                    <strong>Administrator</strong>
+                    <span>Admin Panel</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-button mobile-menu" id="openSidebar" aria-label="Open navigation">
+                        <i class="bx bx-menu"></i>
+                    </button>
+                    <div>
+                        <p class="eyebrow">KUDIX MANAGEMENT</p>
+                        <h1>Manage Games</h1>
+                    </div>
+                </div>
+
+                <span class="connection-status" id="connectionStatus">
+                    <span class="status-dot"></span>
+                    Backend not configured
+                </span>
+            </header>
+
+            <div class="page-content">
+                <section class="page-intro">
+                    <div>
+                        <h2>Game Management</h2>
+                        <p>Configure games, manage daily play settings, and prepare announcements.</p>
+                    </div>
+                </section>
+
+                <div class="notice" id="backendNotice" role="status">
+                    <i class="bx bx-info-circle"></i>
+                    <div>
+                        <strong>Backend connection required</strong>
+                        <p>Game configurations and results cannot be saved until your API is connected.</p>
+                    </div>
+                </div>
+
+                <!-- Daily settings -->
+                <section class="panel daily-settings">
+                    <div class="panel-heading">
+                        <div>
+                            <span class="section-kicker">PLAY RULES</span>
+                            <h2>Daily Play Settings</h2>
+                            <p>Set the daily attempt limit and the server-controlled reset schedule.</p>
+                        </div>
+                        <span class="heading-icon"><i class="bx bx-calendar-check"></i></span>
+                    </div>
+
+                    <form id="dailySettingsForm" class="settings-grid">
+                        <div class="field">
+                            <label for="dailyLimit">Attempts per user, per game</label>
+                            <input id="dailyLimit" name="dailyLimit" type="number" min="1" max="1" value="1" readonly>
+                            <small>This interface is configured for one attempt per day.</small>
+                        </div>
+
+                        <div class="field">
+                            <label for="resetTime">Daily reset time</label>
+                            <input id="resetTime" name="resetTime" type="time" value="00:00" required>
+                            <small>Final reset timing must be enforced by your server.</small>
+                        </div>
+
+                        <div class="field">
+                            <label for="serverTimezone">Server timezone</label>
+                            <select id="serverTimezone" name="serverTimezone" required>
+                                <option value="Africa/Lagos">Africa/Lagos (WAT)</option>
+                                <option value="UTC">UTC</option>
+                            </select>
+                        </div>
+
+                        <div class="field field-toggle">
+                            <label for="pauseAllGames">Pause all games</label>
+                            <label class="switch">
+                                <input type="checkbox" id="pauseAllGames" name="pauseAllGames">
+                                <span class="switch-slider"></span>
+                            </label>
+                            <small>Requires a backend connection to affect users.</small>
+                        </div>
+
+                        <div class="settings-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bx bx-save"></i> Save Daily Settings
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Six games -->
+                <section class="games-section">
+                    <div class="section-title-row">
+                        <div>
+                            <span class="section-kicker">GAME LIBRARY</span>
+                            <h2>Available Games</h2>
+                            <p>Configure each game and manage its publication status.</p>
+                        </div>
+                        <span class="count-label">6 game slots</span>
+                    </div>
+
+                    <div class="games-grid" id="gamesGrid">
+                        <!-- Cards are rendered by manage-game.js -->
+                    </div>
+                </section>
+
+                <!-- Signals -->
+                <section class="panel signal-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <span class="section-kicker">CHANNEL COMMUNICATION</span>
+                            <h2>Game Signals &amp; Announcements</h2>
+                            <p>Prepare a clear announcement for manual sharing to your official channels.</p>
+                        </div>
+                        <span class="heading-icon"><i class="bx bx-message-square-detail"></i></span>
+                    </div>
+
+                    <form id="signalForm" class="form-grid">
+                        <div class="field">
+                            <label for="signalGame">Game</label>
+                            <select id="signalGame" name="gameId" required></select>
+                        </div>
+
+                        <div class="field">
+                            <label for="signalDate">Publication date</label>
+                            <input type="date" id="signalDate" name="publicationDate" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="signalTime">Publication time</label>
+                            <input type="time" id="signalTime" name="publicationTime" required>
+                        </div>
+
+                        <div class="field full-width">
+                            <label for="signalMessage">Announcement message</label>
+                            <textarea id="signalMessage" name="message" rows="4" maxlength="2000"
+                                placeholder="Write the daily game instructions or announcement..." required></textarea>
+                            <div class="field-footer">
+                                <small>Do not describe a predetermined result as random.</small>
+                                <span id="signalCount">0 / 2000</span>
+                            </div>
+                        </div>
+
+                        <div class="form-actions full-width">
+                            <button type="button" class="btn btn-secondary" id="previewSignal">
+                                <i class="bx bx-show"></i> Preview
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="copySignal">
+                                <i class="bx bx-copy"></i> Copy Message
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bx bx-save"></i> Save Announcement
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="signal-preview" id="signalPreview" hidden>
+                        <div class="preview-header">
+                            <strong>Announcement Preview</strong>
+                            <button type="button" class="icon-button" id="closeSignalPreview"
+                                aria-label="Close announcement preview">
+                                <i class="bx bx-x"></i>
+                            </button>
+                        </div>
+                        <p id="signalPreviewText"></p>
+                        <small id="signalPreviewSchedule"></small>
+                    </div>
+                </section>
+
+                <!-- Results table -->
+                <section class="panel results-panel">
+                    <div class="panel-heading results-heading">
+                        <div>
+                            <span class="section-kicker">RESULT MANAGEMENT</span>
+                            <h2>Daily Results</h2>
+                            <p>Review configured results and their publication status.</p>
+                        </div>
+                        <button type="button" class="btn btn-secondary" id="refreshResults">
+                            <i class="bx bx-refresh"></i> Refresh
+                        </button>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Game</th>
+                                    <th>Result Date</th>
+                                    <th>Configured Answer</th>
+                                    <th>Status</th>
+                                    <th>Last Updated</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="resultsTableBody">
+                                <tr>
+                                    <td colspan="6" class="empty-state">
+                                        <i class="bx bx-folder-open"></i>
+                                        <strong>No results loaded</strong>
+                                        <span>Connect the backend to view saved daily results.</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <footer class="page-footer">
+                    <span>KUDIX Admin Panel</span>
+                    <span>Manage Games</span>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <!-- Configure game modal -->
+    <div class="modal-backdrop" id="gameModal" hidden>
+        <section class="modal" role="dialog" aria-modal="true" aria-labelledby="gameModalTitle">
+            <div class="modal-header">
+                <div>
+                    <span class="section-kicker">GAME SETTINGS</span>
+                    <h2 id="gameModalTitle">Configure Game</h2>
+                </div>
+                <button type="button" class="icon-button" id="closeGameModal" aria-label="Close game form">
+                    <i class="bx bx-x"></i>
+                </button>
+            </div>
+
+            <form id="gameConfigForm">
+                <input type="hidden" id="configGameId" name="gameId">
+
+                <div class="field">
+                    <label for="configGameName">Game name</label>
+                    <input type="text" id="configGameName" name="name" maxlength="80" required>
+                </div>
+
+                <div class="field">
+                    <label for="configDescription">Description</label>
+                    <textarea id="configDescription" name="description" rows="2" maxlength="500"
+                        placeholder="Explain the game to users..."></textarea>
+                </div>
+
+                <div class="field">
+                    <label for="configInstructions">Game instructions</label>
+                    <textarea id="configInstructions" name="instructions" rows="3" maxlength="1000"
+                        placeholder="Explain how to participate and how results are determined..."></textarea>
+                </div>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="configType">Game type</label>
+                        <select id="configType" name="type">
+                            <option value="number">Number</option>
+                            <option value="colour">Colour</option>
+                            <option value="high-low">High or Low</option>
+                            <option value="odd-even">Odd or Even</option>
+                            <option value="challenge">Daily Challenge</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="configStatus">Game status</label>
+                        <select id="configStatus" name="status">
+                            <option value="active">Active</option>
+                            <option value="paused">Paused</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="configResultDate">Result date</label>
+                    <input type="date" id="configResultDate" name="resultDate" required>
+                </div>
+
+                <div class="field">
+                    <label for="configAnswer">Admin-configured answer / result</label>
+                    <input type="text" id="configAnswer" name="answer" maxlength="120"
+                        placeholder="Enter the configured result">
+                    <small>Label this result accurately. Do not imply a manually selected answer was randomly
+                        generated.</small>
+                </div>
+
+                <div class="field">
+                    <label for="configResultStatus">Result publication status</label>
+                    <select id="configResultStatus" name="resultStatus">
+                        <option value="draft">Draft</option>
+                        <option value="scheduled">Scheduled</option>
+                        <option value="published">Published</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="configSignalMessage">Signal / announcement message</label>
+                    <textarea id="configSignalMessage" name="signalMessage" rows="3" maxlength="1000"
+                        placeholder="Optional announcement for this game..."></textarea>
+                </div>
+
+                <div class="form-message" id="gameFormMessage" role="status" aria-live="polite" hidden></div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelGameConfig">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveGameConfig">
+                        <i class="bx bx-save"></i> Save Configuration
+                    </button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <!-- Confirmation modal -->
+    <div class="modal-backdrop" id="confirmModal" hidden>
+        <section class="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+            <div class="confirm-icon"><i class="bx bx-check-shield"></i></div>
+            <h2 id="confirmTitle">Confirm action</h2>
+            <p id="confirmText">Are you sure you want to continue?</p>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" id="cancelConfirm">Cancel</button>
+                <button type="button" class="btn btn-primary" id="acceptConfirm">Confirm</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+        <i class="bx bx-info-circle"></i>
+        <span id="toastText"></span>
+    </div>
+</body>
+
+</html>

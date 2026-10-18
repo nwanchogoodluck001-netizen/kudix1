@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B1020">
+    <title>Referrals | KUDIX</title>
+    <meta name="description"
+        content="Manage your KUDIX referrals, share your referral link, and track eligible referral rewards.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        kudix: {
+                            navy: '#0B1020',
+                            purple: '#6D4AFF',
+                            blue: '#287BFF',
+                            green: '#16A36A'
+                        }
+                    },
+                    fontFamily: {
+                        sora: ['Sora', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+
+    <script>
+        try {
+            if (localStorage.getItem('kudix-theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        } catch (error) { }
+    </script>
+
+    <link rel="stylesheet" href="css/referrals.css">
+    <script src="js/referrals.js" defer></script>
+</head>
+
+<body class="font-inter">
+    <div class="app-shell">
+
+        <!-- Mobile overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <a href="dashboard.html" class="brand-link" aria-label="KUDIX Dashboard">
+                    <img src="images/kudix-logo.png" alt="KUDIX Logo">
+                </a>
+                <button class="icon-button sidebar-close" id="closeSidebar" aria-label="Close navigation">
+                    <i class="bx bx-x"></i>
+                </button>
+            </div>
+
+            <div class="sidebar-label">WORKSPACE</div>
+
+            <nav class="sidebar-nav" aria-label="Main navigation">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bx bx-grid-alt"></i><span>Dashboard</span>
+                </a>
+                <a href="games.html" class="nav-link">
+                    <i class="bx bx-joystick"></i><span>Games</span>
+                </a>
+                <a href="social-tasks.html" class="nav-link">
+                    <i class="bx bx-task"></i><span>Social Tasks</span>
+                </a>
+                <a href="/daily-streak.html" class="nav-link">
+                    <i class="bx bx-task"></i><span>Daily-Streak</span>
+                </a>
+                <a href="wallet.html" class="nav-link">
+                    <i class="bx bx-wallet"></i><span>Wallet</span>
+                </a>
+                <a href="transactions.html" class="nav-link">
+                    <i class="bx bx-transfer-alt"></i><span>Transactions</span>
+                </a>
+                <a href="referrals.html" class="nav-link active" aria-current="page">
+                    <i class="bx bx-user-plus"></i><span>Referrals</span>
+                    <span class="nav-active-dot"></span>
+                </a>
+                <a href="top-earner.html" class="nav-link">
+                    <i class="bx bx-trophy"></i><span>Top Earners</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-label account-label">ACCOUNT</div>
+
+            <nav class="sidebar-nav" aria-label="Account navigation">
+                <a href="settings.html" class="nav-link">
+                    <i class="bx bx-cog"></i><span>Settings</span>
+                </a>
+                <a href="support.html" class="nav-link">
+                    <i class="bx bx-help-circle"></i><span>Help &amp; Support</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="sidebar-help-icon"><i class="bx bx-shield-quarter"></i></div>
+                <div class="sidebar-help-copy">
+                    <strong>Play responsibly</strong>
+                    <span>Keep your experience safe.</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main application -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-button mobile-menu-button" id="openSidebar" aria-label="Open navigation">
+                        <i class="bx bx-menu-alt-left"></i>
+                    </button>
+                    <div>
+                        <div class="breadcrumb">Workspace <i class="bx bx-chevron-right"></i> Referrals</div>
+                        <h1 class="topbar-title">Referrals</h1>
+                    </div>
+                </div>
+
+                <div class="topbar-actions">
+                    <button class="icon-button theme-toggle" id="themeToggle" aria-label="Switch theme"
+                        title="Switch theme">
+                        <i class="bx bx-moon" id="themeIcon"></i>
+                    </button>
+
+                    <a href="support.html" class="icon-button notification-button" aria-label="Help and support"
+                        title="Help and support">
+                        <i class="bx bx-bell"></i>
+                    </a>
+
+                    <div class="topbar-divider"></div>
+
+                    <a href="settings.html" class="profile-trigger" aria-label="Account settings">
+                        <div class="profile-avatar"><i class="bx bx-user"></i></div>
+                        <div class="profile-copy">
+                            <strong>My Account</strong>
+                            <span>Account settings</span>
+                        </div>
+                        <i class="bx bx-chevron-down profile-chevron"></i>
+                    </a>
+                </div>
+            </header>
+
+            <div class="page-content">
+
+                <!-- Page introduction -->
+                <section class="page-intro">
+                    <div>
+                        <div class="eyebrow"><span class="eyebrow-dot"></span> KUDIX COMMUNITY</div>
+                        <h2>Grow Your Network.<br class="desktop-break"> <span>Earn Rewards.</span></h2>
+                        <p>Invite your friends to join KUDIX, follow their referral progress, and discover which
+                            referrals qualify for rewards.</p>
+                    </div>
+
+                    <div class="intro-art" aria-hidden="true">
+                        <div class="art-orbit orbit-one"></div>
+                        <div class="art-orbit orbit-two"></div>
+                        <div class="art-center"><i class="bx bx-user-plus"></i></div>
+                        <div class="art-person person-one"><i class="bx bx-user"></i></div>
+                        <div class="art-person person-two"><i class="bx bx-user"></i></div>
+                        <div class="art-person person-three"><i class="bx bx-user"></i></div>
+                        <div class="art-spark spark-one"><i class="bx bxs-star"></i></div>
+                        <div class="art-spark spark-two"><i class="bx bx-plus"></i></div>
+                    </div>
+                </section>
+
+                <!-- Reward card -->
+                <section class="reward-banner">
+                    <div class="reward-icon"><i class="bx bx-gift"></i></div>
+                    <div class="reward-copy">
+                        <span class="reward-kicker">ELIGIBLE REFERRAL REWARD</span>
+                        <h3>₦1,000 <span>per successful referral</span></h3>
+                        <p>Rewards apply only to referrals that meet KUDIX eligibility requirements and pass
+                            verification. Terms and conditions apply.</p>
+                    </div>
+                    <div class="reward-badge"><i class="bx bx-check-shield"></i> Eligibility required</div>
+                    <div class="reward-decoration decoration-one"></div>
+                    <div class="reward-decoration decoration-two"></div>
+                </section>
+
+                <!-- Referral link -->
+                <section class="section-block">
+                    <div class="section-heading">
+                        <div>
+                            <h3>Your referral link</h3>
+                            <p>Share your personal link with friends.</p>
+                        </div>
+                        <span class="section-icon"><i class="bx bx-link-alt"></i></span>
+                    </div>
+
+                    <div class="referral-link-card">
+                        <div class="link-main">
+                            <div class="link-icon"><i class="bx bx-link"></i></div>
+                            <div class="link-content">
+                                <label for="referralLink">PERSONAL REFERRAL LINK</label>
+                                <div class="link-value-wrap">
+                                    <input id="referralLink" type="text" readonly value=""
+                                        placeholder="Your referral link will appear here when available"
+                                        aria-describedby="linkHelp">
+                                </div>
+                                <p id="linkHelp">Your personal link will be displayed once your account referral details
+                                    are connected.</p>
+                            </div>
+                        </div>
+
+                        <div class="link-actions">
+                            <button type="button" class="btn btn-primary" id="copyLinkBtn" disabled>
+                                <i class="bx bx-copy"></i><span>Copy link</span>
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="shareLinkBtn" disabled>
+                                <i class="bx bx-share-alt"></i><span>Share</span>
+                            </button>
+                        </div>
+
+                        <div class="referral-code-row">
+                            <div>
+                                <span class="code-label">YOUR REFERRAL CODE</span>
+                                <p id="referralCode">Not available yet</p>
+                            </div>
+                            <span class="code-status"><span class="status-dot"></span> Awaiting account
+                                connection</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Statistics -->
+                <section class="section-block">
+                    <div class="section-heading stats-heading">
+                        <div>
+                            <h3>Your referral overview</h3>
+                            <p>Referral statistics will update when account data is available.</p>
+                        </div>
+                        <span class="live-data-note"><i class="bx bx-lock-alt"></i> Account data required</span>
+                    </div>
+
+                    <div class="stats-grid">
+                        <article class="stat-card">
+                            <div class="stat-top">
+                                <span class="stat-icon purple-icon"><i class="bx bx-group"></i></span>
+                                <span class="stat-caption">All invitations</span>
+                            </div>
+                            <p class="stat-value" data-stat="total">—</p>
+                            <p class="stat-label">Total referrals</p>
+                            <div class="stat-footer"><i class="bx bx-info-circle"></i> Waiting for account data</div>
+                        </article>
+
+                        <article class="stat-card">
+                            <div class="stat-top">
+                                <span class="stat-icon green-icon"><i class="bx bx-user-check"></i></span>
+                                <span class="stat-caption">Eligible</span>
+                            </div>
+                            <p class="stat-value" data-stat="successful">—</p>
+                            <p class="stat-label">Successful referrals</p>
+                            <div class="stat-footer"><i class="bx bx-info-circle"></i> Eligibility must be verified
+                            </div>
+                        </article>
+
+                        <article class="stat-card">
+                            <div class="stat-top">
+                                <span class="stat-icon amber-icon"><i class="bx bx-time-five"></i></span>
+                                <span class="stat-caption">Under review</span>
+                            </div>
+                            <p class="stat-value" data-stat="pending">—</p>
+                            <p class="stat-label">Pending referrals</p>
+                            <div class="stat-footer"><i class="bx bx-info-circle"></i> No records loaded</div>
+                        </article>
+
+                        <article class="stat-card">
+                            <div class="stat-top">
+                                <span class="stat-icon blue-icon"><i class="bx bx-wallet"></i></span>
+                                <span class="stat-caption">Referral rewards</span>
+                            </div>
+                            <p class="stat-value reward-stat" data-stat="rewards">—</p>
+                            <p class="stat-label">Rewards credited</p>
+                            <div class="stat-footer"><i class="bx bx-info-circle"></i> Not a confirmed balance</div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- Progress -->
+                <section class="section-block">
+                    <div class="section-heading">
+                        <div>
+                            <h3>Referral progress</h3>
+                            <p>Track your progress toward configured referral milestones.</p>
+                        </div>
+                        <span class="section-icon progress-heading-icon"><i class="bx bx-trending-up"></i></span>
+                    </div>
+
+                    <div class="progress-card" id="progressCard">
+                        <div class="progress-empty-icon"><i class="bx bx-bar-chart-alt-2"></i></div>
+                        <h4>Your progress will appear here</h4>
+                        <p>Referral counts and milestones will be shown when your account data and official program
+                            milestones are connected.</p>
+                    </div>
+                </section>
+
+                <!-- Referral history -->
+                <section class="section-block">
+                    <div class="section-heading history-heading">
+                        <div>
+                            <h3>Recent referrals</h3>
+                            <p>Review referral activity and eligibility statuses.</p>
+                        </div>
+                        <span class="history-count" id="historyCount">0 records</span>
+                    </div>
+
+                    <div class="table-card">
+                        <div class="table-scroll">
+                            <table class="referral-table">
+                                <thead>
+                                    <tr>
+                                        <th>Referred user</th>
+                                        <th>Date joined</th>
+                                        <th>Referral status</th>
+                                        <th>Reward</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="referralsTableBody">
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="table-empty">
+                                                <div class="empty-illustration"><i class="bx bx-user-plus"></i></div>
+                                                <h4>Your referral journey starts here.</h4>
+                                                <p>Share your referral link with friends. Eligible referrals will appear
+                                                    here once your account is connected.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- How it works -->
+                <section class="section-block">
+                    <div class="section-heading">
+                        <div>
+                            <h3>How referrals work</h3>
+                            <p>Three simple steps to understand the referral process.</p>
+                        </div>
+                    </div>
+
+                    <div class="steps-grid">
+                        <article class="step-card">
+                            <div class="step-number">01</div>
+                            <div class="step-icon step-purple"><i class="bx bx-share-alt"></i></div>
+                            <h4>Share your link</h4>
+                            <p>Copy your personal referral link and share it with friends who may be interested in
+                                KUDIX.</p>
+                        </article>
+
+                        <article class="step-card">
+                            <div class="step-number">02</div>
+                            <div class="step-icon step-blue"><i class="bx bx-user-plus"></i></div>
+                            <h4>Your friend joins</h4>
+                            <p>Your friend follows the referral link and completes the platform's required joining
+                                steps.</p>
+                        </article>
+
+                        <article class="step-card">
+                            <div class="step-number">03</div>
+                            <div class="step-icon step-green"><i class="bx bx-check-shield"></i></div>
+                            <h4>Eligibility is verified</h4>
+                            <p>A reward may be credited after all official eligibility requirements and verification
+                                checks are satisfied.</p>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- Rules -->
+                <section class="section-block rules-section">
+                    <div class="rules-card">
+                        <div class="rules-title">
+                            <div class="rules-icon"><i class="bx bx-shield-quarter"></i></div>
+                            <div>
+                                <h3>Referral rules &amp; transparency</h3>
+                                <p>Please understand the requirements before sharing.</p>
+                            </div>
+                        </div>
+
+                        <ul class="rules-list">
+                            <li><i class="bx bx-check-circle"></i><span>Only referrals that meet the official
+                                    eligibility criteria can qualify for rewards.</span></li>
+                            <li><i class="bx bx-check-circle"></i><span>Duplicate accounts, fraudulent activity, or
+                                    invalid referrals may be rejected in line with platform rules.</span></li>
+                            <li><i class="bx bx-check-circle"></i><span>Some referrals may remain pending while
+                                    eligibility and account activity are reviewed.</span></li>
+                            <li><i class="bx bx-check-circle"></i><span>The ₦1,000 reward is conditional, not guaranteed
+                                    income. Actual rewards depend on the official program terms and verification.</span>
+                            </li>
+                            <li><i class="bx bx-check-circle"></i><span>Never share passwords, verification codes, or
+                                    sensitive account information with anyone.</span></li>
+                        </ul>
+
+                        <a href="support.html" class="rules-support-link">Questions about referrals? Contact support <i
+                                class="bx bx-right-arrow-alt"></i></a>
+                    </div>
+                </section>
+
+                <footer class="page-footer">
+                    <p>© <span id="footerYear"></span> KUDIX. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="support.html">Help center</a>
+                        <a href="settings.html">Account settings</a>
+                    </div>
+                </footer>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast notifications -->
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+</body>
+
+</html>

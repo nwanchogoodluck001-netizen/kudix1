@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B1020">
+
+    <title>My Wallet | KUDIX</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kudix: {
+                            navy: "#0B1020",
+                            purple: "#6D4AFF",
+                            blue: "#287BFF",
+                            green: "#16A36A",
+                            light: "#F5F7FC"
+                        }
+                    },
+                    fontFamily: {
+                        heading: ["Sora", "sans-serif"],
+                        body: ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
+
+    <!-- Page Styles -->
+    <link rel="stylesheet" href="css/wallet.css">
+</head>
+
+<body class="font-body">
+
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-brand">
+            <a href="dashboard.html" class="brand-link">
+                <img src="images/kudix-logo.png" alt="KUDIX Logo">
+            </a>
+
+            <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">
+                <i class="bx bx-x"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-label">MAIN MENU</div>
+
+        <nav class="sidebar-nav" aria-label="Main navigation">
+
+            <a href="dashboard.html" class="nav-item">
+                <i class="bx bx-grid-alt"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="games.html" class="nav-item">
+                <i class="bx bx-joystick"></i>
+                <span>Games</span>
+            </a>
+
+            <a href="social-tasks.html" class="nav-item">
+                <i class="bx bx-share-alt"></i>
+                <span>Social Tasks</span>
+            </a>
+
+            <a href="/daily-streak.html" class="nav-item">
+                <i class="bx bx-box"></i>
+                <span>Daily-Streak</span>
+            </a>
+
+            <a href="wallet.html" class="nav-item active" aria-current="page">
+                <i class="bx bx-wallet"></i>
+                <span>Wallet</span>
+                <span class="active-indicator"></span>
+            </a>
+
+            <a href="transactions.html" class="nav-item">
+                <i class="bx bx-transfer-alt"></i>
+                <span>Transactions</span>
+            </a>
+
+            <a href="referrals.html" class="nav-item">
+                <i class="bx bx-user-plus"></i>
+                <span>Referrals</span>
+            </a>
+
+            <a href="top-earner.html" class="nav-item">
+                <i class="bx bx-trophy"></i>
+                <span>Top Earners</span>
+            </a>
+
+         
+
+            <div class="sidebar-divider"></div>
+
+            <div class="sidebar-label">ACCOUNT</div>
+
+            <a href="settings.html" class="nav-item">
+                <i class="bx bx-cog"></i>
+                <span>Settings</span>
+            </a>
+
+            <a href="support.html" class="nav-item">
+                <i class="bx bx-help-circle"></i>
+                <span>Help & Support</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-help-card">
+                <div class="help-icon">
+                    <i class="bx bx-shield-quarter"></i>
+                </div>
+
+                <h4>Wallet Security</h4>
+
+                <p>Keep your account details private and secure.</p>
+
+                <a href="support.html">
+                    Get help <i class="bx bx-right-arrow-alt"></i>
+                </a>
+            </div>
+
+            <a href="login.html" class="logout-link">
+                <i class="bx bx-log-out"></i>
+                <span>Log Out</span>
+            </a>
+        </div>
+
+    </aside>
+
+    <!-- Main Layout -->
+    <main class="main-content">
+
+        <!-- Topbar -->
+        <header class="topbar">
+
+            <div class="topbar-left">
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open navigation">
+                    <i class="bx bx-menu"></i>
+                </button>
+
+                <div>
+                    <p class="topbar-greeting">Account Management</p>
+                    <h1 class="topbar-title">My Wallet</h1>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="account-status">
+                    <span class="status-dot"></span>
+                    <span>Wallet overview</span>
+                </div>
+
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <i class="bx bx-moon"></i>
+                </button>
+
+                <a href="settings.html" class="profile-button" aria-label="Account settings">
+                    <i class="bx bx-user"></i>
+                </a>
+
+            </div>
+
+        </header>
+
+        <!-- Page Content -->
+        <div class="page-content">
+
+            <!-- Page Introduction -->
+            <section class="page-intro">
+
+                <div>
+                    <div class="eyebrow">
+                        <i class="bx bx-wallet"></i>
+                        YOUR FINANCIAL SPACE
+                    </div>
+
+                    <h2>Manage your <span>wallet.</span></h2>
+
+                    <p>
+                        Review your available funds, monitor wallet activity,
+                        and manage supported transactions.
+                    </p>
+                </div>
+
+                <button class="outline-button" id="refreshWallet">
+                    <i class="bx bx-refresh"></i>
+                    Refresh
+                </button>
+
+            </section>
+
+            <!-- Connection Notice -->
+            <div class="connection-notice" id="connectionNotice">
+                <div class="notice-icon">
+                    <i class="bx bx-info-circle"></i>
+                </div>
+
+                <div class="notice-copy">
+                    <strong>Wallet connection required</strong>
+                    <p>
+                        Your live balance and financial records will appear
+                        when the wallet service is connected.
+                    </p>
+                </div>
+
+                <span class="connection-badge">
+                    <span></span>
+                    Not connected
+                </span>
+            </div>
+
+            <!-- Wallet Balance -->
+            <section class="balance-card">
+
+                <div class="balance-card-top">
+
+                    <div class="balance-title">
+                        <div class="balance-icon">
+                            <i class="bx bx-wallet-alt"></i>
+                        </div>
+
+                        <div>
+                            <span class="balance-caption">Available balance</span>
+                            <span class="balance-subcaption">Your current wallet funds</span>
+                        </div>
+                    </div>
+
+                    <button class="balance-visibility" id="balanceVisibility" aria-label="Show or hide balance">
+                        <i class="bx bx-show"></i>
+                    </button>
+
+                </div>
+
+                <div class="balance-amount-row">
+                    <h3 id="availableBalance">Connect your wallet</h3>
+                    <span class="currency-chip">NGN · ₦</span>
+                </div>
+
+                <p class="balance-note">
+                    <i class="bx bx-shield-quarter"></i>
+                    Your confirmed balance will appear here.
+                </p>
+
+                <div class="balance-card-bottom">
+
+                    <button class="primary-action" id="openDeposit">
+                        <i class="bx bx-plus-circle"></i>
+                        Deposit
+                    </button>
+
+                    <button class="secondary-action" id="openWithdraw">
+                        <i class="bx bx-arrow-from-bottom"></i>
+                        Withdraw
+                    </button>
+
+                    <div class="balance-decoration">
+                        <span class="decoration-circle circle-one"></span>
+                        <span class="decoration-circle circle-two"></span>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- Summary Cards -->
+            <section class="summary-grid">
+
+                <article class="summary-card">
+                    <div class="summary-card-top">
+                        <div class="summary-icon pending-icon">
+                            <i class="bx bx-time-five"></i>
+                        </div>
+
+                        <span class="summary-label">Pending balance</span>
+                    </div>
+
+                    <h3 id="pendingBalance">Unavailable</h3>
+
+                    <p>
+                        <i class="bx bx-info-circle"></i>
+                        Awaiting live wallet data
+                    </p>
+                </article>
+
+                <article class="summary-card">
+                    <div class="summary-card-top">
+                        <div class="summary-icon rewards-icon">
+                            <i class="bx bx-gift"></i>
+                        </div>
+
+                        <span class="summary-label">Total rewards</span>
+                    </div>
+
+                    <h3 id="totalRewards">Unavailable</h3>
+
+                    <p>
+                        <i class="bx bx-info-circle"></i>
+                        Based on confirmed records
+                    </p>
+                </article>
+
+                <article class="summary-card">
+                    <div class="summary-card-top">
+                        <div class="summary-icon wallet-status-icon">
+                            <i class="bx bx-shield-check"></i>
+                        </div>
+
+                        <span class="summary-label">Wallet status</span>
+                    </div>
+
+                    <h3 class="status-unavailable" id="walletStatus">Not connected</h3>
+
+                    <p>
+                        <span class="status-dot"></span>
+                        Awaiting account connection
+                    </p>
+                </article>
+
+            </section>
+
+            <!-- Wallet Activity -->
+            <section class="activity-section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="section-eyebrow">TRANSACTION HISTORY</span>
+                        <h2>Recent wallet activity</h2>
+                        <p>Track deposits, withdrawals, and confirmed rewards.</p>
+                    </div>
+
+                    <a href="transactions.html" class="view-all-link">
+                        All transactions
+                        <i class="bx bx-right-arrow-alt"></i>
+                    </a>
+
+                </div>
+
+                <!-- Filters -->
+                <div class="activity-toolbar">
+
+                    <div class="activity-search">
+                        <i class="bx bx-search"></i>
+
+                        <input type="search" id="transactionSearch" placeholder="Search transactions..."
+                            aria-label="Search transactions">
+                    </div>
+
+                    <div class="filter-controls">
+
+                        <select id="typeFilter" aria-label="Filter transaction type">
+                            <option value="all">All types</option>
+                            <option value="deposit">Deposits</option>
+                            <option value="withdrawal">Withdrawals</option>
+                            <option value="gaming">Gaming rewards</option>
+                            <option value="social">Social task rewards</option>
+                            <option value="referral">Referral rewards</option>
+                            <option value="adjustment">Adjustments</option>
+                        </select>
+
+                        <select id="statusFilter" aria-label="Filter transaction status">
+                            <option value="all">All statuses</option>
+                            <option value="completed">Completed</option>
+                            <option value="pending">Pending</option>
+                            <option value="processing">Processing</option>
+                            <option value="failed">Failed</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <!-- Transactions Table -->
+                <div class="transaction-table-wrap">
+
+                    <table class="transaction-table">
+
+                        <thead>
+                            <tr>
+                                <th>Transaction</th>
+                                <th>Reference</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="transactionTableBody">
+                            <!-- Populated from the real account data source. -->
+                        </tbody>
+
+                    </table>
+
+                    <div class="empty-state" id="emptyState">
+
+                        <div class="empty-state-icon">
+                            <i class="bx bx-receipt"></i>
+                        </div>
+
+                        <h3>No wallet activity available</h3>
+
+                        <p>
+                            Your confirmed wallet transactions will appear here
+                            once your account is connected.
+                        </p>
+
+                    </div>
+
+                    <div class="no-results hidden" id="noResults">
+                        <i class="bx bx-search-alt"></i>
+                        <p>No transactions match your search.</p>
+                    </div>
+
+                </div>
+
+                <div class="table-footer">
+                    <span id="transactionCount">0 transactions</span>
+
+                    <button id="loadMore" class="load-more-button hidden">
+                        Load more
+                        <i class="bx bx-chevron-down"></i>
+                    </button>
+                </div>
+
+            </section>
+
+            <!-- Wallet Details -->
+            <section class="wallet-details-section">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-eyebrow">ACCOUNT INFORMATION</span>
+                        <h2>Wallet details</h2>
+                        <p>Information associated with your KUDIX wallet.</p>
+                    </div>
+                </div>
+
+                <div class="details-card">
+
+                    <div class="details-row">
+                        <div class="details-label">
+                            <div class="details-icon">
+                                <i class="bx bx-money"></i>
+                            </div>
+
+                            <div>
+                                <strong>Wallet currency</strong>
+                                <span>Your account currency</span>
+                            </div>
+                        </div>
+
+                        <span class="details-value">NGN (₦)</span>
+                    </div>
+
+                    <div class="details-row">
+                        <div class="details-label">
+                            <div class="details-icon">
+                                <i class="bx bx-fingerprint"></i>
+                            </div>
+
+                            <div>
+                                <strong>Wallet reference</strong>
+                                <span>Your assigned wallet identifier</span>
+                            </div>
+                        </div>
+
+                        <div class="details-value reference-value">
+                            <span id="walletReference">Not assigned</span>
+
+                            <button id="copyWalletReference" class="copy-button" aria-label="Copy wallet reference"
+                                disabled>
+                                <i class="bx bx-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="details-row">
+                        <div class="details-label">
+                            <div class="details-icon">
+                                <i class="bx bx-shield-quarter"></i>
+                            </div>
+
+                            <div>
+                                <strong>Verification status</strong>
+                                <span>Account verification information</span>
+                            </div>
+                        </div>
+
+                        <span class="details-value neutral-status" id="verificationStatus">
+                            Unavailable
+                        </span>
+                    </div>
+
+                    <div class="details-row">
+                        <div class="details-label">
+                            <div class="details-icon">
+                                <i class="bx bx-calendar"></i>
+                            </div>
+
+                            <div>
+                                <strong>Wallet creation date</strong>
+                                <span>When your wallet was created</span>
+                            </div>
+                        </div>
+
+                        <span class="details-value" id="walletCreatedAt">Unavailable</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- Security Notice -->
+            <section class="security-banner">
+
+                <div class="security-banner-icon">
+                    <i class="bx bx-shield-quarter"></i>
+                </div>
+
+                <div>
+                    <h3>Your security matters</h3>
+                    <p>
+                        Never share your password or verification codes.
+                        Always confirm transaction details before submitting
+                        a financial request.
+                    </p>
+                </div>
+
+                <a href="support.html">
+                    Get support
+                    <i class="bx bx-right-arrow-alt"></i>
+                </a>
+
+            </section>
+
+            <footer class="page-footer">
+                <p>
+                    © <span id="currentYear"></span> KUDIX.
+                    All rights reserved.
+                </p>
+
+                <div>
+                    <a href="support.html">Support</a>
+                    <a href="settings.html">Settings</a>
+                </div>
+            </footer>
+
+        </div>
+
+    </main>
+
+    <!-- Financial Action Modal -->
+    <div class="modal-backdrop hidden" id="walletModal">
+
+        <section class="wallet-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+            <div class="modal-header">
+
+                <div class="modal-heading-icon" id="modalIcon">
+                    <i class="bx bx-wallet"></i>
+                </div>
+
+                <button class="modal-close" id="closeModal" aria-label="Close modal">
+                    <i class="bx bx-x"></i>
+                </button>
+
+            </div>
+
+            <h2 id="modalTitle">Wallet action</h2>
+
+            <p class="modal-description" id="modalDescription">
+                Submit a request for your wallet.
+            </p>
+
+            <div class="modal-notice">
+                <i class="bx bx-info-circle"></i>
+
+                <span id="modalNoticeText">
+                    Financial operations require a connected backend.
+                </span>
+            </div>
+
+            <form id="walletActionForm">
+
+                <div class="form-group">
+                    <label for="transactionAmount">Amount (₦)</label>
+
+                    <div class="amount-input-wrap">
+                        <span>₦</span>
+
+                        <input type="number" id="transactionAmount" name="amount" min="1" step="0.01"
+                            placeholder="Enter amount" required>
+                    </div>
+
+                    <small>Enter the amount for your request.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="paymentMethod">Payment method</label>
+
+                    <select id="paymentMethod" name="paymentMethod" required>
+                        <option value="">Select a method</option>
+                    </select>
+                </div>
+
+                <div class="form-group hidden" id="destinationGroup">
+                    <label for="destinationDetails">Destination details</label>
+
+                    <textarea id="destinationDetails" name="destinationDetails" rows="3"
+                        placeholder="Enter your supported destination details"></textarea>
+                </div>
+
+                <div class="form-error hidden" id="formError" role="alert"></div>
+
+                <button type="submit" class="modal-submit" id="submitWalletAction">
+                    Continue
+                    <i class="bx bx-right-arrow-alt"></i>
+                </button>
+
+            </form>
+
+            <p class="modal-footnote">
+                Your request will not be processed until the wallet service
+                is connected and confirms the operation.
+            </p>
+
+        </section>
+
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" role="status" aria-live="polite">
+        <i class="bx bx-info-circle"></i>
+        <span id="toastMessage">Message</span>
+    </div>
+
+    <script src="js/wallet.js"></script>
+
+</body>
+
+</html>

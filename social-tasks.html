@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B1020">
+    <title>Social Tasks | KUDIX</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/social-tasks.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kudix: {
+                            navy: "#0B1020",
+                            purple: "#6D4AFF",
+                            blue: "#287BFF",
+                            green: "#16A36A"
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <div class="app-shell">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar" id="sidebar">
+            <a href="dashboard.html" class="brand">
+                <img src="images/kudix-logo.png" alt="KUDIX Logo">
+            </a>
+
+            <div class="sidebar-caption">MAIN MENU</div>
+            <nav class="sidebar-nav" aria-label="Main navigation">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="bx bx-grid-alt"></i><span>Dashboard</span>
+                </a>
+                <a href="games.html" class="nav-item">
+                    <i class="bx bx-joystick"></i><span>Games</span>
+                </a>
+                <a href="social-tasks.html" class="nav-item active" aria-current="page">
+                    <i class="bx bx-share-alt"></i><span>Social Tasks</span>
+                    <span class="nav-dot"></span>
+                </a>
+
+                <a href="/daily-streak.html" class="nav-item">
+                    <i class="bx bx-box" aria-hidden="true"></i>
+                    <span>daily-streak</span>
+                </a>
+
+                <a href="wallet.html" class="nav-item">
+                    <i class="bx bx-wallet" aria-hidden="true"></i>
+                    <span>Wallet</span>
+                </a>
+
+                <a href="transactions.html" class="nav-item">
+                    <i class="bx bx-transfer-alt"></i><span>Transactions</span>
+                </a>
+                <a href="referrals.html" class="nav-item">
+                    <i class="bx bx-user-plus"></i><span>Referrals</span>
+                </a>
+                <a href="top-earner.html" class="nav-item">
+                    <i class="bx bx-trophy"></i><span>Top Earners</span>
+                </a>
+
+                <div class="sidebar-divider"></div>
+                <div class="sidebar-caption">YOUR ACCOUNT</div>
+
+                <a href="settings.html" class="nav-item">
+                    <i class="bx bx-cog"></i><span>Settings</span>
+                </a>
+                <a href="support.html" class="nav-item">
+                    <i class="bx bx-help-circle"></i><span>Help &amp; Support</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="sidebar-help">
+                    <div class="help-icon"><i class="bx bx-message-rounded-dots"></i></div>
+                    <strong>Need assistance?</strong>
+                    <p>Visit support if you have questions about a task.</p>
+                    <a href="support.html">Get help <i class="bx bx-right-arrow-alt"></i></a>
+                </div>
+                <button class="logout-button" id="logoutButton" type="button">
+                    <i class="bx bx-log-out"></i><span>Log out</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-area">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-button menu-button" id="menuButton" aria-label="Open menu">
+                        <i class="bx bx-menu"></i>
+                    </button>
+                    <div>
+                        <p class="greeting">Your community, your rewards</p>
+                        <h1>Social Tasks</h1>
+                    </div>
+                </div>
+
+                <div class="topbar-actions">
+                    <span class="availability"><span></span> Task centre</span>
+                    <button class="icon-button" id="themeToggle" aria-label="Toggle light and dark theme">
+                        <i class="bx bx-moon"></i>
+                    </button>
+                    <a class="profile-button" href="settings.html" aria-label="Account settings">
+                        <span class="profile-avatar"><i class="bx bx-user"></i></span>
+                        <span class="profile-copy"><strong>My Account</strong><small>KUDIX member</small></span>
+                        <i class="bx bx-chevron-down"></i>
+                    </a>
+                </div>
+            </header>
+
+            <section class="page-content">
+                <div class="page-intro">
+                    <div>
+                        <div class="eyebrow"><i class="bx bx-share-alt"></i> COMMUNITY REWARDS</div>
+                        <h2>Small tasks. <span>Simple steps.</span></h2>
+                        <p>Explore community tasks, follow the instructions, and submit proof for review.</p>
+                    </div>
+                    <div class="task-count"><i class="bx bx-check-shield"></i> Clear task instructions</div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="left-column">
+                        <section class="reward-hero">
+                            <div class="hero-orb orb-one"></div>
+                            <div class="hero-orb orb-two"></div>
+                            <div class="hero-content">
+                                <div class="hero-label"><i class="bx bxs-badge-dollar"></i> SOCIAL TASK REWARD</div>
+                                <h2><span class="plus">+</span> ₦1,000<span class="reward-decimal">.00</span></h2>
+                                <p>Reward per eligible task, subject to the task rules and proof review.</p>
+                                <div class="hero-foot">
+                                    <span><i class="bx bx-shield-quarter"></i> Review required</span>
+                                    <span><i class="bx bx-check-circle"></i> Clear instructions</span>
+                                </div>
+                            </div>
+                            <div class="hero-art" aria-hidden="true">
+                                <div class="art-circle circle-back"></div>
+                                <div class="art-circle circle-front"><i class="bx bx-share-alt"></i></div>
+                                <span class="art-check"><i class="bx bx-check"></i></span>
+                                <span class="art-spark spark-one">✦</span>
+                                <span class="art-spark spark-two">✧</span>
+                            </div>
+                        </section>
+
+                        <div class="section-heading">
+                            <div>
+                                <div class="section-title-icon"><i class="bx bx-list-check"></i></div>
+                                <div>
+                                    <h3>Available Tasks</h3>
+                                    <p>Choose a task and read its requirements.</p>
+                                </div>
+                            </div>
+                            <span class="demo-label">Sample tasks</span>
+                        </div>
+
+                        <div class="filter-row">
+                            <div class="filter-tabs" role="group" aria-label="Filter tasks">
+                                <button class="filter-button active" data-filter="all">All tasks</button>
+                                <button class="filter-button" data-filter="social">Social</button>
+                                <button class="filter-button" data-filter="community">Community</button>
+                            </div>
+                            <label class="task-search">
+                                <i class="bx bx-search"></i>
+                                <input type="search" id="taskSearch" placeholder="Find a task..."
+                                    aria-label="Search tasks">
+                            </label>
+                        </div>
+
+                        <div class="task-list" id="taskList">
+                            <article class="task-card" data-category="social"
+                                data-search="follow social page follow account">
+                                <div class="task-visual visual-purple">
+                                    <span class="visual-badge"><i class="bx bx-check-shield"></i> Social</span>
+                                    <div class="task-visual-icon"><i class="bx bx-user-check"></i></div>
+                                    <span class="visual-decoration decor-one"></span>
+                                    <span class="visual-decoration decor-two"></span>
+                                </div>
+                                <div class="task-body">
+                                    <div class="task-meta">
+                                        <span class="task-type"><i class="bx bx-share-alt"></i> SOCIAL MEDIA</span>
+                                        <span class="reward-chip">+ ₦1,000</span>
+                                    </div>
+                                    <h4>Follow a social page</h4>
+                                    <p>Visit the designated page and complete the follow action described in the task
+                                        instructions.</p>
+                                    <div class="task-requirements">
+                                        <span><i class="bx bx-time-five"></i> About 2 minutes</span>
+                                        <span><i class="bx bx-image"></i> Screenshot proof</span>
+                                    </div>
+                                    <div class="task-actions">
+                                        <button class="button-outline do-task" data-task="Follow a social page"
+                                            type="button">
+                                            <i class="bx bx-link-external"></i> Do Task
+                                        </button>
+                                        <button class="button-primary upload-task" data-task="Follow a social page"
+                                            type="button">
+                                            <i class="bx bx-cloud-upload"></i> Upload Proof
+                                        </button>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="task-card" data-category="community"
+                                data-search="join community group announcements">
+                                <div class="task-visual visual-green">
+                                    <span class="visual-badge"><i class="bx bx-check-shield"></i> Community</span>
+                                    <div class="task-visual-icon"><i class="bx bx-group"></i></div>
+                                    <span class="visual-decoration decor-one"></span>
+                                    <span class="visual-decoration decor-two"></span>
+                                </div>
+                                <div class="task-body">
+                                    <div class="task-meta">
+                                        <span class="task-type"><i class="bx bx-group"></i> COMMUNITY</span>
+                                        <span class="reward-chip">+ ₦1,000</span>
+                                    </div>
+                                    <h4>Join a community group</h4>
+                                    <p>Visit the official community link provided by the task administrator and follow
+                                        the listed steps.</p>
+                                    <div class="task-requirements">
+                                        <span><i class="bx bx-time-five"></i> About 3 minutes</span>
+                                        <span><i class="bx bx-image"></i> Screenshot proof</span>
+                                    </div>
+                                    <div class="task-actions">
+                                        <button class="button-outline do-task" data-task="Join a community group"
+                                            type="button">
+                                            <i class="bx bx-link-external"></i> Do Task
+                                        </button>
+                                        <button class="button-primary upload-task" data-task="Join a community group"
+                                            type="button">
+                                            <i class="bx bx-cloud-upload"></i> Upload Proof
+                                        </button>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="task-card" data-category="social"
+                                data-search="share official announcement post">
+                                <div class="task-visual visual-blue">
+                                    <span class="visual-badge"><i class="bx bx-check-shield"></i> Social</span>
+                                    <div class="task-visual-icon"><i class="bx bx-repost"></i></div>
+                                    <span class="visual-decoration decor-one"></span>
+                                    <span class="visual-decoration decor-two"></span>
+                                </div>
+                                <div class="task-body">
+                                    <div class="task-meta">
+                                        <span class="task-type"><i class="bx bx-repost"></i> SOCIAL MEDIA</span>
+                                        <span class="reward-chip">+ ₦1,000</span>
+                                    </div>
+                                    <h4>Share an official announcement</h4>
+                                    <p>Check the task instructions for the approved announcement and sharing
+                                        requirements before proceeding.</p>
+                                    <div class="task-requirements">
+                                        <span><i class="bx bx-time-five"></i> About 3 minutes</span>
+                                        <span><i class="bx bx-image"></i> Screenshot proof</span>
+                                    </div>
+                                    <div class="task-actions">
+                                        <button class="button-outline do-task"
+                                            data-task="Share an official announcement" type="button">
+                                            <i class="bx bx-link-external"></i> Do Task
+                                        </button>
+                                        <button class="button-primary upload-task"
+                                            data-task="Share an official announcement" type="button">
+                                            <i class="bx bx-cloud-upload"></i> Upload Proof
+                                        </button>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <div class="empty-state" id="emptyState" hidden>
+                                <i class="bx bx-search-alt"></i>
+                                <h4>No matching tasks</h4>
+                                <p>Try another search term or category.</p>
+                            </div>
+                        </div>
+
+                        <div class="responsible-note">
+                            <i class="bx bx-info-circle"></i>
+                            <p><strong>Keep it genuine.</strong> Only submit proof for actions you have actually
+                                completed. Never share passwords, verification codes, or private account details.</p>
+                        </div>
+                    </div>
+
+                    <aside class="right-column">
+                        <section class="info-panel">
+                            <div class="panel-heading">
+                                <span class="panel-icon blue-icon"><i class="bx bx-info-circle"></i></span>
+                                <h3>How It Works</h3>
+                            </div>
+                            <ol class="steps-list">
+                                <li><span>1</span>
+                                    <p>Choose a task and read all its requirements.</p>
+                                </li>
+                                <li><span>2</span>
+                                    <p>Click <strong>Do Task</strong> to open the task destination when one is
+                                        configured.</p>
+                                </li>
+                                <li><span>3</span>
+                                    <p>Complete the requested action and capture a clear screenshot.</p>
+                                </li>
+                                <li><span>4</span>
+                                    <p>Click <strong>Upload Proof</strong> and select your screenshot.</p>
+                                </li>
+                                <li><span>5</span>
+                                    <p>Your submission can be reviewed by the platform when a backend is connected.</p>
+                                </li>
+                            </ol>
+                            <div class="info-footer"><i class="bx bx-shield-quarter"></i> Never upload sensitive
+                                personal information.</div>
+                        </section>
+
+                        <section class="submission-panel">
+                            <div class="panel-heading">
+                                <span class="panel-icon purple-icon"><i class="bx bx-history"></i></span>
+                                <h3>My Submissions</h3>
+                            </div>
+                            <p class="panel-description">Keep track of the proof you submit from this browser.</p>
+                            <div class="submission-list" id="submissionList">
+                                <div class="submission-empty" id="submissionEmpty">
+                                    <span class="submission-empty-icon"><i class="bx bx-image-add"></i></span>
+                                    <strong>No submissions yet</strong>
+                                    <p>Your submitted task proofs will appear here.</p>
+                                </div>
+                            </div>
+                            <div class="submission-disclaimer">Local demo history only. No proof is sent to a server.
+                            </div>
+                        </section>
+
+                        <section class="green-tip">
+                            <div class="tip-icon"><i class="bx bx-check-shield"></i></div>
+                            <div>
+                                <strong>Submit with confidence</strong>
+                                <p>Make sure your screenshot clearly shows the completed task. Reviews and rewards
+                                    require a connected platform backend.</p>
+                            </div>
+                        </section>
+                    </aside>
+                </div>
+
+                <footer class="page-footer">
+                    <span>© <span id="currentYear"></span> KUDIX. All rights reserved.</span>
+                    <span><i class="bx bx-lock-alt"></i> Community tasks centre</span>
+                </footer>
+            </section>
+        </main>
+    </div>
+
+    <!-- Upload proof modal -->
+    <div class="modal-backdrop" id="proofModal" aria-hidden="true">
+        <section class="proof-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-top">
+                <span class="modal-icon"><i class="bx bx-cloud-upload"></i></span>
+                <button class="modal-close" id="closeModal" type="button" aria-label="Close dialog">
+                    <i class="bx bx-x"></i>
+                </button>
+            </div>
+            <h2 id="modalTitle">Upload task proof</h2>
+            <p class="modal-description">Choose a clear screenshot showing the task you completed.</p>
+
+            <form id="proofForm">
+                <label class="form-label" for="selectedTask">Selected task</label>
+                <input id="selectedTask" class="text-input" type="text" readonly>
+
+                <label class="form-label" for="proofFile">Screenshot proof</label>
+                <label class="file-drop" for="proofFile">
+                    <i class="bx bx-image-add"></i>
+                    <strong id="fileLabel">Click to choose an image</strong>
+                    <span>PNG, JPG or WEBP · Maximum 5 MB</span>
+                    <input id="proofFile" type="file" accept="image/png,image/jpeg,image/webp" required>
+                </label>
+                <img id="proofPreview" class="proof-preview" alt="Selected proof preview" hidden>
+
+                <div class="modal-notice"><i class="bx bx-info-circle"></i> This is a frontend demo. Your screenshot
+                    stays in this browser and is not sent to KUDIX.</div>
+                <div class="modal-actions">
+                    <button class="button-outline cancel-button" id="cancelModal" type="button">Cancel</button>
+                    <button class="button-primary" type="submit"><i class="bx bx-check"></i> Save Demo
+                        Submission</button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="js/social-tasks.js"></script>
+</body>
+
+</html>

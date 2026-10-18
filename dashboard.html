@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | KUDIX</title>
+    <meta name="description" content="Your KUDIX gaming and rewards dashboard.">
+    <meta name="theme-color" content="#0B1020">
+
+    <!-- Prevent an incorrect theme flash on page load -->
+    <script>
+        (function () {
+            try {
+                const savedTheme = localStorage.getItem("kudix-theme");
+                const systemDark = window.matchMedia(
+                    "(prefers-color-scheme: dark)"
+                ).matches;
+
+                document.documentElement.dataset.theme =
+                    savedTheme || (systemDark ? "dark" : "light");
+            } catch (error) {
+                document.documentElement.dataset.theme = "light";
+            }
+        })();
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Dashboard Styles -->
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <!-- Optional integration configuration -->
+    <script>
+        window.KUDIX_CONFIG = {
+            publicChannelUrl: "",
+            dashboardHomeUrl: "dashboard.html"
+        };
+    </script>
+
+    <script src="js/dashboard.js" defer></script>
+</head>
+
+<body class="dashboard-page">
+
+    <div class="dashboard-layout">
+
+        <!-- Mobile Backdrop -->
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+        <!-- ================= SIDEBAR ================= -->
+        <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+
+            <div class="sidebar-brand-row">
+
+                <a href="dashboard.html" class="brand-link" aria-label="KUDIX Dashboard">
+                    <img src="images/kudix-logo.png" alt="KUDIX Logo" class="brand-logo">
+                </a>
+
+                <button type="button" class="icon-button sidebar-close" id="sidebarClose" aria-label="Close navigation">
+                    <i class="bx bx-x" aria-hidden="true"></i>
+                </button>
+
+            </div>
+
+            <div class="sidebar-section-label">WORKSPACE</div>
+
+            <nav class="sidebar-nav">
+
+                <a href="dashboard.html" class="nav-item active" aria-current="page">
+                    <i class="bx bxs-dashboard" aria-hidden="true"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="games.html" class="nav-item">
+                    <i class="bx bx-joystick" aria-hidden="true"></i>
+                    <span>Games</span>
+                    <span class="nav-arrow"><i class="bx bx-chevron-right"></i></span>
+                </a>
+
+                <a href="social-tasks.html" class="nav-item">
+                    <i class="bx bx-share-alt"></i>
+                    <span>Social Tasks</span>
+                </a>
+
+                <a href="wallet.html" class="nav-item">
+                    <i class="bx bx-wallet" aria-hidden="true"></i>
+                    <span>Wallet</span>
+                </a>
+
+                <a href="/daily-streak.html" class="nav-item">
+                    <i class="bx bx-box text-xl" aria-hidden="true"></i>
+                    <span>Daily-Streak</span>
+                </a>
+
+                <a href="transactions.html" class="nav-item">
+                    <i class="bx bx-transfer-alt" aria-hidden="true"></i>
+                    <span>Transactions</span>
+                </a>
+
+                <a href="referrals.html" class="nav-item">
+                    <i class="bx bx-user-plus" aria-hidden="true"></i>
+                    <span>Referrals</span>
+                </a>
+
+                <a href="/withdrawal.html" class="nav-item">
+                    <i class="bx bx-wallet" aria-hidden="true"></i>
+                    <span>Withdrawal</span>
+                </a>
+
+                <!-- Required Top Earners navigation -->
+                <a href="top-earner.html" class="nav-item">
+                    <i class="bx bx-trophy" aria-hidden="true"></i>
+                    <span>Top Earners</span>
+                </a>
+
+
+            </nav>
+
+            <div class="sidebar-section-label sidebar-section-spaced">
+                PREFERENCES
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <a href="settings.html" class="nav-item">
+                    <i class="bx bx-cog" aria-hidden="true"></i>
+                    <span>Settings</span>
+                </a>
+
+                <a href="support.html" class="nav-item">
+                    <i class="bx bx-help-circle" aria-hidden="true"></i>
+                    <span>Help & Support</span>
+                </a>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <div class="sidebar-help-card">
+                    <div class="help-card-icon">
+                        <i class="bx bx-headphone" aria-hidden="true"></i>
+                    </div>
+
+                    <strong>Need a hand?</strong>
+
+                    <p>Our support team can help you find your way.</p>
+
+                    <a href="support.html">
+                        Visit Support
+                        <i class="bx bx-right-arrow-alt" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+                <div class="sidebar-profile">
+
+                    <div class="profile-avatar" aria-hidden="true">K</div>
+
+                    <div class="profile-details">
+                        <strong id="sidebarUsername">KUDIX Member</strong>
+                        <span>Member account</span>
+                    </div>
+
+                    <button type="button" class="icon-button sidebar-logout" id="logoutButton" aria-label="Log out"
+                        title="Log out">
+                        <i class="bx bx-log-out" aria-hidden="true"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+        <!-- ================= MAIN AREA ================= -->
+        <div class="main-area">
+
+            <!-- TOP BAR -->
+            <header class="topbar">
+
+                <div class="topbar-left">
+
+                    <button type="button" class="icon-button mobile-menu-button" id="mobileMenuButton"
+                        aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">
+                        <i class="bx bx-menu-alt-left" aria-hidden="true"></i>
+                    </button>
+
+                    <div class="topbar-heading">
+                        <span class="topbar-eyebrow">YOUR PERSONAL SPACE</span>
+                        <h1>Dashboard</h1>
+                    </div>
+
+                </div>
+
+                <div class="topbar-actions">
+
+                    <!-- Theme Toggle -->
+                    <button type="button" class="icon-button theme-toggle" id="themeToggle"
+                        aria-label="Switch to dark mode" title="Switch theme">
+                        <i class="bx bx-moon" id="themeIcon" aria-hidden="true"></i>
+                    </button>
+
+                    <!-- Notifications -->
+                    <div class="dropdown-wrapper">
+
+                        <button type="button" class="icon-button notification-trigger" id="notificationToggle"
+                            aria-label="Open notifications" aria-expanded="false" aria-controls="notificationDropdown">
+                            <i class="bx bx-bell" aria-hidden="true"></i>
+                            <span class="notification-dot" hidden></span>
+                        </button>
+
+                        <div class="dropdown-panel notification-dropdown" id="notificationDropdown" hidden>
+                            <div class="dropdown-header">
+                                <div>
+                                    <strong>Notifications</strong>
+                                    <span>Account updates</span>
+                                </div>
+
+                                <button type="button" class="dropdown-close" data-close-dropdown
+                                    aria-label="Close notifications">
+                                    <i class="bx bx-x"></i>
+                                </button>
+                            </div>
+
+                            <div class="notification-empty">
+                                <div class="empty-icon">
+                                    <i class="bx bx-bell-off"></i>
+                                </div>
+
+                                <strong>You're all caught up</strong>
+                                <p>New account notifications will appear here.</p>
+                            </div>
+
+                            <a href="notifications.html" class="dropdown-footer-link">
+                                View all notifications
+                                <i class="bx bx-right-arrow-alt"></i>
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- Profile -->
+                    <div class="dropdown-wrapper">
+
+                        <button type="button" class="topbar-profile" id="profileToggle" aria-expanded="false"
+                            aria-controls="profileDropdown">
+                            <span class="profile-avatar topbar-avatar">K</span>
+
+                            <span class="topbar-profile-info">
+                                <strong id="topbarUsername">KUDIX Member</strong>
+                                <small>My account</small>
+                            </span>
+
+                            <i class="bx bx-chevron-down profile-chevron"></i>
+                        </button>
+
+                        <div class="dropdown-panel profile-dropdown" id="profileDropdown" hidden>
+                            <div class="profile-dropdown-heading">
+                                <span class="profile-avatar">K</span>
+
+                                <div>
+                                    <strong id="dropdownUsername">KUDIX Member</strong>
+                                    <span>Account menu</span>
+                                </div>
+                            </div>
+
+                            <a href="settings.html">
+                                <i class="bx bx-user"></i>
+                                My Profile & Settings
+                            </a>
+
+                            <a href="support.html">
+                                <i class="bx bx-help-circle"></i>
+                                Help & Support
+                            </a>
+
+                            <button type="button" id="profileLogoutButton">
+                                <i class="bx bx-log-out"></i>
+                                Log out
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- ================= DASHBOARD CONTENT ================= -->
+            <main class="dashboard-content">
+
+                <!-- Greeting -->
+                <section class="greeting-section">
+                    <div>
+                        <div class="greeting-date" id="dashboardDate">
+                            YOUR KUDIX OVERVIEW
+                        </div>
+
+                        <h2 class="greeting-title">
+                            <span id="greetingTime">Good day</span>,
+                            <span id="greetingName">Player</span>
+                            <span class="greeting-wave" aria-hidden="true">👋</span>
+                        </h2>
+
+                        <p>
+                            Welcome back to KUDIX! Ready to discover your next
+                            favorite game today?
+                        </p>
+                    </div>
+
+                    <a href="games.html" class="primary-button greeting-action">
+                        <i class="bx bx-joystick" aria-hidden="true"></i>
+                        Explore Games
+                    </a>
+                </section>
+
+
+                <!-- ================= WELCOME BONUS ================= -->
+                <section class="bonus-card" aria-labelledby="bonusTitle">
+
+                    <div class="bonus-decoration bonus-decoration-one"></div>
+                    <div class="bonus-decoration bonus-decoration-two"></div>
+
+                    <div class="bonus-main">
+
+                        <div class="bonus-icon-wrap">
+                            <i class="bx bx-gift" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="bonus-copy">
+
+                            <div class="bonus-badge">
+                                <span class="bonus-badge-dot"></span>
+                                WELCOME REWARD
+                            </div>
+
+                            <h2 id="bonusTitle">Your KUDIX Welcome Bonus</h2>
+
+                            <div class="bonus-amount">₦20,000</div>
+
+                            <p>
+                                Referral three persons and be eligible to use the welcome bounce to play game
+                            </p>
+
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="bonus-action">
+                        <span class="bonus-status">
+                            <i class="bx bx-info-circle" aria-hidden="true"></i>
+                            <span>Eligibility must be confirmed</span>
+                        </span>
+
+                        <a href="games.html" class="bonus-button">
+                            Explore Games
+                            <i class="bx bx-right-arrow-alt" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                </section>
+
+                <!-- ================= OVERVIEW CARDS ================= -->
+                <section class="overview-section">
+
+                    <div class="section-heading">
+                        <div>
+                            <span class="section-eyebrow">YOUR ACCOUNT</span>
+                            <h2>Account Overview</h2>
+                        </div>
+
+                        <a href="wallet.html" class="text-link">
+                            View Wallet
+                            <i class="bx bx-right-arrow-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="overview-grid">
+
+                        <article class="overview-card">
+                            <div class="overview-card-top">
+                                <span class="overview-icon purple-icon">
+                                    <i class="bx bx-wallet"></i>
+                                </span>
+
+                                <span class="card-label">Gaming Credit</span>
+                            </div>
+
+                            <div class="overview-value">—</div>
+
+                            <div class="overview-card-bottom">
+                                <span class="neutral-indicator">
+                                    <!-- <i class="bx bx-info-circle"></i> -->
+                                    <!-- Awaiting account data -->
+                                </span>
+                            </div>
+                        </article>
+
+                        <article class="overview-card">
+                            <div class="overview-card-top">
+                                <span class="overview-icon blue-icon">
+                                    <i class="bx bx-money"></i>
+                                </span>
+
+                                <span class="card-label">Available Balance</span>
+                            </div>
+
+                            <div class="overview-value">—</div>
+
+                            <div class="overview-card-bottom">
+                                <span class="neutral-indicator">
+                                    <!-- <i class="bx bx-shield-quarter"></i> -->
+                                    <!-- Backend required -->
+                                </span>
+                            </div>
+                        </article>
+
+                        <article class="overview-card">
+                            <div class="overview-card-top">
+                                <span class="overview-icon green-icon">
+                                    <i class="bx bx-joystick"></i>
+                                </span>
+
+                                <span class="card-label">Games Played</span>
+                            </div>
+
+                            <div class="overview-value">—</div>
+
+                            <div class="overview-card-bottom">
+                                <!-- <span class="neutral-indicator">
+                                    <i class="bx bx-info-circle"></i>
+                                    Awaiting account data
+                                </span> -->
+                            </div>
+                        </article>
+
+                        <article class="overview-card">
+                            <div class="overview-card-top">
+                                <span class="overview-icon orange-icon">
+                                    <i class="bx bx-gift"></i>
+                                </span>
+
+                                <span class="card-label">Referral Rewards</span>
+                            </div>
+
+                            <div class="overview-value">—</div>
+
+                            <div class="overview-card-bottom">
+                                <span class="neutral-indicator">
+                                    <!-- <i class="bx bx-info-circle"></i> -->
+                                    <!-- Awaiting account data -->
+                                </span>
+                            </div>
+                        </article>
+
+                    </div>
+
+                </section>
+
+                <!-- ================= QUICK ACTIONS ================= -->
+                <section class="quick-actions-section">
+
+                    <div class="section-heading">
+                        <div>
+                            <span class="section-eyebrow">QUICK ACCESS</span>
+                            <h2>Quick Actions</h2>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions-grid">
+
+                        <a href="games.html" class="quick-action-card">
+                            <span class="quick-action-icon purple-icon">
+                                <i class="bx bx-joystick"></i>
+                            </span>
+
+                            <span class="quick-action-copy">
+                                <strong>Play Games</strong>
+                                <small>Explore available games</small>
+                            </span>
+
+                            <i class="bx bx-chevron-right quick-action-arrow"></i>
+                        </a>
+
+                        <a href="wallet.html" class="quick-action-card">
+                            <span class="quick-action-icon blue-icon">
+                                <i class="bx bx-wallet"></i>
+                            </span>
+
+                            <span class="quick-action-copy">
+                                <strong>My Wallet</strong>
+                                <small>View your account wallet</small>
+                            </span>
+
+                            <i class="bx bx-chevron-right quick-action-arrow"></i>
+                        </a>
+
+                        <a href="referrals.html" class="quick-action-card">
+                            <span class="quick-action-icon green-icon">
+                                <i class="bx bx-user-plus"></i>
+                            </span>
+
+                            <span class="quick-action-copy">
+                                <strong>Invite Friends</strong>
+                                <small>Explore the referral program</small>
+                            </span>
+
+                            <i class="bx bx-chevron-right quick-action-arrow"></i>
+                        </a>
+
+                        <a href="transactions.html" class="quick-action-card">
+                            <span class="quick-action-icon orange-icon">
+                                <i class="bx bx-transfer-alt"></i>
+                            </span>
+
+                            <span class="quick-action-copy">
+                                <strong>Transactions</strong>
+                                <small>Review account activity</small>
+                            </span>
+
+                            <i class="bx bx-chevron-right quick-action-arrow"></i>
+                        </a>
+
+                    </div>
+
+                </section>
+
+                <!-- ================= GAMES ================= -->
+                <section class="games-section">
+
+                    <div class="section-heading">
+                        <div>
+                            <span class="section-eyebrow">FIND YOUR NEXT GAME</span>
+                            <h2>Explore Games</h2>
+                            <p class="section-description">
+                                Discover the games available on KUDIX.
+                            </p>
+                        </div>
+
+                        <a href="games.html" class="text-link">
+                            View All Games
+                            <i class="bx bx-right-arrow-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="games-grid">
+
+                        <a href="games.html" class="game-card">
+                            <div class="game-art game-art-purple">
+                                <i class="bx bx-palette"></i>
+                                <span class="game-art-decoration">01</span>
+                            </div>
+
+                            <div class="game-card-content">
+                                <span class="game-category">PREDICTION</span>
+                                <h3>Colour Prediction</h3>
+                                <p>Explore a colour-based prediction game.</p>
+
+                                <span class="game-card-link">
+                                    Explore Game
+                                    <i class="bx bx-right-arrow-alt"></i>
+                                </span>
+                            </div>
+                        </a>
+
+                        <a href="games.html" class="game-card">
+                            <div class="game-art game-art-blue">
+                                <i class="bx bx-dice-5"></i>
+                                <span class="game-art-decoration">02</span>
+                            </div>
+
+                            <div class="game-card-content">
+                                <span class="game-category">NUMBERS</span>
+                                <h3>Number Prediction</h3>
+                                <p>Explore a number-based prediction game.</p>
+
+                                <span class="game-card-link">
+                                    Explore Game
+                                    <i class="bx bx-right-arrow-alt"></i>
+                                </span>
+                            </div>
+                        </a>
+
+                        <a href="games.html" class="game-card">
+                            <div class="game-art game-art-green">
+                                <i class="bx bx-coin"></i>
+                                <span class="game-art-decoration">03</span>
+                            </div>
+
+                            <div class="game-card-content">
+                                <span class="game-category">CLASSIC</span>
+                                <h3>Heads or Tails</h3>
+                                <p>A classic two-outcome coin game.</p>
+
+                                <span class="game-card-link">
+                                    Explore Game
+                                    <i class="bx bx-right-arrow-alt"></i>
+                                </span>
+                            </div>
+                        </a>
+
+                        <a href="games.html" class="game-card">
+                            <div class="game-art game-art-orange">
+                                <i class="bx bx-trending-up"></i>
+                                <span class="game-art-decoration">04</span>
+                            </div>
+
+                            <div class="game-card-content">
+                                <span class="game-category">DIRECTION</span>
+                                <h3>Up or Down</h3>
+                                <p>Explore an up-or-down prediction game.</p>
+
+                                <span class="game-card-link">
+                                    Explore Game
+                                    <i class="bx bx-right-arrow-alt"></i>
+                                </span>
+                            </div>
+                        </a>
+
+                        <a href="games.html" class="game-card">
+                            <div class="game-art game-art-pink">
+                                <i class="bx bx-star"></i>
+                                <span class="game-art-decoration">05</span>
+                            </div>
+
+                            <div class="game-card-content">
+                                <span class="game-category">LUCK & NUMBERS</span>
+                                <h3>Lucky Number</h3>
+                                <p>Discover a number-selection game.</p>
+
+                                <span class="game-card-link">
+                                    Explore Game
+                                    <i class="bx bx-right-arrow-alt"></i>
+                                </span>
+                            </div>
+                        </a>
+
+                        <a href="games.html" class="game-card">
+                            <div class="game-art game-art-indigo">
+                                <i class="bx bx-bar-chart-alt-2"></i>
+                                <span class="game-art-decoration">06</span>
+                            </div>
+
+                            <div class="game-card-content">
+                                <span class="game-category">COMPARISON</span>
+                                <h3>Higher or Lower</h3>
+                                <p>Explore a higher-or-lower challenge.</p>
+
+                                <span class="game-card-link">
+                                    Explore Game
+                                    <i class="bx bx-right-arrow-alt"></i>
+                                </span>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <!-- <div class="responsible-note">
+                        <i class="bx bx-info-circle"></i>
+                        <p>
+                            Game availability, eligibility, and applicable
+                            rules depend on the platform. Participation does
+                            not guarantee a reward or financial return.
+                        </p>
+                    </div> -->
+
+                </section>
+
+                <!-- ================= LOWER GRID ================= -->
+                <div class="dashboard-lower-grid">
+
+                    <!-- Referral -->
+                    <section class="panel-card referral-panel">
+
+                        <div class="panel-card-heading">
+                            <div>
+                                <span class="section-eyebrow">GROW TOGETHER</span>
+                                <h2>Invite Friends</h2>
+                            </div>
+
+                            <span class="panel-heading-icon purple-icon">
+                                <i class="bx bx-user-plus"></i>
+                            </span>
+                        </div>
+
+                        <p class="panel-description">
+                            Share KUDIX with friends and learn about the
+                            referral rewards available to eligible members.
+                        </p>
+
+                        <div class="referral-code-box">
+                            <div>
+                                <small>Your referral code</small>
+                                <strong>Available when connected</strong>
+                            </div>
+
+                            <i class="bx bx-link-alt"></i>
+                        </div>
+
+                        <a href="referrals.html" class="primary-button panel-button">
+                            View Referral Program
+                            <i class="bx bx-right-arrow-alt"></i>
+                        </a>
+
+                        <small class="panel-disclaimer">
+                            Rewards are subject to eligibility and platform terms.
+                        </small>
+
+                    </section>
+
+                    <!-- Top Earners -->
+                    <section class="panel-card leaderboard-panel">
+
+                        <div class="panel-card-heading">
+                            <div>
+                                <span class="section-eyebrow">COMMUNITY</span>
+                                <h2>Top Earners</h2>
+                            </div>
+
+                            <span class="panel-heading-icon orange-icon">
+                                <i class="bx bx-trophy"></i>
+                            </span>
+                        </div>
+
+                        <p class="panel-description">
+                            Visit the leaderboard to see verified rankings
+                            when real leaderboard data is available.
+                        </p>
+
+                        <div class="leaderboard-empty">
+                            <div class="leaderboard-trophy">
+                                <i class="bx bx-trophy"></i>
+                            </div>
+
+                            <strong>Leaderboard awaits</strong>
+
+                            <span>Verified rankings will appear here.</span>
+                        </div>
+
+                        <a href="top-earner.html" class="secondary-button panel-button">
+                            View Leaderboard
+                            <i class="bx bx-right-arrow-alt"></i>
+                        </a>
+
+                    </section>
+
+                </div>
+
+                <!-- ================= RECENT ACTIVITY ================= -->
+                <section class="activity-section panel-card">
+
+                    <div class="section-heading activity-heading">
+                        <div>
+                            <span class="section-eyebrow">ACCOUNT HISTORY</span>
+                            <h2>Recent Activity</h2>
+                            <p class="section-description">
+                                Keep track of activity associated with your account.
+                            </p>
+                        </div>
+
+                        <a href="transactions.html" class="text-link">
+                            View All
+                            <i class="bx bx-right-arrow-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="activity-table-wrap">
+
+                        <table class="activity-table">
+                            <thead>
+                                <tr>
+                                    <th>ACTIVITY</th>
+                                    <th>DATE</th>
+                                    <th>STATUS</th>
+                                    <th>AMOUNT</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="activity-empty">
+                                            <div class="activity-empty-icon">
+                                                <i class="bx bx-receipt"></i>
+                                            </div>
+
+                                            <strong>No activity to display yet</strong>
+
+                                            <p>
+                                                Your account activity will appear
+                                                here when verified data is available.
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </section>
+
+                <!-- FOOTER -->
+                <footer class="dashboard-footer">
+
+                    <div class="footer-brand">
+                        <img src="images/kudix-logo.png" alt="KUDIX Logo">
+                        <span>© <span id="copyrightYear">2026</span> KUDIX</span>
+                    </div>
+
+                    <nav class="footer-links" aria-label="Footer navigation">
+                        <a href="terms.html">Terms</a>
+                        <a href="privacy.html">Privacy</a>
+                        <a href="support.html">Support</a>
+                    </nav>
+
+                    <span class="footer-tagline">Your game. Your community.</span>
+
+                </footer>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- ================= WELCOME MODAL ================= -->
+    <div class="welcome-modal" id="welcomeModal" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle"
+        aria-describedby="welcomeDescription" aria-hidden="true" hidden>
+
+        <div class="welcome-backdrop" data-welcome-close></div>
+
+        <div class="welcome-dialog">
+
+            <button type="button" class="welcome-close icon-button" id="welcomeClose"
+                aria-label="Close welcome message">
+                <i class="bx bx-x"></i>
+            </button>
+
+            <div class="welcome-top-decoration"></div>
+
+            <div class="welcome-logo-wrap">
+                <img src="images/kudix-logo.png" alt="KUDIX Logo">
+            </div>
+
+            <div class="welcome-icon">
+                <i class="bx bx-party" aria-hidden="true"></i>
+            </div>
+
+            <!-- <span class="welcome-eyebrow">YOU'RE IN THE RIGHT PLACE</span> -->
+
+            <h2 id="welcomeTitle">Join our public channels to stay updated and get games predication </h2>
+
+            <!-- <p id="welcomeDescription" class="welcome-description">
+                We're excited to have you here! Explore your dashboard,
+                discover available games, and stay informed about important
+                platform updates.
+            </p> -->
+
+
+
+            <!-- WhatsApp & Telegram Buttons -->
+            <div class="welcome-channel-actions">
+
+                <a href="#" id="joinWhatsAppButton" class="welcome-primary-button welcome-whatsapp-button"
+                    target="_blank" rel="noopener noreferrer" aria-disabled="true">
+                    <i class="bx bxl-whatsapp" aria-hidden="true"></i>
+                    <span>Join WhatsApp</span>
+                    <i class="bx bx-right-arrow-alt welcome-button-arrow" aria-hidden="true"></i>
+                </a>
+
+                <a href="#" id="joinTelegramButton" class="welcome-primary-button welcome-telegram-button"
+                    target="_blank" rel="noopener noreferrer" aria-disabled="true">
+                    <i class="bx bxl-telegram" aria-hidden="true"></i>
+                    <span>Join Telegram</span>
+                    <i class="bx bx-right-arrow-alt welcome-button-arrow" aria-hidden="true"></i>
+                </a>
+
+            </div>
+
+            <p class="channel-unavailable-message" id="channelUnavailableMessage">
+                Official WhatsApp and Telegram links will be available here soon.
+            </p>
+
+
+            <button type="button" class="welcome-secondary-button" id="exploreDashboardButton">
+                Explore Dashboard
+                <i class="bx bx-arrow-back" aria-hidden="true"></i>
+            </button>
+
+            <div class="welcome-modal-footer">
+                <i class="bx bx-shield-quarter" aria-hidden="true"></i>
+                Follow official KUDIX channels for reliable updates.
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Generic feedback dialog for frontend-only actions -->
+    <!-- <div
+        class="feedback-toast"
+        id="dashboardToast"
+        role="status"
+        aria-live="polite"
+        hidden
+    ></div> -->
+
+</body>
+
+</html>

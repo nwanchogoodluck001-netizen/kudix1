@@ -1,0 +1,129 @@
+KUDIX/
+│
+├── index.html
+├── login.html
+├── register.html
+├── forgot-password.html
+├── 404.html
+│
+├── dashboard.html
+├── games.html
+├── signals.html
+├── tasks.html
+├── referrals.html
+├── game-history.html
+├── notifications.html
+├── settings.html
+├── support.html
+│
+├── games/
+│   ├── colour-prediction.html
+│   ├── number-prediction.html
+│   ├── heads-or-tails.html
+│   ├── up-or-down.html
+│   ├── lucky-number.html
+│   └── higher-or-lower.html
+│
+├── admin/
+│   ├── index.html
+│   ├── dashboard.html
+│   ├── users.html
+│   ├── games.html
+│   ├── game-rounds.html
+│   ├── game-results.html
+│   ├── signals.html
+│   ├── referrals.html
+│   ├── transactions.html
+│   ├── tasks.html
+│   ├── task-submissions.html
+│   ├── support.html
+│   ├── announcements.html
+│   ├── settings.html
+│   └── activity-logs.html
+│
+├── css/
+│   ├── style.css
+│   ├── auth.css
+│   ├── dashboard.css
+│   ├── games.css
+│   ├── signals.css
+│   ├── tasks.css
+│   ├── referrals.css
+│   ├── support.css
+│   └── admin.css
+│
+├── js/
+│   ├── main.js
+│   ├── navigation.js
+│   ├── auth.js
+│   ├── dashboard.js
+│   ├── games.js
+│   ├── game-history.js
+│   ├── signals.js
+│   ├── tasks.js
+│   ├── referrals.js
+│   ├── notifications.js
+│   ├── settings.js
+│   ├── support-chat.js
+│   │
+│   ├── games/
+│   │   ├── colour-prediction.js
+│   │   ├── number-prediction.js
+│   │   ├── heads-or-tails.js
+│   │   ├── up-or-down.js
+│   │   ├── lucky-number.js
+│   │   └── higher-or-lower.js
+│   │
+│   └── admin/
+│       ├── dashboard.js
+│       ├── users.js
+│       ├── games.js
+│       ├── game-rounds.js
+│       ├── game-results.js
+│       ├── signals.js
+│       ├── referrals.js
+│       ├── transactions.js
+│       ├── tasks.js
+│       ├── task-submissions.js
+│       ├── support.js
+│       ├── announcements.js
+│       └── settings.js
+│
+├── images/
+│   ├── kudix-logo.png
+│   ├── favicon.png
+│   │
+│   ├── games/
+│   │   ├── colour-prediction.png
+│   │   ├── number-prediction.png
+│   │   ├── heads-or-tails.png
+│   │   ├── up-or-down.png
+│   │   ├── lucky-number.png
+│   │   └── higher-or-lower.png
+│   │
+│   ├── banners/
+│   ├── avatars/
+│   └── icons/
+│
+├── components/
+│   ├── navbar.html
+│   ├── sidebar.html
+│   ├── footer.html
+│   ├── support-widget.html
+│   ├── notification-panel.html
+│   └── modals.html
+│
+├── assets/
+│   ├── fonts/
+│   └── sounds/
+│
+├── config/
+│   └── app-config.js
+│
+├── docs/
+│   ├── project-overview.md
+│   ├── game-rules.md
+│   ├── referral-rules.md
+│   └── admin-guide.md
+│
+└── README.md

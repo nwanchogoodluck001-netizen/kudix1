@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B1020">
+    <title>Withdraw Funds | KUDIX</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kudix: {
+                            navy: "#0B1020",
+                            purple: "#6D4AFF",
+                            blue: "#287BFF",
+                            green: "#16A36A"
+                        }
+                    },
+                    fontFamily: {
+                        sora: ["Sora", "sans-serif"],
+                        inter: ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="stylesheet" href="css/withdrawal.css">
+    <script src="js/withdrawal.js" defer></script>
+</head>
+
+<body>
+    <div class="app-shell">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+            <a href="dashboard.html" class="brand">
+                <img src="images/kudix-logo.png" alt="KUDIX Logo">
+            </a>
+
+            <p class="sidebar-label">WORKSPACE</p>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bx bxs-dashboard"></i><span>Dashboard</span>
+                </a>
+                <a href="games.html" class="nav-link">
+                    <i class="bx bx-joystick"></i><span>Games</span>
+                </a>
+                <a href="social-tasks.html" class="nav-link">
+                    <i class="bx bx-task"></i><span>Social Tasks</span>
+                </a>
+                <a href="transactions.html" class="nav-link">
+                    <i class="bx bx-transfer-alt"></i><span>Transactions</span>
+                </a>
+                <a href="referrals.html" class="nav-link">
+                    <i class="bx bx-group"></i><span>Referrals</span>
+                </a>
+                <a href="top-earner.html" class="nav-link">
+                    <i class="bx bx-trophy"></i><span>Top Earners</span>
+                </a>
+            </nav>
+
+            <p class="sidebar-label account-label">ACCOUNT</p>
+
+            <nav class="sidebar-nav">
+                <a href="withdrawal.html" class="nav-link active" aria-current="page">
+                    <i class="bx bx-wallet"></i><span>Withdraw</span>
+                </a>
+                <!-- <a href="level-up.html" class="nav-link">
+                    <i class="bx bx-up-arrow-circle"></i><span>Level Up</span>
+                </a> -->
+                <a href="settings.html" class="nav-link">
+                    <i class="bx bx-cog"></i><span>Settings</span>
+                </a>
+                <a href="support.html" class="nav-link">
+                    <i class="bx bx-help-circle"></i><span>Help &amp; Support</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="sidebar-help">
+                    <div class="help-icon"><i class="bx bx-headphone"></i></div>
+                    <div>
+                        <strong>Need assistance?</strong>
+                        <p>We're here to help.</p>
+                        <a href="support.html">Contact support <i class="bx bx-right-arrow-alt"></i></a>
+                    </div>
+                </div>
+
+                <div class="sidebar-version">KUDIX <span>•</span> Gaming &amp; Rewards</div>
+            </div>
+        </aside>
+
+        <main class="main-area">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-button mobile-menu-btn" id="menuToggle" type="button"
+                        aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">
+                        <i class="bx bx-menu"></i>
+                    </button>
+
+                    <div class="greeting">
+                        <div class="greeting-avatar"><i class="bx bxs-user"></i></div>
+                        <div>
+                            <span>Wallet Management</span>
+                            <strong>Withdraw Funds</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topbar-actions">
+                    <button class="icon-button" id="themeToggle" type="button" aria-label="Switch theme"
+                        title="Switch theme">
+                        <i class="bx bx-moon"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <section class="page-heading">
+                    <div>
+                        <div class="eyebrow"><span></span> YOUR KUDIX WALLET</div>
+                        <h1>Withdraw <span>Funds</span></h1>
+                        <p>Manage your wallet and explore your withdrawal options.</p>
+                    </div>
+
+                    <div class="heading-badge">
+                        <i class="bx bx-shield-quarter"></i>
+                        Account protected
+                    </div>
+                </section>
+
+                <div class="demo-notice">
+                    <i class="bx bx-info-circle"></i>
+                    <span>
+                        Preview mode: balances and wallet details are illustrative.
+                        Connect your account service to display real information.
+                    </span>
+                </div>
+
+                <div class="withdrawal-layout">
+                    <!-- LEFT: WALLET BALANCES -->
+                    <section class="wallet-column">
+                        <div class="portfolio-summary">
+                            <span>Total Portfolio Balance</span>
+                            <h2>₦000.000</h2>
+                            <small>Illustrative balance — not actual funds</small>
+                        </div>
+
+                        <div class="wallet-heading">
+                            <div>
+                                <h2>Your Wallets</h2>
+                                <p>Manage your available wallet balances.</p>
+                            </div>
+                            <span class="wallet-count">02 WALLETS</span>
+                        </div>
+
+                        <article class="wallet-card wallet-blue">
+                            <div class="wallet-card-top">
+                                <div>
+                                    <span class="wallet-name">Ratebox Active</span>
+                                    <span class="wallet-demo-label">ILLUSTRATIVE</span>
+                                </div>
+                                <i class="bx bx-wallet-alt"></i>
+                            </div>
+
+                            <div class="wallet-amount">₦000.000</div>
+
+                            <div class="wallet-status">
+                                <i class="bx bx-info-circle"></i> Sample balance
+                            </div>
+
+                            <div class="wallet-card-bottom">
+                                <div>
+                                    <strong>•••• 8160</strong>
+                                    <small>Example wallet ID</small>
+                                </div>
+                             
+                            </div>
+
+                            <div class="wallet-glow"></div>
+                        </article>
+
+                        <article class="wallet-card wallet-green">
+                            <div class="wallet-card-top">
+                                <div>
+                                    <span class="wallet-name">Referrals Wallet</span>
+                                    <span class="wallet-demo-label">ILLUSTRATIVE</span>
+                                </div>
+                                <i class="bx bx-wallet-alt"></i>
+                            </div>
+
+                            <div class="wallet-amount">₦0.00</div>
+
+                            <div class="wallet-status">
+                                <i class="bx bx-info-circle"></i> Sample balance
+                            </div>
+
+                            <div class="wallet-card-bottom">
+                                <div>
+                                    <strong>•••• 9899</strong>
+                                    <small>Example wallet ID</small>
+                                </div>
+                            
+                            </div>
+
+                            <div class="wallet-glow"></div>
+                        </article>
+
+                        <a class="wallet-history-link" href="transactions.html">
+                            <span class="history-icon"><i class="bx bx-receipt"></i></span>
+                            <span>
+                                <strong>Transaction History</strong>
+                                <small>Review your transaction records</small>
+                            </span>
+                            <i class="bx bx-chevron-right history-arrow"></i>
+                        </a>
+                    </section>
+
+                    <!-- RIGHT: CASHOUT FORM -->
+                    <section class="cashout-column">
+                        <div class="cashout-card">
+                            <div class="cashout-heading">
+                                <div class="cashout-heading-icon">
+                                    <i class="bx bxs-bank"></i>
+                                </div>
+                                <div>
+                                    <h2>Cashout Funds</h2>
+                                    <p>Prepare a withdrawal request</p>
+                                </div>
+                            </div>
+
+                            <form id="withdrawalForm">
+                                <div class="form-group">
+                                    <label for="sourceWallet">Source Wallet</label>
+                                    <div class="select-wrap">
+                                        <select id="sourceWallet" name="sourceWallet" required>
+                                            <option value="ratebox">Ratebox Active (sample balance)</option>
+                                            <option value="yield">Referrals Wallet (sample balance)</option>
+                                        </select>
+                                        <i class="bx bx-chevron-down"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="amount-label-row">
+                                        <label for="withdrawAmount">Amount (NGN)</label>
+                                        <span>Minimum: not configured</span>
+                                    </div>
+
+                                    <div class="amount-input-wrap">
+                                        <span>₦</span>
+                                        <input id="withdrawAmount" name="amount" type="number" min="1" step="0.01"
+                                            placeholder="0.00" inputmode="decimal" autocomplete="off">
+                                    </div>
+                                </div>
+
+                                <button class="request-button" type="submit">
+                                    <i class="bx bx-lock-alt"></i>
+                                    Request Withdrawal
+                                    <i class="bx bx-right-arrow-alt request-arrow"></i>
+                                </button>
+
+                                <p class="form-footnote">
+                                    <i class="bx bx-info-circle"></i>
+                                    Account level-up is required before withdrawal access.
+                                </p>
+                            </form>
+                        </div>
+
+                        <section class="recent-withdrawals">
+                            <div class="recent-heading">
+                                <div>
+                                    <h2>Recent Withdrawals</h2>
+                                    <p>Your latest withdrawal activity</p>
+                                </div>
+                                <span class="recent-icon"><i class="bx bx-history"></i></span>
+                            </div>
+
+                            <div class="empty-state">
+                                <div class="empty-state-icon">
+                                    <i class="bx bx-receipt"></i>
+                                </div>
+                                <h3>No History Yet</h3>
+                                <p>Your withdrawal records will appear here.</p>
+                            </div>
+                        </section>
+
+                        <div class="security-note">
+                            <i class="bx bx-shield-quarter"></i>
+                            <div>
+                                <strong>Protect your account</strong>
+                                <p>Never share your password, bank PIN, or verification codes.</p>
+                                <a href="support.html">Need help? Contact support <i
+                                        class="bx bx-right-arrow-alt"></i></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <footer class="page-footer">
+                    <span>© <span id="currentYear"></span> KUDIX. All rights reserved.</span>
+                    <span><i class="bx bx-shield-quarter"></i> Secure account experience</span>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <!-- LEVEL-UP MODAL -->
+    <div class="modal-backdrop" id="levelUpModal" hidden>
+        <section class="level-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"
+            aria-describedby="modalDescription" tabindex="-1">
+
+            <button class="modal-close" id="closeModal" type="button" aria-label="Close level-up message">
+                <i class="bx bx-x"></i>
+            </button>
+
+            <div class="modal-art">
+                <div class="modal-art-ring ring-one"></div>
+                <div class="modal-art-ring ring-two"></div>
+                <div class="modal-art-icon"><i class="bx bx-shield-quarter"></i></div>
+                <span class="art-star star-one"><i class="bx bxs-star"></i></span>
+                <span class="art-star star-two"><i class="bx bxs-star"></i></span>
+                <span class="art-star star-three"><i class="bx bxs-bolt"></i></span>
+            </div>
+
+            <span class="modal-eyebrow">UNLOCK YOUR NEXT LEVEL</span>
+            <h2 id="modalTitle">Level Up Your Account!</h2>
+
+            <p class="modal-description" id="modalDescription">
+                Level up your account to explore more games, unlock more earning
+                opportunities, and access withdrawals.
+            </p>
+
+            <div class="modal-benefits">
+                <div>
+                    <span class="benefit-icon"><i class="bx bx-joystick"></i></span>
+                    <span>Explore more games</span>
+                    <i class="bx bx-check-circle benefit-check"></i>
+                </div>
+                <div>
+                    <span class="benefit-icon"><i class="bx bx-trending-up"></i></span>
+                    <span>Discover earning opportunities</span>
+                    <i class="bx bx-check-circle benefit-check"></i>
+                </div>
+                <div>
+                    <span class="benefit-icon"><i class="bx bx-wallet"></i></span>
+                    <span>Check withdrawal eligibility</span>
+                    <i class="bx bx-check-circle benefit-check"></i>
+                </div>
+            </div>
+
+            <p class="modal-footnote">
+                Complete the required account level-up to continue. Actual withdrawal
+                eligibility must be confirmed by the platform.
+            </p>
+
+            <a href="level-up.html" class="modal-primary-button">
+                <i class="bx bx-up-arrow-circle"></i>
+                Level Up Account
+                <i class="bx bx-right-arrow-alt modal-button-arrow"></i>
+            </a>
+
+            <button class="modal-secondary-button" id="maybeLater" type="button">
+                Maybe Later
+            </button>
+
+            <div class="modal-safe-note">
+                <i class="bx bx-lock-alt"></i> Account access requirements apply
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>

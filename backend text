@@ -1,0 +1,597 @@
+# KUDIX — BACKEND DEVELOPMENT SPECIFICATION
+
+## 1. PROJECT OVERVIEW
+
+Build a secure, scalable backend for KUDIX, an online gaming and rewards platform.
+
+The backend must power user authentication, gaming credits, referral tracking, game access, six interactive games, social tasks, screenshot verification, referral commissions, gaming signals, notifications, customer support, and a comprehensive administrator dashboard.
+
+The backend must connect to a separately developed frontend built with HTML, Tailwind CSS, and JavaScript.
+
+The frontend and backend must communicate through secure APIs.
+
+## 2. RECOMMENDED TECHNOLOGY STACK
+
+Use the following technologies:
+
+- Node.js for the server runtime.
+- Express.js for REST API development.
+- PostgreSQL for the primary database.
+- Prisma ORM for database access and migrations.
+- Secure authentication using established authentication libraries.
+- Redis for caching, rate limiting, and temporary game-round coordination where necessary.
+- WebSockets for real-time notifications and customer support messaging.
+- Private object storage for uploaded task screenshots.
+- A background job queue for notifications and other asynchronous operations.
+
+Use environment variables for secrets and configuration.
+
+Provide a complete setup guide, database schema, API documentation, migrations, and deployment instructions.
+
+## 3. USER AUTHENTICATION
+
+Implement a complete authentication system.
+
+Required features:
+
+- User registration.
+- User login.
+- Secure logout.
+- Email or phone verification, according to the selected registration method.
+- Password hashing.
+- Password reset.
+- Session management.
+- Account status management.
+- Protection against brute-force login attempts.
+- Rate limiting on sensitive endpoints.
+
+Each registered user must have a unique user ID and referral code.
+
+Store user information securely.
+
+Never store passwords as plain text.
+
+Use secure, HttpOnly, appropriately configured cookies or another suitable token strategy.
+
+## 4. WELCOME GAMING BONUS
+
+When a new user successfully registers, automatically credit their account with ₦20,000 in promotional gaming credit.
+
+The ₦20,000 welcome bonus is intended exclusively for playing eligible games on KUDIX.
+
+It is not withdrawable and must never be treated as cash.
+
+Requirements:
+
+- Automatically issue the welcome bonus once per eligible account.
+- Record the bonus in an immutable transaction ledger.
+- Prevent duplicate bonus issuance.
+- Maintain a separate promotional gaming credit balance.
+- Prevent promotional gaming credits from being withdrawn.
+- Allow eligible games to consume gaming credits according to their published rules.
+- Record every credit allocation, deduction, reversal, and adjustment.
+- Prevent negative balances and duplicate transactions.
+
+The welcome bonus must be configurable through the admin dashboard.
+
+All balance updates must be performed securely on the server, never trusted directly from frontend JavaScript.
+
+## 5. REFERRAL SYSTEM
+
+Implement a complete referral tracking system.
+
+Each user must receive a unique referral code and referral link.
+
+Requirements:
+
+- Record the referring user during registration.
+- Prevent users from referring themselves.
+- Prevent duplicate referral relationships.
+- Validate eligible registrations.
+- Detect suspicious referral activity.
+- Track referral status.
+- Display referral progress in the user dashboard.
+- Maintain a referral history.
+
+Users must complete three eligible referrals before gaining access to games.
+
+The required number of referrals must be configurable by an administrator.
+
+Only verified, eligible referrals should count toward the requirement.
+
+Implement appropriate safeguards against duplicate accounts, automated registrations, and referral abuse.
+
+## 6. REFERRAL COMMISSIONS
+
+The default referral commission is ₦1,000 per successful eligible referral.
+
+Requirements:
+
+- Automatically calculate qualifying referral commissions.
+- Maintain a separate referral commission ledger.
+- Record the referring user, referred user, amount, status, and timestamp.
+- Prevent duplicate commission issuance.
+- Allow administrators to review commission records.
+- Support pending, approved, paid, reversed, and rejected statuses where appropriate.
+- Provide a transaction history for each user.
+
+Referral commissions must remain separate from promotional gaming credits.
+
+Only eligible, approved commissions may become withdrawable, according to the published platform rules.
+
+If withdrawals are introduced, implement a secure withdrawal workflow with appropriate authorization, verification, and audit logging.
+
+Do not automatically convert the ₦20,000 promotional bonus into withdrawable cash.
+
+## 7. GAME ACCESS CONTROL
+
+Create a centralized game-access service.
+
+A user must satisfy the platform's eligibility requirements before accessing protected games.
+
+The default requirement is three successful eligible referrals.
+
+Requirements:
+
+- Verify the user's referral status on the server.
+- Enforce access restrictions on every protected game API.
+- Prevent users from bypassing restrictions by calling APIs directly.
+- Return clear access-denied responses.
+- Support configurable eligibility requirements.
+- Record relevant access events.
+
+The frontend must never be the sole authority for determining whether a user can access a game.
+
+## 8. GAME ENGINE
+
+Implement the following six games:
+
+### A. Colour Prediction
+Available outcomes:
+- Red
+- Green
+- Black
+- Yellow
+
+### B. Number Prediction
+Users select an available number.
+
+### C. Heads or Tails
+Available outcomes:
+- Heads
+- Tails
+
+### D. Up or Down
+Available outcomes:
+- Up
+- Down
+
+### E. Lucky Number
+Users select a number from the configured options.
+
+### F. Higher or Lower
+Users predict whether the next card's value will be higher or lower than the displayed card.
+
+Each game must support configurable rules and a consistent server-side game engine.
+
+### Game Engine Requirements
+
+Implement:
+
+- Game configuration.
+- Game activation and deactivation.
+- Round creation.
+- Round scheduling.
+- Round opening and closing.
+- Prediction submission.
+- Server-side validation.
+- Round result publication.
+- Game history.
+- Result verification.
+- Gaming credit deductions, where applicable.
+- Appropriate error handling.
+- Audit logging.
+
+Use database transactions to ensure that prediction submissions and credit deductions remain consistent.
+
+Prevent duplicate submissions, replay attacks, and concurrent requests from causing duplicate deductions.
+
+Use secure server-generated identifiers for rounds and transactions.
+
+## 9. GAME RESULTS AND ADMIN CONTROLS
+
+The administrator needs a dashboard for managing games and their rounds.
+
+The admin must be able to:
+
+- Configure game options.
+- Enable or disable games.
+- Configure round durations.
+- Create and schedule rounds.
+- Open and close rounds.
+- Publish official results.
+- View submitted predictions.
+- View round histories.
+- Review game activity.
+
+### Result Integrity
+
+Implement a transparent and auditable result-management process.
+
+If the administrator publishes a result manually, record:
+
+- Administrator ID.
+- Game ID.
+- Round ID.
+- Previous state.
+- New state.
+- Timestamp.
+- Reason for the change.
+
+For games represented as random games, use an appropriate server-side random outcome process and document the rules.
+
+Do not permit administrators to secretly change a completed round's result after seeing users' predictions.
+
+If manual outcomes are required for demonstrations or special promotional rounds, clearly label those rounds and disclose their rules to participants.
+
+## 10. SIGNALS SYSTEM
+
+Implement a dedicated signals service.
+
+Authorized administrators can publish predictions for upcoming rounds.
+
+Each signal should contain:
+
+- Signal ID.
+- Game type.
+- Round ID, where applicable.
+- Predicted outcome.
+- Publication timestamp.
+- Expiry time, where applicable.
+- Publication status.
+- Final result, once available.
+
+Users should be able to retrieve current and historical signals through the API.
+
+Support publishing announcements to an integrated channel when configured.
+
+Signals must be distinguished from official results and must not be presented as guaranteed winning predictions.
+
+Maintain a history of published signals and any permitted corrections.
+
+## 11. SOCIAL TASKS SYSTEM
+
+Implement a social task management service.
+
+Administrators must be able to:
+
+- Create tasks.
+- Edit task descriptions.
+- Set task instructions.
+- Configure rewards.
+- Activate or deactivate tasks.
+- Set submission deadlines.
+- Review submissions.
+- Approve or reject submissions.
+- Provide rejection reasons.
+
+Users must be able to:
+
+- View available tasks.
+- Open task instructions.
+- Submit screenshot evidence.
+- View submission status.
+- View administrator feedback.
+
+### Screenshot Uploads
+
+Use private object storage.
+
+Requirements:
+
+- Validate file types and file sizes.
+- Generate safe server-side object names.
+- Reject unsupported files.
+- Prevent executable uploads.
+- Keep uploaded evidence private.
+- Authorize access to submitted screenshots.
+- Use short-lived signed URLs when appropriate.
+
+### Submission Statuses
+
+Support:
+
+- Pending.
+- Under Review.
+- Approved.
+- Rejected.
+
+If a task has a reward, credit it only after the appropriate approval and eligibility checks.
+
+Prevent duplicate rewards for the same submission.
+
+Record every review and reward transaction.
+
+## 12. CUSTOMER SUPPORT CHATBOT
+
+Implement a customer support service with chatbot functionality.
+
+The chatbot should support common questions about:
+
+- Registration.
+- Welcome bonuses.
+- Game access.
+- Referrals.
+- Referral commissions.
+- Social tasks.
+- Account settings.
+- Gaming rules.
+
+Users must also be able to request assistance from a human support agent.
+
+Required features:
+
+- Create support conversations.
+- Send and receive messages.
+- Maintain conversation history.
+- Assign conversations to authorized agents.
+- Track conversation status.
+- Notify users when agents respond.
+- Allow agents to close resolved conversations.
+
+Use WebSockets or another appropriate real-time messaging method.
+
+Enforce authorization so users can access only their own support conversations.
+
+If an external chatbot or messaging provider is used, keep its API credentials on the server.
+
+## 13. USER NOTIFICATIONS
+
+Implement an in-app notification system.
+
+Notify users about:
+
+- Successful registration.
+- Welcome bonus allocation.
+- Referral progress.
+- Referral commission status.
+- Game access eligibility.
+- Game results.
+- New signals.
+- Social task reviews.
+- Support replies.
+- Important platform announcements.
+
+Store notifications in the database and allow users to mark them as read.
+
+Support email, SMS, or other delivery methods only when configured.
+
+## 14. ADMINISTRATOR AUTHENTICATION AND AUTHORIZATION
+
+Implement a separate, secure administrator access system.
+
+Requirements:
+
+- Secure administrator login.
+- Role-based access control.
+- Strong password policies.
+- Optional multifactor authentication.
+- Session expiration.
+- Login rate limiting.
+- Administrative activity logs.
+- Permission checks on every admin endpoint.
+
+Suggested roles:
+
+- Super Administrator.
+- Game Manager.
+- Task Reviewer.
+- Support Agent.
+
+Each role must have only the permissions required for its responsibilities.
+
+Never rely on hidden frontend buttons or client-side checks to secure administrator functionality.
+
+## 15. ADMIN DASHBOARD API
+
+Provide API endpoints for the administrator to manage:
+
+- Users.
+- Welcome bonus configuration.
+- Referral requirements.
+- Referral commissions.
+- Games.
+- Game rounds.
+- Game results.
+- Signals.
+- Social tasks.
+- Screenshot submissions.
+- Notifications.
+- Support conversations.
+- Platform settings.
+- Audit logs.
+
+Important changes must be recorded in an audit log.
+
+Require confirmation and appropriate authorization for sensitive operations.
+
+## 16. DATABASE STRUCTURE
+
+Design a normalized PostgreSQL database.
+
+Include, at minimum, the following tables:
+
+1. users
+2. user_sessions
+3. roles
+4. permissions
+5. user_roles
+6. gaming_wallets
+7. gaming_credit_ledger
+8. referral_codes
+9. referrals
+10. referral_commissions
+11. games
+12. game_configurations
+13. game_rounds
+14. game_predictions
+15. game_results
+16. game_transactions
+17. signals
+18. social_tasks
+19. task_submissions
+20. task_reviews
+21. notifications
+22. support_conversations
+23. support_messages
+24. platform_settings
+25. admin_audit_logs
+
+Add the appropriate foreign keys, unique constraints, indexes, timestamps, and status fields.
+
+Use database constraints and transactions to preserve data integrity.
+
+## 17. API STRUCTURE
+
+Organize the backend into versioned REST APIs.
+
+Suggested endpoints:
+
+### Authentication
+- POST /api/v1/auth/register
+- POST /api/v1/auth/login
+- POST /api/v1/auth/logout
+- POST /api/v1/auth/forgot-password
+- POST /api/v1/auth/reset-password
+
+### User
+- GET /api/v1/users/me
+- GET /api/v1/users/dashboard
+
+### Gaming Credits
+- GET /api/v1/wallet
+- GET /api/v1/wallet/transactions
+
+### Referrals
+- GET /api/v1/referrals
+- GET /api/v1/referrals/stats
+- GET /api/v1/referrals/link
+- GET /api/v1/referrals/commissions
+
+### Games
+- GET /api/v1/games
+- GET /api/v1/games/:gameId
+- GET /api/v1/games/:gameId/rounds
+- POST /api/v1/games/:gameId/predictions
+- GET /api/v1/games/:gameId/history
+
+### Signals
+- GET /api/v1/signals
+- GET /api/v1/signals/:signalId
+
+### Social Tasks
+- GET /api/v1/tasks
+- POST /api/v1/tasks/:taskId/submissions
+- GET /api/v1/tasks/submissions
+
+### Notifications
+- GET /api/v1/notifications
+- PATCH /api/v1/notifications/:notificationId/read
+
+### Support
+- POST /api/v1/support/conversations
+- GET /api/v1/support/conversations
+- GET /api/v1/support/conversations/:conversationId/messages
+- POST /api/v1/support/conversations/:conversationId/messages
+
+### Administration
+- GET /api/v1/admin/dashboard
+- GET /api/v1/admin/users
+- GET /api/v1/admin/games
+- POST /api/v1/admin/games
+- PATCH /api/v1/admin/games/:gameId
+- POST /api/v1/admin/rounds
+- POST /api/v1/admin/rounds/:roundId/results
+- POST /api/v1/admin/signals
+- POST /api/v1/admin/tasks
+- GET /api/v1/admin/task-submissions
+- PATCH /api/v1/admin/task-submissions/:submissionId
+- GET /api/v1/admin/support/conversations
+
+All endpoints must include suitable authentication, authorization, validation, and error handling.
+
+## 18. SECURITY REQUIREMENTS
+
+Implement:
+
+- Input validation.
+- Output encoding where appropriate.
+- SQL injection prevention.
+- Cross-site scripting protections.
+- CSRF protection where applicable.
+- Rate limiting.
+- Secure CORS configuration.
+- Secure cookie settings.
+- Password hashing.
+- File upload validation.
+- Authorization checks.
+- Audit logging.
+- Database backups.
+- Error monitoring.
+- Protection against replay attacks.
+- Idempotency for sensitive financial operations.
+
+Never expose database credentials, authentication secrets, storage credentials, or private API keys to the frontend.
+
+## 19. TESTING REQUIREMENTS
+
+Write automated tests for:
+
+- User registration and login.
+- Duplicate registration prevention.
+- Welcome bonus issuance.
+- Gaming credit restrictions.
+- Referral tracking.
+- Referral commission calculations.
+- Three-referral game-access requirement.
+- Unauthorized game access.
+- Prediction submissions.
+- Concurrent credit deductions.
+- Game result publication.
+- Screenshot submission.
+- Task approval and rejection.
+- Duplicate reward prevention.
+- Support conversation authorization.
+- Admin role permissions.
+
+Test critical balance operations under concurrent requests.
+
+## 20. DELIVERY REQUIREMENTS
+
+Deliver:
+
+- Complete backend source code.
+- Project folder structure.
+- Database schema.
+- Database migrations.
+- API documentation.
+- Environment variable example file.
+- Authentication implementation.
+- User and administrator authorization.
+- Gaming credit ledger.
+- Referral system.
+- Six game services.
+- Signals service.
+- Social task service.
+- Screenshot upload service.
+- Support chatbot and messaging service.
+- Notification service.
+- Automated tests.
+- Deployment instructions.
+- Backup and recovery guidance.
+
+The backend must be production-oriented, modular, maintainable, and ready to connect to the KUDIX frontend.
+
+Do not use hardcoded user balances or trust values sent from the browser.
+
+Do not claim that the backend is production-ready until the required security checks, testing, and deployment configuration have been completed.

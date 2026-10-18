@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B1228">
+    <title>Up or Down | KUDIX Gaming</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Icons and fonts -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kudix: {
+                            navy: "#0B1228",
+                            indigo: "#171B40",
+                            violet: "#8B5CF6",
+                            purple: "#A477FF",
+                            blue: "#38BDF8",
+                            green: "#4ADE80",
+                            coral: "#FB7185",
+                            gold: "#FBBF24"
+                        }
+                    },
+                    fontFamily: {
+                        sans: ["Inter", "sans-serif"],
+                        heading: ["Sora", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        :root {
+            --navy: #0B1228;
+            --panel: #111A35;
+            --panel-light: #171B40;
+            --violet: #8B5CF6;
+            --green: #4ADE80;
+            --coral: #FB7185;
+            --blue: #38BDF8;
+            --muted: #94A3B8;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(ellipse at 12% 8%, rgba(139, 92, 246, .13), transparent 32%),
+                radial-gradient(ellipse at 90% 30%, rgba(56, 189, 248, .07), transparent 30%),
+                var(--navy);
+            color: #F8FAFC;
+            font-family: "Inter", sans-serif;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible {
+            outline: 2px solid #A477FF;
+            outline-offset: 4px;
+        }
+
+        .heading-font {
+            font-family: "Sora", sans-serif;
+        }
+
+        .glass-panel {
+            background: linear-gradient(145deg, rgba(23, 32, 63, .96), rgba(15, 23, 48, .97));
+            border: 1px solid rgba(148, 163, 184, .13);
+            box-shadow: 0 18px 55px rgba(0, 0, 0, .15);
+        }
+
+        .soft-divider {
+            border-color: rgba(148, 163, 184, .12);
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .demo-pill {
+            color: #DDD0FF;
+            background: rgba(139, 92, 246, .14);
+            border: 1px solid rgba(167, 119, 255, .3);
+        }
+
+        .game-icon {
+            display: grid;
+            place-items: center;
+            width: 46px;
+            height: 46px;
+            border-radius: 15px;
+            color: #C4B5FD;
+            background: linear-gradient(135deg, rgba(139, 92, 246, .25), rgba(56, 189, 248, .12));
+            border: 1px solid rgba(167, 119, 255, .23);
+            font-size: 25px;
+        }
+
+        .balance-card {
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 100% 0%, rgba(139, 92, 246, .2), transparent 45%),
+                linear-gradient(130deg, #171B40, #111A35);
+            border: 1px solid rgba(167, 119, 255, .23);
+        }
+
+        .balance-card::after {
+            content: "";
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            right: -65px;
+            bottom: -90px;
+            border-radius: 50%;
+            border: 1px solid rgba(167, 119, 255, .22);
+            box-shadow: 0 0 0 18px rgba(167, 119, 255, .035),
+                0 0 0 38px rgba(167, 119, 255, .025);
+            pointer-events: none;
+        }
+
+        .number-card {
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            background:
+                radial-gradient(ellipse at 50% -5%, rgba(139, 92, 246, .24), transparent 55%),
+                linear-gradient(145deg, #1A2148, #11172F 80%);
+            border: 1px solid rgba(167, 119, 255, .22);
+        }
+
+        .number-card::before {
+            content: "";
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -40%);
+            border: 1px solid rgba(167, 119, 255, .08);
+            border-radius: 50%;
+            box-shadow: 0 0 0 25px rgba(167, 119, 255, .025),
+                0 0 0 55px rgba(167, 119, 255, .02);
+            z-index: -1;
+        }
+
+        .number-display {
+            font-family: "Sora", sans-serif;
+            font-size: clamp(5rem, 17vw, 8.5rem);
+            line-height: 1.1;
+            font-weight: 800;
+            letter-spacing: -.08em;
+            color: #FFFFFF;
+            text-shadow: 0 0 45px rgba(167, 119, 255, .3);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .number-change {
+            animation: numberPop .45s ease;
+        }
+
+        @keyframes numberPop {
+            0% {
+                transform: translateY(10px) scale(.93);
+                opacity: .25;
+            }
+
+            65% {
+                transform: translateY(-3px) scale(1.02);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .direction-button {
+            position: relative;
+            min-height: 104px;
+            overflow: hidden;
+            border-radius: 20px;
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+            text-align: left;
+        }
+
+        .direction-button:hover:not(:disabled) {
+            transform: translateY(-3px);
+        }
+
+        .direction-button:active:not(:disabled) {
+            transform: scale(.985);
+        }
+
+        .direction-button:disabled {
+            cursor: not-allowed;
+            opacity: .4;
+            filter: saturate(.65);
+        }
+
+        .up-button {
+            color: #D9FFE5;
+            border: 1px solid rgba(74, 222, 128, .33);
+            background: linear-gradient(135deg, rgba(34, 197, 94, .2), rgba(20, 83, 45, .16));
+        }
+
+        .up-button:hover:not(:disabled) {
+            border-color: rgba(74, 222, 128, .7);
+            box-shadow: 0 12px 35px rgba(34, 197, 94, .12);
+        }
+
+        .down-button {
+            color: #FFE1E7;
+            border: 1px solid rgba(251, 113, 133, .33);
+            background: linear-gradient(135deg, rgba(244, 63, 94, .2), rgba(136, 19, 55, .15));
+        }
+
+        .down-button:hover:not(:disabled) {
+            border-color: rgba(251, 113, 133, .7);
+            box-shadow: 0 12px 35px rgba(244, 63, 94, .12);
+        }
+
+        .direction-symbol {
+            display: grid;
+            place-items: center;
+            width: 47px;
+            height: 47px;
+            flex-shrink: 0;
+            border-radius: 15px;
+            font-size: 26px;
+        }
+
+        .up-button .direction-symbol {
+            color: #4ADE80;
+            background: rgba(74, 222, 128, .12);
+        }
+
+        .down-button .direction-symbol {
+            color: #FB7185;
+            background: rgba(251, 113, 133, .12);
+        }
+
+        .amount-button {
+            min-height: 43px;
+            border: 1px solid rgba(148, 163, 184, .16);
+            background: rgba(255, 255, 255, .025);
+            color: #CBD5E1;
+            border-radius: 12px;
+            transition: .2s ease;
+        }
+
+        .amount-button:hover {
+            border-color: rgba(167, 119, 255, .55);
+            color: white;
+        }
+
+        .amount-button.active {
+            border-color: #A477FF;
+            background: rgba(139, 92, 246, .16);
+            color: #E9DDFF;
+            box-shadow: inset 0 0 0 1px rgba(167, 119, 255, .12);
+        }
+
+        .timer-track {
+            width: 100%;
+            height: 6px;
+            border-radius: 99px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .timer-fill {
+            height: 100%;
+            width: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #8B5CF6, #38BDF8);
+            transition: width 1s linear, background .2s ease;
+        }
+
+        .timer-fill.urgent {
+            background: linear-gradient(90deg, #FB7185, #FBBF24);
+        }
+
+        .result-panel {
+            animation: resultIn .35s ease both;
+        }
+
+        @keyframes resultIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-up {
+            color: #86EFAC;
+            background: rgba(34, 197, 94, .11);
+            border-color: rgba(74, 222, 128, .2);
+        }
+
+        .result-down {
+            color: #FDA4AF;
+            background: rgba(244, 63, 94, .11);
+            border-color: rgba(251, 113, 133, .2);
+        }
+
+        .result-same {
+            color: #DDD0FF;
+            background: rgba(139, 92, 246, .12);
+            border-color: rgba(167, 119, 255, .2);
+        }
+
+        .history-row {
+            display: grid;
+            grid-template-columns: 1.05fr .8fr .8fr .8fr;
+            gap: 8px;
+            align-items: center;
+            padding: 13px 0;
+            border-bottom: 1px solid rgba(148, 163, 184, .1);
+        }
+
+        .history-row:last-child {
+            border-bottom: 0;
+        }
+
+        .direction-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            width: fit-content;
+            border-radius: 8px;
+            padding: 5px 8px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .04em;
+        }
+
+        .tag-up {
+            color: #86EFAC;
+            background: rgba(34, 197, 94, .12);
+        }
+
+        .tag-down {
+            color: #FDA4AF;
+            background: rgba(244, 63, 94, .12);
+        }
+
+        .tag-same {
+            color: #DDD0FF;
+            background: rgba(139, 92, 246, .14);
+        }
+
+        .status-correct {
+            color: #86EFAC;
+        }
+
+        .status-incorrect {
+            color: #FDA4AF;
+        }
+
+        .status-neutral {
+            color: #C4B5FD;
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 25px;
+            z-index: 100;
+            width: max-content;
+            max-width: calc(100vw - 32px);
+            padding: 13px 17px;
+            border: 1px solid rgba(167, 119, 255, .3);
+            border-radius: 14px;
+            background: #1A2140;
+            color: #F8FAFC;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, .4);
+            transform: translate(-50%, 20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: .25s ease;
+            font-size: 13px;
+        }
+
+        .toast.show {
+            transform: translate(-50%, 0);
+            opacity: 1;
+        }
+
+        .mobile-nav {
+            display: none;
+        }
+
+        .mobile-nav.open {
+            display: block;
+            animation: resultIn .2s ease both;
+        }
+
+        .control-button {
+            min-width: 40px;
+            min-height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 8px 12px;
+            border-radius: 11px;
+            border: 1px solid rgba(148, 163, 184, .15);
+            background: rgba(255, 255, 255, .035);
+            color: #CBD5E1;
+            font-size: 12px;
+            transition: .2s ease;
+        }
+
+        .control-button:hover {
+            background: rgba(139, 92, 246, .12);
+            border-color: rgba(167, 119, 255, .3);
+            color: white;
+        }
+
+        .control-button:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+        }
+
+        .disclosure[open] .disclosure-arrow {
+            transform: rotate(180deg);
+        }
+
+        .disclosure-arrow {
+            transition: transform .2s ease;
+        }
+
+        @media (max-width: 640px) {
+            .history-row {
+                grid-template-columns: .85fr .65fr .65fr .9fr;
+                gap: 5px;
+            }
+
+            .history-cell {
+                font-size: 10px;
+            }
+
+            .direction-button {
+                min-height: 91px;
+                border-radius: 16px;
+            }
+
+            .direction-symbol {
+                width: 40px;
+                height: 40px;
+                font-size: 22px;
+                border-radius: 12px;
+            }
+
+            .number-card::before {
+                width: 175px;
+                height: 175px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="sticky top-0 z-40 border-b soft-divider bg-[#0B1228]/90 backdrop-blur-xl">
+        <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+            <a href="/dashboard.html" class="flex min-w-0 items-center gap-3" aria-label="KUDIX dashboard">
+                <img src="images/kudix-logo.png" alt="KUDIX Logo" class="h-10 w-10 rounded-xl object-contain"
+                    onerror="this.style.display='none';">
+                <div class="min-w-0">
+                    <div class="heading-font text-lg font-extrabold tracking-wide">KUDIX</div>
+                    <div class="text-[9px] font-bold tracking-[.19em] text-slate-400">GAMING PLATFORM</div>
+                </div>
+            </a>
+
+            <div class="hidden items-center gap-5 md:flex">
+                <a href="/dashboard.html" class="text-sm text-slate-400 transition hover:text-white">
+                    <i class="bx bx-grid-alt mr-1"></i> Dashboard
+                </a>
+                <span
+                    class="flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-400/[.08] px-3 py-2 text-xs font-semibold text-violet-200">
+                    <span class="h-2 w-2 rounded-full bg-violet-400"></span>
+                    Demo Game
+                </span>
+            </div>
+
+            <button id="menuToggle" type="button" class="control-button md:hidden" aria-label="Open navigation"
+                aria-expanded="false" aria-controls="mobileNav">
+                <i class="bx bx-menu text-xl"></i>
+            </button>
+        </div>
+
+        <div id="mobileNav" class="mobile-nav border-t soft-divider px-4 py-3 md:hidden">
+            <a href="/dashboard.html"
+                class="flex items-center gap-2 rounded-xl px-3 py-3 text-sm text-slate-200 hover:bg-white/5">
+                <i class="bx bx-grid-alt text-lg"></i>
+                Back to Dashboard
+            </a>
+            <div
+                class="mt-2 rounded-xl border border-violet-400/20 bg-violet-400/[.06] px-3 py-3 text-xs text-violet-200">
+                <i class="bx bx-shield-quarter mr-1"></i>
+                Local demo only · No real-money transactions
+            </div>
+        </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl px-4 pb-12 pt-6 sm:px-6 sm:pt-9 lg:px-8">
+        <!-- Breadcrumb -->
+        <div class="mb-6 flex flex-wrap items-center gap-2 text-xs text-slate-500">
+            <a href="/dashboard.html" class="transition hover:text-white">Dashboard</a>
+            <i class="bx bx-chevron-right"></i>
+            <span>Games</span>
+            <i class="bx bx-chevron-right"></i>
+            <span class="font-semibold text-violet-300">Up or Down</span>
+        </div>
+
+        <!-- Intro -->
+        <section class="mb-7 flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
+            <div class="flex items-start gap-4">
+                <div class="game-icon">
+                    <i class="bx bx-trending-up"></i>
+                </div>
+                <div>
+                    <div class="mb-2 flex flex-wrap items-center gap-2">
+                        <span class="demo-pill rounded-full px-2.5 py-1 text-[9px] font-extrabold tracking-[.14em]">DEMO
+                            GAME</span>
+                        <span
+                            class="rounded-full border border-slate-700/70 px-2.5 py-1 text-[9px] font-bold tracking-wide text-slate-400">RANDOM
+                            PRACTICE</span>
+                    </div>
+                    <h1 class="heading-font text-2xl font-extrabold tracking-tight sm:text-3xl">Up or Down</h1>
+                    <p class="mt-2 max-w-xl text-sm leading-6 text-slate-400">
+                        Will the next number be higher or lower? Make your prediction and see what happens.
+                    </p>
+                </div>
+            </div>
+
+            <a href="/dashboard.html" class="control-button w-fit">
+                <i class="bx bx-arrow-back text-lg"></i>
+                Back to Dashboard
+            </a>
+        </section>
+
+        <!-- Main layout -->
+        <div class="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+
+            <!-- Game column -->
+            <section class="min-w-0 space-y-5">
+
+                <!-- Game card -->
+                <div class="glass-panel overflow-hidden rounded-3xl">
+                    <!-- Round bar -->
+                    <div
+                        class="flex flex-wrap items-center justify-between gap-3 border-b soft-divider px-5 py-4 sm:px-7">
+                        <div>
+                            <p class="text-[10px] font-bold uppercase tracking-[.17em] text-slate-500">Current round</p>
+                            <p class="heading-font mt-1 text-sm font-bold text-white">
+                                #<span id="roundNumber">2001</span>
+                            </p>
+                        </div>
+
+                        <div
+                            class="flex items-center gap-2 rounded-xl border border-slate-700/60 bg-black/10 px-3 py-2">
+                            <span id="timerDot" class="h-2 w-2 rounded-full bg-violet-400"></span>
+                            <i class="bx bx-time-five text-lg text-violet-300"></i>
+                            <span id="timerText" class="heading-font text-sm font-bold tabular-nums">00:20</span>
+                            <span class="text-[10px] text-slate-500">left</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 sm:p-7">
+                        <!-- Timer -->
+                        <div class="mb-6">
+                            <div class="timer-track">
+                                <div id="timerFill" class="timer-fill"></div>
+                            </div>
+                            <div class="mt-2 flex items-center justify-between text-[10px] text-slate-500">
+                                <span>Round progress</span>
+                                <span id="timerStatus">Place your prediction</span>
+                            </div>
+                        </div>
+
+                        <!-- Number display -->
+                        <div class="number-card rounded-3xl px-4 py-8 text-center sm:px-8 sm:py-10">
+                            <div class="relative z-10">
+                                <div
+                                    class="mb-5 flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-[.2em] text-slate-400">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-violet-400"></span>
+                                    Current number
+                                </div>
+
+                                <div id="currentNumber" class="number-display">47</div>
+
+                                <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
+                                    <span
+                                        class="rounded-xl border border-white/[.08] bg-white/[.04] px-3 py-2 text-xs text-slate-400">
+                                        Previous:
+                                        <strong id="previousNumber" class="ml-1 text-slate-200">—</strong>
+                                    </span>
+                                    <span
+                                        class="rounded-xl border border-violet-400/15 bg-violet-400/[.07] px-3 py-2 text-xs text-violet-200">
+                                        <i class="bx bx-dice-5 mr-1"></i>
+                                        Range: 1–100
+                                    </span>
+                                </div>
+
+                                <p class="mt-5 text-xs text-slate-500">
+                                    The next number is randomly generated for this demo.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Result panel -->
+                        <div id="resultPanel" class="result-panel mt-5 hidden rounded-2xl border p-4 sm:p-5"
+                            aria-live="polite">
+                            <div class="flex items-start gap-3">
+                                <div id="resultIcon"
+                                    class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-black/10 text-2xl">
+                                    <i class="bx bx-check-circle"></i>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <h3 id="resultTitle" class="heading-font text-sm font-bold">Round result</h3>
+                                    <p id="resultDescription" class="mt-1 text-xs leading-5 opacity-80"></p>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 grid grid-cols-3 gap-2 border-t border-current/10 pt-4">
+                                <div>
+                                    <p class="text-[10px] opacity-60">Previous</p>
+                                    <p id="resultPrevious" class="mt-1 heading-font text-lg font-bold">47</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] opacity-60">New number</p>
+                                    <p id="resultNext" class="mt-1 heading-font text-lg font-bold">68</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] opacity-60">Direction</p>
+                                    <p id="resultDirection" class="mt-1 heading-font text-sm font-bold">UP</p>
+                                </div>
+                            </div>
+
+                            <div
+                                class="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-current/10 pt-3 text-xs">
+                                <span class="opacity-70">Your prediction: <strong
+                                        id="resultPrediction">UP</strong></span>
+                                <span id="resultStatus" class="font-extrabold">CORRECT PREDICTION</span>
+                            </div>
+                        </div>
+
+                        <!-- Prediction controls -->
+                        <div class="mt-7">
+                            <div class="mb-4 flex items-center justify-between gap-3">
+                                <div>
+                                    <h2 class="heading-font text-sm font-bold">Make your prediction</h2>
+                                    <p class="mt-1 text-xs text-slate-500">Choose a direction before the timer expires.
+                                    </p>
+                                </div>
+                                <span id="predictionBadge"
+                                    class="rounded-lg bg-violet-400/10 px-2.5 py-1.5 text-[10px] font-bold text-violet-200">
+                                    Not selected
+                                </span>
+                            </div>
+
+                            <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                                <button id="upButton" type="button" class="direction-button up-button p-4 sm:p-5"
+                                    aria-label="Predict that the next number will be higher">
+                                    <span class="flex items-center gap-3">
+                                        <span class="direction-symbol"><i class="bx bx-up-arrow-alt"></i></span>
+                                        <span>
+                                            <span
+                                                class="block heading-font text-lg font-extrabold tracking-wide">UP</span>
+                                            <span class="mt-1 block text-[11px] text-green-100/60">Predict a higher
+                                                number</span>
+                                        </span>
+                                    </span>
+                                    <i class="bx bx-right-arrow-alt absolute right-4 top-4 text-xl opacity-50"></i>
+                                </button>
+
+                                <button id="downButton" type="button" class="direction-button down-button p-4 sm:p-5"
+                                    aria-label="Predict that the next number will be lower">
+                                    <span class="flex items-center gap-3">
+                                        <span class="direction-symbol"><i class="bx bx-down-arrow-alt"></i></span>
+                                        <span>
+                                            <span
+                                                class="block heading-font text-lg font-extrabold tracking-wide">DOWN</span>
+                                            <span class="mt-1 block text-[11px] text-rose-100/60">Predict a lower
+                                                number</span>
+                                        </span>
+                                    </span>
+                                    <i class="bx bx-right-arrow-alt absolute right-4 top-4 text-xl opacity-50"></i>
+                                </button>
+                            </div>
+
+                            <p class="mt-3 text-center text-[10px] leading-5 text-slate-500">
+                                Your selection submits a practice prediction. No money is deducted or awarded.
+                            </p>
+                        </div>
+
+                        <!-- Timer controls -->
+                        <div class="mt-5 flex flex-wrap items-center justify-center gap-2 border-t soft-divider pt-5">
+                            <button id="pauseButton" type="button" class="control-button">
+                                <i class="bx bx-pause text-lg"></i>
+                                Pause timer
+                            </button>
+                            <button id="soundButton" type="button" class="control-button" aria-pressed="false">
+                                <i id="soundIcon" class="bx bx-volume-mute text-lg"></i>
+                                Sound off
+                            </button>
+                            <button id="nextRoundButton" type="button" class="control-button" disabled>
+                                Next round
+                                <i class="bx bx-right-arrow-alt text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent history -->
+                <section class="glass-panel rounded-3xl p-4 sm:p-6">
+                    <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                            <h2 class="heading-font text-base font-bold">Recent rounds</h2>
+                            <p class="mt-1 text-xs text-slate-500">Your latest demo results</p>
+                        </div>
+                        <span
+                            class="rounded-lg border border-slate-700/60 px-2.5 py-1.5 text-[10px] font-bold text-slate-400">
+                            <i class="bx bx-history mr-1"></i>
+                            Last 8 rounds
+                        </span>
+                    </div>
+
+                    <div class="history-row text-[9px] font-bold uppercase tracking-wider text-slate-500">
+                        <div>Round</div>
+                        <div>Numbers</div>
+                        <div>Direction</div>
+                        <div>Your result</div>
+                    </div>
+
+                    <div id="historyList">
+                        <div id="emptyHistory" class="py-9 text-center">
+                            <div
+                                class="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-2xl bg-violet-400/[.08] text-2xl text-violet-300">
+                                <i class="bx bx-bar-chart-alt-2"></i>
+                            </div>
+                            <p class="text-sm font-semibold text-slate-300">No rounds completed yet</p>
+                            <p class="mt-1 text-xs text-slate-500">Your recent results will appear here.</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Sidebar -->
+            <aside class="space-y-5">
+
+                <!-- Demo balance -->
+                <section class="balance-card rounded-3xl p-5 sm:p-6">
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-2 text-xs font-semibold text-slate-300">
+                                <i class="bx bx-wallet text-lg text-violet-300"></i>
+                                Demo gaming credit
+                            </div>
+                            <span
+                                class="rounded-lg bg-violet-400/10 px-2 py-1 text-[9px] font-extrabold tracking-wide text-violet-200">DEMO</span>
+                        </div>
+
+                        <div class="mt-5">
+                            <p class="text-[10px] font-bold uppercase tracking-[.16em] text-slate-500">Simulated balance
+                            </p>
+                            <p id="demoBalance"
+                                class="heading-font mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">₦20,000.00
+                            </p>
+                        </div>
+
+                        <div
+                            class="mt-4 flex items-start gap-2 rounded-xl border border-amber-300/15 bg-amber-300/[.05] p-3">
+                            <i class="bx bx-info-circle mt-0.5 text-base text-amber-300"></i>
+                            <p class="text-[10px] leading-5 text-amber-100/75">
+                                Simulated gaming credit only. Not real money and not withdrawable.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Practice amount -->
+                <section class="glass-panel rounded-3xl p-5 sm:p-6">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="grid h-10 w-10 place-items-center rounded-xl bg-violet-400/10 text-xl text-violet-300">
+                            <i class="bx bx-slider-alt"></i>
+                        </div>
+                        <div>
+                            <h2 class="heading-font text-sm font-bold">Practice amount</h2>
+                            <p class="mt-1 text-[10px] text-slate-500">Choose a demo amount</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 grid grid-cols-2 gap-2">
+                        <button type="button" class="amount-button active" data-amount="100">₦100</button>
+                        <button type="button" class="amount-button" data-amount="500">₦500</button>
+                        <button type="button" class="amount-button" data-amount="1000">₦1,000</button>
+                        <button type="button" class="amount-button" data-amount="2000">₦2,000</button>
+                    </div>
+
+                    <label for="customAmount" class="mb-2 mt-5 block text-xs font-semibold text-slate-300">
+                        Custom amount (NGN)
+                    </label>
+
+                    <div
+                        class="flex items-center rounded-xl border border-slate-700/70 bg-[#0B1228]/60 px-3 transition focus-within:border-violet-400/60">
+                        <span class="mr-2 text-sm font-bold text-slate-400">₦</span>
+                        <input id="customAmount" type="number" min="100" max="2000" step="100" value="100"
+                            inputmode="numeric"
+                            class="w-full bg-transparent py-3 text-sm font-semibold text-white outline-none"
+                            aria-describedby="amountHelp amountError">
+                    </div>
+
+                    <p id="amountHelp" class="mt-2 text-[10px] leading-5 text-slate-500">
+                        ₦100–₦2,000 · Increments of ₦100. Practice selection only.
+                    </p>
+                    <p id="amountError" class="mt-1 hidden text-[11px] text-rose-300" role="alert"></p>
+
+                    <div class="mt-4 rounded-xl border border-slate-700/40 bg-white/[.025] p-3">
+                        <div class="flex items-center justify-between gap-3">
+                            <span class="text-xs text-slate-400">Selected amount</span>
+                            <strong id="selectedAmount" class="heading-font text-sm text-white">₦100</strong>
+                        </div>
+                        <p class="mt-2 text-[10px] leading-5 text-slate-500">
+                            This value is for display and practice only. It will not be charged, deducted, or paid out.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Quick stats -->
+                <section class="glass-panel rounded-3xl p-5 sm:p-6">
+                    <div class="mb-4 flex items-center gap-3">
+                        <div class="grid h-10 w-10 place-items-center rounded-xl bg-sky-400/10 text-xl text-sky-300">
+                            <i class="bx bx-pulse"></i>
+                        </div>
+                        <div>
+                            <h2 class="heading-font text-sm font-bold">Session overview</h2>
+                            <p class="mt-1 text-[10px] text-slate-500">This browser session</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between gap-3">
+                            <span class="text-xs text-slate-400">Rounds completed</span>
+                            <strong id="completedCount" class="heading-font text-sm">0</strong>
+                        </div>
+                        <div class="h-px bg-white/[.06]"></div>
+                        <div class="flex items-center justify-between gap-3">
+                            <span class="text-xs text-slate-400">Correct predictions</span>
+                            <strong id="correctCount" class="heading-font text-sm text-green-300">0</strong>
+                        </div>
+                        <div class="h-px bg-white/[.06]"></div>
+                        <div class="flex items-center justify-between gap-3">
+                            <span class="text-xs text-slate-400">Incorrect predictions</span>
+                            <strong id="incorrectCount" class="heading-font text-sm text-rose-300">0</strong>
+                        </div>
+                    </div>
+
+                    <p class="mt-4 rounded-xl bg-sky-400/[.06] p-3 text-[10px] leading-5 text-slate-400">
+                        Statistics reset when you refresh or close this page. They do not represent financial
+                        performance.
+                    </p>
+                </section>
+
+                <!-- How to play -->
+                <details class="disclosure glass-panel rounded-3xl p-5 sm:p-6">
+                    <summary class="flex cursor-pointer list-none items-center justify-between gap-3">
+                        <span class="flex items-center gap-3">
+                            <span
+                                class="grid h-10 w-10 place-items-center rounded-xl bg-amber-300/10 text-xl text-amber-300">
+                                <i class="bx bx-help-circle"></i>
+                            </span>
+                            <span>
+                                <span class="block heading-font text-sm font-bold">How to play</span>
+                                <span class="mt-1 block text-[10px] text-slate-500">Learn the basics</span>
+                            </span>
+                        </span>
+                        <i class="bx bx-chevron-down disclosure-arrow text-xl text-slate-400"></i>
+                    </summary>
+
+                    <ol class="mt-5 space-y-4">
+                        <li class="flex gap-3">
+                            <span
+                                class="grid h-6 w-6 shrink-0 place-items-center rounded-lg bg-violet-400/10 text-[10px] font-bold text-violet-200">1</span>
+                            <p class="text-xs leading-5 text-slate-400">Choose a practice amount from the presets or
+                                enter a valid custom amount.</p>
+                        </li>
+                        <li class="flex gap-3">
+                            <span
+                                class="grid h-6 w-6 shrink-0 place-items-center rounded-lg bg-violet-400/10 text-[10px] font-bold text-violet-200">2</span>
+                            <p class="text-xs leading-5 text-slate-400">Look at the current number displayed in the main
+                                card.</p>
+                        </li>
+                        <li class="flex gap-3">
+                            <span
+                                class="grid h-6 w-6 shrink-0 place-items-center rounded-lg bg-violet-400/10 text-[10px] font-bold text-violet-200">3</span>
+                            <p class="text-xs leading-5 text-slate-400">Select UP if you predict a higher number, or
+                                DOWN if you predict a lower number.</p>
+                        </li>
+                        <li class="flex gap-3">
+                            <span
+                                class="grid h-6 w-6 shrink-0 place-items-center rounded-lg bg-violet-400/10 text-[10px] font-bold text-violet-200">4</span>
+                            <p class="text-xs leading-5 text-slate-400">Wait for the locally generated result and review
+                                your prediction.</p>
+                        </li>
+                        <li class="flex gap-3">
+                            <span
+                                class="grid h-6 w-6 shrink-0 place-items-center rounded-lg bg-violet-400/10 text-[10px] font-bold text-violet-200">5</span>
+                            <p class="text-xs leading-5 text-slate-400">Continue to the next practice round when you are
+                                ready.</p>
+                        </li>
+                    </ol>
+                </details>
+            </aside>
+        </div>
+
+        <!-- Disclaimer -->
+        <section class="mt-7 rounded-2xl border border-slate-700/40 bg-white/[.02] p-4 sm:p-5">
+            <div class="flex items-start gap-3">
+                <i class="bx bx-shield-quarter mt-0.5 text-xl text-violet-300"></i>
+                <div>
+                    <h2 class="text-xs font-bold text-slate-200">Demo and randomness notice</h2>
+                    <p class="mt-1 text-[11px] leading-6 text-slate-500">
+                        KUDIX Up or Down on this page is a local frontend demonstration. Numbers are generated randomly
+                        by your browser and do not represent live market data. The displayed gaming credit and practice
+                        amounts are simulated only. This page does not accept payments, deduct money, provide
+                        withdrawals, or award real-world financial returns.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t soft-divider px-4 py-6 text-center">
+        <p class="text-[10px] tracking-wide text-slate-500">
+            © <span id="year"></span> KUDIX Gaming. Demo experience for entertainment and interface testing.
+        </p>
+    </footer>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script>
+        (() => {
+            "use strict";
+
+            // ------------------------------
+            // Game configuration
+            // ------------------------------
+            const ROUND_SECONDS = 20;
+            const MIN_AMOUNT = 100;
+            const MAX_AMOUNT = 2000;
+            const AMOUNT_STEP = 100;
+            const INITIAL_ROUND = 2001;
+            const INITIAL_BALANCE = 20000;
+
+            const moneyFormatter = new Intl.NumberFormat("en-NG", {
+                maximumFractionDigits: 0
+            });
+
+            const $ = (id) => document.getElementById(id);
+
+            // ------------------------------
+            // Game state
+            // ------------------------------
+            let roundNumber = INITIAL_ROUND;
+            let currentNumber = randomNumber();
+            let previousNumber = null;
+            let selectedAmountValue = 100;
+            let selectedPrediction = null;
+            let secondsLeft = ROUND_SECONDS;
+            let roundLocked = false;
+            let paused = false;
+            let soundEnabled = false;
+            let history = [];
+            let completedRounds = 0;
+            let correctPredictions = 0;
+            let incorrectPredictions = 0;
+            let timerInterval = null;
+            let toastTimeout = null;
+            let audioContext = null;
+
+            // ------------------------------
+            // Elements
+            // ------------------------------
+            const currentNumberEl = $("currentNumber");
+            const previousNumberEl = $("previousNumber");
+            const roundNumberEl = $("roundNumber");
+            const timerTextEl = $("timerText");
+            const timerFillEl = $("timerFill");
+            const timerStatusEl = $("timerStatus");
+            const timerDotEl = $("timerDot");
+            const upButton = $("upButton");
+            const downButton = $("downButton");
+            const pauseButton = $("pauseButton");
+            const soundButton = $("soundButton");
+            const soundIcon = $("soundIcon");
+            const nextRoundButton = $("nextRoundButton");
+            const predictionBadge = $("predictionBadge");
+            const customAmountInput = $("customAmount");
+            const amountError = $("amountError");
+            const selectedAmountEl = $("selectedAmount");
+            const resultPanel = $("resultPanel");
+            const historyList = $("historyList");
+
+            $("year").textContent = new Date().getFullYear();
+
+            // ------------------------------
+            // Utilities
+            // ------------------------------
+            function randomNumber() {
+                return Math.floor(Math.random() * 100) + 1;
+            }
+
+            function formatNaira(amount) {
+                return "₦" + moneyFormatter.format(amount);
+            }
+
+            function showToast(message) {
+                const toast = $("toast");
+                toast.textContent = message;
+                toast.classList.add("show");
+
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove("show");
+                }, 2600);
+            }
+
+            function playTone(frequency = 520, duration = 0.09) {
+                if (!soundEnabled) return;
+
+                try {
+                    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                    if (!AudioContextClass) return;
+
+                    if (!audioContext) audioContext = new AudioContextClass();
+
+                    if (audioContext.state === "suspended") {
+                        audioContext.resume();
+                    }
+
+                    const oscillator = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+
+                    oscillator.type = "sine";
+                    oscillator.frequency.value = frequency;
+                    gain.gain.setValueAtTime(0.045, audioContext.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(
+                        0.001,
+                        audioContext.currentTime + duration
+                    );
+
+                    oscillator.connect(gain);
+                    gain.connect(audioContext.destination);
+
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + duration);
+                } catch (error) {
+                    // Audio is optional; gameplay remains functional if unavailable.
+                }
+            }
+
+            function animateNumber() {
+                currentNumberEl.classList.remove("number-change");
+                void currentNumberEl.offsetWidth;
+                currentNumberEl.classList.add("number-change");
+            }
+
+            // ------------------------------
+            // Amount selection and validation
+            // ------------------------------
+            function validateAmount(showMessage = true) {
+                const rawValue = customAmountInput.value.trim();
+                const amount = Number(rawValue);
+
+                let error = "";
+
+                if (rawValue === "" || !Number.isFinite(amount)) {
+                    error = "Enter a valid amount.";
+                } else if (amount < MIN_AMOUNT || amount > MAX_AMOUNT) {
+                    error = "Amount must be between ₦100 and ₦2,000.";
+                } else if (amount % AMOUNT_STEP !== 0) {
+                    error = "Use increments of ₦100.";
+                }
+
+                if (error) {
+                    amountError.textContent = error;
+                    amountError.classList.remove("hidden");
+                    customAmountInput.setAttribute("aria-invalid", "true");
+
+                    if (showMessage) showToast(error);
+                    return false;
+                }
+
+                amountError.textContent = "";
+                amountError.classList.add("hidden");
+                customAmountInput.removeAttribute("aria-invalid");
+
+                selectedAmountValue = amount;
+                selectedAmountEl.textContent = formatNaira(amount);
+
+                document.querySelectorAll("[data-amount]").forEach((button) => {
+                    const active = Number(button.dataset.amount) === amount;
+                    button.classList.toggle("active", active);
+                    button.setAttribute("aria-pressed", String(active));
+                });
+
+                return true;
+            }
+
+            document.querySelectorAll("[data-amount]").forEach((button) => {
+                button.addEventListener("click", () => {
+                    customAmountInput.value = button.dataset.amount;
+                    validateAmount(false);
+                    playTone(480, 0.06);
+                });
+            });
+
+            customAmountInput.addEventListener("input", () => {
+                validateAmount(false);
+            });
+
+            customAmountInput.addEventListener("blur", () => {
+                if (customAmountInput.value.trim() !== "") {
+                    validateAmount(false);
+                }
+            });
+
+            // ------------------------------
+            // Timer and round state
+            // ------------------------------
+            function updateTimerDisplay() {
+                timerTextEl.textContent = "00:" + String(secondsLeft).padStart(2, "0");
+                timerFillEl.style.width = (secondsLeft / ROUND_SECONDS * 100) + "%";
+
+                const urgent = secondsLeft <= 5;
+                timerFillEl.classList.toggle("urgent", urgent);
+                timerDotEl.classList.toggle("bg-rose-400", urgent);
+                timerDotEl.classList.toggle("bg-violet-400", !urgent);
+
+                if (roundLocked) {
+                    timerStatusEl.textContent = "Round complete";
+                } else if (paused) {
+                    timerStatusEl.textContent = "Timer paused";
+                } else if (selectedPrediction) {
+                    timerStatusEl.textContent = "Prediction submitted";
+                } else if (urgent) {
+                    timerStatusEl.textContent = "Time is running out";
+                } else {
+                    timerStatusEl.textContent = "Place your prediction";
+                }
+            }
+
+            function startTimer() {
+                clearInterval(timerInterval);
+                timerInterval = setInterval(() => {
+                    if (paused || roundLocked) return;
+
+                    secondsLeft -= 1;
+                    updateTimerDisplay();
+
+                    if (secondsLeft === 5) {
+                        playTone(360, 0.06);
+                    }
+
+                    if (secondsLeft <= 0) {
+                        expireRound();
+                    }
+                }, 1000);
+            }
+
+            function lockRound() {
+                roundLocked = true;
+                upButton.disabled = true;
+                downButton.disabled = true;
+                nextRoundButton.disabled = false;
+                pauseButton.disabled = true;
+                updateTimerDisplay();
+            }
+
+            function expireRound() {
+                if (roundLocked) return;
+
+                lockRound();
+                secondsLeft = 0;
+                updateTimerDisplay();
+
+                if (!selectedPrediction) {
+                    showResult({
+                        expired: true,
+                        previous: currentNumber,
+                        next: null,
+                        direction: null,
+                        prediction: null,
+                        status: "expired"
+                    });
+
+                    showToast("Round expired — no prediction was submitted.");
+                } else {
+                    // A submitted prediction is resolved when the timer expires.
+                    resolvePrediction();
+                    return;
+                }
+
+                playTone(260, 0.12);
+            }
+
+            function updatePredictionButtons() {
+                upButton.disabled = roundLocked || paused;
+                downButton.disabled = roundLocked || paused;
+            }
+
+            // ------------------------------
+            // Prediction and result logic
+            // ------------------------------
+            function submitPrediction(direction) {
+                if (roundLocked) {
+                    showToast("This round is locked. Start the next round to continue.");
+                    return;
+                }
+
+                if (paused) {
+                    showToast("Resume the timer before making a prediction.");
+                    return;
+                }
+
+                if (selectedPrediction) {
+                    showToast("You have already submitted a prediction this round.");
+                    return;
+                }
+
+                if (!validateAmount(true)) return;
+
+                selectedPrediction = direction;
+                predictionBadge.textContent = direction === "up" ? "UP selected" : "DOWN selected";
+                predictionBadge.classList.remove("bg-violet-400/10", "text-violet-200");
+                predictionBadge.classList.add(
+                    direction === "up" ? "bg-green-400/10" : "bg-rose-400/10",
+                    direction === "up" ? "text-green-200" : "text-rose-200"
+                );
+
+                timerStatusEl.textContent = "Prediction submitted";
+                lockRound();
+
+                showToast("Your " + direction.toUpperCase() + " practice prediction is submitted.");
+                playTone(direction === "up" ? 620 : 430, 0.08);
+
+                // Resolve after a short reveal pause so the choice is visible.
+                setTimeout(() => {
+                    resolvePrediction();
+                }, 850);
+            }
+
+            function resolvePrediction() {
+                if (!roundLocked || !selectedPrediction) return;
+
+                const nextNumber = randomNumber();
+                const direction =
+                    nextNumber > currentNumber ? "up" :
+                        nextNumber < currentNumber ? "down" : "same";
+
+                const isCorrect = direction !== "same" && direction === selectedPrediction;
+
+                const entry = {
+                    round: roundNumber,
+                    previous: currentNumber,
+                    next: nextNumber,
+                    direction,
+                    prediction: selectedPrediction,
+                    status: direction === "same" ? "same" : (isCorrect ? "correct" : "incorrect")
+                };
+
+                if (direction !== "same") {
+                    completedRounds += 1;
+                    if (isCorrect) {
+                        correctPredictions += 1;
+                    } else {
+                        incorrectPredictions += 1;
+                    }
+                }
+
+                history.unshift(entry);
+                history = history.slice(0, 8);
+
+                renderHistory();
+                updateStats();
+
+                previousNumber = currentNumber;
+                currentNumber = nextNumber;
+                currentNumberEl.textContent = currentNumber;
+                previousNumberEl.textContent = previousNumber;
+                animateNumber();
+
+                showResult({
+                    expired: false,
+                    previous: entry.previous,
+                    next: entry.next,
+                    direction: entry.direction,
+                    prediction: entry.prediction,
+                    status: entry.status
+                });
+
+                playTone(isCorrect ? 760 : direction === "same" ? 500 : 300, 0.14);
+                nextRoundButton.disabled = false;
+                timerStatusEl.textContent = "Result ready — continue when you like";
+            }
+
+            function showResult(result) {
+                resultPanel.classList.remove("hidden", "result-up", "result-down", "result-same");
+
+                const icon = $("resultIcon");
+                const title = $("resultTitle");
+                const description = $("resultDescription");
+                const resultDirection = $("resultDirection");
+                const resultStatus = $("resultStatus");
+
+                if (result.expired) {
+                    resultPanel.classList.add("result-same");
+                    icon.innerHTML = '<i class="bx bx-time-five"></i>';
+                    title.textContent = "ROUND EXPIRED";
+                    description.textContent = "No prediction was submitted before the countdown ended.";
+                    $("resultPrevious").textContent = result.previous;
+                    $("resultNext").textContent = "—";
+                    resultDirection.textContent = "—";
+                    $("resultPrediction").textContent = "None";
+                    resultStatus.textContent = "NO PREDICTION";
+                    resultStatus.className = "font-extrabold status-neutral";
+                    return;
+                }
+
+                const directionLabel = result.direction.toUpperCase();
+                const predictionLabel = result.prediction.toUpperCase();
+
+                $("resultPrevious").textContent = result.previous;
+                $("resultNext").textContent = result.next;
+                resultDirection.textContent = directionLabel;
+                $("resultPrediction").textContent = predictionLabel;
+
+                if (result.direction === "up") {
+                    resultPanel.classList.add("result-up");
+                    icon.innerHTML = '<i class="bx bx-trending-up"></i>';
+                    title.textContent = "THE NUMBER WENT UP";
+                    description.textContent = result.previous + " → " + result.next + ". The new number is higher.";
+                } else if (result.direction === "down") {
+                    resultPanel.classList.add("result-down");
+                    icon.innerHTML = '<i class="bx bx-trending-down"></i>';
+                    title.textContent = "THE NUMBER WENT DOWN";
+                    description.textContent = result.previous + " → " + result.next + ". The new number is lower.";
+                } else {
+                    resultPanel.classList.add("result-same");
+                    icon.innerHTML = '<i class="bx bx-equal"></i>';
+                    title.textContent = "SAME NUMBER — NO DIRECTION";
+                    description.textContent = "Both numbers were " + result.previous + ". Neither UP nor DOWN occurred.";
+                }
+
+                if (result.status === "correct") {
+                    resultStatus.textContent = "CORRECT PREDICTION";
+                    resultStatus.className = "font-extrabold status-correct";
+                } else if (result.status === "incorrect") {
+                    resultStatus.textContent = "INCORRECT PREDICTION";
+                    resultStatus.className = "font-extrabold status-incorrect";
+                } else {
+                    resultStatus.textContent = "NO DIRECTION";
+                    resultStatus.className = "font-extrabold status-neutral";
+                }
+            }
+
+            // ------------------------------
+            // History and statistics
+            // ------------------------------
+            function directionMarkup(direction) {
+                if (direction === "up") {
+                    return '<span class="direction-tag tag-up"><i class="bx bx-up-arrow-alt"></i> UP</span>';
+                }
+
+                if (direction === "down") {
+                    return '<span class="direction-tag tag-down"><i class="bx bx-down-arrow-alt"></i> DOWN</span>';
+                }
+
+                return '<span class="direction-tag tag-same"><i class="bx bx-equal"></i> SAME</span>';
+            }
+
+            function resultMarkup(status) {
+                if (status === "correct") {
+                    return '<span class="history-cell status-correct text-[10px] font-bold">CORRECT</span>';
+                }
+
+                if (status === "incorrect") {
+                    return '<span class="history-cell status-incorrect text-[10px] font-bold">INCORRECT</span>';
+                }
+
+                if (status === "same") {
+                    return '<span class="history-cell status-neutral text-[10px] font-bold">NO DIRECTION</span>';
+                }
+
+                return '<span class="history-cell text-[10px] font-bold text-slate-500">EXPIRED</span>';
+            }
+
+            function renderHistory() {
+                if (history.length === 0) {
+                    historyList.innerHTML = `
+            <div class="py-9 text-center">
+              <div class="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-2xl bg-violet-400/[.08] text-2xl text-violet-300">
+                <i class="bx bx-bar-chart-alt-2"></i>
+              </div>
+              <p class="text-sm font-semibold text-slate-300">No rounds completed yet</p>
+              <p class="mt-1 text-xs text-slate-500">Your recent results will appear here.</p>
+            </div>
+          `;
+                    return;
+                }
+
+                historyList.innerHTML = history.map((item) => {
+                    const numberText = item.next === null
+                        ? item.previous + " → —"
+                        : item.previous + " → " + item.next;
+
+                    return `
+            <div class="history-row">
+              <div class="history-cell text-[11px] font-semibold text-slate-300">#${item.round}</div>
+              <div class="history-cell text-[10px] font-semibold text-slate-300 sm:text-xs">${numberText}</div>
+              <div>${item.direction ? directionMarkup(item.direction) : '<span class="text-[10px] text-slate-500">—</span>'}</div>
+              <div>${resultMarkup(item.status)}</div>
+            </div>
+          `;
+                }).join("");
+            }
+
+            function updateStats() {
+                $("completedCount").textContent = completedRounds;
+                $("correctCount").textContent = correctPredictions;
+                $("incorrectCount").textContent = incorrectPredictions;
+            }
+
+            // ------------------------------
+            // Start a fresh round
+            // ------------------------------
+            function startNextRound() {
+                if (!roundLocked) {
+                    showToast("Finish the current round before continuing.");
+                    return;
+                }
+
+                roundNumber += 1;
+                previousNumber = currentNumber;
+                currentNumber = randomNumber();
+                selectedPrediction = null;
+                secondsLeft = ROUND_SECONDS;
+                roundLocked = false;
+                paused = false;
+
+                roundNumberEl.textContent = roundNumber;
+                currentNumberEl.textContent = currentNumber;
+                previousNumberEl.textContent = previousNumber;
+                animateNumber();
+
+                resultPanel.classList.add("hidden");
+                predictionBadge.textContent = "Not selected";
+                predictionBadge.className = "rounded-lg bg-violet-400/10 px-2.5 py-1.5 text-[10px] font-bold text-violet-200";
+
+                pauseButton.disabled = false;
+                pauseButton.innerHTML = '<i class="bx bx-pause text-lg"></i> Pause timer';
+                nextRoundButton.disabled = true;
+
+                updatePredictionButtons();
+                updateTimerDisplay();
+                startTimer();
+                playTone(500, 0.06);
+            }
+
+            // ------------------------------
+            // Pause and resume
+            // ------------------------------
+            function togglePause() {
+                if (roundLocked) return;
+
+                paused = !paused;
+
+                if (paused) {
+                    pauseButton.innerHTML = '<i class="bx bx-play text-lg"></i> Resume timer';
+                    timerStatusEl.textContent = "Timer paused";
+                    showToast("Timer paused.");
+                } else {
+                    pauseButton.innerHTML = '<i class="bx bx-pause text-lg"></i> Pause timer';
+                    showToast("Timer resumed.");
+                }
+
+                updatePredictionButtons();
+                updateTimerDisplay();
+            }
+
+            // ------------------------------
+            // Sound control
+            // ------------------------------
+            function toggleSound() {
+                soundEnabled = !soundEnabled;
+
+                soundButton.setAttribute("aria-pressed", String(soundEnabled));
+                soundIcon.className = soundEnabled
+                    ? "bx bx-volume-full text-lg"
+                    : "bx bx-volume-mute text-lg";
+
+                soundButton.lastChild.textContent = soundEnabled ? " Sound on" : " Sound off";
+
+                if (soundEnabled) {
+                    playTone(600, 0.08);
+                    showToast("Sound effects enabled.");
+                } else {
+                    showToast("Sound effects disabled.");
+                }
+            }
+
+            // ------------------------------
+            // Mobile navigation
+            // ------------------------------
+            const menuToggle = $("menuToggle");
+            const mobileNav = $("mobileNav");
+
+            menuToggle.addEventListener("click", () => {
+                const isOpen = mobileNav.classList.toggle("open");
+                menuToggle.setAttribute("aria-expanded", String(isOpen));
+                menuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+                menuToggle.innerHTML = isOpen
+                    ? '<i class="bx bx-x text-xl"></i>'
+                    : '<i class="bx bx-menu text-xl"></i>';
+            });
+
+            // ------------------------------
+            // Event listeners
+            // ------------------------------
+            upButton.addEventListener("click", () => submitPrediction("up"));
+            downButton.addEventListener("click", () => submitPrediction("down"));
+            pauseButton.addEventListener("click", togglePause);
+            soundButton.addEventListener("click", toggleSound);
+            nextRoundButton.addEventListener("click", startNextRound);
+
+            // ------------------------------
+            // Initial render
+            // ------------------------------
+            $("demoBalance").textContent =
+                "₦" + INITIAL_BALANCE.toLocaleString("en-NG", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+
+            currentNumberEl.textContent = currentNumber;
+            roundNumberEl.textContent = roundNumber;
+            previousNumberEl.textContent = "—";
+
+            validateAmount(false);
+            updateTimerDisplay();
+            updatePredictionButtons();
+            renderHistory();
+            updateStats();
+            startTimer();
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#0B1020">
+    <meta name="description"
+        content="Discover interactive games and challenges on KUDIX. Explore our collection and find your next favourite game.">
+
+    <title>Games | KUDIX</title>
+
+    <!-- Prevent incorrect theme flash -->
+    <script>
+        (function () {
+            try {
+                const savedTheme = localStorage.getItem("kudix-theme");
+                const theme = savedTheme === "dark" ? "dark" : "light";
+                document.documentElement.setAttribute("data-theme", theme);
+            } catch (error) {
+                document.documentElement.setAttribute("data-theme", "light");
+            }
+        })();
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/games.css">
+
+    <!-- Tailwind configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kudix: {
+                            navy: "#0B1020",
+                            purple: "#6D4AFF",
+                            blue: "#287BFF",
+                            green: "#16A36A",
+                            background: "#F5F7FC"
+                        }
+                    },
+                    fontFamily: {
+                        heading: ["Sora", "sans-serif"],
+                        body: ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+
+<body>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-brand">
+            <a href="dashboard.html" class="brand-link" aria-label="KUDIX Dashboard">
+                <img src="images/kudix-logo.png" alt="KUDIX Logo" class="brand-logo">
+            </a>
+
+            <button class="sidebar-close" id="closeSidebar" aria-label="Close navigation" type="button">
+                <i class="bx bx-x"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-section-label">MAIN MENU</div>
+
+        <nav class="sidebar-nav" aria-label="Main navigation">
+
+            <a href="dashboard.html" class="nav-item">
+                <i class="bx bx-grid-alt"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="games.html" class="nav-item active" aria-current="page">
+                <i class="bx bx-joystick"></i>
+                <span>Games</span>
+                <span class="active-indicator"></span>
+            </a>
+
+
+            <a href="social-tasks.html" class="nav-item">
+                <i class="bx bx-share-alt"></i>
+                <span>Social Tasks</span>
+            </a>
+
+            <a href="social-tasks.html" class="nav-item">
+                <i class="bx bx-box"></i>
+                <span>Daily-streak</span>
+            </a>
+
+            <a href="wallet.html" class="nav-item">
+                <i class="bx bx-wallet" aria-hidden="true"></i>
+                <span>Wallet</span>
+            </a>
+
+
+            <a href="transactions.html" class="nav-item">
+                <i class="bx bx-transfer-alt"></i>
+                <span>Transactions</span>
+            </a>
+
+            <a href="referrals.html" class="nav-item">
+                <i class="bx bx-user-plus"></i>
+                <span>Referrals</span>
+            </a>
+
+            <a href="top-earner.html" class="nav-item">
+                <i class="bx bx-trophy"></i>
+                <span>Top Earners</span>
+            </a>
+
+            <div class="sidebar-divider"></div>
+
+            <div class="sidebar-section-label">ACCOUNT</div>
+
+            <a href="settings.html" class="nav-item">
+                <i class="bx bx-cog"></i>
+                <span>Settings</span>
+            </a>
+
+            <a href="support.html" class="nav-item">
+                <i class="bx bx-help-circle"></i>
+                <span>Help & Support</span>
+            </a>
+
+        </nav>
+
+        <!-- Sidebar Support Card -->
+        <div class="sidebar-support">
+            <div class="support-icon">
+                <i class="bx bx-headphone"></i>
+            </div>
+
+            <h4>Need assistance?</h4>
+
+            <p>Our support team can help you navigate the platform.</p>
+
+            <a href="support.html" class="support-link">
+                Get support
+                <i class="bx bx-right-arrow-alt"></i>
+            </a>
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-status-dot"></div>
+            <span>Welcome to KUDIX</span>
+        </div>
+
+    </aside>
+
+
+    <!-- Main Application -->
+    <div class="main-wrapper">
+
+        <!-- Top Header -->
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button class="menu-toggle" id="openSidebar" aria-label="Open navigation" aria-controls="sidebar"
+                    aria-expanded="false" type="button">
+                    <i class="bx bx-menu"></i>
+                </button>
+
+                <div class="breadcrumb">
+                    <span>Workspace</span>
+                    <i class="bx bx-chevron-right"></i>
+                    <strong>Games</strong>
+                </div>
+
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="header-status">
+                    <span class="status-dot"></span>
+                    Gaming Lounge
+                </div>
+
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode"
+                    title="Toggle light and dark mode">
+                    <i class="bx bx-moon" id="themeIcon"></i>
+                </button>
+
+                <a href="settings.html" class="profile-button" aria-label="Account settings">
+                    <span class="profile-avatar">
+                        <i class="bx bx-user"></i>
+                    </span>
+
+                    <span class="profile-text">
+                        <strong>My Account</strong>
+                        <small>KUDIX Member</small>
+                    </span>
+
+                    <i class="bx bx-chevron-down profile-chevron"></i>
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <!-- Main Content -->
+        <main class="page-content">
+
+            <!-- Page Heading -->
+            <section class="page-heading">
+
+                <div class="heading-copy">
+
+                    <div class="eyebrow">
+                        <span class="eyebrow-line"></span>
+                        THE KUDIX GAME LOUNGE
+                    </div>
+
+                    <h1>
+                        Choose Your Next
+                        <span class="heading-highlight">Challenge.</span>
+                    </h1>
+
+                    <p>
+                        Explore interactive games, test your predictions,
+                        and discover your next favourite challenge.
+                    </p>
+
+                </div>
+
+                <div class="heading-decoration" aria-hidden="true">
+
+                    <div class="decoration-orbit orbit-one"></div>
+                    <div class="decoration-orbit orbit-two"></div>
+
+                    <div class="decoration-center">
+                        <i class="bx bx-joystick"></i>
+                    </div>
+
+                    <span class="decoration-dot dot-one"></span>
+                    <span class="decoration-dot dot-two"></span>
+                    <span class="decoration-dot dot-three"></span>
+
+                </div>
+
+            </section>
+
+
+            <!-- Promotional Credit Banner -->
+            <section class="bonus-banner" aria-labelledby="bonusTitle">
+
+                <div class="bonus-content">
+
+                    <div class="bonus-label">
+                        <i class="bx bx-gift"></i>
+                        PROMOTIONAL CREDIT
+                    </div>
+
+                    <h2 id="bonusTitle">Your Gaming Welcome Bonus</h2>
+
+                    <p class="bonus-description">
+                        A promotional offer for eligible new users,
+                        subject to platform rules.
+                    </p>
+
+                    <div class="bonus-disclaimer">
+                        <!-- <i class="bx bx-info-circle"></i> -->
+
+                        <span>
+                            <!-- Promotional credit is not withdrawable cash. -->
+                            <!-- Eligibility and usage depend on platform rules. -->
+                        </span>
+                    </div>
+
+                </div>
+
+                <div class="bonus-amount-wrapper">
+
+                    <div class="bonus-amount-label">
+                        WELCOME BONUS
+                    </div>
+
+                    <div class="bonus-amount">
+                        <span>₦</span>20,000
+                    </div>
+
+                    <div class="bonus-amount-caption">
+                        Promotional gaming credit
+                    </div>
+
+                </div>
+
+                <div class="bonus-decoration bonus-decoration-one"></div>
+                <div class="bonus-decoration bonus-decoration-two"></div>
+
+            </section>
+
+
+            <!-- Game Collection Header -->
+            <section class="games-section" id="gamesSection">
+
+                <div class="section-heading-row">
+
+                    <div>
+                        <div class="section-kicker">DISCOVER & PLAY</div>
+
+                        <h2 class="section-title">
+                            Explore Games
+                        </h2>
+
+                        <p class="section-description">
+                            Find a challenge that matches your interests.
+                        </p>
+                    </div>
+
+                    <div class="game-count">
+                        <span id="visibleGameCount">6</span>
+                        <span>games available in this collection</span>
+                    </div>
+
+                </div>
+
+
+                <!-- Search and Filter -->
+                <div class="game-toolbar">
+
+                    <div class="game-filters" role="group" aria-label="Filter games by category">
+
+                        <button class="filter-button active" data-filter="all" aria-pressed="true" type="button">
+                            All Games
+                            <span class="filter-count">6</span>
+                        </button>
+
+                        <button class="filter-button" data-filter="prediction" aria-pressed="false" type="button">
+                            <i class="bx bx-target-lock"></i>
+                            Prediction
+                        </button>
+
+                        <button class="filter-button" data-filter="number" aria-pressed="false" type="button">
+                            <i class="bx bx-hash"></i>
+                            Number Games
+                        </button>
+
+                        <button class="filter-button" data-filter="quick" aria-pressed="false" type="button">
+                            <i class="bx bx-bolt-circle"></i>
+                            Quick Games
+                        </button>
+
+                    </div>
+
+
+                    <div class="game-search">
+
+                        <i class="bx bx-search"></i>
+
+                        <input type="search" id="gameSearch" placeholder="Search games..." aria-label="Search games"
+                            autocomplete="off">
+
+                        <kbd>/</kbd>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Games Grid -->
+                <div class="games-grid" id="gamesGrid">
+
+
+                    <!-- Game 1: Colour Prediction -->
+                    <article class="game-card" data-category="prediction"
+                        data-search="colour color prediction palette colours">
+
+                        <div class="game-card-top">
+
+                            <div class="game-icon game-icon-purple">
+                                <i class="bx bx-palette"></i>
+                            </div>
+
+                            <span class="game-category category-purple">
+                                Prediction
+                            </span>
+
+                        </div>
+
+                        <div class="game-card-body">
+
+                            <h3>Colour Prediction</h3>
+
+                            <p>
+                                Explore a colour-based prediction challenge
+                                with simple, easy-to-understand rules.
+                            </p>
+
+                        </div>
+
+                        <div class="game-card-meta">
+
+                            <span>
+                                <i class="bx bx-time-five"></i>
+                                Quick challenge
+                            </span>
+
+                            <span class="game-status">
+                                <span></span>
+                                Explore
+                            </span>
+
+                        </div>
+
+                        <div class="game-card-footer">
+
+                            <span class="game-number">GAME 01</span>
+                            <a href="/games/colour-prediction.html"><button class="play-button" type="button"
+                                    data-game="Colour Prediction">
+                                    Explore Game
+                                    <i class="bx bx-right-arrow-alt"></i>
+                                </button></a>
+
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Game 2: Number Prediction -->
+                    <article class="game-card" data-category="number"
+                        data-search="number prediction numbers calculator">
+
+                        <div class="game-card-top">
+
+                            <div class="game-icon game-icon-blue">
+                                <i class="bx bx-hash"></i>
+                            </div>
+
+                            <span class="game-category category-blue">
+                                Number Games
+                            </span>
+
+                        </div>
+
+                        <div class="game-card-body">
+
+                            <h3>Number Prediction</h3>
+
+                            <p>
+                                Take on a number-based challenge and
+                                explore different possible outcomes.
+                            </p>
+
+                        </div>
+
+                        <div class="game-card-meta">
+
+                            <span>
+                                <i class="bx bx-time-five"></i>
+                                Quick challenge
+                            </span>
+
+                            <span class="game-status">
+                                <span></span>
+                                Explore
+                            </span>
+
+                        </div>
+
+                        <div class="game-card-footer">
+
+                            <span class="game-number">GAME 02</span>
+
+                            <a href="/games/number-prediction.html"><button class="play-button" type="button"
+                                    data-game="Number Prediction">Explore Game
+                                    <i class="bx bx-right-arrow-alt"></i></button></a>
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Game 3: Heads or Tails -->
+                    <article class="game-card" data-category="quick" data-search="heads tails coin flip classic">
+
+                        <div class="game-card-top">
+
+                            <div class="game-icon game-icon-green">
+                                <i class="bx bx-coin"></i>
+                            </div>
+
+                            <span class="game-category category-green">
+                                Quick Games
+                            </span>
+
+                        </div>
+
+                        <div class="game-card-body">
+
+                            <h3>Heads or Tails</h3>
+
+                            <p>
+                                Try a classic two-outcome challenge
+                                featuring heads and tails.
+                            </p>
+
+                        </div>
+
+                        <div class="game-card-meta">
+
+                            <span>
+                                <i class="bx bx-time-five"></i>
+                                Short session
+                            </span>
+
+                            <span class="game-status">
+                                <span></span>
+                                Explore
+                            </span>
+
+                        </div>
+
+                        <div class="game-card-footer">
+
+                            <span class="game-number">GAME 03</span>
+
+                            <a href="/games/heads-or-tails.html"><button class="play-button" type="button"
+                                    data-game="Heads or Tails">
+                                    Explore Game
+                                    <i class="bx bx-right-arrow-alt"></i>
+                                </button></a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Game 4: Up or Down -->
+                    <article class="game-card" data-category="prediction"
+                        data-search="up down direction higher lower trend">
+
+                        <div class="game-card-top">
+
+                            <div class="game-icon game-icon-orange">
+                                <i class="bx bx-trending-up"></i>
+                            </div>
+
+                            <span class="game-category category-orange">
+                                Prediction
+                            </span>
+
+                        </div>
+
+                        <div class="game-card-body">
+
+                            <h3>Up or Down</h3>
+
+                            <p>
+                                Explore a directional challenge based
+                                on upward and downward choices.
+                            </p>
+
+                        </div>
+
+                        <div class="game-card-meta">
+
+                            <span>
+                                <i class="bx bx-time-five"></i>
+                                Quick challenge
+                            </span>
+
+                            <span class="game-status">
+                                <span></span>
+                                Explore
+                            </span>
+
+                        </div>
+
+                        <div class="game-card-footer">
+
+                            <span class="game-number">GAME 04</span>
+
+                            <a href="/games/up-or-down.html"><button class="play-button" type="button"
+                                    data-game="Up or Down">
+                                    Explore Game
+                                    <i class="bx bx-right-arrow-alt"></i>
+                                </button></a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Game 5: Lucky Number -->
+                    <article class="game-card" data-category="number" data-search="lucky number dice numbers">
+
+                        <div class="game-card-top">
+
+                            <div class="game-icon game-icon-pink">
+                                <i class="bx bx-dice-5"></i>
+                            </div>
+
+                            <span class="game-category category-pink">
+                                Number Games
+                            </span>
+
+                        </div>
+
+                        <div class="game-card-body">
+
+                            <h3>Lucky Number</h3>
+
+                            <p>
+                                Discover a number-focused game with a
+                                clean interface and straightforward rules.
+                            </p>
+
+                        </div>
+
+                        <div class="game-card-meta">
+
+                            <span>
+                                <i class="bx bx-time-five"></i>
+                                Short session
+                            </span>
+
+                            <span class="game-status">
+                                <span></span>
+                                Explore
+                            </span>
+
+                        </div>
+
+                        <div class="game-card-footer">
+
+                            <span class="game-number">GAME 05</span>
+
+                            <a href="/games/lucky-number.html"><button class="play-button" type="button"
+                                    data-game="Lucky Number">
+                                    Explore Game
+                                    <i class="bx bx-right-arrow-alt"></i>
+                                </button></a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Game 6: Higher or Lower -->
+                    <article class="game-card" data-category="quick" data-search="higher lower compare values numbers">
+
+                        <div class="game-card-top">
+
+                            <div class="game-icon game-icon-cyan">
+                                <i class="bx bx-sort-alt-2"></i>
+                            </div>
+
+                            <span class="game-category category-cyan">
+                                Quick Games
+                            </span>
+
+                        </div>
+
+                        <div class="game-card-body">
+
+                            <h3>Higher or Lower</h3>
+
+                            <p>
+                                Compare values and explore whether
+                                the next value is higher or lower.
+                            </p>
+
+                        </div>
+
+                        <div class="game-card-meta">
+
+                            <span>
+                                <i class="bx bx-time-five"></i>
+                                Quick challenge
+                            </span>
+
+                            <span class="game-status">
+                                <span></span>
+                                Explore
+                            </span>
+
+                        </div>
+
+                        <div class="game-card-footer">
+
+                            <span class="game-number">GAME 06</span>
+
+                            <a href="/games/higher-or-lower.html"><button class="play-button" type="button"
+                                    data-game="Higher or Lower">
+                                    Explore Game
+                                    <i class="bx bx-right-arrow-alt"></i>
+                                </button></a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+                <!-- Empty Search State -->
+                <div class="empty-state" id="emptyState" hidden>
+
+                    <div class="empty-state-icon">
+                        <i class="bx bx-search-alt"></i>
+                    </div>
+
+                    <h3>No games found</h3>
+
+                    <p>
+                        We couldn't find a game matching your search.
+                        Try another name or category.
+                    </p>
+
+                    <button class="reset-search-button" id="resetSearch" type="button">
+                        Show All Games
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- Featured Banner -->
+            <section class="featured-banner">
+
+                <div class="featured-decoration" aria-hidden="true">
+                    <div class="featured-circle circle-one"></div>
+                    <div class="featured-circle circle-two"></div>
+
+                    <div class="featured-game-icon">
+                        <i class="bx bx-joystick"></i>
+                    </div>
+                </div>
+
+                <div class="featured-content">
+
+                    <div class="featured-label">
+                        <i class="bx bx-star"></i>
+                        THE KUDIX COLLECTION
+                    </div>
+
+                    <h2>Find Your Next Favourite Game</h2>
+
+                    <p>
+                        Discover new challenges, explore different
+                        game categories, and enjoy your time on KUDIX.
+                    </p>
+
+                    <button class="featured-button" id="exploreAllGames" type="button">
+                        Explore All Games
+                        <i class="bx bx-right-arrow-alt"></i>
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- Responsible Gaming -->
+            <!-- <section class="responsible-card">
+
+                <div class="responsible-icon">
+                    <i class="bx bx-shield-quarter"></i>
+                </div>
+
+                <div class="responsible-content">
+
+                    <h3>Play Responsibly</h3>
+
+                    <p>
+                        Take time to understand each game's rules before
+                        participating. Set reasonable limits, never treat
+                        gaming as guaranteed income, and stop if playing
+                        becomes stressful. Always review eligibility and
+                        prize conditions before joining games involving
+                        paid participation or rewards.
+                    </p>
+
+                </div>
+
+                <a href="support.html" class="responsible-link">
+                    Learn More
+                    <i class="bx bx-right-arrow-alt"></i>
+                </a>
+
+            </section> -->
+
+
+            <!-- Footer -->
+            <footer class="page-footer">
+
+                <div class="footer-top">
+
+                    <a href="dashboard.html" class="footer-brand">
+                        <img src="images/kudix-logo.png" alt="KUDIX Logo">
+                    </a>
+
+                    <p>
+                        Discover challenges and enjoy a better
+                        gaming experience with KUDIX.
+                    </p>
+
+                </div>
+
+                <div class="footer-bottom">
+
+                    <p>
+                        &copy; <span id="currentYear"></span> KUDIX.
+                        All rights reserved.
+                    </p>
+
+                    <div class="footer-links">
+                        <a href="terms.html">Terms & Conditions</a>
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="support.html">Support</a>
+                    </div>
+
+                </div>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <!-- Game Information Modal -->
+    <div class="modal-overlay" id="gameModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"
+        aria-describedby="modalDescription" hidden>
+
+        <div class="game-modal">
+
+            <button class="modal-close" id="closeGameModal" type="button" aria-label="Close dialog">
+                <i class="bx bx-x"></i>
+            </button>
+
+            <div class="modal-icon">
+                <i class="bx bx-joystick"></i>
+            </div>
+
+            <span class="modal-label">KUDIX GAME LOUNGE</span>
+
+            <h2 id="modalTitle">Game Information</h2>
+
+            <p id="modalDescription">
+                Game information will appear here.
+            </p>
+
+            <div class="modal-notice">
+                <i class="bx bx-info-circle"></i>
+
+                <span>
+                    This game is not connected yet. Its rules and
+                    availability will be displayed when the game page
+                    is ready.
+                </span>
+            </div>
+
+            <button class="modal-primary-button" id="modalOkay" type="button">
+                Got It
+                <i class="bx bx-check"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Toast Notification -->
+    <div class="toast-notification" id="toastNotification" role="status" aria-live="polite">
+        <i class="bx bx-check-circle"></i>
+        <span id="toastMessage">Welcome to KUDIX.</span>
+    </div>
+
+
+    <!-- JavaScript -->
+    <script src="js/games.js" defer></script>
+
+</body>
+
+</html>

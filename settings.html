@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B1020">
+    <meta name="description" content="Manage your KUDIX profile, preferences, notifications, and account security.">
+    <title>Settings | KUDIX</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kudix: {
+                            navy: "#0B1020",
+                            purple: "#6D4AFF",
+                            blue: "#287BFF",
+                            green: "#16A36A"
+                        }
+                    },
+                    fontFamily: {
+                        sora: ["Sora", "sans-serif"],
+                        inter: ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
+
+    <link rel="stylesheet" href="css/settings.css">
+    <script src="js/settings.js" defer></script>
+</head>
+
+<body>
+    <div class="app-shell">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+            <a href="dashboard.html" class="brand" aria-label="KUDIX dashboard">
+                <img src="images/kudix-logo.png" alt="KUDIX Logo">
+            </a>
+
+            <div class="sidebar-label">WORKSPACE</div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bx bx-grid-alt"></i><span>Dashboard</span>
+                </a>
+                <a href="games.html" class="nav-link">
+                    <i class="bx bx-joystick"></i><span>Games</span>
+                </a>
+                <a href="social-tasks.html" class="nav-link">
+                    <i class="bx bx-task"></i><span>Social Tasks</span>
+                </a>
+                <a href="transactions.html" class="nav-link">
+                    <i class="bx bx-transfer-alt"></i><span>Transactions</span>
+                </a>
+                <a href="referrals.html" class="nav-link">
+                    <i class="bx bx-group"></i><span>Referrals</span>
+                </a>
+                <a href="top-earner.html" class="nav-link">
+                    <i class="bx bx-trophy"></i><span>Top Earners</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-label account-label">ACCOUNT</div>
+            <nav class="sidebar-nav">
+                <a href="settings.html" class="nav-link active" aria-current="page">
+                    <i class="bx bx-cog"></i><span>Settings</span>
+                </a>
+                <a href="support.html" class="nav-link">
+                    <i class="bx bx-help-circle"></i><span>Help &amp; Support</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="sidebar-help">
+                    <div class="help-icon"><i class="bx bx-headphone"></i></div>
+                    <div>
+                        <strong>Need a hand?</strong>
+                        <p>We're here to help.</p>
+                        <a href="support.html">Visit support <i class="bx bx-right-arrow-alt"></i></a>
+                    </div>
+                </div>
+                <div class="sidebar-version">KUDIX <span>•</span> Account settings</div>
+            </div>
+        </aside>
+
+        <main class="main-area">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-button mobile-menu-btn" id="menuToggle" aria-label="Open navigation menu"
+                        aria-controls="sidebar" aria-expanded="false">
+                        <i class="bx bx-menu"></i>
+                    </button>
+                    <div class="breadcrumb">
+                        <span>Account</span><i class="bx bx-chevron-right"></i><strong>Settings</strong>
+                    </div>
+                </div>
+
+                <div class="topbar-actions">
+                    <span class="environment-label"><span class="status-dot"></span> Account preferences</span>
+                    <button class="icon-button theme-toggle" id="themeToggle" aria-label="Switch to dark theme"
+                        title="Toggle theme">
+                        <i class="bx bx-moon"></i>
+                    </button>
+                    <a href="support.html" class="icon-button" aria-label="Help and support" title="Help &amp; Support">
+                        <i class="bx bx-help-circle"></i>
+                    </a>
+                    <div class="topbar-divider"></div>
+                    <div class="profile-chip" aria-label="Account profile">
+                        <div class="avatar" id="topAvatar">K</div>
+                        <div class="profile-chip-text">
+                            <strong id="topProfileName">Your profile</strong>
+                            <span>Account settings</span>
+                        </div>
+                        <i class="bx bx-chevron-down profile-chevron"></i>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <section class="page-heading">
+                    <div>
+                        <div class="eyebrow"><span></span> ACCOUNT PREFERENCES</div>
+                        <h1>Settings<span>.</span></h1>
+                        <p>Manage your profile, preferences, privacy, and account security in one place.</p>
+                    </div>
+                    <div class="heading-mark"><i class="bx bx-slider-alt"></i></div>
+                </section>
+
+                <div class="settings-layout">
+                    <aside class="settings-navigation" aria-label="Settings sections">
+                        <div class="settings-nav-title">SETTINGS MENU</div>
+                        <button class="settings-nav-link active" data-section="personal" type="button">
+                            <i class="bx bx-user"></i><span>Personal Information</span><i
+                                class="bx bx-chevron-right nav-chevron"></i>
+                        </button>
+                        <button class="settings-nav-link" data-section="preferences" type="button">
+                            <i class="bx bx-palette"></i><span>Preferences</span><i
+                                class="bx bx-chevron-right nav-chevron"></i>
+                        </button>
+                        <button class="settings-nav-link" data-section="notifications" type="button">
+                            <i class="bx bx-bell"></i><span>Notifications</span><i
+                                class="bx bx-chevron-right nav-chevron"></i>
+                        </button>
+                        <button class="settings-nav-link" data-section="security" type="button">
+                            <i class="bx bx-shield-quarter"></i><span>Privacy &amp; Security</span><i
+                                class="bx bx-chevron-right nav-chevron"></i>
+                        </button>
+                        <button class="settings-nav-link" data-section="account" type="button">
+                            <i class="bx bx-user-x"></i><span>Account Management</span><i
+                                class="bx bx-chevron-right nav-chevron"></i>
+                        </button>
+
+                        <div class="settings-nav-note">
+                            <i class="bx bx-info-circle"></i>
+                            <p>Some preferences are saved only in this browser until account services are connected.</p>
+                        </div>
+                    </aside>
+
+                    <div class="settings-main">
+                        <!-- PERSONAL INFORMATION -->
+                        <section class="settings-section active" id="section-personal" data-panel="personal">
+                            <div class="section-heading">
+                                <div class="section-icon purple-icon"><i class="bx bx-user-circle"></i></div>
+                                <div>
+                                    <h2>Personal Information</h2>
+                                    <p>Update the profile information displayed in this browser.</p>
+                                </div>
+                            </div>
+
+                            <div class="profile-preview">
+                                <div class="profile-avatar-large" id="profileAvatar">K</div>
+                                <div class="profile-preview-info">
+                                    <strong id="previewName">Your profile</strong>
+                                    <span id="previewEmail">Add your email address</span>
+                                    <small><i class="bx bx-info-circle"></i> Profile preview</small>
+                                </div>
+                                <span class="profile-tag">PERSONAL</span>
+                            </div>
+
+                            <form id="profileForm" novalidate>
+                                <div class="form-grid">
+                                    <div class="form-field">
+                                        <label for="displayName">Display name</label>
+                                        <input type="text" id="displayName" name="displayName"
+                                            placeholder="Enter your display name" maxlength="60" autocomplete="name"
+                                            required>
+                                        <small class="field-hint">This name appears in the settings preview.</small>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="emailAddress">Email address</label>
+                                        <input type="email" id="emailAddress" name="emailAddress"
+                                            placeholder="you@example.com" maxlength="254" autocomplete="email" required>
+                                        <small class="field-hint">Email changes are local only in this frontend
+                                            version.</small>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="phoneNumber">Phone number <span
+                                                class="optional-label">Optional</span></label>
+                                        <input type="tel" id="phoneNumber" name="phoneNumber"
+                                            placeholder="Enter phone number" maxlength="25" autocomplete="tel">
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="country">Country / Region</label>
+                                        <select id="country" name="country">
+                                            <option value="">Select a country</option>
+                                            <option value="Nigeria">Nigeria</option>
+                                            <option value="Ghana">Ghana</option>
+                                            <option value="Kenya">Kenya</option>
+                                            <option value="South Africa">South Africa</option>
+                                            <option value="United Kingdom">United Kingdom</option>
+                                            <option value="United States">United States</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-footer">
+                                    <p><i class="bx bx-lock-alt"></i> Your changes stay in this browser.</p>
+                                    <button class="primary-button" type="submit">
+                                        Save changes <i class="bx bx-check"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </section>
+
+                        <!-- PREFERENCES -->
+                        <section class="settings-section" id="section-preferences" data-panel="preferences" hidden>
+                            <div class="section-heading">
+                                <div class="section-icon blue-icon"><i class="bx bx-palette"></i></div>
+                                <div>
+                                    <h2>Preferences</h2>
+                                    <p>Personalize the appearance and display settings of KUDIX.</p>
+                                </div>
+                            </div>
+
+                            <form id="preferencesForm">
+                                <div class="preference-row">
+                                    <div class="preference-copy">
+                                        <div class="preference-title">Appearance</div>
+                                        <p>Choose the theme that feels right for you.</p>
+                                    </div>
+                                    <div class="theme-options" role="group" aria-label="Choose appearance">
+                                        <button type="button" class="theme-option" data-theme-choice="light">
+                                            <i class="bx bx-sun"></i><span>Light</span>
+                                        </button>
+                                        <button type="button" class="theme-option" data-theme-choice="dark">
+                                            <i class="bx bx-moon"></i><span>Dark</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="preference-row">
+                                    <div class="preference-copy">
+                                        <label for="language" class="preference-title">Language</label>
+                                        <p>Choose your preferred display language.</p>
+                                    </div>
+                                    <select id="language" class="preference-select">
+                                        <option value="en">English</option>
+                                    </select>
+                                </div>
+
+                                <div class="preference-row">
+                                    <div class="preference-copy">
+                                        <label for="currency" class="preference-title">Display currency</label>
+                                        <p>Choose a currency for future interface displays.</p>
+                                    </div>
+                                    <select id="currency" class="preference-select">
+                                        <option value="NGN">NGN — Nigerian Naira</option>
+                                        <option value="USD">USD — US Dollar</option>
+                                        <option value="GBP">GBP — British Pound</option>
+                                        <option value="EUR">EUR — Euro</option>
+                                        <option value="GHS">GHS — Ghanaian Cedi</option>
+                                        <option value="KES">KES — Kenyan Shilling</option>
+                                        <option value="ZAR">ZAR — South African Rand</option>
+                                    </select>
+                                </div>
+
+                                <div class="preference-row">
+                                    <div class="preference-copy">
+                                        <label for="dateFormat" class="preference-title">Date format</label>
+                                        <p>Choose how dates should be displayed.</p>
+                                    </div>
+                                    <select id="dateFormat" class="preference-select">
+                                        <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                                        <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                        <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                    </select>
+                                </div>
+
+                                <div class="info-banner">
+                                    <i class="bx bx-info-circle"></i>
+                                    <p>These settings affect local interface preferences only. Changing the display
+                                        currency does not convert balances, change payouts, or update payment records.
+                                    </p>
+                                </div>
+
+                                <div class="form-footer">
+                                    <p><i class="bx bx-save"></i> Saved on this device</p>
+                                    <button class="primary-button" type="submit">
+                                        Save preferences <i class="bx bx-check"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </section>
+
+                        <!-- NOTIFICATIONS -->
+                        <section class="settings-section" id="section-notifications" data-panel="notifications" hidden>
+                            <div class="section-heading">
+                                <div class="section-icon amber-icon"><i class="bx bx-bell"></i></div>
+                                <div>
+                                    <h2>Notifications</h2>
+                                    <p>Choose the types of updates you want to enable in this browser.</p>
+                                </div>
+                            </div>
+
+                            <div class="notification-master">
+                                <div>
+                                    <strong>Notification preferences</strong>
+                                    <p>Turn all local notification preferences on or off.</p>
+                                </div>
+                                <button type="button" class="text-button" id="toggleAllNotifications">Enable
+                                    all</button>
+                            </div>
+
+                            <div class="notification-list">
+                                <div class="notification-row">
+                                    <div class="notification-icon"><i class="bx bx-shield-quarter"></i></div>
+                                    <div class="notification-copy"><strong>Account &amp; security</strong>
+                                        <p>Security reminders and account-related notices.</p>
+                                    </div>
+                                    <label class="switch" aria-label="Account and security notifications">
+                                        <input type="checkbox" data-notification="security" checked>
+                                        <span class="switch-track"></span>
+                                    </label>
+                                </div>
+                                <div class="notification-row">
+                                    <div class="notification-icon"><i class="bx bx-joystick"></i></div>
+                                    <div class="notification-copy"><strong>Games &amp; activity</strong>
+                                        <p>Updates related to games and platform activity.</p>
+                                    </div>
+                                    <label class="switch" aria-label="Games and activity notifications">
+                                        <input type="checkbox" data-notification="games" checked>
+                                        <span class="switch-track"></span>
+                                    </label>
+                                </div>
+                                <div class="notification-row">
+                                    <div class="notification-icon"><i class="bx bx-task"></i></div>
+                                    <div class="notification-copy"><strong>Social tasks</strong>
+                                        <p>Task availability and task-related updates.</p>
+                                    </div>
+                                    <label class="switch" aria-label="Social task notifications">
+                                        <input type="checkbox" data-notification="tasks" checked>
+                                        <span class="switch-track"></span>
+                                    </label>
+                                </div>
+                                <div class="notification-row">
+                                    <div class="notification-icon"><i class="bx bx-transfer-alt"></i></div>
+                                    <div class="notification-copy"><strong>Rewards &amp; transactions</strong>
+                                        <p>Reward and transaction information.</p>
+                                    </div>
+                                    <label class="switch" aria-label="Rewards and transaction notifications">
+                                        <input type="checkbox" data-notification="transactions" checked>
+                                        <span class="switch-track"></span>
+                                    </label>
+                                </div>
+                                <div class="notification-row">
+                                    <div class="notification-icon"><i class="bx bx-group"></i></div>
+                                    <div class="notification-copy"><strong>Referrals</strong>
+                                        <p>Updates related to your referral activity.</p>
+                                    </div>
+                                    <label class="switch" aria-label="Referral notifications">
+                                        <input type="checkbox" data-notification="referrals" checked>
+                                        <span class="switch-track"></span>
+                                    </label>
+                                </div>
+                                <div class="notification-row">
+                                    <div class="notification-icon"><i class="bx bx-bullhorn"></i></div>
+                                    <div class="notification-copy"><strong>Platform announcements</strong>
+                                        <p>Product news and important platform updates.</p>
+                                    </div>
+                                    <label class="switch" aria-label="Platform announcement notifications">
+                                        <input type="checkbox" data-notification="announcements">
+                                        <span class="switch-track"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="info-banner">
+                                <i class="bx bx-info-circle"></i>
+                                <p>These switches store your preferences locally. They do not subscribe you to real
+                                    email, SMS, or push notifications.</p>
+                            </div>
+
+                            <div class="form-footer">
+                                <p><i class="bx bx-save"></i> Saved on this device</p>
+                                <button class="primary-button" id="saveNotifications" type="button">
+                                    Save notifications <i class="bx bx-check"></i>
+                                </button>
+                            </div>
+                        </section>
+
+                        <!-- PRIVACY AND SECURITY -->
+                        <section class="settings-section" id="section-security" data-panel="security" hidden>
+                            <div class="section-heading">
+                                <div class="section-icon green-icon"><i class="bx bx-shield-quarter"></i></div>
+                                <div>
+                                    <h2>Privacy &amp; Security</h2>
+                                    <p>Review account safety information and password requirements.</p>
+                                </div>
+                            </div>
+
+                            <div class="security-notice">
+                                <div class="security-notice-icon"><i class="bx bx-lock-alt"></i></div>
+                                <div>
+                                    <strong>Protect your account</strong>
+                                    <p>Use a unique password and never share it with anyone. Real account security
+                                        controls require a connected authentication service.</p>
+                                </div>
+                            </div>
+
+                            <div class="subsection-heading">
+                                <h3>Change password</h3>
+                                <span class="local-badge">FRONTEND ONLY</span>
+                            </div>
+
+                            <form id="passwordForm" novalidate>
+                                <div class="password-fields">
+                                    <div class="form-field">
+                                        <label for="currentPassword">Current password</label>
+                                        <div class="password-input-wrap">
+                                            <input type="password" id="currentPassword" autocomplete="current-password"
+                                                placeholder="Enter current password" required>
+                                            <button type="button" class="password-toggle"
+                                                data-password-target="currentPassword"
+                                                aria-label="Show current password">
+                                                <i class="bx bx-show"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="newPassword">New password</label>
+                                        <div class="password-input-wrap">
+                                            <input type="password" id="newPassword" autocomplete="new-password"
+                                                placeholder="At least 8 characters" required minlength="8">
+                                            <button type="button" class="password-toggle"
+                                                data-password-target="newPassword" aria-label="Show new password">
+                                                <i class="bx bx-show"></i>
+                                            </button>
+                                        </div>
+                                        <small class="field-hint">Use at least 8 characters.</small>
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="confirmPassword">Confirm new password</label>
+                                        <div class="password-input-wrap">
+                                            <input type="password" id="confirmPassword" autocomplete="new-password"
+                                                placeholder="Re-enter new password" required minlength="8">
+                                            <button type="button" class="password-toggle"
+                                                data-password-target="confirmPassword"
+                                                aria-label="Show password confirmation">
+                                                <i class="bx bx-show"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="info-banner">
+                                    <i class="bx bx-info-circle"></i>
+                                    <p>This form does not change your real password. Passwords are not stored by this
+                                        page. Connect a secure backend authentication service to implement password
+                                        changes.</p>
+                                </div>
+
+                                <div class="form-footer">
+                                    <p><i class="bx bx-shield"></i> Passwords are never saved locally</p>
+                                    <button class="primary-button" type="submit">
+                                        Validate password <i class="bx bx-check"></i>
+                                    </button>
+                                </div>
+                            </form>
+
+                            <div class="security-details">
+                                <div class="subsection-heading">
+                                    <h3>Security overview</h3>
+                                </div>
+                                <div class="security-detail-row">
+                                    <div class="detail-icon"><i class="bx bx-devices"></i></div>
+                                    <div><strong>Active sessions</strong>
+                                        <p>Session management is not connected.</p>
+                                    </div>
+                                    <span class="status-label">Not connected</span>
+                                </div>
+                                <div class="security-detail-row">
+                                    <div class="detail-icon"><i class="bx bx-key"></i></div>
+                                    <div><strong>Two-factor authentication</strong>
+                                        <p>Authentication controls have not been configured.</p>
+                                    </div>
+                                    <span class="status-label">Not configured</span>
+                                </div>
+                                <div class="security-detail-row">
+                                    <div class="detail-icon"><i class="bx bx-history"></i></div>
+                                    <div><strong>Login activity</strong>
+                                        <p>Real login history is not available in this frontend.</p>
+                                    </div>
+                                    <span class="status-label">Unavailable</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- ACCOUNT MANAGEMENT -->
+                        <section class="settings-section" id="section-account" data-panel="account" hidden>
+                            <div class="section-heading">
+                                <div class="section-icon red-icon"><i class="bx bx-user-x"></i></div>
+                                <div>
+                                    <h2>Account Management</h2>
+                                    <p>Review the available account actions and their current limitations.</p>
+                                </div>
+                            </div>
+
+                            <div class="account-action-card">
+                                <div class="account-action-icon"><i class="bx bx-log-out"></i></div>
+                                <div class="account-action-copy">
+                                    <h3>Sign out</h3>
+                                    <p>This page does not have a connected login session. A real sign-out action must be
+                                        handled by your authentication system.</p>
+                                </div>
+                                <button type="button" class="secondary-button" id="signOutButton">Sign out</button>
+                            </div>
+
+                            <div class="account-action-card danger-card">
+                                <div class="account-action-icon danger-action-icon"><i class="bx bx-trash-alt"></i>
+                                </div>
+                                <div class="account-action-copy">
+                                    <h3>Delete account</h3>
+                                    <p>Account deletion permanently affects account data. This frontend cannot delete an
+                                        account or its associated data.</p>
+                                </div>
+                                <button type="button" class="danger-button" id="deleteAccountButton">Delete
+                                    account</button>
+                            </div>
+
+                            <div class="info-banner">
+                                <i class="bx bx-info-circle"></i>
+                                <p>No account action will be simulated as successful. Connect authenticated backend
+                                    endpoints before enabling sign-out or account deletion.</p>
+                            </div>
+
+                            <div class="account-about">
+                                <div class="account-about-logo">
+                                    <img src="images/kudix-logo.png" alt="KUDIX Logo">
+                                </div>
+                                <div>
+                                    <strong>KUDIX Account Centre</strong>
+                                    <p>Manage your preferences in one place.</p>
+                                </div>
+                                <span>SETTINGS</span>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <footer class="page-footer">
+                    <span>© <span id="currentYear"></span> KUDIX. All rights reserved.</span>
+                    <span class="footer-right"><i class="bx bx-shield-quarter"></i> Account preferences</span>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <!-- Confirmation / information modal -->
+    <div class="modal-backdrop" id="confirmationModal" hidden>
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle"
+            aria-describedby="modalMessage">
+            <div class="modal-icon" id="modalIcon"><i class="bx bx-info-circle"></i></div>
+            <h2 id="modalTitle">Notice</h2>
+            <p id="modalMessage"></p>
+            <div class="modal-actions">
+                <button type="button" class="secondary-button" id="modalCancel">Close</button>
+                <button type="button" class="danger-button" id="modalConfirm" hidden>Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+</body>
+
+</html>

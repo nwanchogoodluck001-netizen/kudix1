@@ -1,0 +1,1142 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B1228">
+    <title>Daily Streak | KUDIX</title>
+    <meta name="description" content="Check in daily and track your KUDIX streak rewards.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kudix: {
+                            bg: "#0B1228",
+                            panel: "#111A35",
+                            panel2: "#171B40",
+                            purple: "#8B5CF6",
+                            lavender: "#A477FF",
+                            blue: "#38BDF8",
+                            green: "#35D995",
+                            muted: "#8D97B6"
+                        }
+                    },
+                    fontFamily: {
+                        heading: ["Sora", "sans-serif"],
+                        body: ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #0B1228;
+            --panel: #111A35;
+            --panel2: #171B40;
+            --purple: #8B5CF6;
+            --blue: #38BDF8;
+            --green: #35D995;
+            --muted: #8D97B6;
+            --border: rgba(255, 255, 255, .09);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--bg);
+            color: #F5F7FF;
+            font-family: Inter, sans-serif;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 4px;
+        }
+
+        .sidebar {
+            width: 252px;
+            position: fixed;
+            inset: 0 auto 0 0;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            background: #0D152D;
+            border-right: 1px solid var(--border);
+            transition: transform .25s ease;
+        }
+
+        .main {
+            margin-left: 252px;
+            min-height: 100vh;
+        }
+
+        .panel {
+            background: linear-gradient(145deg, rgba(23, 27, 64, .96), rgba(17, 26, 53, .98));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+        }
+
+        .soft-panel {
+            background: rgba(255, 255, 255, .025);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            color: #A6AEC8;
+            font-size: 13px;
+            font-weight: 500;
+            transition: .2s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, .045);
+            color: white;
+        }
+
+        .nav-link.active {
+            color: white;
+            background: rgba(139, 92, 246, .16);
+            border: 1px solid rgba(139, 92, 246, .23);
+        }
+
+        .nav-link.active i {
+            color: #B49AFF;
+        }
+
+        .gradient-text {
+            background: linear-gradient(100deg, #C7B5FF, #8B5CF6, #38BDF8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .primary-btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 9px;
+            min-height: 46px;
+            padding: 0 20px;
+            border-radius: 12px;
+            background: linear-gradient(105deg, #8B5CF6, #6951DF);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            transition: .2s ease;
+        }
+
+        .primary-btn:hover:not(:disabled) {
+            filter: brightness(1.12);
+            transform: translateY(-1px);
+        }
+
+        .primary-btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .secondary-btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            min-height: 42px;
+            padding: 0 15px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, .045);
+            border: 1px solid var(--border);
+            color: #E6E9F6;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .secondary-btn:hover {
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .hero-card {
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse at 85% 10%, rgba(139, 92, 246, .22), transparent 40%),
+                radial-gradient(ellipse at 5% 100%, rgba(56, 189, 248, .09), transparent 35%),
+                linear-gradient(135deg, #171B40, #111A35);
+            border: 1px solid rgba(167, 139, 250, .18);
+            border-radius: 22px;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            top: -120px;
+            right: -60px;
+            border-radius: 50%;
+            background: rgba(139, 92, 246, .2);
+            filter: blur(70px);
+            pointer-events: none;
+        }
+
+        .flame-orb {
+            display: grid;
+            place-items: center;
+            width: 60px;
+            height: 60px;
+            flex-shrink: 0;
+            border-radius: 19px;
+            color: #FDBA74;
+            background: linear-gradient(145deg, rgba(251, 146, 60, .2), rgba(239, 68, 68, .08));
+            border: 1px solid rgba(251, 146, 60, .23);
+        }
+
+        .metric-card {
+            padding: 18px;
+            background: rgba(255, 255, 255, .025);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .metric-icon {
+            display: grid;
+            place-items: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: rgba(139, 92, 246, .13);
+            color: #B7A0FF;
+            font-size: 21px;
+        }
+
+        .day-tile {
+            min-width: 0;
+            min-height: 126px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 10px 5px;
+            text-align: center;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, .025);
+            transition: .2s ease;
+        }
+
+        .day-tile.complete {
+            background: rgba(53, 217, 149, .07);
+            border-color: rgba(53, 217, 149, .27);
+        }
+
+        .day-tile.current {
+            background: rgba(139, 92, 246, .12);
+            border-color: rgba(139, 92, 246, .65);
+            box-shadow: 0 0 25px rgba(139, 92, 246, .07);
+        }
+
+        .day-icon {
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            font-size: 18px;
+            color: #8792B2;
+            background: rgba(255, 255, 255, .055);
+        }
+
+        .day-tile.complete .day-icon {
+            color: var(--green);
+            background: rgba(53, 217, 149, .13);
+        }
+
+        .day-tile.current .day-icon {
+            color: #C4B5FD;
+            background: rgba(139, 92, 246, .22);
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 700;
+            border: 1px solid rgba(53, 217, 149, .2);
+            background: rgba(53, 217, 149, .08);
+            color: #91F0C5;
+        }
+
+        .progress-track {
+            height: 7px;
+            overflow: hidden;
+            border-radius: 99px;
+            background: rgba(255, 255, 255, .075);
+        }
+
+        .progress-fill {
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #8B5CF6, #38BDF8);
+            transition: width .35s ease;
+        }
+
+        .notice {
+            padding: 13px 15px;
+            border: 1px solid rgba(251, 191, 36, .2);
+            border-radius: 13px;
+            background: rgba(251, 191, 36, .055);
+            color: #EBD6A0;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .notice.success {
+            border-color: rgba(53, 217, 149, .25);
+            background: rgba(53, 217, 149, .06);
+            color: #9CEACB;
+        }
+
+        .notice.error {
+            border-color: rgba(251, 113, 133, .25);
+            background: rgba(251, 113, 133, .06);
+            color: #FDB4C0;
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+            background: rgba(3, 7, 18, .7);
+            opacity: 0;
+            visibility: hidden;
+            transition: .2s ease;
+        }
+
+        .overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 1023px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 640px) {
+
+            .panel,
+            .hero-card {
+                border-radius: 16px;
+            }
+
+            .day-tile {
+                min-height: 98px;
+                gap: 7px;
+                border-radius: 12px;
+            }
+
+            .day-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: .01ms !important;
+                animation-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="sidebarOverlay" class="overlay" aria-hidden="true"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar" aria-label="Main navigation">
+        <div class="px-6 pt-7 pb-6">
+            <a href="dashboard.html" class="inline-flex items-center" aria-label="KUDIX home">
+                <img src="images/kudix-logo.png" alt="KUDIX Logo" class="w-auto max-w-[155px] h-10 object-contain">
+            </a>
+            <p class="mt-3 text-[10px] tracking-[2.5px] uppercase text-slate-500">
+                Gaming platform
+            </p>
+        </div>
+
+        <div class="px-4 flex-1 overflow-y-auto">
+            <p class="px-3 mb-3 text-[10px] font-bold uppercase tracking-[1.8px] text-slate-600">
+                Workspace
+            </p>
+
+            <nav class="space-y-1">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bx bx-grid-alt text-xl"></i><span>Dashboard</span>
+                </a>
+                <a href="games.html" class="nav-link">
+                    <i class="bx bx-joystick text-xl"></i><span>Games</span>
+                </a>
+                <a href="tasks.html" class="nav-link">
+                    <i class="bx bx-task text-xl"></i><span>Tasks</span>
+                </a>
+                <a href="daily-streak.html" class="nav-link active" aria-current="page">
+                    <i class="bx bx-flame text-xl"></i><span>Daily Streak</span>
+                    <span class="ml-auto text-[9px] font-bold text-purple-300">ACTIVE</span>
+                </a>
+                <a href="referrals.html" class="nav-link">
+                    <i class="bx bx-user-plus text-xl"></i><span>Referrals</span>
+                </a>
+                <a href="rewards.html" class="nav-link">
+                    <i class="bx bx-gift text-xl"></i><span>Rewards</span>
+                </a>
+            </nav>
+
+            <p class="px-3 mt-8 mb-3 text-[10px] font-bold uppercase tracking-[1.8px] text-slate-600">
+                Account
+            </p>
+
+            <nav class="space-y-1">
+                <a href="transactions.html" class="nav-link">
+                    <i class="bx bx-receipt text-xl"></i><span>Transactions</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <i class="bx bx-cog text-xl"></i><span>Settings</span>
+                </a>
+                <a href="support.html" class="nav-link">
+                    <i class="bx bx-help-circle text-xl"></i><span>Support</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="p-4 border-t border-white/[0.06]">
+            <div class="soft-panel p-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-violet-500/15 flex items-center justify-center text-violet-300">
+                        <i class="bx bx-shield-quarter text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold">Account support</p>
+                        <p class="text-[10px] text-slate-500 mt-1">Need help?</p>
+                    </div>
+                </div>
+                <a href="support.html"
+                    class="mt-4 flex items-center justify-between text-xs text-slate-300 hover:text-white">
+                    Contact support <i class="bx bx-right-arrow-alt text-lg"></i>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header
+            class="sticky top-0 z-30 flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-9 py-4 border-b border-white/[0.07] bg-[#0B1228]/90 backdrop-blur-xl">
+            <div class="flex items-center gap-3">
+                <button id="menuButton"
+                    class="lg:hidden w-10 h-10 rounded-xl border border-white/10 flex items-center justify-center text-xl"
+                    aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar">
+                    <i class="bx bx-menu"></i>
+                </button>
+                <div>
+                    <p class="text-[10px] uppercase tracking-[2px] text-slate-500">Your workspace</p>
+                    <h1 class="font-heading font-semibold text-base sm:text-lg mt-1">Daily Streak</h1>
+                </div>
+            </div>
+
+            <a href="referrals.html" class="secondary-btn">
+                <i class="bx bx-user-plus text-lg"></i>
+                <span class="hidden sm:inline">Referral details</span>
+                <span class="sm:hidden">Referrals</span>
+            </a>
+        </header>
+
+        <div class="max-w-[1250px] mx-auto px-4 sm:px-6 lg:px-9 py-7 sm:py-9 space-y-7">
+
+            <!-- Page heading -->
+            <section>
+                <p class="text-xs text-purple-300 font-semibold tracking-wide mb-2">
+                    YOUR CONSISTENCY REWARDS
+                </p>
+                <h2 class="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">
+                    Keep your streak <span class="gradient-text">alive.</span>
+                </h2>
+                <p class="text-sm text-slate-400 mt-3 max-w-2xl leading-7">
+                    Check in every day, keep your momentum going, and unlock the next reward
+                    on your seven-day journey.
+                </p>
+            </section>
+
+            <div id="pageNotice" class="notice" role="status" aria-live="polite">
+                <div class="flex gap-3 items-start">
+                    <i class="bx bx-info-circle text-lg mt-0.5"></i>
+                    <p>
+                        The unlocked interface is displayed, assuming the referral requirement has been met.
+                        Live streak information and claims require a configured backend.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Hero -->
+            <section class="hero-card p-5 sm:p-7 lg:p-9">
+                <div class="hero-glow"></div>
+
+                <div class="relative z-10 grid lg:grid-cols-[1fr_280px] gap-8 items-center">
+                    <div>
+                        <div class="flex items-center gap-4">
+                            <div class="flame-orb">
+                                <i class="bx bxs-hot text-3xl"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center flex-wrap gap-2">
+                                    <h3 class="font-heading text-xl sm:text-2xl font-bold">Daily Streak</h3>
+                                    <span class="status-pill">
+                                        <i class="bx bx-check-circle text-sm"></i>
+                                        Unlocked
+                                    </span>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-2">
+                                    Referral requirement completed
+                                </p>
+                            </div>
+                        </div>
+
+                        <p class="font-heading text-2xl sm:text-3xl font-bold mt-7 leading-snug">
+                            One check-in at a time.<br>
+                            <span class="gradient-text">One streak at a time.</span>
+                        </p>
+
+                        <p class="text-sm text-slate-400 leading-7 mt-4 max-w-xl">
+                            Return daily to maintain your streak. Each eligible check-in can earn
+                            a reward in Nigerian naira, based on the reward schedule configured for KUDIX.
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row gap-3 mt-6">
+                            <button id="checkinButton" class="primary-btn" type="button" disabled>
+                                <i class="bx bx-flame text-xl"></i>
+                                <span id="checkinButtonText">Check In Today</span>
+                            </button>
+                            <a href="#weeklyRewards" class="secondary-btn">
+                                <i class="bx bx-calendar-star text-lg"></i>
+                                View rewards
+                            </a>
+                        </div>
+
+                        <p id="checkinStatus" class="text-xs text-slate-400 mt-4" role="status" aria-live="polite">
+                            Check-in is unavailable until the backend is connected.
+                        </p>
+                    </div>
+
+                    <div class="soft-panel p-5 sm:p-6">
+                        <div class="flex items-center justify-between">
+                            <p class="text-xs text-slate-400">Current streak</p>
+                            <i class="bx bxs-hot text-xl text-orange-300"></i>
+                        </div>
+
+                        <div class="flex items-baseline gap-2 mt-3">
+                            <span id="currentStreak" class="font-heading text-5xl font-bold">—</span>
+                            <span class="text-sm text-slate-400">days</span>
+                        </div>
+
+                        <p class="text-xs text-slate-500 mt-2">Consecutive eligible check-ins</p>
+
+                        <div class="h-px bg-white/[0.08] my-5"></div>
+
+                        <div class="flex items-center justify-between gap-3">
+                            <div>
+                                <p class="text-[10px] uppercase tracking-wider text-slate-500">Best streak</p>
+                                <p class="font-heading text-xl font-bold mt-2">
+                                    <span id="bestStreak">—</span>
+                                    <span class="text-xs font-normal text-slate-400">days</span>
+                                </p>
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-xl bg-amber-400/10 text-amber-300 flex items-center justify-center">
+                                <i class="bx bx-trophy text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats -->
+            <section class="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                <div class="metric-card">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs text-slate-400">Today's reward</p>
+                            <p id="todayReward" class="font-heading text-2xl font-bold mt-3">—</p>
+                            <p class="text-[10px] text-slate-500 mt-2">Configured daily reward</p>
+                        </div>
+                        <div class="metric-icon"><i class="bx bx-wallet"></i></div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs text-slate-400">Rewards earned</p>
+                            <p id="totalRewards" class="font-heading text-2xl font-bold mt-3">—</p>
+                            <p class="text-[10px] text-slate-500 mt-2">Verified streak rewards</p>
+                        </div>
+                        <div class="metric-icon"><i class="bx bx-gift"></i></div>
+                    </div>
+                </div>
+
+                <div class="metric-card sm:col-span-2 xl:col-span-1">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs text-slate-400">Referral status</p>
+                            <p class="font-heading text-2xl font-bold mt-3">2 / 2</p>
+                            <p class="text-[10px] text-emerald-300 mt-2">
+                                <i class="bx bx-check-circle mr-1"></i>Assumed qualified
+                            </p>
+                        </div>
+                        <div class="metric-icon"><i class="bx bx-user-check"></i></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Weekly reward calendar -->
+            <section id="weeklyRewards" class="panel p-5 sm:p-7">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-[1.8px] text-purple-300 font-semibold">
+                            Weekly rewards
+                        </p>
+                        <h3 class="font-heading text-lg sm:text-xl font-semibold mt-2">Your 7-day journey</h3>
+                        <p class="text-xs text-slate-400 mt-2">
+                            Complete each eligible daily check-in to progress.
+                        </p>
+                    </div>
+                    <div class="soft-panel px-4 py-3">
+                        <p class="text-[10px] text-slate-500 uppercase tracking-wider">Progress</p>
+                        <p id="weeklyProgressText" class="text-sm font-semibold mt-1">Awaiting account data</p>
+                    </div>
+                </div>
+
+                <div id="weeklyProgress" class="progress-track mt-6">
+                    <div id="weeklyProgressFill" class="progress-fill"></div>
+                </div>
+
+                <div id="streakCalendar" class="grid grid-cols-4 sm:grid-cols-7 gap-2 sm:gap-3 mt-6">
+                    <!-- Amounts are intentionally populated from the admin-configured API. -->
+                    <div class="day-tile">
+                        <span class="text-[10px] text-slate-500">DAY 1</span>
+                        <span class="day-icon"><i class="bx bx-calendar-check"></i></span>
+                        <span class="text-[10px] font-semibold">Awaiting data</span>
+                        <span class="text-[9px] text-slate-500">₦ —</span>
+                    </div>
+                    <div class="day-tile">
+                        <span class="text-[10px] text-slate-500">DAY 2</span>
+                        <span class="day-icon"><i class="bx bx-calendar-check"></i></span>
+                        <span class="text-[10px] font-semibold">Awaiting data</span>
+                        <span class="text-[9px] text-slate-500">₦ —</span>
+                    </div>
+                    <div class="day-tile">
+                        <span class="text-[10px] text-slate-500">DAY 3</span>
+                        <span class="day-icon"><i class="bx bx-calendar-check"></i></span>
+                        <span class="text-[10px] font-semibold">Awaiting data</span>
+                        <span class="text-[9px] text-slate-500">₦ —</span>
+                    </div>
+                    <div class="day-tile">
+                        <span class="text-[10px] text-slate-500">DAY 4</span>
+                        <span class="day-icon"><i class="bx bx-calendar-check"></i></span>
+                        <span class="text-[10px] font-semibold">Awaiting data</span>
+                        <span class="text-[9px] text-slate-500">₦ —</span>
+                    </div>
+                    <div class="day-tile">
+                        <span class="text-[10px] text-slate-500">DAY 5</span>
+                        <span class="day-icon"><i class="bx bx-calendar-check"></i></span>
+                        <span class="text-[10px] font-semibold">Awaiting data</span>
+                        <span class="text-[9px] text-slate-500">₦ —</span>
+                    </div>
+                    <div class="day-tile">
+                        <span class="text-[10px] text-slate-500">DAY 6</span>
+                        <span class="day-icon"><i class="bx bx-calendar-check"></i></span>
+                        <span class="text-[10px] font-semibold">Awaiting data</span>
+                        <span class="text-[9px] text-slate-500">₦ —</span>
+                    </div>
+                    <div class="day-tile">
+                        <span class="text-[10px] text-slate-500">DAY 7</span>
+                        <span class="day-icon"><i class="bx bx-trophy"></i></span>
+                        <span class="text-[10px] font-semibold">Weekly reward</span>
+                        <span class="text-[9px] text-slate-500">₦ —</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-x-5 gap-y-2 mt-5 text-[10px] text-slate-500">
+                    <span class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>Completed
+                    </span>
+                    <span class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-purple-400"></span>Current day
+                    </span>
+                    <span class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-slate-600"></span>Upcoming
+                    </span>
+                </div>
+            </section>
+
+            <!-- Rules -->
+            <section class="grid md:grid-cols-2 gap-4">
+                <div class="soft-panel p-5 sm:p-6">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-300 flex items-center justify-center">
+                            <i class="bx bx-calendar-check text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-sm">How daily streak works</h3>
+                    </div>
+                    <ul class="mt-4 space-y-3 text-xs text-slate-400 leading-6">
+                        <li class="flex gap-2"><i class="bx bx-check text-emerald-300 text-lg"></i><span>Check in once
+                                during each eligible day.</span></li>
+                        <li class="flex gap-2"><i class="bx bx-check text-emerald-300 text-lg"></i><span>Maintain
+                                consecutive check-ins to grow your streak.</span></li>
+                        <li class="flex gap-2"><i class="bx bx-check text-emerald-300 text-lg"></i><span>Missing a day
+                                may reset your streak under the platform rules.</span></li>
+                    </ul>
+                </div>
+
+                <div class="soft-panel p-5 sm:p-6">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-300 flex items-center justify-center">
+                            <i class="bx bx-shield-quarter text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-sm">Reward information</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-6 mt-4">
+                        Amounts shown are rewards configured by KUDIX administrators. A reward is
+                        considered earned only after the server confirms the claim. Displaying a
+                        naira amount does not itself transfer funds or confirm a cash payout.
+                    </p>
+                </div>
+            </section>
+
+            <footer class="py-3 text-center text-[10px] text-slate-600">
+                KUDIX · Daily Streak · All claims are subject to server verification and platform rules.
+            </footer>
+        </div>
+    </main>
+
+    <script>
+        /*
+          KUDIX DAILY STREAK CONFIGURATION
+    
+          The UI assumes the user has passed the two-referral requirement.
+          Real eligibility, streak values, rewards and claims must come from
+          the existing authenticated backend.
+    
+          Admin-configured naira reward amounts should be returned by the backend.
+          No hard-coded sample amounts are used as earned rewards.
+    
+          Configure the real documented endpoints and map the real response schema
+          before enabling check-ins. Do not add secret keys to frontend code.
+        */
+
+        const STREAK_API = {
+            baseUrl: "",
+            accountEndpoint: "",
+            claimEndpoint: "",
+            credentials: "same-origin"
+        };
+
+        const state = {
+            ready: false,
+            claiming: false,
+            account: null
+        };
+
+        const $ = (selector) => document.querySelector(selector);
+
+        function formatNaira(amount) {
+            if (typeof amount !== "number" || !Number.isFinite(amount) || amount < 0) {
+                return "—";
+            }
+
+            return new Intl.NumberFormat("en-NG", {
+                style: "currency",
+                currency: "NGN",
+                maximumFractionDigits: 2
+            }).format(amount);
+        }
+
+        function showNotice(message, type = "warning") {
+            const box = $("#pageNotice");
+            box.className = "notice" +
+                (type === "success" ? " success" : type === "error" ? " error" : "");
+
+            const row = document.createElement("div");
+            row.className = "flex gap-3 items-start";
+
+            const icon = document.createElement("i");
+            icon.className = "bx text-lg mt-0.5 " +
+                (type === "success" ? "bx-check-circle" :
+                    type === "error" ? "bx-error-circle" : "bx-info-circle");
+
+            const text = document.createElement("p");
+            text.textContent = message;
+
+            row.append(icon, text);
+            box.replaceChildren(row);
+        }
+
+        function setCheckinButton(label, icon, disabled = true) {
+            const button = $("#checkinButton");
+            button.disabled = disabled;
+
+            const iconElement = document.createElement("i");
+            iconElement.className = `bx ${icon} text-xl`;
+
+            const labelElement = document.createElement("span");
+            labelElement.textContent = label;
+
+            button.replaceChildren(iconElement, labelElement);
+        }
+
+        function renderUnavailable() {
+            state.ready = false;
+            state.account = null;
+
+            $("#currentStreak").textContent = "—";
+            $("#bestStreak").textContent = "—";
+            $("#todayReward").textContent = "—";
+            $("#totalRewards").textContent = "—";
+            $("#weeklyProgressText").textContent = "Awaiting account data";
+            $("#weeklyProgressFill").style.width = "0%";
+            $("#checkinStatus").textContent =
+                "Connect the backend to verify today's eligibility and claim status.";
+
+            setCheckinButton("Check In Today", "bx-lock-alt", true);
+            renderCalendar(null);
+        }
+
+        /*
+          Map the actual API response to this UI model only after the backend
+          schema is provided. The field names below describe the UI adapter,
+          not presumed backend fields.
+    
+          {
+            currentStreak: number,
+            bestStreak: number,
+            totalRewards: number,
+            qualifyingReferrals: number,
+            eligible: boolean,
+            checkedInToday: boolean,
+            claimAvailable: boolean,
+            days: [{
+              day: 1..7,
+              status: "complete" | "current" | "upcoming",
+              rewardAmount: number
+            }]
+          }
+        */
+        function normalizeAccountResponse(_response) {
+            throw new Error(
+                "The KUDIX account response schema has not been configured."
+            );
+        }
+
+        function renderCalendar(account) {
+            const calendar = $("#streakCalendar");
+            calendar.replaceChildren();
+
+            for (let day = 1; day <= 7; day++) {
+                const dayData = account?.days?.find((item) => item.day === day);
+                const status = dayData?.status || "upcoming";
+
+                const tile = document.createElement("div");
+                tile.className = "day-tile";
+
+                if (status === "complete") tile.classList.add("complete");
+                if (status === "current") tile.classList.add("current");
+
+                const dayName = document.createElement("span");
+                dayName.className = "text-[10px] text-slate-500";
+                dayName.textContent = `DAY ${day}`;
+
+                const iconBox = document.createElement("span");
+                iconBox.className = "day-icon";
+
+                const icon = document.createElement("i");
+                icon.className = status === "complete"
+                    ? "bx bx-check-circle"
+                    : day === 7
+                        ? "bx bx-trophy"
+                        : status === "current"
+                            ? "bx bxs-hot"
+                            : "bx bx-calendar-check";
+
+                iconBox.appendChild(icon);
+
+                const label = document.createElement("span");
+                label.className = "text-[10px] font-semibold";
+                label.textContent = status === "complete"
+                    ? "Completed"
+                    : status === "current"
+                        ? "Today"
+                        : day === 7
+                            ? "Weekly reward"
+                            : "Upcoming";
+
+                const reward = document.createElement("span");
+                reward.className = "text-[9px] text-slate-500";
+                reward.textContent = dayData && typeof dayData.rewardAmount === "number"
+                    ? formatNaira(dayData.rewardAmount)
+                    : "Reward unavailable";
+
+                tile.append(dayName, iconBox, label, reward);
+                calendar.appendChild(tile);
+            }
+        }
+
+        function renderAccount(account) {
+            if (!account || typeof account !== "object") {
+                throw new Error("Invalid account response.");
+            }
+
+            const numericFields = [
+                "currentStreak",
+                "bestStreak",
+                "totalRewards",
+                "qualifyingReferrals"
+            ];
+
+            for (const field of numericFields) {
+                if (!Number.isFinite(account[field]) || account[field] < 0) {
+                    throw new Error(`Missing or invalid account field: ${field}`);
+                }
+            }
+
+            const eligible =
+                account.qualifyingReferrals >= 2 &&
+                account.eligible === true;
+
+            $("#currentStreak").textContent = String(account.currentStreak);
+            $("#bestStreak").textContent = String(account.bestStreak);
+            $("#totalRewards").textContent = formatNaira(account.totalRewards);
+
+            const today = Array.isArray(account.days)
+                ? account.days.find((day) => day.status === "current")
+                : null;
+
+            $("#todayReward").textContent =
+                today && typeof today.rewardAmount === "number"
+                    ? formatNaira(today.rewardAmount)
+                    : "—";
+
+            const completedDays = Array.isArray(account.days)
+                ? account.days.filter((day) => day.status === "complete").length
+                : 0;
+
+            const progress = Math.min(100, (completedDays / 7) * 100);
+            $("#weeklyProgressFill").style.width = `${progress}%`;
+            $("#weeklyProgressText").textContent = `${completedDays} of 7 days completed`;
+
+            renderCalendar(account);
+
+            const canClaim = eligible &&
+                account.checkedInToday === false &&
+                account.claimAvailable === true;
+
+            if (account.checkedInToday === true) {
+                setCheckinButton("Already Checked In", "bx-check-circle", true);
+                $("#checkinStatus").textContent = "Today's check-in is already complete.";
+            } else if (canClaim) {
+                setCheckinButton("Check In Today", "bx-flame", false);
+                $("#checkinStatus").textContent = "You're eligible to claim today's reward.";
+            } else {
+                setCheckinButton("Check In Today", "bx-lock-alt", true);
+                $("#checkinStatus").textContent =
+                    "No eligible check-in is currently available.";
+            }
+
+            state.ready = true;
+            state.account = account;
+        }
+
+        async function apiRequest(endpoint, options = {}) {
+            if (!STREAK_API.baseUrl || !endpoint) {
+                throw new Error("The required backend endpoint is not configured.");
+            }
+
+            const base = STREAK_API.baseUrl.replace(/\/+$/, "");
+            const path = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+
+            const response = await fetch(base + path, {
+                ...options,
+                credentials: STREAK_API.credentials,
+                headers: {
+                    Accept: "application/json",
+                    ...(options.body ? { "Content-Type": "application/json" } : {}),
+                    ...options.headers
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Request failed (HTTP ${response.status}).`);
+            }
+
+            return response.json();
+        }
+
+        async function loadAccount() {
+            if (!STREAK_API.baseUrl || !STREAK_API.accountEndpoint) {
+                renderUnavailable();
+                showNotice(
+                    "The unlocked Daily Streak design is ready, but live rewards and check-ins need the documented KUDIX backend. No claim has been made."
+                );
+                return;
+            }
+
+            try {
+                const response = await apiRequest(STREAK_API.accountEndpoint);
+                const account = normalizeAccountResponse(response);
+                renderAccount(account);
+                showNotice("Your streak information was refreshed from the server.", "success");
+            } catch (error) {
+                renderUnavailable();
+                showNotice(error.message || "Unable to load your streak information.", "error");
+            }
+        }
+
+        async function claimDailyReward() {
+            const account = state.account;
+
+            if (
+                state.claiming ||
+                !state.ready ||
+                !account ||
+                account.qualifyingReferrals < 2 ||
+                account.eligible !== true ||
+                account.checkedInToday !== false ||
+                account.claimAvailable !== true
+            ) {
+                return;
+            }
+
+            if (!STREAK_API.claimEndpoint) {
+                showNotice("The documented daily-claim endpoint has not been configured.", "error");
+                return;
+            }
+
+            state.claiming = true;
+            setCheckinButton("Processing...", "bx-loader-alt bx-spin", true);
+
+            try {
+                // The server must validate eligibility and process the claim atomically.
+                await apiRequest(STREAK_API.claimEndpoint, {
+                    method: "POST",
+                    body: JSON.stringify({})
+                });
+
+                showNotice(
+                    "The server accepted your check-in request. Refreshing your account details.",
+                    "success"
+                );
+
+                await loadAccount();
+            } catch (error) {
+                showNotice(error.message || "The check-in could not be completed.", "error");
+            } finally {
+                state.claiming = false;
+
+                if (state.account) {
+                    const canClaim =
+                        state.account.qualifyingReferrals >= 2 &&
+                        state.account.eligible === true &&
+                        state.account.checkedInToday === false &&
+                        state.account.claimAvailable === true;
+
+                    setCheckinButton(
+                        state.account.checkedInToday ? "Already Checked In" : "Check In Today",
+                        state.account.checkedInToday ? "bx-check-circle" : "bx-flame",
+                        !canClaim
+                    );
+                }
+            }
+        }
+
+        $("#checkinButton").addEventListener("click", claimDailyReward);
+
+        // Mobile sidebar.
+        const sidebar = $("#sidebar");
+        const menuButton = $("#menuButton");
+        const overlay = $("#sidebarOverlay");
+
+        function toggleSidebar(open) {
+            sidebar.classList.toggle("open", open);
+            overlay.classList.toggle("show", open);
+            menuButton.setAttribute("aria-expanded", String(open));
+            menuButton.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+            document.body.style.overflow = open ? "hidden" : "";
+        }
+
+        menuButton.addEventListener("click", () => {
+            toggleSidebar(!sidebar.classList.contains("open"));
+        });
+
+        overlay.addEventListener("click", () => toggleSidebar(false));
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") toggleSidebar(false);
+        });
+
+        sidebar.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => toggleSidebar(false));
+        });
+
+        // Safe default: unlocked layout, but no invented live data or claims.
+        renderUnavailable();
+        loadAccount();
+    </script>
+</body>
+
+</html>
+```

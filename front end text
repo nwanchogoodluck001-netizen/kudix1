@@ -1,0 +1,420 @@
+# KUDIX — GAMING & REWARDS PLATFORM
+
+## 1. PROJECT OVERVIEW
+KUDIX is a modern, interactive online gaming platform where users can register, receive gaming credits, play different games, complete social tasks, refer other users, earn referral commissions, access gaming signals, and contact customer support.
+
+The platform should have a professional, premium, modern design that works perfectly on mobile phones, tablets, laptops, and desktops.
+
+### Technology
+- HTML
+- Tailwind CSS
+- JavaScript
+- Backend and database integration can be handled separately.
+
+## 2. REGISTRATION AND WELCOME BONUS
+When a user successfully registers, the platform automatically credits their account with a ₦20,000 welcome bonus.
+
+IMPORTANT RULES:
+- The ₦20,000 is gaming credit for playing games on the KUDIX website.
+- The welcome bonus is not withdrawable.
+- Users can use the bonus to play eligible games on the platform.
+- The welcome bonus must be displayed separately from withdrawable referral commissions or other eligible cash balances.
+- The interface must clearly explain the difference between gaming credit and withdrawable funds.
+- The system must prevent users from withdrawing the welcome bonus.
+
+## 3. REFERRAL SYSTEM AND GAME ACCESS
+Users must refer three eligible users before unlocking access to the games.
+
+Each registered user receives a unique referral link.
+
+The referral dashboard should display:
+- Unique referral link
+- Copy referral link button
+- Number of successful referrals
+- Referral progress toward the three-person requirement
+- Referral history
+- Referral commission balance
+
+Example:
+
+Successful Referrals: 1/3
+
+Referral 1: Completed
+Referral 2: Pending
+Referral 3: Pending
+
+Once the user meets the referral requirement, the system unlocks access to eligible games.
+
+The referral system must verify registrations and prevent fraudulent or duplicate referrals.
+
+## 4. REFERRAL COMMISSION
+Users receive ₦1,000 for each successful, eligible referral.
+
+Example:
+- 1 referral = ₦1,000
+- 3 referrals = ₦3,000
+- 5 referrals = ₦5,000
+- 10 referrals = ₦10,000
+
+Referral commissions must be tracked separately from the non-withdrawable welcome bonus.
+
+The admin dashboard must allow the administrator to configure the referral commission and manage eligible referral records.
+
+Any withdrawal functionality must follow clearly published eligibility rules.
+
+## 5. GAMES AVAILABLE ON KUDIX
+
+KUDIX will feature six interactive games.
+
+### Game 1: Colour Prediction
+Users select one of four colours:
+- Red
+- Green
+- Black
+- Yellow
+
+The game displays the outcome of each round.
+
+### Game 2: Number Prediction
+Users select a number from the available options and view the round result.
+
+### Game 3: Heads or Tails
+Users predict whether the result will be Heads or Tails.
+
+### Game 4: Up or Down
+Users predict whether the outcome will be Up or Down.
+
+### Game 5: Lucky Number
+Users select a number and view the result when the round finishes.
+
+### Game 6: Higher or Lower
+Users view a playing card and predict whether the next card will have a higher or lower value.
+
+Each game must have:
+- A dedicated game interface
+- Clear instructions
+- Selection controls
+- Round status
+- Countdown timer when applicable
+- Result display
+- Recent round history
+- Gaming credit balance
+- Responsive mobile layout
+
+The games must use consistent design elements while maintaining their individual identities.
+
+## 6. ADMIN DASHBOARD AND GAME MANAGEMENT
+The administrator must have a dedicated, secure admin dashboard.
+
+The administrator should be able to:
+
+- View registered users.
+- Manage user accounts.
+- Enable or disable individual games.
+- Configure game settings.
+- Configure round durations.
+- Manage game rounds.
+- Publish official results.
+- View round histories.
+- Manage promotional gaming credits.
+- Configure welcome bonus amounts.
+- Configure referral commissions.
+- Review referral records.
+- Review social task submissions.
+- Manage notifications and announcements.
+- Manage support conversations.
+
+### Game Results and Signals
+
+The administrator must be able to publish game signals through a dedicated signals section.
+
+Signals may include:
+- Game name
+- Round identification
+- Predicted colour
+- Predicted number
+- Predicted direction
+- Predicted card outcome
+- Publication time
+- Round status
+
+Users can view published signals through the website's signals page.
+
+Signals must be clearly distinguished from confirmed results. Published predictions must not be presented as guaranteed winning outcomes.
+
+Official game results should be recorded transparently, with appropriate timestamps and round histories.
+
+## 7. SOCIAL TASKS
+KUDIX must have a social tasks section where users can complete assigned tasks and upload screenshot proof.
+
+Example tasks:
+- Follow an official social media account.
+- Join an official community.
+- Subscribe to an official channel.
+- Share an approved promotional post.
+
+Each task must display:
+- Task title
+- Instructions
+- Reward, if applicable
+- Task status
+- Screenshot upload field
+- Submission button
+
+### Task Submission Process
+1. The user opens the Social Tasks page.
+2. The user selects an available task.
+3. The user follows the instructions.
+4. The user uploads a screenshot as proof.
+5. The submission is sent to the administrator.
+6. The administrator reviews the evidence.
+7. The administrator approves or rejects the submission.
+8. The user receives a notification of the decision.
+
+### Admin Task Management
+The administrator must be able to:
+- Create and edit tasks.
+- Set task instructions.
+- Configure task rewards.
+- View uploaded screenshots.
+- Approve submissions.
+- Reject submissions with a reason.
+- Track reviewed submissions.
+
+## 8. CUSTOMER SUPPORT CHATBOT
+KUDIX must include a floating customer support chatbot available throughout the website.
+
+When clicked, it opens a modern chat window.
+
+The chatbot should provide options such as:
+- Game Access
+- Welcome Bonus
+- Referral Issues
+- Referral Commission
+- Social Tasks
+- Account Problems
+- Speak to a Support Agent
+
+The chatbot should answer common questions and allow users to request assistance from a human support agent.
+
+The support dashboard should allow authorized agents to:
+- View support requests.
+- Respond to users.
+- Review conversation history.
+- Manage open and resolved conversations.
+
+## 9. SIGNALS PAGE
+Create a dedicated signals page where users can view signals published by the administrator.
+
+Each signal card should display:
+- Game name
+- Round ID
+- Predicted outcome
+- Publication timestamp
+- Round status
+- Final result, when available
+
+The administrator must be able to publish, update, and manage signals through the admin dashboard.
+
+Signals should be clearly labelled as predictions and must not guarantee winnings.
+
+## 10. USER DASHBOARD
+The user dashboard should include:
+
+- Overview
+- Gaming Credit
+- Games
+- Signals
+- Social Tasks
+- Referrals
+- Referral Commissions
+- Game History
+- Notifications
+- Customer Support
+- Account Settings
+- Logout
+
+The overview page should display:
+- Welcome message
+- ₦20,000 welcome gaming bonus, where applicable
+- Gaming credit balance
+- Withdrawable balance, if applicable
+- Referral progress
+- Referral commission
+- Available games
+- Recent game activity
+- Latest signals
+- Social task updates
+
+Gaming credit must always be visually distinguished from withdrawable money.
+
+## 11. ACCOUNT LEVEL-UP FEATURE
+An account level-up feature may be introduced in a future update.
+
+For the initial version, do not display the feature in the user dashboard or navigation.
+
+The system should be designed so the feature can be introduced in a future update without rebuilding the entire website.
+
+Any future account upgrade requirements, benefits, and costs must be disclosed clearly when the feature launches.
+
+## 12. REQUIRED WEBSITE PAGES
+
+Public pages:
+- index.html
+- register.html
+- login.html
+
+User pages:
+- dashboard.html
+- games.html
+- colour-prediction.html
+- number-prediction.html
+- heads-or-tails.html
+- up-or-down.html
+- lucky-number.html
+- higher-or-lower.html
+- signals.html
+- tasks.html
+- referrals.html
+- history.html
+- support.html
+- settings.html
+
+Admin pages:
+- admin-login.html
+- admin.html
+
+Additional pages can be introduced when required.
+
+## 13. DESIGN REQUIREMENTS
+
+Use a premium, modern gaming design.
+
+Suggested colour palette:
+- Midnight Navy: #0B1020
+- Royal Purple: #6D4AFF
+- Electric Blue: #287BFF
+- White: #FFFFFF
+- Light Background: #F5F7FC
+- Success Green: #16A36A
+
+Design requirements:
+- Consistent KUDIX branding.
+- One logo used throughout the website.
+- Professional typography.
+- Clean cards and layouts.
+- Smooth, subtle animations.
+- Responsive navigation.
+- Mobile-first layouts.
+- Accessible buttons and forms.
+- Clear gaming credit indicators.
+- Attractive game cards.
+- Professional admin dashboard.
+
+Avoid clutter, excessive gradients, inconsistent branding, and unnecessary animations.
+
+## 14. SECURITY AND TRANSPARENCY
+
+The completed platform must:
+- Protect user accounts.
+- Restrict admin functions to authorized administrators.
+- Validate referrals.
+- Prevent unauthorized balance changes.
+- Keep gaming credit separate from cash balances.
+- Record important administrative actions.
+- Maintain transparent game rules and result histories.
+- Protect uploaded screenshot evidence.
+- Prevent users from accessing games before meeting the published eligibility requirements.
+
+Before introducing real-money wagering or cash withdrawals connected to gaming outcomes, review applicable Nigerian gaming, consumer-protection, and data-protection requirements.
+
+## FINAL OBJECTIVE
+
+Build KUDIX as a professional gaming and rewards platform with registration, a ₦20,000 non-withdrawable welcome gaming bonus, referral-based game access, ₦1,000 referral commissions, six interactive games, social tasks with screenshot verification, administrator-controlled game settings, a signals page, and an integrated customer support chatbot.
+
+The first version should prioritize the frontend and user experience. Backend integration can be implemented separately.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## GAME SIGNALS — TELEGRAM AND WHATSAPP INTEGRATION
+
+KUDIX will distribute game signals through its official public Telegram and WhatsApp channels.
+
+### 1. Joining the Signals Channel
+
+Users will be encouraged to join at least one official KUDIX signals channel to receive game predictions and updates.
+
+The website should include a dedicated **Game Signals** section with two prominent buttons:
+
+- **Join Our Telegram Channel**
+- **Join Our WhatsApp Channel**
+
+The administrator must be able to configure or update both channel links from the admin dashboard.
+
+### 2. Signals Distribution
+
+The administrator will publish game signals directly to the official Telegram or WhatsApp channel.
+
+Signals may include:
+- Colour Prediction: Red, Green, Black, or Yellow.
+- Number Prediction: The predicted number.
+- Heads or Tails: The predicted coin result.
+- Up or Down: The predicted direction.
+- Lucky Number: The selected number.
+- Higher or Lower: The predicted card outcome.
+
+Each signal should include the relevant game name, round identification, prediction, and applicable timing information.
+
+Signals must be clearly identified as predictions, not guaranteed winning results.
+
+### 3. Website Signals Page
+
+The KUDIX website should have a dedicated signals page containing:
+
+**Official Signals Channels**
+
+📢 Telegram Signals  
+Description: Join our public Telegram channel to receive KUDIX game signals and announcements.  
+Button: JOIN TELEGRAM
+
+📱 WhatsApp Signals  
+Description: Join our public WhatsApp channel to receive KUDIX game signals and announcements.  
+Button: JOIN WHATSAPP
+
+The buttons should open the configured official channel links in the appropriate app or browser.
+
+### 4. Admin Dashboard Controls
+
+The administrator must be able to:
+- Add or update the Telegram channel link.
+- Add or update the WhatsApp channel link.
+- Enable or disable either channel button.
+- Publish website announcements about new signals.
+- Manage game settings and official game results separately.
+- Update channel information without editing the website source code.
+
+### 5. User Experience
+
+The signals page should be responsive and visually consistent with the KUDIX branding.
+
+If a user has not joined either channel, the page should display a friendly invitation encouraging them to join.
+
+The website should not falsely claim that a user has joined a channel unless membership has actually been verified.
+
+**Important:** Joining a channel provides access to published signals; it does not guarantee winnings or successful predictions.

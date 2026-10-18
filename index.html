@@ -1,0 +1,953 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0B1020">
+  <meta name="description" content="Discover KUDIX — a modern gaming and rewards platform featuring prediction games, referrals, and social activities.">
+  <title>KUDIX — Gaming Beyond Ordinary</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+
+<body class="antialiased">
+
+  <!-- LOADING SCREEN -->
+  <div id="loader" class="loader-screen" aria-label="Loading KUDIX">
+    <div class="loader-glow loader-glow-one"></div>
+    <div class="loader-glow loader-glow-two"></div>
+
+    <div class="loader-content">
+      <img src="images/kudix-logo.png" alt="KUDIX Logo" class="loader-logo"
+           onerror="this.style.display='none';document.getElementById('loaderFallback').style.display='block'">
+      <div id="loaderFallback" class="loader-wordmark">KUDIX<span>.</span></div>
+
+      <div class="loader-spinner" aria-hidden="true"></div>
+      <h2>Preparing Your KUDIX Experience</h2>
+      <p id="loaderStatus">Loading your next experience...</p>
+
+      <div class="loader-track">
+        <div class="loader-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav-pill" aria-label="Main navigation">
+
+      <a href="#home" class="brand" aria-label="KUDIX home">
+        <img src="images/kudix-logo.png" alt="KUDIX Logo" class="brand-logo"
+             onerror="this.style.display='none';document.getElementById('brandFallback').style.display='block'">
+        <span id="brandFallback" class="brand-fallback">KUDIX<span>.</span></span>
+      </a>
+
+      <div class="desktop-nav">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#games" class="nav-link">Games</a>
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#rewards" class="nav-link">Rewards</a>
+        <a href="#referrals" class="nav-link">Referrals</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </div>
+
+      <div class="nav-actions">
+        <a href="login.html" class="nav-login">Log In</a>
+        <a href="register.html" class="button button-primary nav-cta">
+          Get Started <i class="bx bx-right-arrow-alt"></i>
+        </a>
+      </div>
+
+      <button id="menuToggle" class="menu-toggle" aria-label="Open navigation menu"
+              aria-expanded="false" aria-controls="mobileMenu">
+        <i class="bx bx-menu"></i>
+      </button>
+    </nav>
+
+    <div id="mobileMenu" class="mobile-menu" aria-label="Mobile navigation" hidden>
+      <a href="#home">Home</a>
+      <a href="#games">Games</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#rewards">Rewards</a>
+      <a href="#referrals">Referrals</a>
+      <a href="#faq">FAQ</a>
+      <div class="mobile-menu-actions">
+        <a href="login.html" class="button button-outline">Log In</a>
+        <a href="register.html" class="button button-primary">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="pageContent">
+
+    <!-- HERO SLIDESHOW -->
+    <section class="hero-section" id="home">
+      <div class="hero-grid-pattern"></div>
+      <div class="hero-orb hero-orb-one"></div>
+      <div class="hero-orb hero-orb-two"></div>
+
+      <div class="hero-container">
+        <div class="hero-slider" id="heroSlider">
+
+          <!-- SLIDE 1 -->
+          <article class="hero-slide active" data-slide="0">
+            <div class="hero-copy">
+              <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                WELCOME TO KUDIX
+              </div>
+
+              <h1>
+                Your Next Gaming
+                Experience <span class="gradient-text">Starts Here.</span>
+              </h1>
+
+              <p>
+                Discover exciting prediction games, explore new challenges,
+                and experience a modern gaming platform designed around you.
+              </p>
+
+              <div class="hero-buttons">
+                <a href="#games" class="button button-primary button-large">
+                  Explore Games <i class="bx bx-right-arrow-alt"></i>
+                </a>
+                <a href="register.html" class="button button-glass button-large">
+                  Create Your Account <i class="bx bx-user-plus"></i>
+                </a>
+              </div>
+
+              <div class="hero-note">
+                <i class="bx bx-check-shield"></i>
+                Clear rules. Transparent rewards. Your activity in one place.
+              </div>
+            </div>
+
+            <div class="hero-art hero-art-main">
+              <div class="art-ring ring-one"></div>
+              <div class="art-ring ring-two"></div>
+
+              <div class="floating-tag tag-top">
+                <span class="tag-icon purple"><i class="bx bx-joystick"></i></span>
+                <span><strong>Game Center</strong><small>Explore your options</small></span>
+              </div>
+
+              <div class="main-game-card">
+                <div class="game-card-top">
+                  <div>
+                    <span class="mini-label">KUDIX EXPERIENCE</span>
+                    <h3>Play Your Way</h3>
+                  </div>
+                  <span class="live-dot">AVAILABLE</span>
+                </div>
+
+                <div class="game-orb-display">
+                  <div class="orb orb-purple"></div>
+                  <div class="orb orb-blue"></div>
+                  <div class="orb orb-white"></div>
+                  <div class="orb-core"><i class="bx bx-joystick"></i></div>
+                </div>
+
+                <div class="game-card-bottom">
+                  <div><span>Explore</span><strong>6 Games</strong></div>
+                  <div class="card-arrow"><i class="bx bx-right-arrow-alt"></i></div>
+                </div>
+              </div>
+
+              <div class="floating-tag tag-bottom">
+                <span class="tag-icon blue"><i class="bx bx-target-lock"></i></span>
+                <span><strong>Choose Your Game</strong><small>Discover something new</small></span>
+              </div>
+            </div>
+          </article>
+
+          <!-- SLIDE 2 -->
+          <article class="hero-slide" data-slide="1" aria-hidden="true">
+            <div class="hero-copy">
+              <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                DISCOVER THE GAMES
+              </div>
+
+              <h1>
+                Six Games. <span class="gradient-text">Endless</span>
+                Ways to Play.
+              </h1>
+
+              <p>
+                Explore colour prediction, number prediction, heads or tails,
+                up or down, lucky number, and higher or lower.
+              </p>
+
+              <div class="hero-buttons">
+                <a href="#games" class="button button-primary button-large">
+                  Discover Our Games <i class="bx bx-right-arrow-alt"></i>
+                </a>
+                <a href="#how-it-works" class="button button-glass button-large">
+                  How It Works
+                </a>
+              </div>
+
+              <div class="hero-note">
+                <i class="bx bx-grid-alt"></i>
+                Explore the available games and their rules before playing.
+              </div>
+            </div>
+
+            <div class="hero-art game-showcase-art">
+              <div class="showcase-heading">
+                <span class="mini-label">THE KUDIX COLLECTION</span>
+                <strong>Find Your Next Favourite</strong>
+              </div>
+
+              <div class="mini-games-grid">
+                <div class="mini-game mini-game-purple">
+                  <span class="mini-game-icon"><i class="bx bx-palette"></i></span>
+                  <strong>Colour</strong><small>Prediction</small>
+                </div>
+                <div class="mini-game mini-game-blue">
+                  <span class="mini-game-icon"><i class="bx bx-hash"></i></span>
+                  <strong>Number</strong><small>Prediction</small>
+                </div>
+                <div class="mini-game mini-game-orange">
+                  <span class="mini-game-icon"><i class="bx bx-coin"></i></span>
+                  <strong>Heads or</strong><small>Tails</small>
+                </div>
+                <div class="mini-game mini-game-green">
+                  <span class="mini-game-icon"><i class="bx bx-trending-up"></i></span>
+                  <strong>Up or</strong><small>Down</small>
+                </div>
+                <div class="mini-game mini-game-pink">
+                  <span class="mini-game-icon"><i class="bx bx-star"></i></span>
+                  <strong>Lucky</strong><small>Number</small>
+                </div>
+                <div class="mini-game mini-game-indigo">
+                  <span class="mini-game-icon"><i class="bx bx-spade"></i></span>
+                  <strong>Higher or</strong><small>Lower</small>
+                </div>
+              </div>
+
+              <div class="art-caption">
+                <i class="bx bx-info-circle"></i>
+                Game availability depends on account eligibility.
+              </div>
+            </div>
+          </article>
+
+          <!-- SLIDE 3 -->
+          <article class="hero-slide" data-slide="2" aria-hidden="true">
+            <div class="hero-copy">
+              <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                REWARDS & OPPORTUNITIES
+              </div>
+
+              <h1>
+                Every Connection Can Bring
+                <span class="gradient-text">New Opportunities.</span>
+              </h1>
+
+              <p>
+                Explore referral rewards, complete eligible social tasks,
+                and keep track of your progress from one convenient dashboard.
+              </p>
+
+              <div class="hero-buttons">
+                <a href="#rewards" class="button button-primary button-large">
+                  Explore Rewards <i class="bx bx-right-arrow-alt"></i>
+                </a>
+                <a href="#referrals" class="button button-glass button-large">
+                  Learn More
+                </a>
+              </div>
+
+              <div class="hero-note">
+                <i class="bx bx-wallet"></i>
+                Promotional gaming credit is separate from withdrawable funds.
+              </div>
+            </div>
+
+            <div class="hero-art reward-art">
+              <div class="reward-window">
+                <div class="reward-window-top">
+                  <div class="window-dots"><span></span><span></span><span></span></div>
+                  <span>ACCOUNT OVERVIEW PREVIEW</span>
+                </div>
+
+                <div class="reward-welcome">
+                  <div>
+                    <span class="mini-label">WELCOME REWARD</span>
+                    <h3>₦20,000</h3>
+                    <p>Promotional gaming credit</p>
+                  </div>
+                  <span class="reward-icon"><i class="bx bx-gift"></i></span>
+                </div>
+
+                <div class="credit-notice">
+                  <i class="bx bx-info-circle"></i>
+                  Gaming credit — not withdrawable cash.
+                </div>
+
+                <div class="reward-mini-row">
+                  <div class="reward-mini-icon"><i class="bx bx-user-plus"></i></div>
+                  <div><strong>Referral rewards</strong><small>Eligible referrals only</small></div>
+                  <span class="reward-value">₦1,000</span>
+                </div>
+
+                <div class="reward-mini-row">
+                  <div class="reward-mini-icon task"><i class="bx bx-task"></i></div>
+                  <div><strong>Social tasks</strong><small>Subject to approval</small></div>
+                  <i class="bx bx-chevron-right reward-chevron"></i>
+                </div>
+
+                <div class="preview-disclaimer">Illustrative interface preview</div>
+              </div>
+
+              <div class="reward-decoration reward-decoration-one"><i class="bx bx-gift"></i></div>
+              <div class="reward-decoration reward-decoration-two"><i class="bx bx-star"></i></div>
+            </div>
+          </article>
+
+          <!-- SLIDE 4 -->
+          <article class="hero-slide" data-slide="3" aria-hidden="true">
+            <div class="hero-copy">
+              <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                YOUR KUDIX JOURNEY
+              </div>
+
+              <h1>
+                One Platform.
+                <span class="gradient-text">More Ways to Engage.</span>
+              </h1>
+
+              <p>
+                Create your account, discover available games, connect with
+                the community, and manage your activities in one place.
+              </p>
+
+              <div class="hero-buttons">
+                <a href="register.html" class="button button-primary button-large">
+                  Get Started <i class="bx bx-right-arrow-alt"></i>
+                </a>
+                <a href="#how-it-works" class="button button-glass button-large">
+                  View How It Works
+                </a>
+              </div>
+
+              <div class="hero-note">
+                <i class="bx bx-mobile-alt"></i>
+                Designed for a smooth experience across your devices.
+              </div>
+            </div>
+
+            <div class="hero-art journey-art">
+              <div class="journey-backdrop"></div>
+
+              <div class="journey-card journey-card-main">
+                <div class="journey-card-header">
+                  <span class="mini-label">YOUR EXPERIENCE</span>
+                  <i class="bx bx-grid-alt"></i>
+                </div>
+
+                <div class="journey-feature">
+                  <div class="journey-feature-icon purple"><i class="bx bx-joystick"></i></div>
+                  <div><strong>Discover Games</strong><small>Explore available games</small></div>
+                  <i class="bx bx-chevron-right"></i>
+                </div>
+
+                <div class="journey-feature">
+                  <div class="journey-feature-icon blue"><i class="bx bx-user-plus"></i></div>
+                  <div><strong>Build Connections</strong><small>Track eligible referrals</small></div>
+                  <i class="bx bx-chevron-right"></i>
+                </div>
+
+                <div class="journey-feature">
+                  <div class="journey-feature-icon green"><i class="bx bx-check-circle"></i></div>
+                  <div><strong>Complete Tasks</strong><small>Participate in activities</small></div>
+                  <i class="bx bx-chevron-right"></i>
+                </div>
+
+                <div class="journey-footer">
+                  <i class="bx bx-shield-quarter"></i>
+                  <span>One convenient platform</span>
+                </div>
+              </div>
+
+              <div class="journey-floating-icon"><i class="bx bx-rocket"></i></div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- SLIDER CONTROLS -->
+        <div class="hero-controls">
+          <div class="slide-indicators" role="group" aria-label="Choose hero slide">
+            <button class="slide-dot active" data-go-to="0" aria-label="Slide 1" aria-pressed="true"></button>
+            <button class="slide-dot" data-go-to="1" aria-label="Slide 2" aria-pressed="false"></button>
+            <button class="slide-dot" data-go-to="2" aria-label="Slide 3" aria-pressed="false"></button>
+            <button class="slide-dot" data-go-to="3" aria-label="Slide 4" aria-pressed="false"></button>
+          </div>
+
+          <div class="slide-arrows">
+            <button id="prevSlide" aria-label="Previous slide"><i class="bx bx-left-arrow-alt"></i></button>
+            <button id="nextSlide" aria-label="Next slide"><i class="bx bx-right-arrow-alt"></i></button>
+          </div>
+
+          <span class="slide-counter"><span id="currentSlide">01</span> / 04</span>
+        </div>
+      </div>
+
+      <a href="#highlights" class="scroll-cue" aria-label="Scroll to explore">
+        <span>SCROLL TO EXPLORE</span><i class="bx bx-down-arrow-alt"></i>
+      </a>
+    </section>
+
+    <!-- HIGHLIGHTS -->
+    <section class="highlights-section section-pad" id="highlights">
+      <div class="container">
+        <div class="highlights-grid">
+          <div class="highlight-item reveal">
+            <span class="highlight-icon purple"><i class="bx bx-joystick"></i></span>
+            <div><strong>6 Game Types</strong><p>Explore different experiences</p></div>
+          </div>
+          <div class="highlight-item reveal">
+            <span class="highlight-icon blue"><i class="bx bx-user-plus"></i></span>
+            <div><strong>Referral Rewards</strong><p>Track eligible referrals</p></div>
+          </div>
+          <div class="highlight-item reveal">
+            <span class="highlight-icon green"><i class="bx bx-task"></i></span>
+            <div><strong>Social Tasks</strong><p>Participate in activities</p></div>
+          </div>
+          <div class="highlight-item reveal">
+            <span class="highlight-icon orange"><i class="bx bx-history"></i></span>
+            <div><strong>Activity History</strong><p>Keep track of your activity</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GAMES -->
+    <section class="section-pad games-section" id="games">
+      <div class="container">
+        <div class="section-heading centered reveal">
+          <span class="section-kicker">THE GAME COLLECTION</span>
+          <h2>Find Your Next <span class="gradient-text">Favourite Game</span></h2>
+          <p>Explore the games available on KUDIX and choose where you want to begin.</p>
+        </div>
+
+        <div class="games-grid">
+
+          <article class="game-card reveal">
+            <div class="game-visual visual-colour">
+              <span class="game-category">COLOUR</span>
+              <div class="colour-orbs"><i></i><i></i><i></i><i></i></div>
+              <span class="visual-icon"><i class="bx bx-palette"></i></span>
+            </div>
+            <div class="game-card-body">
+              <div class="game-card-title"><h3>Colour Prediction</h3><span class="game-number">01</span></div>
+              <p>Explore a colour-based prediction game with clearly explained choices and round rules.</p>
+              <a href="/register.html" class="game-link">Explore Game <i class="bx bx-right-arrow-alt"></i></a>
+            </div>
+          </article>
+
+          <article class="game-card reveal">
+            <div class="game-visual visual-number">
+              <span class="game-category">NUMBERS</span>
+              <div class="number-display"><span>2</span><span>7</span><span>4</span></div>
+              <span class="visual-icon"><i class="bx bx-hash"></i></span>
+            </div>
+            <div class="game-card-body">
+              <div class="game-card-title"><h3>Number Prediction</h3><span class="game-number">02</span></div>
+              <p>Discover a number-based game with its own rules and available prediction options.</p>
+              <a href="/register.html" class="game-link">Explore Game <i class="bx bx-right-arrow-alt"></i></a>
+            </div>
+          </article>
+
+          <article class="game-card reveal">
+            <div class="game-visual visual-coin">
+              <span class="game-category">CLASSIC</span>
+              <div class="coin-art"><span>H</span><i class="bx bx-coin"></i></div>
+              <span class="visual-icon"><i class="bx bx-refresh"></i></span>
+            </div>
+            <div class="game-card-body">
+              <div class="game-card-title"><h3>Heads or Tails</h3><span class="game-number">03</span></div>
+              <p>Explore the classic two-outcome coin game in a modern interface.</p>
+              <a href="/register.html" class="game-link">Explore Game <i class="bx bx-right-arrow-alt"></i></a>
+            </div>
+          </article>
+
+          <article class="game-card reveal">
+            <div class="game-visual visual-trend">
+              <span class="game-category">DIRECTION</span>
+              <div class="trend-art"><i class="bx bx-trending-up"></i><span>UP</span><i class="bx bx-trending-down"></i></div>
+              <span class="visual-icon"><i class="bx bx-transfer-alt"></i></span>
+            </div>
+            <div class="game-card-body">
+              <div class="game-card-title"><h3>Up or Down</h3><span class="game-number">04</span></div>
+              <p>Review the available direction choices and understand the game rules before playing.</p>
+              <a href="/register.html" class="game-link">Explore Game <i class="bx bx-right-arrow-alt"></i></a>
+            </div>
+          </article>
+
+          <article class="game-card reveal">
+            <div class="game-visual visual-lucky">
+              <span class="game-category">LUCKY PICK</span>
+              <div class="lucky-art"><i class="bx bx-star"></i><span>7</span><i class="bx bx-sparkles"></i></div>
+              <span class="visual-icon"><i class="bx bx-dice-5"></i></span>
+            </div>
+            <div class="game-card-body">
+              <div class="game-card-title"><h3>Lucky Number</h3><span class="game-number">05</span></div>
+              <p>Discover a number-selection experience with its own game format.</p>
+              <a href="/register.html" class="game-link">Explore Game <i class="bx bx-right-arrow-alt"></i></a>
+            </div>
+          </article>
+
+          <article class="game-card reveal">
+            <div class="game-visual visual-cards">
+              <span class="game-category">CARD GAME</span>
+              <div class="playing-cards"><div class="playing-card">A<span>♠</span></div><div class="playing-card card-second">K<span>♥</span></div></div>
+              <span class="visual-icon"><i class="bx bx-layer"></i></span>
+            </div>
+            <div class="game-card-body">
+              <div class="game-card-title"><h3>Higher or Lower</h3><span class="game-number">06</span></div>
+              <p>Explore a playing-card game where the rules explain higher and lower choices.</p>
+              <a href="/register.html" class="game-link">Explore Game <i class="bx bx-right-arrow-alt"></i></a>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- <p class="section-footnote"><i class="bx bx-info-circle"></i> Access to restricted games requires three eligible referrals. Game availability may vary.</p> -->
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section-pad how-section" id="how-it-works">
+      <div class="container">
+        <div class="section-heading centered reveal">
+          <span class="section-kicker">SIMPLE BY DESIGN</span>
+          <h2>Your Journey Starts in <span class="gradient-text">Four Simple Steps</span></h2>
+          <p>Understand the process before you get started with KUDIX.</p>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step-card reveal">
+            <span class="step-number">01</span>
+            <div class="step-icon purple"><i class="bx bx-user-plus"></i></div>
+            <h3>Create Your Account</h3>
+            <p>Register for a KUDIX account and access your personal dashboard.</p>
+            <span class="step-connector"></span>
+          </article>
+          <article class="step-card reveal">
+            <span class="step-number">02</span>
+            <div class="step-icon blue"><i class="bx bx-share-alt"></i></div>
+            <h3>Build Your Network</h3>
+            <p>Invite friends using your unique referral link and track eligible registrations.</p>
+            <span class="step-connector"></span>
+          </article>
+          <article class="step-card reveal">
+            <span class="step-number">03</span>
+            <div class="step-icon green"><i class="bx bx-lock-open-alt"></i></div>
+            <h3>Unlock Game Access</h3>
+            <p>Meet the requirement of three eligible referrals to unlock restricted games.</p>
+            <span class="step-connector"></span>
+          </article>
+          <article class="step-card reveal">
+            <span class="step-number">04</span>
+            <div class="step-icon orange"><i class="bx bx-joystick"></i></div>
+            <h3>Explore KUDIX</h3>
+            <p>Discover available games, view activity, and participate in eligible tasks.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- REWARDS -->
+    <section class="section-pad rewards-section" id="rewards">
+      <div class="container">
+        <div class="rewards-layout">
+          <div class="rewards-copy reveal">
+            <span class="section-kicker">REWARDS WITH CLARITY</span>
+            <h2>Start Exploring with <span class="gradient-text">KUDIX Rewards</span></h2>
+            <p class="section-description">
+              Get familiar with the platform, track your progress, and discover
+              the rewards available through eligible activities.
+            </p>
+
+            <div class="reward-detail">
+              <span class="reward-detail-icon"><i class="bx bx-gift"></i></span>
+              <div><h3>Welcome Gaming Credit</h3><p>Promotional credit for eligible gameplay, subject to the platform's terms.</p></div>
+            </div>
+            <div class="reward-detail">
+              <span class="reward-detail-icon blue"><i class="bx bx-user-plus"></i></span>
+              <div><h3>Referral Commissions</h3><p>Eligible referrals may earn a commission under the referral rules.</p></div>
+            </div>
+
+            <a href="register.html" class="button button-primary button-large">
+              Get Started <i class="bx bx-right-arrow-alt"></i>
+            </a>
+          </div>
+
+          <div class="rewards-visual reveal">
+            <div class="rewards-main-card">
+              <div class="rewards-card-top">
+                <span class="reward-label"><i class="bx bx-gift"></i> WELCOME REWARD</span>
+                <span class="reward-chip">PROMOTIONAL</span>
+              </div>
+              <div class="reward-amount">₦20,000</div>
+              <p class="reward-subtitle">Promotional gaming credit</p>
+              <div class="non-cash-label"><i class="bx bx-info-circle"></i> GAMING CREDIT — NOT WITHDRAWABLE CASH</div>
+              <div class="reward-divider"></div>
+              <div class="referral-reward-row">
+                <span class="referral-reward-icon"><i class="bx bx-user-plus"></i></span>
+                <div><strong>Referral commission</strong><small>Per successful eligible referral</small></div>
+                <span class="referral-amount">₦1,000</span>
+              </div>
+              <div class="rewards-card-bottom">
+                <i class="bx bx-shield-quarter"></i>
+                <span>Rewards are subject to applicable eligibility rules.</span>
+              </div>
+            </div>
+            <div class="rewards-orbit orbit-one"></div>
+            <div class="rewards-orbit orbit-two"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFERRALS -->
+    <section class="section-pad referral-section" id="referrals">
+      <div class="container">
+        <div class="referral-panel reveal">
+          <div class="referral-glow"></div>
+
+          <div class="referral-copy">
+            <span class="section-kicker light-kicker">GROW YOUR NETWORK</span>
+            <h2>Share KUDIX.<br><span>Track Your Rewards.</span></h2>
+            <p>
+              Invite friends, follow your referral progress, and discover the
+              rewards available for eligible referrals.
+            </p>
+            <div class="referral-points">
+              <span><i class="bx bx-check-circle"></i> ₦1,000 per successful eligible referral</span>
+              <span><i class="bx bx-check-circle"></i> Three eligible referrals to unlock restricted games</span>
+            </div>
+            <div class="hero-buttons">
+              <a href="register.html" class="button button-white button-large">Create Your Account <i class="bx bx-right-arrow-alt"></i></a>
+              <a href="#faq" class="button button-dark-glass button-large">Learn About Referrals</a>
+            </div>
+          </div>
+
+          <div class="referral-visual" aria-hidden="true">
+            <div class="referral-circle circle-back"></div>
+            <div class="referral-circle circle-front"></div>
+            <div class="referral-person person-one"><i class="bx bx-user"></i></div>
+            <div class="referral-person person-two"><i class="bx bx-user"></i></div>
+            <div class="referral-person person-three"><i class="bx bx-user"></i></div>
+            <div class="referral-center"><i class="bx bx-share-alt"></i></div>
+            <div class="referral-visual-caption"><i class="bx bx-link-alt"></i> Your referral network</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMMUNITY -->
+    <section class="section-pad community-section" id="community">
+      <div class="container">
+        <div class="community-panel reveal">
+          <div class="community-icon"><i class="bx bx-conversation"></i></div>
+          <div class="community-copy">
+            <span class="section-kicker">THE KUDIX COMMUNITY</span>
+            <h2>Stay Connected with KUDIX</h2>
+            <p>Follow official channels for announcements, platform updates, and game information.</p>
+            <small>Channel buttons appear only after their public links are configured.</small>
+          </div>
+          <div class="community-actions" id="communityActions">
+            <a href="#" class="button button-telegram" data-channel="telegram" hidden>
+              <i class="bx bxl-telegram"></i> Join Telegram
+            </a>
+            <a href="#" class="button button-whatsapp" data-channel="whatsapp" hidden>
+              <i class="bx bxl-whatsapp"></i> Join WhatsApp
+            </a>
+            <p id="communityUnavailable" class="community-unavailable">Official community links will be available here.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOCIAL TASKS -->
+    <section class="section-pad tasks-section" id="tasks">
+      <div class="container">
+        <div class="tasks-layout">
+          <div class="tasks-copy reveal">
+            <span class="section-kicker">MORE WAYS TO PARTICIPATE</span>
+            <h2>Discover More Ways to <span class="gradient-text">Engage</span></h2>
+            <p class="section-description">
+              Explore eligible community activities and social tasks.
+              Available rewards depend on task rules and approval.
+            </p>
+            <a href="/register.html" class="button button-primary button-large">Explore Social Tasks <i class="bx bx-right-arrow-alt"></i></a>
+          </div>
+
+          <div class="task-preview-card reveal">
+            <div class="task-preview-header">
+              <div><span class="mini-label">ACTIVITY CENTRE</span><h3>Social Tasks</h3></div>
+              <span class="task-header-icon"><i class="bx bx-task"></i></span>
+            </div>
+            <div class="task-preview-item">
+              <span class="task-item-icon task-purple"><i class="bx bx-hash"></i></span>
+              <div><strong>Follow an official account</strong><small>Social engagement</small></div>
+              <span class="task-status">Example</span>
+            </div>
+            <div class="task-preview-item">
+              <span class="task-item-icon task-blue"><i class="bx bx-group"></i></span>
+              <div><strong>Join the community</strong><small>Community activity</small></div>
+              <span class="task-status">Example</span>
+            </div>
+            <div class="task-preview-item">
+              <span class="task-item-icon task-orange"><i class="bx bx-share-alt"></i></span>
+              <div><strong>Share an approved post</strong><small>Content engagement</small></div>
+              <span class="task-status">Example</span>
+            </div>
+            <div class="task-preview-footer"><i class="bx bx-info-circle"></i> Examples only. Active tasks and rewards are configured by the platform.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD PREVIEW -->
+    <section class="section-pad dashboard-section" id="preview">
+      <div class="container">
+        <div class="section-heading centered reveal">
+          <span class="section-kicker">A CLOSER LOOK</span>
+          <h2>Your KUDIX Experience, <span class="gradient-text">All in One Place</span></h2>
+          <p>Explore a preview of the organised dashboard experience.</p>
+        </div>
+
+        <div class="dashboard-mockup reveal">
+          <aside class="mock-sidebar">
+            <div class="mock-brand">KUDIX<span>.</span></div>
+            <span class="mock-nav-label">WORKSPACE</span>
+            <div class="mock-nav-item selected"><i class="bx bx-grid-alt"></i> Overview</div>
+            <div class="mock-nav-item"><i class="bx bx-joystick"></i> Games</div>
+            <div class="mock-nav-item"><i class="bx bx-wallet"></i> Gaming Credit</div>
+            <div class="mock-nav-item"><i class="bx bx-user-plus"></i> Referrals</div>
+            <div class="mock-nav-item"><i class="bx bx-task"></i> Social Tasks</div>
+            <div class="mock-nav-item"><i class="bx bx-history"></i> Activity History</div>
+            <div class="mock-sidebar-bottom"><i class="bx bx-cog"></i> Settings</div>
+          </aside>
+
+          <div class="mock-main">
+            <div class="mock-topbar">
+              <div><span class="mock-muted">DASHBOARD PREVIEW</span><h3>Your Overview</h3></div>
+              <span class="mock-avatar"><i class="bx bx-user"></i></span>
+            </div>
+
+            <div class="mock-welcome">
+              <div><span>WELCOME TO KUDIX</span><h3>Your journey starts here.</h3><p>Manage your activities from one place.</p></div>
+              <i class="bx bx-rocket"></i>
+            </div>
+
+            <div class="mock-stats">
+              <div class="mock-stat"><span>Gaming credit</span><strong>₦20,000</strong><small>Illustrative promotional credit</small><i class="bx bx-wallet"></i></div>
+              <div class="mock-stat"><span>Referral progress</span><strong>0 / 3</strong><small>Eligible referrals required</small><i class="bx bx-user-plus"></i></div>
+              <div class="mock-stat"><span>Referral commission</span><strong>₦0</strong><small>Illustrative preview</small><i class="bx bx-gift"></i></div>
+            </div>
+
+            <div class="mock-bottom-grid">
+              <div class="mock-panel">
+                <div class="mock-panel-heading"><strong>Explore Games</strong><span>6 game types</span></div>
+                <div class="mock-game-icons">
+                  <span class="mock-game purple"><i class="bx bx-palette"></i></span>
+                  <span class="mock-game blue"><i class="bx bx-hash"></i></span>
+                  <span class="mock-game orange"><i class="bx bx-coin"></i></span>
+                  <span class="mock-game green"><i class="bx bx-trending-up"></i></span>
+                  <span class="mock-game pink"><i class="bx bx-star"></i></span>
+                  <span class="mock-game indigo"><i class="bx bx-spade"></i></span>
+                </div>
+                <div class="mock-panel-note">Game access depends on eligibility.</div>
+              </div>
+              <div class="mock-panel">
+                <div class="mock-panel-heading"><strong>Account checklist</strong><span>Getting started</span></div>
+                <div class="mock-check-row"><i class="bx bx-check-circle"></i> Create your account</div>
+                <div class="mock-check-row"><i class="bx bx-circle"></i> Invite eligible referrals</div>
+                <div class="mock-check-row"><i class="bx bx-circle"></i> Explore available features</div>
+              </div>
+            </div>
+            <div class="mock-disclaimer">Illustrative interface preview — not live account data.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section-pad faq-section" id="faq">
+      <div class="container faq-layout">
+        <div class="faq-intro reveal">
+          <span class="section-kicker">NEED CLARITY?</span>
+          <h2>Questions?<br><span class="gradient-text">We've Got Answers.</span></h2>
+          <p>Find helpful information about getting started, game access, promotional credit, and referrals.</p>
+          <div class="faq-help-card">
+            <span><i class="bx bx-message-rounded-dots"></i></span>
+            <div><strong>Still need help?</strong><p>Open the KUDIX support panel for available support options.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-list reveal">
+          <details class="faq-item">
+            <summary>What is KUDIX?<span class="faq-chevron"><i class="bx bx-plus"></i></span></summary>
+            <p>KUDIX is a gaming and rewards platform featuring prediction games, referral activities, and eligible social tasks.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How do I create an account?<span class="faq-chevron"><i class="bx bx-plus"></i></span></summary>
+            <p>Select Get Started to open the registration page. Complete the registration process when the account system is available.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What is the ₦20,000 welcome bonus?<span class="faq-chevron"><i class="bx bx-plus"></i></span></summary>
+            <p>It is promotional gaming credit for eligible gameplay, subject to the platform's applicable terms. It is not withdrawable cash.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Can I withdraw my welcome gaming credit?<span class="faq-chevron"><i class="bx bx-plus"></i></span></summary>
+            <p>No. The ₦20,000 welcome credit is promotional gaming credit and must be kept separate from withdrawable funds.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How do I unlock access to games?<span class="faq-chevron"><i class="bx bx-plus"></i></span></summary>
+            <p>You must meet the requirement of three eligible referrals before accessing restricted games. Check the applicable game rules for details.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How does the referral programme work?<span class="faq-chevron"><i class="bx bx-plus"></i></span></summary>
+            <p>Use your unique referral link to invite people. A referral must satisfy the platform's eligibility rules before it qualifies.</p>
+          </details>
+          <details class="faq-item">
+            <summary>When is a referral considered successful?<span class="faq-chevron"><i class="bx bx-plus"></i></span></summary>
+            <p>A referral qualifies when the required registration and eligibility checks have been completed under the platform's referral rules.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How do social tasks work?<span class="faq-chevron"><i class="bx bx-plus"></i></span></summary>
+            <p>Complete an available task and submit any requested proof. Rewards depend on task requirements and approval.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Where can I find official KUDIX announcements?<span class="faq-chevron"><i class="bx bx-plus"></i></span></summary>
+            <p>Use the official Telegram or WhatsApp buttons when the platform's public channel links have been configured.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How can I contact customer support?<span class="faq-chevron"><i class="bx bx-plus"></i></span></summary>
+            <p>Open the floating support button to view the available support topics. Direct agent assistance requires a configured support service.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section-pad final-cta-section">
+      <div class="container">
+        <div class="final-cta reveal">
+          <div class="final-cta-glow"></div>
+          <div class="final-cta-content">
+            <span class="section-kicker light-kicker">YOUR NEXT CHAPTER</span>
+            <h2>Ready to Explore <span>KUDIX?</span></h2>
+            <p>Create your account and discover a modern gaming platform built around games, community, and rewards.</p>
+            <div class="hero-buttons centered-buttons">
+              <a href="register.html" class="button button-white button-large">Get Started <i class="bx bx-right-arrow-alt"></i></a>
+              <a href="#games" class="button button-dark-glass button-large">Explore Games</a>
+            </div>
+          </div>
+          <div class="cta-decoration cta-decoration-one"><i class="bx bx-joystick"></i></div>
+          <div class="cta-decoration cta-decoration-two"><i class="bx bx-star"></i></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a href="#home" class="footer-logo" aria-label="KUDIX home">
+            <img src="images/kudix-logo.png" alt="KUDIX Logo" onerror="this.style.display='none';document.getElementById('footerFallback').style.display='block'">
+            <span id="footerFallback" class="brand-fallback">KUDIX<span>.</span></span>
+          </a>
+          <p>A modern gaming and rewards experience built around discovery, community, and clarity.</p>
+        </div>
+
+        <div class="footer-column">
+          <h4>Explore</h4>
+          <a href="#games">Games</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#rewards">Rewards</a>
+          <a href="#referrals">Referrals</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Account</h4>
+          <a href="register.html">Create Account</a>
+          <a href="login.html">Log In</a>
+          <a href="tasks.html">Social Tasks</a>
+          <a href="#community">Community</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Information</h4>
+          <a href="terms.html">Terms & Conditions</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="responsible-gaming.html">Responsible Gaming</a>
+          <a href="#faq">FAQs & Support</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="currentYear"></span> KUDIX. All rights reserved.</p>
+        <p class="footer-disclaimer">Promotional gaming credit is not withdrawable cash. Rewards and game access are subject to applicable rules.</p>
+        <a href="#home" class="back-to-top" aria-label="Back to top"><i class="bx bx-up-arrow-alt"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING SUPPORT -->
+  <div class="support-widget">
+    <div id="supportPanel" class="support-panel" hidden>
+      <div class="support-panel-header">
+        <div class="support-agent-icon"><i class="bx bx-message-rounded-dots"></i></div>
+        <div><strong>KUDIX Support</strong><span><span class="support-status-dot"></span> Help centre</span></div>
+        <button id="supportClose" aria-label="Close support panel"><i class="bx bx-x"></i></button>
+      </div>
+
+      <div class="support-panel-body">
+        <div class="support-message">
+          Hi! Welcome to KUDIX Support. How can we help you today?
+        </div>
+        <p class="support-options-label">CHOOSE A TOPIC</p>
+        <div class="support-options">
+          <button data-support-topic="Game Access"><i class="bx bx-joystick"></i> Game Access <i class="bx bx-chevron-right"></i></button>
+          <button data-support-topic="Welcome Bonus"><i class="bx bx-gift"></i> Welcome Bonus <i class="bx bx-chevron-right"></i></button>
+          <button data-support-topic="Referral Issues"><i class="bx bx-user-plus"></i> Referral Issues <i class="bx bx-chevron-right"></i></button>
+          <button data-support-topic="Referral Commission"><i class="bx bx-wallet"></i> Referral Commission <i class="bx bx-chevron-right"></i></button>
+          <button data-support-topic="Social Tasks"><i class="bx bx-task"></i> Social Tasks <i class="bx bx-chevron-right"></i></button>
+          <button data-support-topic="Account Problems"><i class="bx bx-user"></i> Account Problems <i class="bx bx-chevron-right"></i></button>
+          <button data-support-topic="Speak to a Support Agent"><i class="bx bx-headphone"></i> Speak to a Support Agent <i class="bx bx-chevron-right"></i></button>
+        </div>
+        <div id="supportResponse" class="support-response" hidden></div>
+        <p class="support-demo-note">This help panel is a frontend interface. Direct support requires a configured service.</p>
+      </div>
+    </div>
+
+    <button id="supportToggle" class="support-toggle" aria-label="Open customer support" aria-expanded="false">
+      <i class="bx bx-message-rounded-dots support-chat-icon"></i>
+      <i class="bx bx-x support-close-icon"></i>
+      <span class="support-pulse"></span>
+    </button>
+  </div>
+
+</body>
+</html>

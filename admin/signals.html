@@ -1,0 +1,2156 @@
+```html
+<!-- admin/signals.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B1228">
+    <title>Signals Management | KUDIX Admin</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sora: ['Sora', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
+                    },
+                    colors: {
+                        kudix: {
+                            background: '#0B1228',
+                            panel: '#111A35',
+                            panelLight: '#171B40',
+                            violet: '#8B5CF6',
+                            violetLight: '#A477FF',
+                            blue: '#38BDF8',
+                            green: '#35D995',
+                            coral: '#FB7185',
+                            gold: '#FBBF24'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --background: #0B1228;
+            --panel: #111A35;
+            --panel-light: #171B40;
+            --border: rgba(148, 163, 184, .13);
+            --muted: #91A0BC;
+            --violet: #8B5CF6;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(ellipse at 78% 0%, rgba(139, 92, 246, .08), transparent 35%),
+                var(--background);
+            color: #F4F7FF;
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand-name {
+            font-family: 'Sora', sans-serif;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 2px solid #A477FF;
+            outline-offset: 3px;
+        }
+
+        .admin-layout {
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            inset: 0 auto 0 0;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            width: 258px;
+            padding: 24px 16px;
+            overflow-y: auto;
+            background: rgba(11, 18, 40, .97);
+            border-right: 1px solid var(--border);
+            transition: transform .25s ease;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-height: 54px;
+            padding: 0 10px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            overflow: hidden;
+            border-radius: 12px;
+            background: rgba(139, 92, 246, .10);
+        }
+
+        .brand-logo img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .brand-caption {
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 1.4px;
+        }
+
+        .nav-label {
+            margin: 25px 12px 10px;
+            color: #667491;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-height: 44px;
+            padding: 0 12px;
+            margin-bottom: 5px;
+            color: #9AA7C1;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 500;
+            transition: background .2s ease, color .2s ease;
+        }
+
+        .nav-link i {
+            font-size: 19px;
+        }
+
+        .nav-link:hover {
+            color: #FFF;
+            background: rgba(255, 255, 255, .045);
+        }
+
+        .nav-link.active {
+            color: #DCD0FF;
+            background: rgba(139, 92, 246, .13);
+            border-color: rgba(139, 92, 246, .19);
+        }
+
+        .nav-link.active i {
+            color: #A477FF;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+
+        .sidebar-status {
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: rgba(255, 255, 255, .025);
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin-right: 7px;
+            border-radius: 50%;
+            background: #FBBF24;
+            vertical-align: middle;
+        }
+
+        .main-content {
+            min-width: 0;
+            margin-left: 258px;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            min-height: 76px;
+            padding: 14px 32px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(11, 18, 40, .84);
+            backdrop-filter: blur(18px);
+        }
+
+        .topbar-eyebrow {
+            margin-bottom: 3px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .topbar-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .admin-avatar {
+            display: grid;
+            width: 38px;
+            height: 38px;
+            place-items: center;
+            color: #DCD0FF;
+            border: 1px solid rgba(139, 92, 246, .25);
+            border-radius: 12px;
+            background: rgba(139, 92, 246, .13);
+            font-size: 20px;
+        }
+
+        .page-content {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+
+        .eyebrow {
+            color: #A477FF;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+        }
+
+        .page-title {
+            margin-top: 8px;
+            font-size: clamp(23px, 3vw, 31px);
+            font-weight: 700;
+            letter-spacing: -.9px;
+        }
+
+        .page-description {
+            max-width: 650px;
+            margin-top: 9px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .panel {
+            min-width: 0;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: rgba(17, 26, 53, .85);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, .08);
+        }
+
+        .panel-heading {
+            padding: 20px 22px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .panel-subtitle {
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 40px;
+            padding: 0 15px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, .035);
+            color: #E9EDFA;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background .2s ease, border-color .2s ease;
+        }
+
+        .btn:hover:not(:disabled) {
+            border-color: rgba(164, 119, 255, .45);
+            background: rgba(139, 92, 246, .10);
+        }
+
+        .btn-primary {
+            border-color: #8B5CF6;
+            background: #8B5CF6;
+            color: #FFF;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            border-color: #A477FF;
+            background: #7546E9;
+        }
+
+        .btn:disabled {
+            opacity: .45;
+            cursor: not-allowed;
+        }
+
+        .field-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #A8B4CC;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .field {
+            width: 100%;
+            min-height: 42px;
+            padding: 10px 12px;
+            border: 1px solid rgba(148, 163, 184, .18);
+            border-radius: 9px;
+            outline: none;
+            background: #0D1630;
+            color: #F4F7FF;
+            font-size: 11px;
+            transition: border-color .2s ease;
+        }
+
+        .field:focus {
+            border-color: #8B5CF6;
+        }
+
+        .field::placeholder {
+            color: #64738F;
+        }
+
+        select.field {
+            cursor: pointer;
+        }
+
+        .metric-card {
+            padding: 19px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: rgba(17, 26, 53, .8);
+        }
+
+        .metric-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .metric-label {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .metric-icon {
+            display: grid;
+            width: 34px;
+            height: 34px;
+            place-items: center;
+            border: 1px solid rgba(139, 92, 246, .2);
+            border-radius: 10px;
+            background: rgba(139, 92, 246, .10);
+            color: #B79BFF;
+            font-size: 19px;
+        }
+
+        .metric-value {
+            margin-top: 17px;
+            font-family: 'Sora', sans-serif;
+            font-size: 27px;
+            font-weight: 700;
+            letter-spacing: -.8px;
+        }
+
+        .metric-note {
+            margin-top: 6px;
+            color: #75839F;
+            font-size: 10px;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            white-space: nowrap;
+            text-align: left;
+        }
+
+        .data-table th {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, .018);
+            color: #8492AD;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .7px;
+            text-transform: uppercase;
+        }
+
+        .data-table td {
+            padding: 16px 18px;
+            border-bottom: 1px solid rgba(148, 163, 184, .08);
+            color: #C6CFE1;
+            font-size: 11px;
+            vertical-align: middle;
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(255, 255, 255, .018);
+        }
+
+        .table-primary {
+            color: #F3F5FF;
+            font-weight: 600;
+        }
+
+        .table-muted {
+            margin-top: 5px;
+            color: #7D8BA6;
+            font-size: 10px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 9px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, .025);
+            color: #B9C3D8;
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .status-pill::before {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            content: '';
+        }
+
+        .status-published {
+            border-color: rgba(53, 217, 149, .18);
+            background: rgba(53, 217, 149, .06);
+            color: #57DFA9;
+        }
+
+        .status-draft {
+            border-color: rgba(251, 191, 36, .18);
+            background: rgba(251, 191, 36, .06);
+            color: #FBBF24;
+        }
+
+        .status-archived,
+        .status-inactive {
+            color: #98A4BA;
+        }
+
+        .status-unknown {
+            color: #A7B3C9;
+        }
+
+        .icon-btn {
+            display: inline-grid;
+            width: 34px;
+            height: 34px;
+            place-items: center;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: rgba(255, 255, 255, .025);
+            color: #B6C1D7;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .icon-btn:hover {
+            border-color: rgba(164, 119, 255, .4);
+            color: #CDBAFF;
+        }
+
+        .empty-state {
+            padding: 42px 20px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            display: grid;
+            width: 52px;
+            height: 52px;
+            margin: 0 auto 15px;
+            place-items: center;
+            border: 1px solid rgba(139, 92, 246, .18);
+            border-radius: 15px;
+            background: rgba(139, 92, 246, .08);
+            color: #A477FF;
+            font-size: 25px;
+        }
+
+        .empty-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .empty-description {
+            max-width: 430px;
+            margin: 9px auto 0;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        .notice {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 15px 17px;
+            border: 1px solid rgba(251, 191, 36, .19);
+            border-radius: 12px;
+            background: rgba(251, 191, 36, .045);
+        }
+
+        .notice-icon {
+            flex-shrink: 0;
+            color: #FBBF24;
+            font-size: 20px;
+        }
+
+        .notice-title {
+            color: #F5D58A;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .notice-text {
+            margin-top: 5px;
+            color: #B2BBD0;
+            font-size: 10px;
+            line-height: 1.8;
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+            background: rgba(3, 7, 18, .82);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+        }
+
+        .modal-card {
+            width: 100%;
+            max-width: 570px;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid rgba(148, 163, 184, .18);
+            border-radius: 17px;
+            background: #111A35;
+            box-shadow: 0 25px 90px rgba(0, 0, 0, .4);
+        }
+
+        .detail-row {
+            display: grid;
+            grid-template-columns: minmax(110px, .8fr) minmax(0, 1.5fr);
+            gap: 16px;
+            padding: 13px 0;
+            border-bottom: 1px solid rgba(148, 163, 184, .10);
+            font-size: 11px;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-key {
+            color: var(--muted);
+        }
+
+        .detail-value {
+            min-width: 0;
+            color: #E5EAF7;
+            overflow-wrap: anywhere;
+            white-space: pre-wrap;
+        }
+
+        .pagination-button {
+            display: grid;
+            width: 34px;
+            height: 34px;
+            place-items: center;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .025);
+            color: #AAB6CE;
+            cursor: pointer;
+        }
+
+        .pagination-button:disabled {
+            opacity: .35;
+            cursor: not-allowed;
+        }
+
+        .pagination-button.current {
+            border-color: rgba(139, 92, 246, .45);
+            background: rgba(139, 92, 246, .15);
+            color: #E2D7FF;
+        }
+
+        .toast {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 150;
+            max-width: min(380px, calc(100vw - 44px));
+            padding: 13px 16px;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            background: #171F3C;
+            color: #EAF0FF;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, .3);
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+            display: none;
+            background: rgba(0, 0, 0, .6);
+        }
+
+        .mobile-overlay.open {
+            display: block;
+        }
+
+        .mobile-menu-button {
+            display: none;
+            width: 38px;
+            height: 38px;
+            place-items: center;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, .035);
+            color: #FFF;
+            font-size: 22px;
+        }
+
+        .footer {
+            padding: 24px 32px;
+            border-top: 1px solid var(--border);
+            color: #74819B;
+            font-size: 10px;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 1100px) {
+            .sidebar {
+                width: 235px;
+            }
+
+            .main-content {
+                margin-left: 235px;
+            }
+
+            .page-content {
+                padding: 25px 22px;
+            }
+
+            .topbar {
+                padding: 14px 22px;
+            }
+
+            .footer {
+                padding: 22px;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .sidebar {
+                width: 270px;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .mobile-menu-button {
+                display: grid;
+            }
+
+            .topbar {
+                padding: 12px 18px;
+            }
+
+            .page-content {
+                padding: 24px 18px;
+            }
+
+            .footer {
+                padding: 20px 18px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .page-content {
+                padding: 20px 13px;
+            }
+
+            .topbar {
+                padding: 12px 13px;
+            }
+
+            .topbar-title {
+                font-size: 12px;
+            }
+
+            .topbar-eyebrow {
+                font-size: 10px;
+            }
+
+            .page-header-actions {
+                display: grid;
+                grid-template-columns: 1fr;
+                width: 100%;
+            }
+
+            .page-header-actions .btn {
+                width: 100%;
+            }
+
+            .metric-card {
+                padding: 15px;
+            }
+
+            .metric-value {
+                font-size: 23px;
+            }
+
+            .panel-heading {
+                padding: 17px;
+            }
+
+            .filter-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .detail-row {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+
+            .footer {
+                padding: 18px 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-layout">
+
+        <!-- Mobile sidebar overlay -->
+        <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar" aria-label="Admin navigation">
+            <a href="dashboard.html" class="brand" style="text-decoration:none;color:inherit">
+                <span class="brand-logo">
+                    <img src="../images/kudix-logo.png" alt="KUDIX Logo">
+                </span>
+                <span>
+                    <span class="brand-name block">KUDIX</span>
+                    <span class="brand-caption block">ADMINISTRATION</span>
+                </span>
+            </a>
+
+            <nav>
+                <div class="nav-label">Overview</div>
+
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bx bx-grid-alt"></i><span>Dashboard</span>
+                </a>
+
+                <a href="users.html" class="nav-link">
+                    <i class="bx bx-group"></i><span>Users</span>
+                </a>
+
+                <div class="nav-label">Gaming Management</div>
+
+                <a href="games.html" class="nav-link">
+                    <i class="bx bx-joystick"></i><span>Games</span>
+                </a>
+
+                <a href="game-rounds.html" class="nav-link">
+                    <i class="bx bx-refresh"></i><span>Game Rounds</span>
+                </a>
+
+                <a href="game-results.html" class="nav-link">
+                    <i class="bx bx-bar-chart-alt-2"></i><span>Game Results</span>
+                </a>
+
+                <a href="signals.html" class="nav-link active" aria-current="page">
+                    <i class="bx bx-broadcast"></i><span>Signals</span>
+                </a>
+
+                <div class="nav-label">Platform Operations</div>
+
+                <a href="referrals.html" class="nav-link">
+                    <i class="bx bx-git-branch"></i><span>Referrals</span>
+                </a>
+
+                <a href="transactions.html" class="nav-link">
+                    <i class="bx bx-transfer-alt"></i><span>Transactions</span>
+                </a>
+
+                <a href="tasks.html" class="nav-link">
+                    <i class="bx bx-task"></i><span>Tasks</span>
+                </a>
+
+                <a href="task-submissions.html" class="nav-link">
+                    <i class="bx bx-file"></i><span>Task Submissions</span>
+                </a>
+
+                <a href="support.html" class="nav-link">
+                    <i class="bx bx-support"></i><span>Support</span>
+                </a>
+
+                <div class="nav-label">System</div>
+
+                <a href="announcements.html" class="nav-link">
+                    <i class="bx bx-megaphone"></i><span>Announcements</span>
+                </a>
+
+                <a href="settings.html" class="nav-link">
+                    <i class="bx bx-cog"></i><span>Settings</span>
+                </a>
+
+                <a href="activity-logs.html" class="nav-link">
+                    <i class="bx bx-history"></i><span>Activity Logs</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="sidebar-status">
+                    <div class="text-xs font-semibold text-slate-200">Backend connection</div>
+                    <div class="mt-2 text-[10px] text-slate-400" id="sidebarConnection">
+                        <span class="status-dot"></span>Not configured
+                    </div>
+                </div>
+
+                <a href="index.html" class="nav-link mt-4">
+                    <i class="bx bx-log-out"></i><span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="flex items-center gap-3">
+                    <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Open navigation menu"
+                        aria-expanded="false">
+                        <i class="bx bx-menu"></i>
+                    </button>
+
+                    <div>
+                        <div class="topbar-eyebrow">KUDIX Administration / Gaming Management</div>
+                        <div class="topbar-title">Signals Management</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <div class="hidden sm:block text-right">
+                        <div class="text-xs font-semibold text-slate-200">Administrator</div>
+                        <div class="mt-1 text-[10px] text-slate-500">Management workspace</div>
+                    </div>
+                    <div class="admin-avatar" aria-hidden="true">
+                        <i class="bx bx-user"></i>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+
+                <!-- Page heading -->
+                <section class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 mb-8">
+                    <div>
+                        <div class="eyebrow">Gaming operations</div>
+                        <h1 class="page-title">Signals Management</h1>
+                        <p class="page-description">
+                            Review and manage signal records associated with supported games.
+                            Records and available actions depend on your configured backend.
+                        </p>
+                    </div>
+
+                    <div class="page-header-actions flex flex-wrap items-center gap-3">
+                        <button class="btn" id="refreshButton" type="button">
+                            <i class="bx bx-refresh text-base"></i>
+                            Refresh records
+                        </button>
+
+                        <button class="btn" id="exportButton" type="button" disabled>
+                            <i class="bx bx-download text-base"></i>
+                            Export CSV
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Backend configuration notice -->
+                <section class="notice mb-7" id="connectionNotice" role="status" aria-live="polite">
+                    <i class="bx bx-info-circle notice-icon"></i>
+                    <div>
+                        <div class="notice-title" id="connectionNoticeTitle">
+                            Backend connection not configured
+                        </div>
+                        <p class="notice-text" id="connectionNoticeText">
+                            Signal records cannot be loaded until the real backend base URL and
+                            list endpoint are configured in this page. No sample records or
+                            fabricated statistics are displayed.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Summary metrics: values come only from loaded API records -->
+                <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-7" aria-label="Signal summary">
+                    <article class="metric-card">
+                        <div class="metric-top">
+                            <span class="metric-label">Total signals</span>
+                            <span class="metric-icon"><i class="bx bx-broadcast"></i></span>
+                        </div>
+                        <div class="metric-value" id="totalSignals">—</div>
+                        <p class="metric-note">Records in the current result set</p>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-top">
+                            <span class="metric-label">Published</span>
+                            <span class="metric-icon"
+                                style="color:#57DFA9;background:rgba(53,217,149,.08);border-color:rgba(53,217,149,.15)">
+                                <i class="bx bx-check-circle"></i>
+                            </span>
+                        </div>
+                        <div class="metric-value" id="publishedSignals">—</div>
+                        <p class="metric-note">Records marked published by the API</p>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-top">
+                            <span class="metric-label">Draft</span>
+                            <span class="metric-icon"
+                                style="color:#FBBF24;background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.15)">
+                                <i class="bx bx-edit-alt"></i>
+                            </span>
+                        </div>
+                        <div class="metric-value" id="draftSignals">—</div>
+                        <p class="metric-note">Records marked draft by the API</p>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-top">
+                            <span class="metric-label">Archived / Inactive</span>
+                            <span class="metric-icon"
+                                style="color:#AAB6CE;background:rgba(148,163,184,.07);border-color:rgba(148,163,184,.15)">
+                                <i class="bx bx-archive"></i>
+                            </span>
+                        </div>
+                        <div class="metric-value" id="archivedSignals">—</div>
+                        <p class="metric-note">Records marked archived or inactive</p>
+                    </article>
+                </section>
+
+                <!-- Filters -->
+                <section class="panel mb-6">
+                    <div class="panel-heading flex items-center justify-between gap-3">
+                        <div>
+                            <h2 class="panel-title">Find signals</h2>
+                            <p class="panel-subtitle">Filter the records returned by your backend.</p>
+                        </div>
+                        <i class="bx bx-filter-alt text-xl text-violet-300"></i>
+                    </div>
+
+                    <form class="p-5 md:p-6" id="filterForm">
+                        <div class="filter-grid grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4">
+                            <div class="xl:col-span-2">
+                                <label for="searchInput" class="field-label">Search by ID or title</label>
+                                <div class="relative">
+                                    <i
+                                        class="bx bx-search absolute left-3 top-1/2 -translate-y-1/2 text-lg text-slate-500"></i>
+                                    <input class="field pl-10" id="searchInput" type="search"
+                                        placeholder="Enter signal ID or title">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="gameFilter" class="field-label">Associated game</label>
+                                <select class="field" id="gameFilter">
+                                    <option value="">All games</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="statusFilter" class="field-label">Status</label>
+                                <select class="field" id="statusFilter">
+                                    <option value="">All statuses</option>
+                                    <option value="published">Published</option>
+                                    <option value="draft">Draft</option>
+                                    <option value="archived">Archived</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="pageSize" class="field-label">Rows per page</label>
+                                <select class="field" id="pageSize">
+                                    <option value="10">10 rows</option>
+                                    <option value="25">25 rows</option>
+                                    <option value="50">50 rows</option>
+                                    <option value="100">100 rows</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="dateFrom" class="field-label">Created from</label>
+                                <input class="field" id="dateFrom" type="date">
+                            </div>
+
+                            <div>
+                                <label for="dateTo" class="field-label">Created to</label>
+                                <input class="field" id="dateTo" type="date">
+                            </div>
+
+                            <div class="sm:col-span-2 xl:col-span-3 flex flex-wrap items-end gap-3">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="bx bx-search"></i>Apply filters
+                                </button>
+                                <button class="btn" id="clearFiltersButton" type="button">
+                                    Clear filters
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Signals table -->
+                <section class="panel">
+                    <div class="panel-heading flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                        <div>
+                            <h2 class="panel-title">Signal records</h2>
+                            <p class="panel-subtitle" id="recordsSummary" aria-live="polite">
+                                No records loaded.
+                            </p>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span class="status-pill status-unknown" id="tableConnectionStatus">
+                                Not configured
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="table-scroll">
+                        <table class="data-table" aria-label="Signal records">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Signal ID</th>
+                                    <th scope="col">Signal title</th>
+                                    <th scope="col">Associated game</th>
+                                    <th scope="col">Signal type</th>
+                                    <th scope="col">Created at</th>
+                                    <th scope="col">Updated at</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Details</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="signalsTableBody">
+                                <tr>
+                                    <td colspan="8">
+                                        <div class="empty-state">
+                                            <div class="empty-icon"><i class="bx bx-link-alt"></i></div>
+                                            <h3 class="empty-title">Connect your backend</h3>
+                                            <p class="empty-description">
+                                                Configure the actual signals API endpoint to load records here.
+                                                This table will not invent signal data.
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div
+                        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-5 border-t border-white/5">
+                        <p class="text-[10px] text-slate-500" id="paginationInfo" aria-live="polite">
+                            No records to display.
+                        </p>
+
+                        <div class="flex items-center gap-2" aria-label="Pagination">
+                            <button class="pagination-button" id="previousPage" type="button" aria-label="Previous page"
+                                disabled>
+                                <i class="bx bx-chevron-left text-xl"></i>
+                            </button>
+
+                            <span class="text-[10px] text-slate-400 px-2" id="pageIndicator">
+                                Page 0 of 0
+                            </span>
+
+                            <button class="pagination-button" id="nextPage" type="button" aria-label="Next page"
+                                disabled>
+                                <i class="bx bx-chevron-right text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Integration guidance -->
+                <section class="panel mt-6">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">API integration</h2>
+                        <p class="panel-subtitle">
+                            Configure these values after your backend routes and response format
+                            have been confirmed.
+                        </p>
+                    </div>
+
+                    <div class="p-5 md:p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="rounded-xl border border-white/5 bg-white/[0.02] p-4">
+                                <div class="flex items-center gap-2 text-sm font-semibold text-slate-200">
+                                    <i class="bx bx-server text-lg text-violet-300"></i>
+                                    List endpoint
+                                </div>
+                                <p class="mt-2 text-[11px] leading-6 text-slate-400">
+                                    Returns the signal records and, if supported, pagination metadata
+                                    and available filter options.
+                                </p>
+                                <p class="mt-3 text-[10px] text-amber-300">Not configured</p>
+                            </div>
+
+                            <div class="rounded-xl border border-white/5 bg-white/[0.02] p-4">
+                                <div class="flex items-center gap-2 text-sm font-semibold text-slate-200">
+                                    <i class="bx bx-shield-quarter text-lg text-violet-300"></i>
+                                    Management actions
+                                </div>
+                                <p class="mt-2 text-[11px] leading-6 text-slate-400">
+                                    Create, edit, publish, and archive controls should be enabled only
+                                    after the relevant backend routes, authorization rules, and request
+                                    schema are confirmed.
+                                </p>
+                                <p class="mt-3 text-[10px] text-slate-400">Unavailable until configured</p>
+                            </div>
+                        </div>
+
+                        <p class="mt-5 text-[10px] leading-6 text-slate-500">
+                            Security: enforce administrator authentication and permissions on the
+                            server. Hiding controls in the browser is not a substitute for backend
+                            authorization.
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+            <footer class="footer">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <span>KUDIX Administration</span>
+                    <span>Signals Management · Backend-dependent records and actions</span>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Signal details modal -->
+    <div class="modal-backdrop" id="detailsModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-card">
+            <div class="flex items-start justify-between gap-4 p-5 border-b border-white/5">
+                <div>
+                    <div class="eyebrow">Record information</div>
+                    <h2 class="mt-2 text-base font-semibold" id="modalTitle">Signal details</h2>
+                    <p class="mt-1 text-[11px] text-slate-400" id="modalSubtitle">
+                        Information returned by the configured API.
+                    </p>
+                </div>
+
+                <button class="icon-btn" id="closeModalButton" type="button" aria-label="Close signal details">
+                    <i class="bx bx-x"></i>
+                </button>
+            </div>
+
+            <div class="p-5" id="modalContent">
+                <p class="text-xs text-slate-400">No signal selected.</p>
+            </div>
+
+            <div class="flex justify-end p-5 border-t border-white/5">
+                <button class="btn" id="modalDoneButton" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+        'use strict';
+
+        /*
+         * KUDIX SIGNALS API CONFIGURATION
+         *
+         * Replace the empty values only with your actual backend configuration.
+         * The expected response shape must be confirmed with your backend developer.
+         *
+         * Do not add guessed API routes or assume that a particular database schema
+         * exists. This page does not connect to Firebase.
+         */
+        const SIGNALS_API = Object.freeze({
+            baseUrl: '',
+            listEndpoint: '',
+            detailsEndpoint: '',
+
+            // Leave these empty until the real routes and request formats are known.
+            createEndpoint: '',
+            updateEndpoint: '',
+            statusEndpoint: '',
+
+            // Configure only if your backend uses bearer-token authentication.
+            // Obtain the token through your actual authentication integration.
+            getAuthHeaders: null,
+
+            // Set this only if the API has an established response structure.
+            // Examples of possible collection keys include "data" or "items".
+            // Do not guess: confirm the actual key before configuring.
+            recordsKey: '',
+
+            // Use true only if the API's returned records represent the complete
+            // result set. Keep false when the API provides server-side pagination
+            // that this page has not yet been configured to handle.
+            responseContainsAllRecords: false,
+
+            requestTimeoutMs: 15000
+        });
+
+        const state = {
+            records: [],
+            filteredRecords: [],
+            page: 1,
+            pageSize: 10,
+            loading: false,
+            loaded: false,
+            error: '',
+            selectedRecord: null,
+            toastTimer: null,
+            requestController: null
+        };
+
+        const $ = (selector) => document.querySelector(selector);
+
+        const elements = {
+            sidebar: $('#sidebar'),
+            mobileOverlay: $('#mobileOverlay'),
+            mobileMenuButton: $('#mobileMenuButton'),
+            connectionNotice: $('#connectionNotice'),
+            connectionNoticeTitle: $('#connectionNoticeTitle'),
+            connectionNoticeText: $('#connectionNoticeText'),
+            sidebarConnection: $('#sidebarConnection'),
+            tableConnectionStatus: $('#tableConnectionStatus'),
+            refreshButton: $('#refreshButton'),
+            exportButton: $('#exportButton'),
+            filterForm: $('#filterForm'),
+            searchInput: $('#searchInput'),
+            gameFilter: $('#gameFilter'),
+            statusFilter: $('#statusFilter'),
+            dateFrom: $('#dateFrom'),
+            dateTo: $('#dateTo'),
+            pageSize: $('#pageSize'),
+            clearFiltersButton: $('#clearFiltersButton'),
+            tableBody: $('#signalsTableBody'),
+            recordsSummary: $('#recordsSummary'),
+            paginationInfo: $('#paginationInfo'),
+            pageIndicator: $('#pageIndicator'),
+            previousPage: $('#previousPage'),
+            nextPage: $('#nextPage'),
+            totalSignals: $('#totalSignals'),
+            publishedSignals: $('#publishedSignals'),
+            draftSignals: $('#draftSignals'),
+            archivedSignals: $('#archivedSignals'),
+            detailsModal: $('#detailsModal'),
+            modalTitle: $('#modalTitle'),
+            modalSubtitle: $('#modalSubtitle'),
+            modalContent: $('#modalContent'),
+            closeModalButton: $('#closeModalButton'),
+            modalDoneButton: $('#modalDoneButton'),
+            toast: $('#toast')
+        };
+
+        function isConfigured() {
+            return Boolean(
+                SIGNALS_API.baseUrl.trim() &&
+                SIGNALS_API.listEndpoint.trim()
+            );
+        }
+
+        function endpointUrl(endpoint) {
+            if (!endpoint) {
+                throw new Error('The required API endpoint has not been configured.');
+            }
+
+            if (/^https?:\/\//i.test(endpoint)) {
+                return endpoint;
+            }
+
+            if (!SIGNALS_API.baseUrl.trim()) {
+                throw new Error('Configure the backend base URL first.');
+            }
+
+            return SIGNALS_API.baseUrl.replace(/\/+$/, '') +
+                '/' + endpoint.replace(/^\/+/, '');
+        }
+
+        function escapeHTML(value) {
+            return String(value ?? '').replace(/[&<>"']/g, (character) => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            })[character]);
+        }
+
+        function showToast(message) {
+            elements.toast.textContent = message;
+            elements.toast.classList.remove('hidden');
+
+            if (state.toastTimer) {
+                clearTimeout(state.toastTimer);
+            }
+
+            state.toastTimer = setTimeout(() => {
+                elements.toast.classList.add('hidden');
+            }, 4000);
+        }
+
+        function normalizeStatus(value) {
+            const status = String(value ?? '').trim().toLowerCase();
+
+            if (status === 'published' || status === 'draft' ||
+                status === 'archived' || status === 'inactive') {
+                return status;
+            }
+
+            return status || 'unknown';
+        }
+
+        function statusBadge(value) {
+            const status = normalizeStatus(value);
+            const known = ['published', 'draft', 'archived', 'inactive'];
+            const label = known.includes(status)
+                ? status.charAt(0).toUpperCase() + status.slice(1)
+                : 'Unknown';
+
+            return `<span class="status-pill status-${escapeHTML(
+                known.includes(status) ? status : 'unknown'
+            )}">${escapeHTML(label)}</span>`;
+        }
+
+        function formatDate(value) {
+            if (value === null || value === undefined || value === '') {
+                return '—';
+            }
+
+            const date = new Date(value);
+
+            if (Number.isNaN(date.getTime())) {
+                return String(value);
+            }
+
+            return new Intl.DateTimeFormat(undefined, {
+                year: 'numeric',
+                month: 'short',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+            }).format(date);
+        }
+
+        function getRecordId(record) {
+            return record?.id ?? record?._id ?? record?.signalId ?? '';
+        }
+
+        function getRecordTitle(record) {
+            return record?.title ?? record?.name ?? record?.signalTitle ?? '';
+        }
+
+        function getGameName(record) {
+            const game = record?.game;
+
+            if (typeof game === 'string') return game;
+            if (game && typeof game === 'object') {
+                return game.name ?? game.title ?? game.id ?? '';
+            }
+
+            return record?.gameName ?? record?.associatedGame ?? '';
+        }
+
+        function getSignalType(record) {
+            return record?.type ?? record?.signalType ?? '';
+        }
+
+        function getCreatedAt(record) {
+            return record?.createdAt ?? record?.created_at ?? '';
+        }
+
+        function getUpdatedAt(record) {
+            return record?.updatedAt ?? record?.updated_at ?? '';
+        }
+
+        function getRecordStatus(record) {
+            return normalizeStatus(record?.status);
+        }
+
+        function setConnectionState(kind, title, message) {
+            const configuration = {
+                notConfigured: {
+                    label: 'Not configured',
+                    dot: '#FBBF24',
+                    pillClass: 'status-unknown'
+                },
+                connecting: {
+                    label: 'Connecting',
+                    dot: '#38BDF8',
+                    pillClass: 'status-unknown'
+                },
+                connected: {
+                    label: 'Connected',
+                    dot: '#35D995',
+                    pillClass: 'status-published'
+                },
+                error: {
+                    label: 'Connection error',
+                    dot: '#FB7185',
+                    pillClass: 'status-unknown'
+                }
+            };
+
+            const current = configuration[kind] || configuration.error;
+
+            elements.connectionNoticeTitle.textContent = title;
+            elements.connectionNoticeText.textContent = message;
+
+            elements.sidebarConnection.innerHTML =
+                `<span class="status-dot" style="background:${current.dot}"></span>` +
+                escapeHTML(current.label);
+
+            elements.tableConnectionStatus.className =
+                `status-pill ${current.pillClass}`;
+            elements.tableConnectionStatus.textContent = current.label;
+
+            if (kind === 'error') {
+                elements.connectionNotice.style.borderColor =
+                    'rgba(251,113,133,.22)';
+                elements.connectionNotice.style.background =
+                    'rgba(251,113,133,.045)';
+            } else if (kind === 'connected') {
+                elements.connectionNotice.style.borderColor =
+                    'rgba(53,217,149,.22)';
+                elements.connectionNotice.style.background =
+                    'rgba(53,217,149,.045)';
+            } else {
+                elements.connectionNotice.style.borderColor =
+                    'rgba(251,191,36,.19)';
+                elements.connectionNotice.style.background =
+                    'rgba(251,191,36,.045)';
+            }
+        }
+
+        function renderInitialEmptyState(title, description, icon = 'bx-link-alt') {
+            elements.tableBody.innerHTML = `
+        <tr>
+          <td colspan="8">
+            <div class="empty-state">
+              <div class="empty-icon"><i class="bx ${escapeHTML(icon)}"></i></div>
+              <h3 class="empty-title">${escapeHTML(title)}</h3>
+              <p class="empty-description">${escapeHTML(description)}</p>
+            </div>
+          </td>
+        </tr>
+      `;
+
+            elements.recordsSummary.textContent = 'No records loaded.';
+            elements.paginationInfo.textContent = 'No records to display.';
+            elements.pageIndicator.textContent = 'Page 0 of 0';
+            elements.previousPage.disabled = true;
+            elements.nextPage.disabled = true;
+            elements.exportButton.disabled = true;
+        }
+
+        function updateMetrics(records) {
+            if (!state.loaded) {
+                elements.totalSignals.textContent = '—';
+                elements.publishedSignals.textContent = '—';
+                elements.draftSignals.textContent = '—';
+                elements.archivedSignals.textContent = '—';
+                return;
+            }
+
+            elements.totalSignals.textContent = String(records.length);
+            elements.publishedSignals.textContent = String(
+                records.filter(record => getRecordStatus(record) === 'published').length
+            );
+            elements.draftSignals.textContent = String(
+                records.filter(record => getRecordStatus(record) === 'draft').length
+            );
+            elements.archivedSignals.textContent = String(
+                records.filter(record => {
+                    const status = getRecordStatus(record);
+                    return status === 'archived' || status === 'inactive';
+                }).length
+            );
+        }
+
+        function updateGameFilter(records) {
+            const selected = elements.gameFilter.value;
+            const games = [...new Set(
+                records.map(getGameName).filter(value => value !== '')
+            )].sort((a, b) => String(a).localeCompare(String(b)));
+
+            elements.gameFilter.innerHTML =
+                '<option value="">All games</option>' +
+                games.map(game =>
+                    `<option value="${escapeHTML(game)}">${escapeHTML(game)}</option>`
+                ).join('');
+
+            if (games.some(game => String(game) === selected)) {
+                elements.gameFilter.value = selected;
+            }
+        }
+
+        function applyFilters() {
+            const search = elements.searchInput.value.trim().toLowerCase();
+            const selectedGame = elements.gameFilter.value;
+            const selectedStatus = elements.statusFilter.value;
+            const fromDate = elements.dateFrom.value;
+            const toDate = elements.dateTo.value;
+
+            state.pageSize = Number(elements.pageSize.value) || 10;
+
+            state.filteredRecords = state.records.filter(record => {
+                const id = String(getRecordId(record)).toLowerCase();
+                const title = String(getRecordTitle(record)).toLowerCase();
+                const game = String(getGameName(record));
+                const status = getRecordStatus(record);
+
+                if (search && !id.includes(search) && !title.includes(search)) {
+                    return false;
+                }
+
+                if (selectedGame && game !== selectedGame) return false;
+                if (selectedStatus && status !== selectedStatus) return false;
+
+                const created = getCreatedAt(record);
+                if (fromDate || toDate) {
+                    const createdDate = created ? new Date(created) : null;
+
+                    if (!createdDate || Number.isNaN(createdDate.getTime())) {
+                        return false;
+                    }
+
+                    if (fromDate && createdDate < new Date(`${fromDate}T00:00:00`)) {
+                        return false;
+                    }
+
+                    if (toDate && createdDate > new Date(`${toDate}T23:59:59.999`)) {
+                        return false;
+                    }
+                }
+
+                return true;
+            });
+
+            state.page = 1;
+            renderTable();
+        }
+
+        function renderTable() {
+            const records = state.filteredRecords;
+            const total = records.length;
+            const pageCount = Math.ceil(total / state.pageSize);
+            const currentPage = pageCount ? Math.min(state.page, pageCount) : 0;
+
+            if (currentPage && currentPage !== state.page) {
+                state.page = currentPage;
+            }
+
+            const start = currentPage ? (currentPage - 1) * state.pageSize : 0;
+            const pageRecords = records.slice(start, start + state.pageSize);
+
+            updateMetrics(state.records);
+
+            elements.recordsSummary.textContent = state.loaded
+                ? `${total} matching record${total === 1 ? '' : 's'}`
+                : 'No records loaded.';
+
+            elements.paginationInfo.textContent = total
+                ? `Showing ${start + 1}–${Math.min(start + pageRecords.length, total)} of ${total} matching records`
+                : 'No records to display.';
+
+            elements.pageIndicator.textContent = `Page ${currentPage} of ${pageCount}`;
+            elements.previousPage.disabled = !currentPage || currentPage <= 1;
+            elements.nextPage.disabled = !currentPage || currentPage >= pageCount;
+
+            elements.exportButton.disabled = !state.loaded || records.length === 0;
+
+            if (!state.loaded) return;
+
+            if (!pageRecords.length) {
+                renderInitialEmptyState(
+                    'No matching signals',
+                    'No records match the selected filters. Clear or adjust your filters to review the loaded records.',
+                    'bx-search-alt'
+                );
+                elements.recordsSummary.textContent = `${total} matching records`;
+                return;
+            }
+
+            elements.tableBody.innerHTML = pageRecords.map((record, index) => {
+                const id = getRecordId(record);
+                const title = getRecordTitle(record);
+                const game = getGameName(record);
+                const type = getSignalType(record);
+                const created = getCreatedAt(record);
+                const updated = getUpdatedAt(record);
+
+                return `
+          <tr>
+            <td>
+              <span class="table-primary">${escapeHTML(id || '—')}</span>
+            </td>
+            <td>
+              <div class="table-primary">${escapeHTML(title || 'Untitled')}</div>
+            </td>
+            <td>${escapeHTML(game || '—')}</td>
+            <td>${escapeHTML(type || '—')}</td>
+            <td>${escapeHTML(formatDate(created))}</td>
+            <td>${escapeHTML(formatDate(updated))}</td>
+            <td>${statusBadge(record.status)}</td>
+            <td>
+              <button
+                class="icon-btn"
+                type="button"
+                data-view-index="${start + index}"
+                aria-label="View details for signal ${escapeHTML(id || title || 'record')}"
+                title="View details">
+                <i class="bx bx-show-alt"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+            }).join('');
+        }
+
+        function openDetails(record) {
+            if (!record || typeof record !== 'object') return;
+
+            state.selectedRecord = record;
+            elements.modalTitle.textContent = getRecordTitle(record) || 'Signal details';
+            elements.modalSubtitle.textContent =
+                `Signal ID: ${getRecordId(record) || 'Not provided by API'}`;
+
+            const preferredFields = [
+                ['Signal ID', getRecordId(record)],
+                ['Title', getRecordTitle(record)],
+                ['Associated game', getGameName(record)],
+                ['Signal type', getSignalType(record)],
+                ['Status', getRecordStatus(record)],
+                ['Created at', formatDate(getCreatedAt(record))],
+                ['Updated at', formatDate(getUpdatedAt(record))]
+            ];
+
+            const knownKeys = new Set([
+                'id', '_id', 'signalId', 'title', 'name', 'signalTitle',
+                'game', 'gameName', 'associatedGame', 'type', 'signalType',
+                'status', 'createdAt', 'created_at', 'updatedAt', 'updated_at'
+            ]);
+
+            const extraFields = Object.entries(record).filter(([key, value]) =>
+                !knownKeys.has(key) &&
+                value !== null &&
+                value !== undefined &&
+                typeof value !== 'object'
+            );
+
+            const detailRows = preferredFields.map(([label, value]) => `
+        <div class="detail-row">
+          <span class="detail-key">${escapeHTML(label)}</span>
+          <span class="detail-value">${escapeHTML(value === '' ? '—' : value)}</span>
+        </div>
+      `);
+
+            extraFields.forEach(([key, value]) => {
+                detailRows.push(`
+          <div class="detail-row">
+            <span class="detail-key">${escapeHTML(key)}</span>
+            <span class="detail-value">${escapeHTML(value)}</span>
+          </div>
+        `);
+            });
+
+            elements.modalContent.innerHTML = detailRows.join('');
+            elements.detailsModal.classList.add('open');
+            elements.closeModalButton.focus();
+        }
+
+        function closeDetails() {
+            elements.detailsModal.classList.remove('open');
+            state.selectedRecord = null;
+        }
+
+        function getCollectionFromResponse(payload) {
+            if (Array.isArray(payload)) {
+                return payload;
+            }
+
+            if (!payload || typeof payload !== 'object') {
+                throw new Error('The API response is not a valid records collection.');
+            }
+
+            if (SIGNALS_API.recordsKey) {
+                const collection = SIGNALS_API.recordsKey
+                    .split('.')
+                    .reduce((current, key) => current?.[key], payload);
+
+                if (!Array.isArray(collection)) {
+                    throw new Error(
+                        'The configured records key did not resolve to an array. Check the backend response schema.'
+                    );
+                }
+
+                return collection;
+            }
+
+            throw new Error(
+                'The API returned an object, but the records key has not been configured. Confirm the response schema with your backend developer.'
+            );
+        }
+
+        async function fetchWithTimeout(url, options = {}) {
+            if (state.requestController) {
+                state.requestController.abort();
+            }
+
+            const controller = new AbortController();
+            state.requestController = controller;
+
+            const timeoutId = setTimeout(
+                () => controller.abort(),
+                SIGNALS_API.requestTimeoutMs
+            );
+
+            try {
+                const authHeaders = typeof SIGNALS_API.getAuthHeaders === 'function'
+                    ? await SIGNALS_API.getAuthHeaders()
+                    : {};
+
+                const response = await fetch(url, {
+                    ...options,
+                    headers: {
+                        Accept: 'application/json',
+                        ...authHeaders,
+                        ...(options.headers || {})
+                    },
+                    signal: controller.signal,
+                    credentials: 'same-origin'
+                });
+
+                if (!response.ok) {
+                    throw new Error(`The server returned HTTP ${response.status}.`);
+                }
+
+                return response;
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    throw new Error(
+                        'The request was cancelled or timed out. Please try again.'
+                    );
+                }
+
+                throw error;
+            } finally {
+                clearTimeout(timeoutId);
+
+                if (state.requestController === controller) {
+                    state.requestController = null;
+                }
+            }
+        }
+
+        async function loadSignals() {
+            if (!isConfigured()) {
+                state.loaded = false;
+                state.error = '';
+
+                setConnectionState(
+                    'notConfigured',
+                    'Backend connection not configured',
+                    'Add your actual backend base URL and list endpoint in the SIGNALS_API configuration. No records will be invented or displayed until the API is configured.'
+                );
+
+                updateMetrics([]);
+                renderInitialEmptyState(
+                    'Connect your backend',
+                    'Configure the real signals API endpoint to load records here. This table will not invent signal data.',
+                    'bx-link-alt'
+                );
+
+                return;
+            }
+
+            state.loading = true;
+            elements.refreshButton.disabled = true;
+            elements.refreshButton.innerHTML =
+                '<i class="bx bx-loader-alt bx-spin text-base"></i>Loading records';
+
+            setConnectionState(
+                'connecting',
+                'Connecting to the backend',
+                'Requesting signal records from the configured API endpoint.'
+            );
+
+            renderInitialEmptyState(
+                'Loading signal records',
+                'Waiting for the configured backend to return records.',
+                'bx-loader-alt'
+            );
+
+            try {
+                const response = await fetchWithTimeout(
+                    endpointUrl(SIGNALS_API.listEndpoint),
+                    { method: 'GET' }
+                );
+
+                const payload = await response.json();
+                const records = getCollectionFromResponse(payload);
+
+                if (!records.every(item =>
+                    item && typeof item === 'object' && !Array.isArray(item)
+                )) {
+                    throw new Error(
+                        'The API records collection contains an unsupported record format.'
+                    );
+                }
+
+                if (!SIGNALS_API.responseContainsAllRecords) {
+                    throw new Error(
+                        'The API response schema is not confirmed as a complete record set. Configure server-side pagination or confirm that the endpoint returns all records before using local summaries and filtering.'
+                    );
+                }
+
+                state.records = records;
+                state.loaded = true;
+                state.error = '';
+
+                updateGameFilter(state.records);
+
+                setConnectionState(
+                    'connected',
+                    'Backend connected',
+                    'The configured API returned a records collection. Displayed records and summary counts are based on the received response.'
+                );
+
+                applyFilters();
+
+                if (!state.records.length) {
+                    renderInitialEmptyState(
+                        'No signals available',
+                        'The connected API returned an empty records collection.',
+                        'bx-broadcast'
+                    );
+
+                    updateMetrics([]);
+                    elements.recordsSummary.textContent = '0 records returned by the API.';
+                }
+            } catch (error) {
+                state.records = [];
+                state.filteredRecords = [];
+                state.loaded = false;
+                state.error = error.message;
+
+                updateMetrics([]);
+
+                setConnectionState(
+                    'error',
+                    'Unable to load signal records',
+                    error.message || 'An unexpected error occurred while requesting signal records.'
+                );
+
+                renderInitialEmptyState(
+                    'Records unavailable',
+                    error.message || 'The API request failed. Check the connection and endpoint configuration.',
+                    'bx-error-circle'
+                );
+            } finally {
+                state.loading = false;
+                elements.refreshButton.disabled = false;
+                elements.refreshButton.innerHTML =
+                    '<i class="bx bx-refresh text-base"></i>Refresh records';
+            }
+        }
+
+        function csvEscape(value) {
+            let text = String(value ?? '');
+
+            // Prevent spreadsheet formula execution in exported CSV fields.
+            if (/^[\s]*[=+\-@]/.test(text)) {
+                text = "'" + text;
+            }
+
+            return '"' + text.replace(/"/g, '""') + '"';
+        }
+
+        function exportCSV() {
+            if (!state.loaded || !state.filteredRecords.length) {
+                showToast('There are no loaded records to export.');
+                return;
+            }
+
+            const headers = [
+                'Signal ID',
+                'Signal Title',
+                'Associated Game',
+                'Signal Type',
+                'Created At',
+                'Updated At',
+                'Status'
+            ];
+
+            const rows = state.filteredRecords.map(record => [
+                getRecordId(record),
+                getRecordTitle(record),
+                getGameName(record),
+                getSignalType(record),
+                getCreatedAt(record),
+                getUpdatedAt(record),
+                getRecordStatus(record)
+            ]);
+
+            const csv = [
+                headers.map(csvEscape).join(','),
+                ...rows.map(row => row.map(csvEscape).join(','))
+            ].join('\r\n');
+
+            const blob = new Blob(['\uFEFF', csv], {
+                type: 'text/csv;charset=utf-8;'
+            });
+
+            const url = URL.createObjectURL(blob);
+            const anchor = document.createElement('a');
+
+            anchor.href = url;
+            anchor.download = `kudix-signals-${new Date().toISOString().slice(0, 10)}.csv`;
+            anchor.style.display = 'none';
+
+            document.body.appendChild(anchor);
+            anchor.click();
+            anchor.remove();
+
+            URL.revokeObjectURL(url);
+            showToast(`${rows.length} loaded record(s) exported.`);
+        }
+
+        function clearFilters() {
+            elements.filterForm.reset();
+            elements.pageSize.value = '10';
+            applyFilters();
+        }
+
+        function openSidebar() {
+            elements.sidebar.classList.add('open');
+            elements.mobileOverlay.classList.add('open');
+            elements.mobileMenuButton.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+            elements.sidebar.classList.remove('open');
+            elements.mobileOverlay.classList.remove('open');
+            elements.mobileMenuButton.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+
+        // Navigation
+        elements.mobileMenuButton.addEventListener('click', () => {
+            const isOpen = elements.sidebar.classList.contains('open');
+            isOpen ? closeSidebar() : openSidebar();
+        });
+
+        elements.mobileOverlay.addEventListener('click', closeSidebar);
+
+        elements.sidebar.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeSidebar);
+        });
+
+        // Filters
+        elements.filterForm.addEventListener('submit', event => {
+            event.preventDefault();
+
+            if (!state.loaded) {
+                showToast('Connect the backend and load records before filtering.');
+                return;
+            }
+
+            applyFilters();
+        });
+
+        elements.clearFiltersButton.addEventListener('click', clearFilters);
+
+        elements.pageSize.addEventListener('change', () => {
+            if (state.loaded) applyFilters();
+        });
+
+        // Pagination
+        elements.previousPage.addEventListener('click', () => {
+            if (state.page > 1) {
+                state.page--;
+                renderTable();
+            }
+        });
+
+        elements.nextPage.addEventListener('click', () => {
+            const pages = Math.ceil(
+                state.filteredRecords.length / state.pageSize
+            );
+
+            if (state.page < pages) {
+                state.page++;
+                renderTable();
+            }
+        });
+
+        // Details
+        elements.tableBody.addEventListener('click', event => {
+            const button = event.target.closest('[data-view-index]');
+            if (!button) return;
+
+            const index = Number(button.dataset.viewIndex);
+            const record = state.filteredRecords[index];
+
+            if (record) openDetails(record);
+        });
+
+        elements.closeModalButton.addEventListener('click', closeDetails);
+        elements.modalDoneButton.addEventListener('click', closeDetails);
+
+        elements.detailsModal.addEventListener('click', event => {
+            if (event.target === elements.detailsModal) {
+                closeDetails();
+            }
+        });
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape') {
+                closeDetails();
+                closeSidebar();
+            }
+        });
+
+        // Refresh and export
+        elements.refreshButton.addEventListener('click', loadSignals);
+        elements.exportButton.addEventListener('click', exportCSV);
+
+        // Initial state
+        loadSignals();
+    </script>
+</body>
+
+</html>
+```
