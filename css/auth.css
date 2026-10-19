@@ -4,16 +4,16 @@
 ========================================================= */
 
 :root {
-    --kudix-navy: #0B1020;
-    --kudix-purple: #6D4AFF;
-    --kudix-blue: #287BFF;
+    --kudix-navy: #031D13;
+    --kudix-purple: #16D957;
+    --kudix-blue: #087A3A;
     --kudix-white: #FFFFFF;
-    --kudix-background: #F5F7FC;
-    --kudix-green: #16A36A;
+    --kudix-background: #F5F8F5;
+    --kudix-green: #16D957;
 
-    --auth-text: #18213A;
-    --auth-muted: #758098;
-    --auth-border: #E5E9F2;
+    --auth-text: #308252;
+    --auth-muted: #1bb764;
+    --auth-border: #E1EAE3;
     --auth-error: #C9364F;
 
     --auth-radius-sm: 10px;
@@ -21,7 +21,7 @@
     --auth-radius-lg: 22px;
 
     --auth-shadow:
-        0 24px 70px rgba(20, 31, 61, 0.08);
+        0 24px 70px rgba(3, 29, 19, 0.08);
 }
 
 
@@ -424,15 +424,19 @@
    CSS DASHBOARD PREVIEW
 ========================================================= */
 
+/* =========================================================
+   CSS DASHBOARD PREVIEW — GREEN THEME
+========================================================= */
+
 .dashboard-preview {
     overflow: hidden;
     margin-bottom: 27px;
 
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(22, 217, 87, 0.18);
     border-radius: 17px;
 
-    background: rgba(18, 27, 52, 0.9);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.16);
+    background: rgba(3, 29, 19, 0.96);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.24);
 }
 
 .preview-topbar {
@@ -525,20 +529,16 @@
 
     padding: 15px 16px;
 
-    border: 1px solid rgba(169, 154, 255, 0.2);
+    border: 1px solid rgba(22, 217, 87, 0.25);
     border-radius: 12px;
 
     background:
-        radial-gradient(
-            circle at 100% 0,
-            rgba(40, 123, 255, 0.25),
-            transparent 45%
-        ),
-        linear-gradient(
-            120deg,
-            rgba(109, 74, 255, 0.22),
-            rgba(23, 36, 70, 0.8)
-        );
+        radial-gradient(circle at 100% 0,
+            rgba(22, 217, 87, 0.20),
+            transparent 45%),
+        linear-gradient(120deg,
+            rgba(8, 122, 58, 0.30),
+            rgba(3, 29, 19, 0.95));
 }
 
 .preview-credit-top,
@@ -549,16 +549,16 @@
     gap: 8px;
 }
 
-.preview-credit-top > span {
-    color: #BCC6DF;
-    font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+.preview-credit-top i {
+    color: #16D957;
+    font-size: 19px;
 }
 
-.preview-credit-top i {
-    color: #C2B6FF;
-    font-size: 19px;
+.preview-status>span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #16D957;
 }
 
 .preview-credit-amount {
@@ -626,14 +626,15 @@
     font-size: 16px;
 }
 
+/* Green theme for dashboard preview stat icons */
 .purple-stat {
-    background: rgba(109, 74, 255, 0.17);
-    color: #B6A7FF;
+    background: rgba(9, 213, 97, 0.14);
+    color: #16D957;
 }
 
 .blue-stat {
-    background: rgba(40, 123, 255, 0.16);
-    color: #8BB8FF;
+    background: rgba(22, 217, 87, 0.12);
+    color: #16A36A;
 }
 
 .preview-stat > div:last-child {
@@ -737,7 +738,7 @@
     border-radius: 100px;
 
     background: #F6F3FF;
-    color: #6241E8;
+    color: #41e87b;
 
     font-size: 9px;
     font-weight: 700;
@@ -769,7 +770,7 @@
 
 .existing-account {
     margin-top: 16px;
-    color: #727D95;
+    color: #2f5c34;
     font-size: 12px;
 }
 
@@ -800,7 +801,7 @@
     border-radius: 11px;
 
     background: #F3F7FF;
-    color: #234F9B;
+    color: #399b23;
 
     font-size: 12px;
     line-height: 1.7;
@@ -1685,6 +1686,10 @@
         padding: 35px 28px;
     }
 
+        .visual-intro h1 span {
+            color: #16D957 !important;
+        }
+
     .visual-intro h1 {
         font-size: 34px;
     }
@@ -2019,4 +2024,142 @@
     .phone-input-wrap > input {
         border: 1px solid ButtonText;
     }
+}
+
+
+
+/* =========================================================
+   KUDIX GREEN BRAND OVERRIDE
+   Removes remaining purple and blue accents
+   ========================================================= */
+
+:root {
+    --purple: #16D957 !important;
+    --blue: #087A3A !important;
+
+    --kudix-purple: #16D957 !important;
+    --kudix-blue: #087A3A !important;
+
+    --navy: #031D13;
+    --navy-light: #052E1B;
+
+    --green: #16D957;
+}
+
+/* Purple and blue text accents */
+.eyebrow-label,
+.journey-footer i,
+.journey-feature-icon.purple,
+.journey-feature-icon.blue,
+.cta-decoration-one,
+.cta-decoration-two {
+    color: #39FF14 !important;
+}
+
+/* Purple and blue icon backgrounds */
+.journey-feature-icon.purple,
+.journey-feature-icon.blue {
+    background: rgba(22, 217, 87, 0.15) !important;
+}
+
+/* Main panels and glowing backgrounds */
+.auth-visual-panel {
+    background:
+        radial-gradient(ellipse at 10% 5%,
+            rgba(22, 217, 87, 0.18),
+            transparent 38%),
+        radial-gradient(ellipse at 100% 70%,
+            rgba(8, 122, 58, 0.18),
+            transparent 42%),
+        #031D13 !important;
+}
+
+.visual-orb-one,
+.hero-orb-one {
+    background: rgba(22, 217, 87, 0.18) !important;
+}
+
+.visual-orb-two,
+.hero-orb-two {
+    background: rgba(8, 122, 58, 0.18) !important;
+}
+
+/* Hero labels and indicators */
+.eyebrow {
+    border-color: rgba(22, 217, 87, 0.3) !important;
+    background: rgba(22, 217, 87, 0.09) !important;
+    color: #B7FF45 !important;
+}
+
+.eyebrow-dot {
+    background: #39FF14 !important;
+    box-shadow: 0 0 13px rgba(57, 255, 20, 0.7) !important;
+}
+
+.slide-dot.active {
+    background: linear-gradient(90deg,
+            #39FF14,
+            #16D957) !important;
+}
+
+/* Buttons and floating actions */
+.support-toggle,
+.journey-floating-icon {
+    background: linear-gradient(140deg,
+            #16D957,
+            #087A3A) !important;
+}
+
+.support-toggle {
+    box-shadow: 0 13px 35px rgba(22, 217, 87, 0.25) !important;
+}
+
+.support-pulse {
+    border-color: rgba(22, 217, 87, 0.4) !important;
+}
+
+/* Loader */
+.loader-ring {
+    border-top-color: #39FF14 !important;
+    border-right-color: #16D957 !important;
+}
+
+/* Game card colour themes */
+.visual-colour {
+    background: linear-gradient(140deg,
+            #052E1B,
+            #16D957) !important;
+}
+
+.visual-number {
+    background: linear-gradient(140deg,
+            #064C2A,
+            #087A3A) !important;
+}
+
+.visual-cards {
+    background: linear-gradient(140deg,
+            #052E1B,
+            #087A3A) !important;
+}
+
+/* Purple/blue tinted shadows */
+.journey-floating-icon {
+    box-shadow: 0 20px 45px rgba(22, 217, 87, 0.2) !important;
+}
+
+/* Remove purple/blue from selected text highlights */
+::selection {
+    background: rgba(22, 217, 87, 0.3);
+    color: #FFFFFF;
+}
+
+.visual-intro h1 span,
+.visual-intro h1 span * {
+    color: #16D957 !important;
+    background: none !important;
+    background-image: none !important;
+    -webkit-text-fill-color: #16D957 !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
 }

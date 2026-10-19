@@ -1,19 +1,19 @@
 :root {
-    --navy: #0B1020;
-    --navy-soft: #11182B;
-    --panel: #131B2E;
-    --panel-raised: #182238;
-    --purple: #20C984;
-    --blue: #20C984;
-    --green: #16A36A;
-    --green-light: #20C984;
+    --navy: #071A11;
+    --navy-soft: #0B2116;
+    --panel: #0D2418;
+    --panel-raised: #12301F;
+    --purple: #16A34A;
+    --blue: #22C55E;
+    --green: #15803D;
+    --green-light: #4ADE80;
     --white: #FFFFFF;
-    --text: #F4F6FC;
-    --muted: #96A2BA;
-    --border: rgba(157, 174, 207, .13);
-    --page-bg: #090E1B;
-    --input-bg: #0D1425;
-    --shadow: 0 20px 50px rgba(0, 0, 0, .16);
+    --text: #F0F7F1;
+    --muted: #A0B8A7;
+    --border: rgba(134, 239, 172, .13);
+    --page-bg: #06110B;
+    --input-bg: #091A10;
+    --shadow: 0 20px 50px rgba(0, 0, 0, .22);
 }
 
 * {
@@ -66,7 +66,7 @@ input:focus-visible {
     display: flex;
     flex-direction: column;
     padding: 25px 17px 18px;
-    background: #0D1424;
+    background: var(--panel-raised);
     border-right: 1px solid var(--border);
     overflow-y: auto;
 }
@@ -127,11 +127,11 @@ input:focus-visible {
 
 .nav-item.active {
     color: var(--white);
-    background: linear-gradient(100deg, rgba(109, 74, 255, .23), rgba(40, 123, 255, .08));
+    background: linear-gradient(100deg, rgba(74, 255, 131, 0.23), rgba(40, 255, 87, 0.08));
 }
 
 .nav-item.active>i {
-    color: #8F79FF;
+    color: var(--green-light);
 }
 
 .nav-dot {
@@ -156,7 +156,7 @@ input:focus-visible {
 
 .sidebar-help {
     padding: 17px;
-    background: linear-gradient(145deg, rgba(109, 74, 255, .12), rgba(22, 163, 106, .06));
+    background: linear-gradient(145deg, rgba(74, 255, 131, 0.12), rgba(22, 163, 106, .06));
     border: 1px solid var(--border);
     border-radius: 14px;
 }
@@ -167,7 +167,7 @@ input:focus-visible {
     width: 33px;
     height: 33px;
     margin-bottom: 13px;
-    color: #B4A5FF;
+    color: var(--blue);
     background: rgba(109, 74, 255, .15);
     border-radius: 10px;
     font-size: 19px;
@@ -185,7 +185,7 @@ input:focus-visible {
 }
 
 .sidebar-help a {
-    color: #AFA0FF;
+    color: var(--green-light);
     font-size: 11px;
     font-weight: 700;
 }
@@ -256,7 +256,7 @@ input:focus-visible {
     align-items: center;
     gap: 8px;
     color: #A8B4C9;
-    background: rgba(255, 255, 255, .035);
+    background: rgba(3, 84, 15, 0.035);
     border: 1px solid var(--border);
     border-radius: 30px;
     padding: 9px 12px;
@@ -277,7 +277,7 @@ input:focus-visible {
     display: grid;
     place-items: center;
     color: var(--text);
-    background: #182137;
+    background: var(--green);
     border: 1px solid var(--border);
     border-radius: 50%;
     font-size: 20px;
@@ -285,7 +285,7 @@ input:focus-visible {
 }
 
 .icon-button:hover {
-    border-color: rgba(109, 74, 255, .7);
+    border-color: var(--green);
 }
 
 .menu-button {
@@ -304,7 +304,7 @@ input:focus-visible {
     display: grid;
     place-items: center;
     color: #B7A9FF;
-    background: rgba(109, 74, 255, .17);
+    background: var(--green);
     border: 1px solid rgba(109, 74, 255, .15);
     border-radius: 50%;
     font-size: 20px;
@@ -348,7 +348,7 @@ input:focus-visible {
     align-items: center;
     gap: 7px;
     margin-bottom: 11px;
-    color: #A998FF;
+    color: var(--blue);
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 1.3px;
@@ -365,7 +365,7 @@ input:focus-visible {
 }
 
 .page-intro h2 span {
-    color: #9B89FF;
+    color: var(--blue);
 }
 
 .page-intro p {
@@ -428,7 +428,7 @@ input:focus-visible {
     isolation: isolate;
     border-radius: 21px;
     border: 1px solid rgba(191, 174, 255, .25);
-    background: linear-gradient(118deg, #8957F5 0%, #743FE4 57%, #562BCB 100%);
+    background: linear-gradient(118deg, #57f59e 0%, #0a972d 57%, #19441f 100%);
     box-shadow: 0 16px 35px rgba(87, 46, 190, .18);
 }
 
@@ -486,7 +486,7 @@ input:focus-visible {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    color: #F0EAFE;
+    color: #eafeeb;
     font-size: 9px;
 }
 
@@ -512,14 +512,14 @@ input:focus-visible {
 
 .circle-back {
     inset: 8px 0 0 8px;
-    background: rgba(255, 255, 255, .11);
+    background: var(--green);
     border: 1px solid rgba(255, 255, 255, .2);
 }
 
 .circle-front {
     inset: 22px 14px 14px 0;
     color: #E7E0FF;
-    background: linear-gradient(145deg, rgba(255, 255, 255, .24), rgba(255, 255, 255, .07));
+    background: linear-gradient(145deg, rgba(15, 122, 35, 0.24), rgba(36, 120, 39, 0.07));
     border: 1px solid rgba(255, 255, 255, .35);
     box-shadow: 0 10px 25px rgba(38, 15, 99, .18);
 }
@@ -538,7 +538,7 @@ input:focus-visible {
     height: 33px;
     color: #0D5138;
     background: #B8F5D8;
-    border: 3px solid #7945E4;
+    border: 3px solid #0c6902;
     border-radius: 50%;
     font-size: 19px;
 }
@@ -578,8 +578,8 @@ input:focus-visible {
     height: 38px;
     display: grid;
     place-items: center;
-    color: #A795FF;
-    background: rgba(109, 74, 255, .12);
+    color: #fff;
+    background: var(--green);
     border-radius: 11px;
     font-size: 21px;
 }
@@ -596,8 +596,8 @@ input:focus-visible {
 }
 
 .demo-label {
-    color: #AFA2FF;
-    background: rgba(109, 74, 255, .11);
+    color: #FFF;
+    background: var(--panel-raised);
     border: 1px solid rgba(109, 74, 255, .14);
     border-radius: 30px;
     padding: 7px 10px;
@@ -636,7 +636,7 @@ input:focus-visible {
 
 .filter-button.active {
     color: #C8BEFF;
-    background: rgba(109, 74, 255, .13);
+    background: rgba(74, 255, 137, 0.13);
     border-color: rgba(109, 74, 255, .18);
 }
 
@@ -700,7 +700,7 @@ input:focus-visible {
 }
 
 .visual-purple {
-    background: linear-gradient(125deg, #262052, #30205B 60%, #191C3A);
+    background: linear-gradient(125deg, #20523d, #205b3a 60%, #193a2e);
 }
 
 .visual-green {
@@ -720,7 +720,7 @@ input:focus-visible {
     gap: 5px;
     padding: 6px 9px;
     color: #E5E0FF;
-    background: rgba(7, 11, 25, .35);
+    background: rgba(7, 25, 15, 0.35);
     border: 1px solid rgba(255, 255, 255, .1);
     border-radius: 30px;
     font-size: 9px;
@@ -739,7 +739,7 @@ input:focus-visible {
     display: grid;
     place-items: center;
     color: #F3F0FF;
-    background: rgba(255, 255, 255, .09);
+    background: rgba(255, 255, 255, 0.09);
     border: 1px solid rgba(255, 255, 255, .19);
     border-radius: 23px;
     transform: rotate(-5deg);
@@ -875,7 +875,7 @@ input:focus-visible {
 .button-outline {
     color: #8FB7FF;
     background: rgba(40, 123, 255, .09);
-    border: 1px solid rgba(40, 123, 255, .75);
+    border: 1px solid rgba(40, 255, 65, 0.75);
 }
 
 .button-outline:hover {
@@ -884,7 +884,7 @@ input:focus-visible {
 
 .button-primary {
     color: #FFFFFF;
-    background: linear-gradient(105deg, #7652F2, #6842DD);
+    background: linear-gradient(105deg, #52f29d, #42dd54);
     border: 1px solid transparent;
     box-shadow: 0 5px 14px rgba(109, 74, 255, .13);
 }
@@ -1228,7 +1228,7 @@ input:focus-visible {
     max-height: 92vh;
     overflow-y: auto;
     padding: 25px;
-    background: #141C30;
+    background: var(--panel-raised);
     border: 1px solid rgba(160, 174, 205, .2);
     border-radius: 19px;
     box-shadow: 0 25px 80px rgba(0, 0, 0, .35);
@@ -1246,7 +1246,7 @@ input:focus-visible {
     display: grid;
     place-items: center;
     color: #B8AAFF;
-    background: rgba(109, 74, 255, .15);
+    background: rgba(74, 255, 149, 0.15);
     border-radius: 13px;
     font-size: 23px;
 }
@@ -1303,7 +1303,7 @@ input:focus-visible {
     gap: 8px;
     padding: 18px;
     color: #A998FF;
-    background: rgba(109, 74, 255, .055);
+    background: rgba(74, 255, 128, 0.055);
     border: 1px dashed rgba(155, 135, 255, .45);
     border-radius: 12px;
     text-align: center;
@@ -1498,15 +1498,15 @@ body.light-theme .modal-close {
 }
 
 body.light-theme .task-type {
-    color: #68768D;
+    color: #000;
 }
 
 body.light-theme .task-requirements {
-    color: #65738B;
+    color: #000307;
 }
 
 body.light-theme .profile-copy strong {
-    color: #172238;
+    color: #000000;
 }
 
 @media (min-width: 1500px) {

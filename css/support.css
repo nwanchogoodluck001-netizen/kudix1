@@ -1,34 +1,33 @@
 :root {
-    --navy: #0B1020;
-    --purple: #6D4AFF;
-    --blue: #287BFF;
-    --green: #16A36A;
-    --page-bg: #080D18;
-    --surface: #101626;
-    --surface-soft: #171F33;
-    --text: #F5F7FF;
-    --text-secondary: #A0ACC4;
-    --muted: #75829C;
-    --border: #222B40;
-    --sidebar-bg: #101626;
-    --sidebar-text: #8D9AB2;
-    --sidebar-active-bg: #1A243B;
+    --navy: #06110B;
+    --purple: #22C55E;
+    --blue: #16A34A;
+    --green: #16A34A;
+    --page-bg: #080F0A;
+    --surface: #0D1F15;
+    --surface-soft: #10271A;
+    --text: #F0F7F1;
+    --text-secondary: #B0C5B5;
+    --muted: #82998A;
+    --border: #203D2A;
+    --sidebar-bg: #0D1F15;
+    --sidebar-text: #B0C5B5;
+    --sidebar-active-bg: #173722;
     --danger: #F04452;
 }
 
 body.light-theme {
-    --page-bg: #F5F7FC;
+    --page-bg: #F4F8F5;
     --surface: #FFFFFF;
-    --surface-soft: #F7F8FC;
-    --text: #151B2D;
-    --text-secondary: #707991;
-    --muted: #929AAF;
-    --border: #E8EBF3;
+    --surface-soft: #F8FCF9;
+    --text: #14251A;
+    --text-secondary: #667B6D;
+    --muted: #8C9D91;
+    --border: #E1EBE3;
     --sidebar-bg: #FFFFFF;
-    --sidebar-text: #69738A;
-    --sidebar-active-bg: #F0ECFF;
+    --sidebar-text: #667B6D;
+    --sidebar-active-bg: #E8F7EC;
 }
-
 * {
     box-sizing: border-box;
 }
@@ -64,7 +63,7 @@ a {
 
 button:focus-visible,
 a:focus-visible {
-    outline: 3px solid rgba(109, 74, 255, 0.5);
+    outline: 3px solid rgba(74, 255, 89, 0.5);
     outline-offset: 3px;
 }
 
@@ -189,7 +188,7 @@ a:focus-visible {
     height: 33px;
     place-items: center;
     color: var(--purple);
-    background: rgba(109, 74, 255, 0.14);
+    background: rgba(74, 255, 74, 0.14);
     border-radius: 9px;
     font-size: 19px;
 }
@@ -376,7 +375,7 @@ a:focus-visible {
     align-items: center;
     gap: 8px;
     margin-bottom: 9px;
-    color: #9B85FF;
+    color: var(--purple);
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 1.5px;
@@ -400,7 +399,7 @@ a:focus-visible {
 }
 
 .page-heading h1>span {
-    color: #9B85FF;
+    color: var(--purple);
 }
 
 .page-heading p {
@@ -417,7 +416,7 @@ a:focus-visible {
     height: 51px;
     flex-shrink: 0;
     place-items: center;
-    color: #9B85FF;
+    color: var(--purple);
     background: rgba(109, 74, 255, 0.13);
     border: 1px solid rgba(109, 74, 255, 0.2);
     border-radius: 14px;
@@ -467,7 +466,7 @@ a:focus-visible {
     height: 40px;
     place-items: center;
     color: #FFFFFF;
-    background: linear-gradient(135deg, #6D4AFF, #287BFF);
+    background: linear-gradient(135deg, #6eff4a, #28ffbb);
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     font-size: 21px;
@@ -502,7 +501,7 @@ a:focus-visible {
     align-items: center;
     gap: 6px;
     margin-top: 3px;
-    color: #9DA9C0;
+    color: var(--purple);
     font-size: 10px;
 }
 
@@ -518,8 +517,8 @@ a:focus-visible {
     flex-shrink: 0;
     place-items: center;
     color: #A0ACC4;
-    background: #192239;
-    border: 1px solid #28324A;
+    background: var(--green);
+    border: 1px solid var(--surface-soft);
     border-radius: 9px;
     font-size: 18px;
 }
@@ -549,11 +548,11 @@ a:focus-visible {
 }
 
 .chat-messages::-webkit-scrollbar-track {
-    background: #080D17;
+    background: #000000;
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-    background: #414A61;
+    background: #000000;
     border: 2px solid #080D17;
     border-radius: 10px;
 }
@@ -564,7 +563,7 @@ a:focus-visible {
     justify-content: center;
     gap: 12px;
     margin: 1px 0 4px;
-    color: #6F7C95;
+    color: var(--purple);
     font-size: 8px;
     font-weight: 700;
     letter-spacing: 1px;
@@ -574,7 +573,7 @@ a:focus-visible {
 .chat-date-divider::after {
     width: 35px;
     height: 1px;
-    background: #222B40;
+    background: var(--green);
     content: "";
 }
 
@@ -600,7 +599,7 @@ a:focus-visible {
     height: 25px;
     flex-shrink: 0;
     place-items: center;
-    color: #A999FF;
+    color: var(--purple);
     background: #20203B;
     border: 1px solid #34314F;
     border-radius: 50%;
@@ -631,8 +630,8 @@ a:focus-visible {
 }
 
 .outgoing .message-bubble {
-    background: #287BFF;
-    border-color: #3986FF;
+    background: var(--green);
+    border-color: var(--purple);
     border-radius: 13px 13px 4px 13px;
 }
 
@@ -687,8 +686,8 @@ a:focus-visible {
     min-height: 42px;
     padding: 9px 13px;
     color: #FFFFFF;
-    background: #347FF1;
-    border: 1px solid #438BFF;
+    background: var(--purple);
+    border: 1px solid var(--purple);
     border-radius: 9px;
     font-size: 11px;
     font-weight: 700;
@@ -706,7 +705,7 @@ a:focus-visible {
 }
 
 .telegram-button:hover {
-    background: #246CE0;
+    background: var(--green);
     transform: translateY(-1px);
 }
 

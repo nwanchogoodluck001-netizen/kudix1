@@ -1,29 +1,29 @@
 :root {
-    --navy: #0B1020;
-    --purple: #6D4AFF;
-    --blue: #287BFF;
-    --green: #16A36A;
-    --bg: #F5F7FC;
+    --navy: #06110B;
+    --purple: #22C55E;
+    --blue: #16A34A;
+    --green: #16A34A;
+    --bg: #F4F8F5;
     --surface: #FFFFFF;
-    --surface-soft: #F8F9FD;
-    --text: #172039;
-    --text-secondary: #69738A;
-    --muted: #929BB0;
-    --border: #E8ECF4;
+    --surface-soft: #F8FCF9;
+    --text: #14251A;
+    --text-secondary: #667B6D;
+    --muted: #8C9D91;
+    --border: #E1EBE3;
     --sidebar-width: 258px;
     --topbar-height: 82px;
-    --shadow: 0 5px 24px rgba(20, 34, 68, 0.045);
+    --shadow: 0 5px 24px rgba(20, 50, 30, 0.045);
 }
 
 html.dark {
     color-scheme: dark;
-    --bg: #090E1B;
-    --surface: #11192B;
-    --surface-soft: #151E32;
-    --text: #F0F3FC;
-    --text-secondary: #A4AEC4;
-    --muted: #8793AB;
-    --border: #263149;
+    --bg: #080F0A;
+    --surface: #0D1F15;
+    --surface-soft: #10271A;
+    --text: #F0F7F1;
+    --text-secondary: #B0C5B5;
+    --muted: #82998A;
+    --border: #203D2A;
     --shadow: 0 5px 24px rgba(0, 0, 0, 0.12);
 }
 
@@ -451,7 +451,7 @@ button:disabled {
     height: 65px;
     border: 5px solid var(--surface);
     border-radius: 21px;
-    background: linear-gradient(145deg, #8064ff, #5733e9);
+    background: linear-gradient(145deg, #64ff73, #33e945);
     box-shadow: 0 12px 25px rgba(109, 74, 255, 0.25);
     color: white;
     font-size: 30px;

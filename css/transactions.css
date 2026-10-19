@@ -2,39 +2,38 @@
    KUDIX TRANSACTIONS
    Premium responsive dashboard
 ========================================================= */
-
 :root {
-    --navy: #0B1020;
-    --navy-soft: #11182B;
-    --purple: #6D4AFF;
-    --blue: #287BFF;
-    --green: #16A36A;
+    --navy: #0B1F17;
+    --navy-soft: #10271A;
+    --purple: #16A34A;
+    --blue: #22C55E;
+    --green: #15803D;
 
-    --background: #F5F7FC;
+    --background: #F4F8F5;
     --surface: #FFFFFF;
-    --surface-soft: #F8FAFF;
+    --surface-soft: #F8FCF9;
 
-    --text: #182238;
-    --text-secondary: #647089;
-    --text-muted: #8C96AA;
+    --text: #14251A;
+    --text-secondary: #647B6B;
+    --text-muted: #8C9D91;
 
-    --border: #E7EBF3;
+    --border: #E1EBE3;
     --sidebar-width: 258px;
 
-    --success-bg: #E8F8F0;
-    --success-text: #128456;
+    --success-bg: #E8F8EC;
+    --success-text: #15803D;
 
-    --pending-bg: #FFF5DF;
-    --pending-text: #A96C08;
+    --pending-bg: #F0F8E8;
+    --pending-text: #527A24;
 
     --failed-bg: #FFF0F0;
     --failed-text: #D34242;
 
-    --reversed-bg: #F0EBFF;
-    --reversed-text: #6D4AFF;
+    --reversed-bg: #E8F8EC;
+    --reversed-text: #16A34A;
 
-    --shadow-sm: 0 3px 14px rgba(17, 28, 55, 0.035);
-    --shadow-md: 0 14px 35px rgba(17, 28, 55, 0.07);
+    --shadow-sm: 0 3px 14px rgba(11, 31, 23, 0.035);
+    --shadow-md: 0 14px 35px rgba(11, 31, 23, 0.07);
 }
 
 * {
@@ -1669,27 +1668,27 @@ select:focus-visible {
 /* ================= DARK THEME ================= */
 
 body.dark-theme {
-    --background: #080D19;
-    --surface: #101829;
-    --surface-soft: #141E32;
+    --background: #06110B;
+    --surface: #0D1F15;
+    --surface-soft: #10271A;
 
-    --text: #F0F3FC;
-    --text-secondary: #A0ACC2;
-    --text-muted: #77849C;
+    --text: #F0F7F1;
+    --text-secondary: #B0C5B5;
+    --text-muted: #82998A;
 
-    --border: #243047;
+    --border: #203D2A;
 
-    --success-bg: rgba(22, 163, 106, 0.15);
-    --success-text: #4BDEA1;
+    --success-bg: rgba(22, 163, 74, 0.15);
+    --success-text: #4ADE80;
 
-    --pending-bg: rgba(209, 139, 20, 0.15);
-    --pending-text: #FFD078;
+    --pending-bg: rgba(132, 204, 22, 0.15);
+    --pending-text: #BEF264;
 
     --failed-bg: rgba(211, 66, 66, 0.15);
     --failed-text: #FF9292;
 
-    --reversed-bg: rgba(109, 74, 255, 0.16);
-    --reversed-text: #B5A4FF;
+    --reversed-bg: rgba(34, 197, 94, 0.16);
+    --reversed-text: #86EFAC;
 
     --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.09);
     --shadow-md: 0 14px 35px rgba(0, 0, 0, 0.18);

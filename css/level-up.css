@@ -1,15 +1,15 @@
 :root {
-    --navy: #0B1020;
-    --purple: #6D4AFF;
-    --blue: #287BFF;
-    --green: #16A36A;
-    --page: #080D18;
-    --surface: #101626;
-    --surface-2: #171F33;
-    --text: #F7F8FC;
-    --muted: #92A0BA;
-    --border: #222C41;
-    --sidebar: #101626;
+    --navy: #06110B;
+    --purple: #22C55E;
+    --blue: #16A34A;
+    --green: #16A34A;
+    --page: #080F0A;
+    --surface: #0D1F15;
+    --surface-2: #12301F;
+    --text: #F0F7F1;
+    --muted: #B0C5B5;
+    --border: #203D2A;
+    --sidebar: #0D1F15;
 }
 
 * {
@@ -53,7 +53,7 @@ a {
 
 button:focus-visible,
 a:focus-visible {
-    outline: 2px solid #927EFF;
+    outline: 2px solid var(--green);
 }
 
 a {
@@ -122,7 +122,7 @@ button {
     gap: 13px;
     min-height: 44px;
     padding: 0 12px;
-    color: #91A0B9;
+    color: ;
     border-radius: 10px;
     font-size: 12px;
     font-weight: 600;
@@ -135,7 +135,7 @@ button {
 
 .nav-link:hover {
     color: #FFFFFF;
-    background: #19223A;
+    background: var(--green);
 }
 
 .light-theme .nav-link:hover {
@@ -145,7 +145,7 @@ button {
 
 .nav-link.active {
     color: #FFFFFF;
-    background: #1A243C;
+    background: var(--border);
 }
 
 .light-theme .nav-link.active {
@@ -190,8 +190,8 @@ button {
     height: 34px;
     flex-shrink: 0;
     place-items: center;
-    color: #A18DFF;
-    background: #29214D;
+    color: var(--blue);
+    background: var(--border);
     border-radius: 9px;
     font-size: 20px;
 }
@@ -208,7 +208,7 @@ button {
 }
 
 .sidebar-help a {
-    color: #A18DFF;
+    color: var(--green);
     font-size: 10px;
     font-weight: 700;
 }
@@ -261,9 +261,9 @@ button {
     width: 43px;
     height: 43px;
     place-items: center;
-    color: #18C5B2;
-    background: #1A243C;
-    border: 1px solid #2A3651;
+    color: var(--purple);
+    background: var(--green);
+    border: 1px solid var(--border);
     border-radius: 50%;
     font-size: 22px;
 }
@@ -328,7 +328,7 @@ button {
     align-items: center;
     gap: 8px;
     margin-bottom: 7px;
-    color: #A18DFF;
+    color: var(--purple);
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 1.3px;
@@ -348,7 +348,7 @@ button {
 }
 
 .page-heading h1 span {
-    color: #927BFF;
+    color: var(--purple);
 }
 
 .page-heading p {
@@ -394,7 +394,7 @@ button {
 
 .status-message>i {
     flex-shrink: 0;
-    color: #70A4FF;
+    color: var(--blue);
     font-size: 18px;
 }
 
@@ -449,7 +449,7 @@ button {
     height: 54px;
     place-items: center;
     color: #FFFFFF;
-    background: linear-gradient(140deg, #8066FF, #4D35D5);
+    background: linear-gradient(140deg, #66ff82, #35d572);
     border: 1px solid rgba(255, 255, 255, .14);
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(109, 74, 255, .2);
@@ -461,9 +461,9 @@ button {
     align-items: center;
     gap: 6px;
     padding: 7px 9px;
-    color: #A18DFF;
-    background: rgba(109, 74, 255, .1);
-    border: 1px solid rgba(109, 74, 255, .17);
+    color: #FFF;
+    background: rgba(74, 255, 95, 0.1);
+    border: 1px solid rgba(74, 255, 74, 0.17);
     border-radius: 8px;
     font-size: 8px;
     font-weight: 800;
@@ -563,9 +563,9 @@ button {
     height: 38px;
     flex-shrink: 0;
     place-items: center;
-    color: #A18DFF;
-    background: rgba(109, 74, 255, .1);
-    border: 1px solid rgba(109, 74, 255, .12);
+    color: var(--purple);
+    background: rgba(80, 255, 74, 0.1);
+    border: 1px solid rgba(107, 255, 74, 0.12);
     border-radius: 11px;
     font-size: 20px;
 }
@@ -609,10 +609,10 @@ button {
     min-height: 51px;
     padding: 13px 15px;
     color: #FFFFFF;
-    background: linear-gradient(110deg, #6D4AFF, #5136D7);
-    border: 1px solid rgba(255, 255, 255, .12);
+    background: linear-gradient(110deg, #4aff65, #36d756);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 12px;
-    box-shadow: 0 8px 22px rgba(109, 74, 255, .15);
+    box-shadow: 0 8px 22px rgba(9, 168, 41, 0.15);
     font-size: 11px;
     font-weight: 800;
     transition: transform .2s, box-shadow .2s, opacity .2s;
@@ -633,7 +633,7 @@ button {
 
 .paystack-button:disabled {
     color: #A2ABC0;
-    background: #30384B;
+    background: var(--blue);
     border-color: transparent;
     box-shadow: none;
     cursor: not-allowed;
@@ -708,7 +708,7 @@ button {
 
 .purple-icon {
     color: #A18DFF;
-    background: rgba(109, 74, 255, .13);
+    background: rgba(74, 255, 149, 0.13);
 }
 
 .aside-card-heading h3,
@@ -774,7 +774,7 @@ button {
     flex-shrink: 0;
     place-items: center;
     color: #A18DFF;
-    background: rgba(109, 74, 255, .12);
+    background: rgba(74, 255, 110, 0.12);
     border: 1px solid rgba(109, 74, 255, .18);
     border-radius: 10px;
     font-size: 10px;
@@ -812,7 +812,7 @@ button {
     align-items: flex-start;
     gap: 12px;
     padding: 17px;
-    background: rgba(40, 123, 255, .06);
+    background: rgba(62, 255, 40, 0.06);
     border: 1px solid rgba(40, 123, 255, .16);
     border-radius: 14px;
 }
@@ -824,7 +824,7 @@ button {
     flex-shrink: 0;
     place-items: center;
     color: #76A7FF;
-    background: rgba(40, 123, 255, .13);
+    background: rgba(40, 255, 69, 0.13);
     border-radius: 10px;
     font-size: 20px;
 }

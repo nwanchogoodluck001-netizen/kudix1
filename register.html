@@ -29,28 +29,29 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        kudix: {
-                            navy: "#0B1020",
-                            purple: "#6D4AFF",
-                            blue: "#287BFF",
-                            white: "#FFFFFF",
-                            background: "#F5F7FC",
-                            green: "#16A36A"
-                        }
-                    },
-                    fontFamily: {
-                        sora: ["Sora", "sans-serif"],
-                        inter: ["Inter", "sans-serif"]
+  <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    kudix: {
+                        navy: "#031D13",
+                        purple: "#087A3A",
+                        blue: "#16D957",
+                        white: "#FFFFFF",
+                        background: "#F5F8F5",
+                        green: "#16A36A"
                     }
+                },
+                fontFamily: {
+                    sora: ["Sora", "sans-serif"],
+                    inter: ["Inter", "sans-serif"]
                 }
             }
-        };
-    </script>
+        }
+    };
+</script>
+
 
     <!-- Shared website styles -->
     <link rel="stylesheet" href="css/style.css">
@@ -609,6 +610,31 @@
             </div>
 
 
+            <!-- Terms and Conditions -->
+            <div class="form-field terms-field">
+                <label class="terms-label" for="termsAccepted">
+                    <input type="checkbox" id="termsAccepted" name="termsAccepted" required aria-describedby="termsError">
+                    <span>
+                        I agree to the <a href="terms.html" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>
+                        and <a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+                    </span>
+                </label>
+            
+                <small class="field-error" id="termsError" aria-live="polite"></small>
+            </div>
+            
+            <!-- Optional Marketing Consent -->
+            <div class="form-field marketing-field">
+                <label class="terms-label" for="marketingConsent">
+                    <input type="checkbox" id="marketingConsent" name="marketingConsent">
+                    <span>
+                        I would like to receive optional KUDIX updates and promotional messages.
+                    </span>
+                </label>
+            </div>
+
+
+
 
                     <!-- Terms -->
                  
@@ -664,7 +690,7 @@
     <!-- <script src="config/app-config.js"></script> -->
 
     <!-- Registration interactions -->
-    <script src="js/auth.js" defer></script>
+    <script src="/js/auth.js" defer></script>
 
 </body>
 </html>

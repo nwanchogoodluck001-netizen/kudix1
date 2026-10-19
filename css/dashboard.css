@@ -7,28 +7,28 @@
 :root {
     color-scheme: light;
 
-    --navy: #0B1020;
-    --purple: #6D4AFF;
-    --blue: #287BFF;
+    --navy: #0B1F17;
+    --purple: #16A34A;
+    --blue: #22C55E;
     --white: #FFFFFF;
-    --success: #16A36A;
+    --success: #15803D;
 
-    --page-bg: #F5F7FC;
+    --page-bg: #F4F8F5;
     --surface: #FFFFFF;
-    --surface-soft: #F8F9FD;
-    --surface-hover: #F0F2F9;
+    --surface-soft: #F8FCF9;
+    --surface-hover: #EAF5ED;
 
-    --text-primary: #141B2D;
-    --text-secondary: #66718A;
-    --text-muted: #929CB0;
+    --text-primary: #14251A;
+    --text-secondary: #667B6D;
+    --text-muted: #8C9D91;
 
-    --border: #E7EAF2;
-    --border-strong: #DDE2EE;
+    --border: #E1EBE3;
+    --border-strong: #CFE0D2;
 
-    --purple-soft: #F0EDFF;
-    --blue-soft: #EDF4FF;
+    --purple-soft: #E8F8EC;
+    --blue-soft: #EAF8EF;
     --green-soft: #EAF8F0;
-    --orange-soft: #FFF3E7;
+    --orange-soft: #F0F8F1;
 
     --sidebar-width: 258px;
     --topbar-height: 86px;
@@ -37,8 +37,8 @@
     --radius-md: 15px;
     --radius-lg: 20px;
 
-    --shadow-sm: 0 3px 12px rgba(17, 27, 55, .035);
-    --shadow-md: 0 12px 35px rgba(17, 27, 55, .06);
+    --shadow-sm: 0 3px 12px rgba(11, 31, 23, .035);
+    --shadow-md: 0 12px 35px rgba(11, 31, 23, .06);
 
     --transition: 180ms ease;
 }
@@ -1578,7 +1578,7 @@ body.dashboard-page img {
 /* GREEN CARD — GAMING CREDIT */
 .overview-card:nth-child(1) {
     color: #FFFFFF;
-    background: linear-gradient(145deg, #119C69, #087F59);
+    background: linear-gradient(145deg, #119C69, #087f1c);
     border-color: rgba(110, 255, 196, 0.35);
     box-shadow: 0 8px 24px rgba(17, 156, 105, 0.17);
 }
@@ -1586,7 +1586,7 @@ body.dashboard-page img {
 /* BLUE CARD — AVAILABLE BALANCE */
 .overview-card:nth-child(2) {
     color: #FFFFFF;
-    background: linear-gradient(145deg, #347FF5, #2158D9);
+    background: linear-gradient(145deg, #0e4b0c, #062b01);
     border-color: rgba(153, 194, 255, 0.45);
     box-shadow: 0 8px 24px rgba(40, 123, 255, 0.17);
 }
@@ -1919,7 +1919,7 @@ body.dashboard-page img {
 
 .quick-action-card:nth-child(1) {
     color: #FFFFFF;
-    background: linear-gradient(135deg, #7253F5, #5435D2);
+    background: linear-gradient(135deg, #8cf553, hsl(173, 64%, 52%));
     border-color: rgba(184, 164, 255, 0.45);
     box-shadow: 0 8px 24px rgba(109, 74, 255, 0.16);
 }
@@ -1928,7 +1928,7 @@ body.dashboard-page img {
 
 .quick-action-card:nth-child(2) {
     color: #FFFFFF;
-    background: linear-gradient(135deg, #347FF5, #2058D5);
+    background: linear-gradient(135deg, #34f584, #0b470f);
     border-color: rgba(157, 199, 255, 0.45);
     box-shadow: 0 8px 24px rgba(40, 123, 255, 0.15);
 }
@@ -1945,7 +1945,7 @@ body.dashboard-page img {
 /* WHITE — TRANSACTIONS */
 
 .quick-action-card:nth-child(4) {
-    color: #182139;
+    color: #c8cfe1;
     background: #FFFFFF;
     border-color: #E3E8F2;
     box-shadow:
@@ -1981,7 +1981,7 @@ body.dashboard-page img {
 .quick-action-card:nth-child(1) .quick-action-icon,
 .quick-action-card:nth-child(2) .quick-action-icon {
     color: #FFFFFF;
-    background: rgba(255, 255, 255, 0.17);
+    background: var(--blue);
     border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
@@ -3462,3 +3462,238 @@ body.modal-open {
     }
 }
 
+
+
+
+/* ================= WELCOME BONUS ================= */
+
+.bonus-card {
+    background: linear-gradient(135deg, #071A11 0%, #0B2B1A 55%, #14532D 100%);
+    border: 1px solid rgba(74, 222, 128, 0.22);
+    color: #FFFFFF;
+}
+
+.bonus-decoration-one {
+    background: rgba(34, 197, 94, 0.12);
+}
+
+.bonus-decoration-two {
+    background: rgba(74, 222, 128, 0.08);
+}
+
+.bonus-icon-wrap {
+    background: linear-gradient(135deg, #15803D, #22C55E);
+    color: #FFFFFF;
+    box-shadow: 0 8px 24px rgba(34, 197, 94, 0.22);
+}
+
+.bonus-badge {
+    background: rgba(34, 197, 94, 0.12);
+    color: #86EFAC;
+    border: 1px solid rgba(74, 222, 128, 0.25);
+}
+
+.bonus-badge-dot {
+    background: #4ADE80;
+    box-shadow: 0 0 10px rgba(74, 222, 128, 0.65);
+}
+
+.bonus-copy h2,
+#bonusTitle {
+    color: #FFFFFF;
+}
+
+.bonus-amount {
+    color: #4ADE80;
+}
+
+.bonus-copy p {
+    color: #C5D8CB;
+}
+
+.bonus-status {
+    color: #D1E7D8;
+}
+
+.bonus-status i {
+    color: #4ADE80;
+}
+
+.bonus-button {
+    background: linear-gradient(105deg, #15803D, #22C55E);
+    color: #FFFFFF;
+    border: 1px solid rgba(134, 239, 172, 0.25);
+    box-shadow: 0 6px 18px rgba(34, 197, 94, 0.2);
+    transition: all 180ms ease;
+}
+
+.bonus-button:hover {
+    background: linear-gradient(105deg, #166534, #16A34A);
+    box-shadow: 0 9px 24px rgba(34, 197, 94, 0.3);
+}
+
+
+
+
+
+
+
+/* ================= QUICK ACTIONS - GREEN THEME ================= */
+
+.quick-actions-section {
+    /* Preserve existing layout and spacing */
+}
+
+.quick-actions-section .section-eyebrow {
+    color: #16A34A;
+}
+
+.quick-actions-section .section-heading h2 {
+    color: #14251A;
+}
+
+.quick-action-card {
+    background: #FFFFFF;
+    border: 1px solid #E1EBE3;
+    color: #14251A;
+    transition: all 180ms ease;
+}
+
+.quick-action-card:hover {
+    background: #F4F8F5;
+    border-color: #86EFAC;
+}
+
+.quick-action-icon {
+    background: #E8F8EC;
+    color: #16A34A;
+}
+
+/* Replace all icon variations with green */
+.purple-icon,
+.blue-icon,
+.green-icon,
+.orange-icon {
+    background: #E8F8EC;
+    color: #16A34A;
+}
+
+.quick-action-copy strong {
+    color: #14251A;
+}
+
+.quick-action-copy small {
+    color: #667B6D;
+}
+
+.quick-action-arrow {
+    color: #16A34A;
+}
+
+
+
+
+
+/* =========================================
+   KUDIX DARK MODE — FOREST GREEN THEME
+   ========================================= */
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+
+    --navy: #071A11;
+    --purple: #16A34A;
+    --blue: #22C55E;
+    --white: #FFFFFF;
+    --success: #4ADE80;
+
+    --page-bg: #07130D;
+    --surface: #0D1F15;
+    --surface-soft: #10271A;
+    --surface-hover: #163623;
+
+    --text-primary: #F0F7F1;
+    --text-secondary: #B0C5B5;
+    --text-muted: #82998A;
+
+    --border: #203D2A;
+    --border-strong: #31583B;
+
+    --purple-soft: #12341F;
+    --blue-soft: #153B24;
+    --green-soft: #153B24;
+    --orange-soft: #193A25;
+
+    --shadow-sm: 0 3px 12px rgba(0, 0, 0, 0.18);
+    --shadow-md: 0 12px 35px rgba(0, 0, 0, 0.28);
+}
+
+/* Main page backgrounds */
+:root[data-theme="dark"] body {
+    background-color: var(--page-bg);
+    color: var(--text-primary);
+}
+
+/* Cards and content surfaces */
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .dashboard-card,
+:root[data-theme="dark"] .quick-action-card,
+:root[data-theme="dark"] .bonus-card {
+    background-color: var(--surface);
+    border-color: var(--border);
+    color: var(--text-primary);
+}
+
+/* Headings and primary text */
+:root[data-theme="dark"] h1,
+:root[data-theme="dark"] h2,
+:root[data-theme="dark"] h3,
+:root[data-theme="dark"] .quick-action-copy strong {
+    color: var(--text-primary);
+}
+
+/* Secondary text */
+:root[data-theme="dark"] p,
+:root[data-theme="dark"] .quick-action-copy small {
+    color: var(--text-secondary);
+}
+
+/* Green accents and icons */
+:root[data-theme="dark"] .purple-icon,
+:root[data-theme="dark"] .blue-icon,
+:root[data-theme="dark"] .green-icon,
+:root[data-theme="dark"] .orange-icon,
+:root[data-theme="dark"] .quick-action-icon {
+    background-color: #153B24;
+    color: #4ADE80;
+}
+
+/* Hover effects */
+:root[data-theme="dark"] .quick-action-card:hover {
+    background-color: #10271A;
+    border-color: #2F6B42;
+}
+
+/* Inputs and form fields */
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea {
+    background-color: #0A1910;
+    color: var(--text-primary);
+    border-color: var(--border-strong);
+}
+
+/* Dropdowns and popovers */
+:root[data-theme="dark"] .notification-dropdown,
+:root[data-theme="dark"] .profile-dropdown {
+    background-color: #0D1F15;
+    border-color: var(--border);
+    color: var(--text-primary);
+}
+
+/* Green buttons */
+:root[data-theme="dark"] .bonus-button,
+:root[data-theme="dark"] .primary-button {
+    background: linear-gradient(105deg, #15803D, #22C55E);
+    color: #FFFFFF;
+}

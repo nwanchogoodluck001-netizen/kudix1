@@ -1,20 +1,20 @@
 :root {
-    --navy: #0B1020;
-    --purple: #6D4AFF;
-    --blue: #287BFF;
-    --green: #16A36A;
+    --navy: #0B1F17;
+    --purple: #16A34A;
+    --blue: #22C55E;
+    --green: #15803D;
 
-    --page-bg: #F5F7FC;
+    --page-bg: #F4F8F5;
     --card-bg: #FFFFFF;
-    --text-main: #151B2D;
-    --text-muted: #7C8498;
-    --border: #E8ECF4;
+    --text-main: #14251A;
+    --text-muted: #74877B;
+    --border: #E1EBE3;
 
     --sidebar-bg: #FFFFFF;
-    --sidebar-text: #727B91;
-    --sidebar-active-bg: #F0EDFF;
+    --sidebar-text: #667B6D;
+    --sidebar-active-bg: #E8F8EC;
 
-    --shadow: 0 8px 30px rgba(16, 24, 40, 0.035);
+    --shadow: 0 8px 30px rgba(11, 31, 23, 0.035);
 }
 
 * {
@@ -35,17 +35,17 @@ body {
 }
 
 body.dark-mode {
-    --page-bg: #0B1020;
-    --card-bg: #11182A;
-    --text-main: #F5F7FF;
-    --text-muted: #929DB5;
-    --border: #222B40;
+    --page-bg: #07130D;
+    --card-bg: #0D1F15;
+    --text-main: #F0F7F1;
+    --text-muted: #A0B8A7;
+    --border: #203D2A;
 
-    --sidebar-bg: #0E1526;
-    --sidebar-text: #A1ABC0;
-    --sidebar-active-bg: #211D43;
+    --sidebar-bg: #09170F;
+    --sidebar-text: #A6C0AD;
+    --sidebar-active-bg: #153B24;
 
-    --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    --shadow: 0 8px 30px rgba(0, 0, 0, 0.22);
 }
 
 button,
@@ -482,7 +482,7 @@ textarea:focus-visible {
     overflow: hidden;
     padding: 25px 28px 0;
     border-radius: 20px;
-    background: linear-gradient(118deg, #18163A 0%, #34216E 54%, #6D4AFF 115%);
+    background: linear-gradient(118deg, #163a26 0%, #216e34 54%, #4aff77 115%);
     color: #FFFFFF;
     box-shadow: 0 13px 35px rgba(77, 51, 177, 0.13);
 }
