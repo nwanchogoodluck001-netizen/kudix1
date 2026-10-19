@@ -118,7 +118,108 @@
                 </div>
             </header>
 
+
+            
+
             <div class="page-content">
+
+                <div class="stats-cards">
+                    <div class="stats-card">
+                        <div class="stats-card-icon">
+                            <i class="bx bx-trending-up"></i>
+                        </div>
+                        <div class="stats-card-content">
+                            <p>Total Uplevels</p>
+                            <h3 id="totalUplevels">0</h3>
+                            <span>Users who upgraded</span>
+                        </div>
+                    </div>
+                
+                    <div class="stats-card">
+                        <div class="stats-card-icon">
+                            <i class="bx bx-money"></i>
+                        </div>
+                        <div class="stats-card-content">
+                            <p>Code Purchase Revenue</p>
+                            <h3 id="codePurchaseRevenue">₦0.00</h3>
+                            <span>Revenue from purchased codes</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <style>
+                    .stats-cards {
+                        display: grid;
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                        gap: 20px;
+                        width: 100%;
+                    }
+                
+                    .stats-card {
+                        display: flex;
+                        align-items: center;
+                        gap: 16px;
+                        padding: 24px;
+                        background: #ffffff;
+                        border: 1px solid #e8eee9;
+                        border-radius: 16px;
+                        box-shadow: 0 4px 18px rgba(20, 60, 35, 0.04);
+                        min-width: 0;
+                    }
+                
+                    .stats-card-icon {
+                        width: 52px;
+                        height: 52px;
+                        min-width: 52px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background: #eaf6ee;
+                        color: #168044;
+                        border-radius: 14px;
+                        font-size: 26px;
+                    }
+                
+                    .stats-card-content {
+                        min-width: 0;
+                    }
+                
+                    .stats-card-content p {
+                        margin: 0 0 8px;
+                        color: #647067;
+                        font-size: 13px;
+                        font-weight: 500;
+                    }
+                
+                    .stats-card-content h3 {
+                        margin: 0 0 6px;
+                        color: #17251c;
+                        font-size: 28px;
+                        font-weight: 700;
+                        line-height: 1.2;
+                        overflow-wrap: anywhere;
+                    }
+                
+                    .stats-card-content span {
+                        color: #89948c;
+                        font-size: 12px;
+                    }
+                
+                    @media (max-width: 600px) {
+                        .stats-cards {
+                            grid-template-columns: 1fr;
+                            gap: 14px;
+                        }
+                
+                        .stats-card {
+                            padding: 18px;
+                        }
+                
+                        .stats-card-content h3 {
+                            font-size: 24px;
+                        }
+                    }
+                </style>
 
                 <!-- Page heading -->
                 <section class="page-intro">
