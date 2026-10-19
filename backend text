@@ -1,293 +1,304 @@
-Hello, I want to explain the full concept and technical requirements of my project, **KUDIX**, so you can understand the platform properly and handle the backend development accordingly.
+**KUDIX PLATFORM — BACKEND DEVELOPMENT REQUIREMENTS**
 
-**1. PROJECT OVERVIEW**
+Hello, I want to explain how the KUDIX platform should function from the backend. Please read through the requirements carefully so that the backend will connect properly with the existing frontend pages, especially the user dashboard and admin dashboard.
 
-KUDIX is a Nigerian gaming, prediction, and rewards platform built around interactive prediction games, referrals, social tasks, signals, bonuses, commissions, and user account management.
+KUDIX is a gaming and rewards platform that includes games, social tasks, daily streaks, Watch & Earn, referrals, and other earning features. The backend should make these features functional, configurable, and manageable from the admin dashboard.
 
-The platform is designed for users in Nigeria, so the primary currency is the Nigerian naira (₦).
+### 1. REGISTRATION AND ₦20,000 WELCOME GAMING CREDIT
 
-I have been working on the frontend using HTML, Tailwind CSS, and JavaScript. The frontend and backend are separate, and I need you to handle the backend, database, authentication, business logic, and API integration required to make the platform fully functional.
+When a new user registers successfully, the system should automatically credit the user's account with ₦20,000 as a welcome gaming balance.
 
-This is not meant to remain a static website or a frontend demo. The goal is to build a properly functioning platform in which user actions, balances, transactions, game rounds, referrals, and administrative changes are connected to persistent backend data.
+Important rules:
+- The ₦20,000 is strictly for playing games on the platform.
+- It is not withdrawable.
+- It must not be included in the user's actual earnings or withdrawable balance.
+- The gaming balance must be separated from referral rewards, game winnings, and other earnings.
+- The user must refer at least three people before becoming eligible to play games.
+- The system must automatically check the user's referral count before allowing access to the games.
+- Once the user meets the referral requirement, the gaming section should become accessible.
 
-**2. USER REGISTRATION AND AUTHENTICATION**
+Please implement separate wallet records for promotional gaming credit, actual earnings, referral rewards, and withdrawal requests so that the balances cannot be confused.
 
-The platform should support:
+### 2. GAME EARNING STRUCTURE
 
-- User registration and login.
-- Secure password storage and authentication.
-- Password reset and recovery.
-- User profile and account settings.
-- Persistent user sessions.
-- Account status management.
-- Secure logout.
-- User-specific dashboard data.
-- Proper validation and error handling.
+The platform should support a configurable gaming reward structure.
 
-Every registered user should have a unique account and a persistent record in the database. Users must only be able to access and modify data they are authorized to access.
+The proposed payout structure is:
 
-**3. USER DASHBOARD**
+- ₦1,000 stake = ₦10,000 payout.
+- ₦2,000 stake = ₦20,000 payout.
 
-The dashboard should display actual information retrieved from the backend, including:
+The administrator should be able to configure the available stake amounts and their corresponding payouts from the admin dashboard.
 
-- User profile and account information.
-- Available cash balance, where applicable.
-- Non-withdrawable welcome or gaming credit.
-- Referral statistics.
-- Referral commissions.
-- Game activity and history.
-- Transaction history.
-- Available tasks and submitted proofs.
-- Notifications and announcements.
-- Support requests and their statuses.
-- Account eligibility and game access status.
+The backend must validate every stake, game result, and payout. All transactions should be recorded, and the system should prevent duplicate payouts or unauthorized balance changes.
 
-Please ensure that cash, bonus credit, commissions, and other account balances are properly separated. They should not be combined into one balance if they have different withdrawal or usage rules.
+**Important:** Please confirm whether the stated payout amounts represent total returns, including the stake, or profit in addition to the original stake. This distinction must be reflected correctly in the backend calculations.
 
-All figures displayed on the dashboard must come from actual backend records. The platform must not display fabricated statistics, fake transactions, or hardcoded balances.
+### 3. GAME MANAGEMENT AND ADMIN CONTROL
 
-**4. GAMING AND PREDICTION SYSTEM**
+The administrator should have complete control over the configurable aspects of the gaming system through the admin dashboard.
 
-KUDIX is expected to support six games:
+The admin should be able to:
+- Create, edit, activate, deactivate, and manage games.
+- Configure available stake amounts and corresponding payouts.
+- Configure game rounds, schedules, and closing times.
+- Set the correct results for each game round before the results are revealed.
+- Publish the official results to users.
+- View participating users, stakes, results, and transaction records.
+- View game histories and payout records.
+- Enable or disable individual games when necessary.
 
-1. Colour Prediction.
-2. Number Prediction.
-3. Heads or Tails.
-4. Up or Down.
-5. Lucky Number.
-6. Higher or Lower.
+**Example: Colour Prediction Game**
 
-Each game needs its own appropriate interface and backend logic.
+Suppose the platform has a colour prediction game featuring red, black, and yellow.
 
-The backend should manage the game configuration, available rounds, opening and closing times, participation rules, accepted predictions, results, and game history.
+The administrator should be able to configure the available colours, establish the official result for a round, and publish that result through the platform.
 
-The system should support the following where applicable:
+If game signals or results are announced through a public Telegram channel, the backend should support an appropriate integration or publishing workflow.
 
-- Creation and management of game rounds.
-- Opening and closing rounds.
-- Submission and validation of predictions.
-- Recording of each user's participation.
-- Result publishing and verification.
-- Settlement of eligible game outcomes.
-- Calculation of rewards according to approved rules.
-- Prevention of duplicate submissions and duplicate settlements.
-- Complete game history for users.
-- Administrative controls for managing games and rounds.
+The game interface must display the official result consistently with the backend record.
 
-Game outcomes must follow documented rules. Results should be auditable, and the system should prevent unauthorized changes, manipulation, or repeated settlement of the same round.
+For fairness and accountability, the system should record when each result is created, who configured it, and when it was published. Results should be locked against ordinary edits after the relevant betting round closes, with any authorized correction logged.
 
-Please also ensure the game system is designed with the appropriate security, fairness, and regulatory requirements for the final operating model.
+### 4. ADMIN DASHBOARD POP-UP MANAGEMENT
 
-**5. WELCOME BONUS AND GAME ELIGIBILITY**
+The pop-ups that appear on the user dashboard should be controlled from the admin dashboard.
 
-KUDIX has a welcome bonus concept of **₦20,000 in non-withdrawable gaming credit**.
+The administrator should be able to:
+- Create new pop-ups.
+- Edit existing pop-ups.
+- Set the title, message, image, and button text.
+- Configure the destination of any button.
+- Choose when a pop-up should appear.
+- Set its start and end dates.
+- Enable or disable a pop-up.
+- Control whether it appears to all users or a specific eligible group.
 
-This credit is intended for eligible gaming activities and must remain separate from withdrawable cash. It must not automatically become cash or be withdrawable.
+Changes made through the admin dashboard should reflect on the user dashboard without requiring manual edits to the frontend code.
 
-The backend should enforce the bonus rules, including eligibility, issuance, permitted usage, expiry or reversal where applicable, and a complete record of bonus-related activity.
+### 5. REFERRAL SYSTEM
 
-The platform also has a referral eligibility rule: **three eligible referrals are required to unlock restricted games**.
+KUDIX should have a functional referral system.
 
-This eligibility must be checked by the backend, not just by hiding or showing buttons in the frontend. Users must not be able to bypass the restriction by changing browser code or sending direct API requests.
+**Referral reward: ₦1,000 per qualified referral.**
 
-Please make the eligibility rules configurable from the admin panel where appropriate.
+Requirements:
+- Every user should have a unique referral code or referral link.
+- The system should identify which user referred a new registration.
+- Each qualified referral should earn the referring user ₦1,000.
+- The reward should be recorded in the user's referral earnings.
+- The admin should be able to view referral records and reward transactions.
+- Users should be able to see their total referrals, successful referrals, and referral earnings.
+- The system must prevent duplicate rewards for the same referral.
+- The backend should enforce the three-referral requirement before enabling game access.
 
-**6. REFERRAL SYSTEM AND COMMISSIONS**
+Please ensure that a referral is counted only according to the platform's defined qualification rules, rather than simply trusting a registration counter.
 
-The referral system should allow each user to have a unique referral code or referral link.
+### 6. DAILY STREAK SYSTEM
 
-Required functionality includes:
+The daily streak feature should reward users for maintaining eligible daily activity.
 
-- Generating and displaying referral links.
-- Tracking registrations attributed to referral links.
-- Recording the relationship between the referring user and the referred user.
-- Tracking eligible and ineligible referrals.
-- Counting eligible referrals toward game-access requirements.
-- Calculating the applicable referral commission.
-- Recording commission transactions and their statuses.
-- Displaying referral history and statistics.
-- Preventing self-referrals, duplicate attribution, and obvious referral abuse.
+Requirements:
+- A user must refer at least two people before becoming eligible for the streak feature.
+- The system should track daily participation and consecutive days.
+- Rewards should be calculated and credited according to the configured streak rules.
+- The administrator should be able to configure streak requirements, reward amounts, streak duration, and other applicable settings.
+- The admin should be able to activate or deactivate the streak feature.
+- The system should keep a record of each user's streak history and rewards.
 
-The current commission rule is **₦1,000 per eligible referral**, subject to the final eligibility conditions.
+Please review the existing `manage-streak` page and implement the backend according to its available controls and intended functionality.
 
-Commissions should be recorded separately from welcome bonuses and gaming credit. The backend must calculate commissions according to the approved rules and prevent users from manipulating referral counts or commission amounts.
+### 7. BOOST EARNINGS
 
-**7. SOCIAL TASKS AND PROOF SUBMISSIONS**
+Please inspect the existing Boost Earn feature and determine how it is intended to work from the current frontend.
 
-KUDIX will include social tasks or promotional activities that users can complete.
+The backend should support configurable boost options, eligibility requirements, reward values, activation periods, and other settings relevant to the feature.
 
-The system should allow administrators to create tasks, provide instructions, define eligibility and rewards, and specify what evidence is required.
+The administrator should be able to manage the feature from the admin dashboard.
 
-Users should be able to:
+Before implementing the final earning calculations, please confirm the intended Boost Earn rules so that they match the existing interface and platform requirements.
 
-- View available tasks.
-- Open task instructions and requirements.
-- Submit proof where required.
-- View submission status.
-- See whether a submission is pending, approved, or rejected.
-- View any reward credited after approval.
+### 8. WATCH & EARN
 
-Administrators should be able to review submissions, inspect the submitted evidence, approve or reject submissions, and provide a reason when necessary.
+The Watch & Earn feature should be managed entirely from the admin dashboard.
 
-Any approved reward must be credited through the backend with a transaction record. Repeated submissions or repeated approvals must not result in duplicate rewards.
+The administrator should be able to:
+- Add videos.
+- Edit video information.
+- Upload videos or configure supported video links.
+- Set the reward for each video.
+- Activate or deactivate videos.
+- Set viewing requirements.
+- View which users have completed eligible videos.
+- View reward and completion records.
 
-**8. SIGNALS AND ANNOUNCEMENTS**
+On the user dashboard, users should be able to view available videos and see the reward attached to each eligible video.
 
-The platform should support a signals section managed through the admin panel.
+Rewards should only be credited after the backend verifies that the user's viewing requirements have been satisfied. The system should prevent users from repeatedly claiming the same reward for a single video unless repeat rewards are explicitly enabled.
 
-Administrators should be able to publish, update, schedule where needed, and remove signals according to the platform's rules.
+### 9. LEVEL-UP SYSTEM AND WITHDRAWAL ELIGIBILITY
 
-Users should see the signals they are authorized to access.
+The Level Up feature should operate through backend rules controlled by the administrator.
 
-There should also be an announcements and notification system for communicating updates, account notices, task updates, game information, and other relevant messages.
+I do not want the Level Up requirements or internal eligibility rules displayed prominently on the user dashboard by default.
 
-Notifications should be stored where appropriate so users can access them after logging back in.
+The administrator should be able to:
+- Enable or disable the Level Up system.
+- Configure the requirements for eligibility.
+- Control when withdrawal eligibility becomes available.
+- Review the relevant user records.
+- Determine when the withdrawal section should become available according to the configured rules.
 
-**9. DEPOSIT, WITHDRAWAL, AND TRANSACTION MANAGEMENT**
+When the administrator enables the applicable withdrawal feature, the frontend should display the appropriate withdrawal interface.
 
-Please design the financial and transaction architecture carefully.
+Please implement this as a configurable eligibility system rather than hardcoding the requirements into the frontend.
 
-The platform should support the applicable deposit and withdrawal workflows once the approved payment methods, provider, and operating rules have been finalized.
+Any withdrawal requirements that affect users' access to their earned funds should be clearly disclosed before users earn or deposit money. The backend should enforce the configured rules consistently.
 
-The system should be able to record:
+### 10. WITHDRAWAL MANAGEMENT
 
-- Deposit requests and confirmations.
-- Withdrawal requests and processing statuses.
-- Transaction references.
-- Payment-provider references where applicable.
-- Transaction amounts and currency.
-- Fees, where applicable.
-- Timestamps.
-- Rejections, reversals, and failure reasons.
-- Administrative actions relating to transactions.
+The withdrawal system should be manageable through the admin dashboard.
 
-Where an online payment provider is used, payment status must be confirmed through a secure server-side integration and verified webhooks or the provider's approved verification method. A frontend success message alone must never be treated as proof of payment.
+The administrator should be able to configure:
+- Minimum withdrawal amount.
+- Maximum withdrawal amount, where applicable.
+- Available withdrawal methods.
+- Applicable fees.
+- Withdrawal availability.
+- Processing rules.
+- Other relevant withdrawal settings.
 
-Withdrawal requests should follow the configured eligibility checks and approval or automated processing rules. All balance changes must be validated on the server, recorded in an auditable ledger, and protected against duplicate processing.
+The user dashboard should allow eligible users to submit withdrawal requests and view their withdrawal history.
 
-Please keep welcome bonuses, cash balances, commissions, and any restricted gaming credits separate, with clear rules governing how each category can be used.
+The admin dashboard should allow authorized administrators to:
+- View pending withdrawal requests.
+- Review the user's available withdrawable balance.
+- Approve or reject requests with an appropriate reason.
+- Mark approved withdrawals as paid only after the payment has been verified.
+- View completed, pending, rejected, and failed withdrawals.
+- Review the transaction history associated with each withdrawal.
 
-**10. ADMIN PANEL**
+The backend must prevent users from withdrawing promotional gaming credits or other balances that are not eligible for withdrawal.
 
-The admin panel is a major part of this project. I need a functional management system, not just an interface with buttons that do nothing.
+Every withdrawal status change must be recorded. Balance deductions and payment records must remain consistent, and duplicate processing must be prevented.
 
-The administrator should be able to manage the following:
+### 11. SUPPORT TELEGRAM INTEGRATION
 
-- **Dashboard:** Real backend summaries of users, games, transactions, tasks, and support activity.
-- **Users:** View users, inspect account details, manage account status, and review relevant account activity.
-- **Games:** Create, configure, enable, disable, and manage the six supported games.
-- **Rounds and results:** Manage rounds, publish results, review outcomes, and inspect settlement history.
-- **Signals:** Create, edit, publish, and manage signals.
-- **Balances and credits:** Review relevant balances and issue authorized adjustments with mandatory reasons and audit records.
-- **Bonuses:** Configure and manage welcome bonuses and other approved bonus rules.
-- **Referrals:** Inspect referral relationships, eligibility, and referral activity.
-- **Commissions:** Review commission records, statuses, and payment eligibility.
-- **Transactions:** Review deposits, withdrawals, payment records, and transaction statuses.
-- **Tasks:** Create and manage social tasks, rewards, and submission requirements.
-- **Proof submissions:** Inspect submitted evidence, approve or reject submissions, and record decisions.
-- **Support:** View and manage user support requests and replies.
-- **Announcements:** Publish and manage platform announcements.
-- **Notifications:** Manage relevant user notifications.
-- **Settings:** Configure approved platform rules and settings.
-- **Audit logs:** Track important administrative actions and sensitive account changes.
+The platform should provide a way for users to access the official KUDIX support Telegram channel or support account.
 
-Every administrative function must be connected to the backend. If an administrator updates a setting, approves a submission, changes a user status, or processes a transaction, the change should persist and be reflected in the relevant user interface.
+The administrator should be able to configure the Telegram support destination through the admin dashboard.
 
-**11. SUPPORT SYSTEM**
+When the administrator updates the support Telegram details, the correct destination should appear on the user dashboard or relevant support section.
 
-The support system should allow users to contact the platform from their account.
+If a Telegram bot or automated messaging integration is required, please implement it through the appropriate Telegram API and secure backend configuration.
 
-Users should be able to create support requests, provide a subject and message, view replies, and track the status of their requests.
+### 12. USER EARNINGS AND TRANSACTION HISTORY
 
-Administrators should be able to view incoming requests, respond to users, assign or categorize requests where appropriate, update statuses, and review conversation history.
+The user dashboard should display accurate financial records.
 
-The support interface should display real support records and distinguish between open, pending, and resolved requests according to the final workflow.
+Users should be able to see their:
+- Promotional gaming balance.
+- Actual game winnings.
+- Referral rewards.
+- Streak rewards.
+- Watch & Earn rewards.
+- Other eligible earnings.
+- Total withdrawable balance.
+- Pending withdrawal amount.
+- Completed withdrawals.
+- Relevant transaction history.
 
-**12. DATABASE AND API REQUIREMENTS**
+Each transaction should include an appropriate description, amount, date, status, and transaction reference.
 
-Please design a suitable database structure for the platform. The exact database technology can be selected based on the architecture you recommend.
+The backend must calculate balances from verified transactions rather than relying on values supplied by the frontend.
 
-The system will need persistent records for users, authentication-related data, account balances or ledger entries, bonuses, referrals, commissions, games, rounds, predictions, results, settlements, tasks, submissions, transactions, support conversations, notifications, announcements, settings, and audit logs.
+### 13. TOP EARNERS LEADERBOARD
 
-Please provide documented API endpoints for the frontend to communicate with the backend.
+The user dashboard should maintain a Top Earners section.
 
-The API should support the necessary create, read, update, and administrative operations, with appropriate authorization for each operation.
+This section should display users with the highest qualifying earnings according to the platform's configured rules.
 
-I would also like clear documentation covering:
+The backend should:
+- Calculate rankings from verified earning records.
+- Update the leaderboard when qualifying transactions are recorded.
+- Display the appropriate user information, such as username, rank, and qualifying earnings.
+- Exclude promotional gaming credits from actual earnings.
+- Avoid counting pending, rejected, or reversed transactions as completed earnings.
+- Prevent duplicate transactions from inflating a user's ranking.
 
-- Database structure and relationships.
-- API endpoints and expected request/response formats.
-- Authentication and authorization.
-- Environment variables and secret configuration.
-- Payment-provider integration, where applicable.
-- Error handling and validation.
-- Deployment requirements.
-- How to connect the existing frontend to the backend.
+Please make sure the leaderboard uses actual backend data rather than hardcoded names or sample statistics.
 
-Please recommend a maintainable architecture rather than introducing unnecessary complexity.
+### 14. COMPLETE ADMIN CONTROL
 
-**13. SECURITY AND DATA INTEGRITY**
+The admin dashboard should serve as the central management system for the platform.
 
-Security is essential because the platform includes accounts, credits, transactions, referrals, and games.
+The administrator should be able to configure the relevant settings for:
+- Games and game results.
+- Stake amounts and payout structures.
+- Promotional gaming credits.
+- Referral rewards and referral requirements.
+- Daily streaks.
+- Boost Earn.
+- Watch & Earn videos and rewards.
+- Pop-ups and dashboard announcements.
+- Level Up eligibility.
+- Withdrawal settings.
+- Telegram support details.
+- User accounts and activity records.
+- Transaction histories.
+- Leaderboard rules.
 
-Please ensure the following:
+Where these controls already exist in the frontend, connect them to the backend instead of redesigning the interface unnecessarily.
 
-- Authentication and authorization are enforced on the server.
-- Administrative routes require appropriate admin permissions.
-- Sensitive operations are never trusted solely to frontend JavaScript.
-- Passwords and secrets are handled securely.
-- Input validation is implemented on all relevant endpoints.
-- Balances cannot be changed through direct client-side manipulation.
-- Concurrent transactions cannot create incorrect balances.
-- Duplicate payment confirmations and duplicate rewards are prevented.
-- Important actions have timestamps and audit records.
-- Sensitive user information is protected.
-- Rate limiting and other appropriate abuse protections are implemented.
-- Errors do not expose credentials, secret keys, or unnecessary internal information.
-- Database access follows the principle of least privilege.
+Changes should be saved persistently in the database and applied to the relevant user-facing pages.
 
-Please pay particular attention to balance integrity, payment verification, referral abuse, game-result integrity, and administrator permissions.
+### 15. DATABASE, SECURITY, AND TRANSACTION RECORDS
 
-**14. FRONTEND INTEGRATION AND DESIGN**
+Please ensure that the backend is built with reliable database structures and secure transaction processing.
 
-The existing frontend uses HTML, Tailwind CSS, and JavaScript. I want to keep the frontend and backend properly separated and connect them through documented APIs.
+Requirements:
+- Store user accounts and referral relationships.
+- Maintain separate records for each balance category.
+- Store game rounds, stakes, results, and payouts.
+- Store streak participation and rewards.
+- Store Watch & Earn completion records.
+- Store referral rewards and qualification status.
+- Store withdrawal requests and payment statuses.
+- Store administrator configuration changes.
+- Record important administrative actions.
+- Protect administrative endpoints against unauthorized access.
+- Validate requests on the server.
+- Prevent duplicate transactions and reward claims.
+- Use appropriate database transactions when updating balances.
+- Keep an auditable record of financial changes.
 
-The existing KUDIX branding should remain consistent throughout the platform.
+All critical actions must be processed and validated by the backend. The frontend should not be able to grant itself credits, change game results, or approve its own withdrawals.
 
-The design direction is a premium, modern, mobile-first gaming and rewards interface, using midnight navy as the primary background, with violet, blue, green, coral, and gold accents where appropriate.
+### 16. CONNECT THE EXISTING FRONTEND
 
-The existing logo should be used consistently through the path `images/kudix-logo.png`. Please do not create a new logo or introduce alternative logo versions.
+Please review the existing KUDIX frontend files before building the backend.
 
-All pages should work properly on mobile phones, tablets, laptops, and desktops.
+The goal is to make the current pages functional without unnecessarily changing their existing design.
 
-The integration should include real loading states, empty states, success messages, and error handling. Where backend data is unavailable, the interface should communicate that appropriately rather than displaying fabricated figures.
+In particular:
+- Connect the user dashboard to actual user data.
+- Connect `admin-dashboard.html` to the administrative settings and controls.
+- Connect the existing game pages to the game engine and transaction records.
+- Connect the streak management page to the streak backend.
+- Connect the Watch & Earn interface to the video and reward system.
+- Connect the withdrawal interface to the withdrawal backend.
+- Connect all relevant forms, buttons, tables, and settings to the appropriate APIs.
 
-**15. DEVELOPMENT APPROACH**
+Please do not use fake statistics, sample users, simulated earnings, or placeholder transactions as if they were real platform data.
 
-Before implementation, I would like us to agree on the technical architecture, database structure, API design, security model, and the complete business rules.
+### 17. FINAL EXPECTATION
 
-Please identify any missing information you need from me, particularly regarding the payment provider, withdrawal rules, game settlement rules, eligibility requirements, and deployment environment.
+I want KUDIX to operate as a properly connected platform, not just a frontend with buttons that appear to work.
 
-I would prefer the work to be organized into clear stages:
+The backend should manage the actual business logic, database records, user balances, eligibility requirements, rewards, game results, administrative controls, and withdrawal processing.
 
-1. Review the existing frontend and requirements.
-2. Propose the backend architecture and database schema.
-3. Implement authentication and user management.
-4. Implement the game, bonus, referral, and task systems.
-5. Implement transactions and payment integrations according to the agreed rules.
-6. Build the admin APIs and connect the admin panel.
-7. Connect the user-facing frontend.
-8. Test security, data integrity, permissions, and important workflows.
-9. Prepare deployment instructions and technical documentation.
+Please review the existing files, identify the backend requirements for each page, and let me know which parts are already implemented and which still need to be built.
 
-Please do not replace the existing frontend unnecessarily or introduce unrelated features without discussing them first.
+Before finalizing the implementation, please confirm the game payout calculations, the exact Boost Earn rules, the withdrawal eligibility requirements, and the intended game-result workflow.
 
-**16. EXPECTED DELIVERABLE**
-
-The final result should be a properly functioning KUDIX platform with a secure backend, persistent database, documented APIs, connected user dashboard, functional gaming and rewards workflows, and a fully working admin management system.
-
-I want the system to be maintainable, secure, responsive, and ready for the appropriate production-readiness and compliance checks before launch.
-
-Please review this specification and let me know your proposed technology stack, architecture, estimated development stages, and any questions you need answered before beginning.
-
-Thank you.
+The final system should be secure, maintainable, and ready for proper testing before going live.
