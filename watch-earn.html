@@ -7,6 +7,8 @@
     <meta name="theme-color" content="#080F0A">
     <title>Watch & Earn | KUDIX</title>
 
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
     <style>
         :root {
             --bg: #080F0A;
@@ -1047,43 +1049,104 @@
     <div class="app">
 
         <!-- Reuse the existing KUDIX sidebar when integrating -->
-        <aside class="sidebar">
+
+        <aside class="sidebar" id="sidebar">
             <a href="dashboard.html" class="brand" aria-label="KUDIX dashboard">
                 <span class="brand-mark">K</span>
                 <span class="brand-name">KUDI<span>X</span></span>
             </a>
 
-            <div class="nav-label">Workspace</div>
+            <div class="nav-label">MAIN MENU</div>
 
             <nav class="nav-list" aria-label="Main navigation">
                 <a href="dashboard.html" class="nav-link">
-                    <span class="nav-icon">⌂</span> Dashboard
+                    <span class="nav-icon"><i class="bx bx-grid-alt"></i></span>
+                    <span>Dashboard</span>
                 </a>
-                <a href="wallet.html" class="nav-link">
-                    <span class="nav-icon">▣</span> My Wallet
+
+                <a href="games.html" class="nav-link">
+                    <span class="nav-icon"><i class="bx bx-joystick"></i></span>
+                    <span>Games</span>
                 </a>
+
+                <a href="social-tasks.html" class="nav-link">
+                    <span class="nav-icon"><i class="bx bx-share-alt"></i></span>
+                    <span>Social Tasks</span>
+                </a>
+
+                <a href="daily-streak.html" class="nav-link">
+                    <span class="nav-icon"><i class="bx bx-calendar-check"></i></span>
+                    <span>Daily Streak</span>
+                </a>
+
                 <a href="watch-earn.html" class="nav-link active" aria-current="page">
-                    <span class="nav-icon">▷</span> Watch &amp; Earn
+                    <span class="nav-icon"><i class="bx bx-play-circle"></i></span>
+                    <span>Watch &amp; Earn</span>
                 </a>
+
+                <a href="wallet.html" class="nav-link">
+                    <span class="nav-icon"><i class="bx bx-wallet"></i></span>
+                    <span>My Wallet</span>
+                </a>
+
+                <a href="withdrawal.html" class="nav-link">
+                    <span class="nav-icon"><i class="bx bx-money-withdraw"></i></span>
+                    <span>Withdrawal</span>
+                </a>
+
                 <a href="transactions.html" class="nav-link">
-                    <span class="nav-icon">↔</span> Transactions
+                    <span class="nav-icon"><i class="bx bx-transfer"></i></span>
+                    <span>Transactions</span>
                 </a>
+
                 <a href="referrals.html" class="nav-link">
-                    <span class="nav-icon">♧</span> Referrals
+                    <span class="nav-icon"><i class="bx bx-user-plus"></i></span>
+                    <span>Referrals</span>
                 </a>
+
+                <a href="top-earner.html" class="nav-link">
+                    <span class="nav-icon"><i class="bx bx-trophy"></i></span>
+                    <span>Top Earners</span>
+                </a>
+
+                <div class="sidebar-divider"></div>
+                <div class="nav-label">YOUR ACCOUNT</div>
+
                 <a href="profile.html" class="nav-link">
-                    <span class="nav-icon">◎</span> My Profile
+                    <span class="nav-icon"><i class="bx bx-user"></i></span>
+                    <span>My Profile</span>
+                </a>
+
+                <a href="settings.html" class="nav-link">
+                    <span class="nav-icon"><i class="bx bx-cog"></i></span>
+                    <span>Settings</span>
+                </a>
+
+                <a href="support.html" class="nav-link">
+                    <span class="nav-icon"><i class="bx bx-help-circle"></i></span>
+                    <span>Help &amp; Support</span>
                 </a>
             </nav>
 
             <div class="sidebar-bottom">
                 <div class="help-card">
+                    <div class="help-icon">
+                        <i class="bx bx-message-rounded-dots"></i>
+                    </div>
                     <strong>Need assistance?</strong>
-                    <p>Contact support if you have a question about your rewards.</p>
-                    <a href="support.html">Contact support →</a>
+                    <p>Contact support if you have questions about your tasks or rewards.</p>
+                    <a href="support.html">
+                        Get help <i class="bx bx-right-arrow-alt"></i>
+                    </a>
                 </div>
+
+                <button class="logout-button" id="logoutButton" type="button">
+                    <i class="bx bx-log-out"></i>
+                    <span>Log out</span>
+                </button>
             </div>
         </aside>
+
 
         <main class="main">
             <header class="topbar">
@@ -1234,23 +1297,39 @@
             </div>
         </main>
 
+
         <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
             <a href="dashboard.html">
-                <span>⌂</span><span>Home</span>
+                <i class="bx bx-grid-alt"></i>
+                <span>Home</span>
             </a>
-            <a href="wallet.html">
-                <span>▣</span><span>Wallet</span>
+
+            <a href="games.html">
+                <i class="bx bx-joystick"></i>
+                <span>Games</span>
             </a>
+
+            <a href="social-tasks.html">
+                <i class="bx bx-share-alt"></i>
+                <span>Tasks</span>
+            </a>
+
             <a href="watch-earn.html" class="active" aria-current="page">
-                <span>▷</span><span>Watch</span>
+                <i class="bx bx-play-circle"></i>
+                <span>Watch</span>
             </a>
-            <a href="transactions.html">
-                <span>↔</span><span>History</span>
+
+            <a href="wallet.html">
+                <i class="bx bx-wallet"></i>
+                <span>Wallet</span>
             </a>
+
             <a href="profile.html">
-                <span>◎</span><span>Profile</span>
+                <i class="bx bx-user"></i>
+                <span>Profile</span>
             </a>
         </nav>
+
     </div>
 
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
